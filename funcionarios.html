@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Revolution School</title>
+  </head>
+  <body>
+
+    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#registrarFuncionario">Adicionar Funcionário</button>
+    <div class="list-group">
+      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Alan Nunes da Silva</button>
+      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Gustavo de Mello Brandão</button>
+      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Rosenclever Lopes Gazoni</button>
+      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Luan Nunes da Silva</button>
+      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Dienidude Flausino</button>
+      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Lílian Freitas</button>
+    </div>
+
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="registrarFuncionario" tabindex="-1" role="dialog" aria-labelledby="registrarFuncionario" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registrarFuncionario">Nome do Funcionário</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Dados do Funcionário</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Endereço/Comunicação</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Dados Profissionais</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="financeiro-tab" data-toggle="tab" href="#financeiro" role="tab" aria-controls="financeiro" aria-selected="false">Financeiro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="comissoes-tab" data-toggle="tab" href="#comissoes" role="tab" aria-controls="comissoes" aria-selected="false">Comissões</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <form>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="nome">Nome:</label>
+                      <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="rg">RG:</label>
+                      <input type="text" class="form-control" id="rg" placeholder="Ex.: 171.251.54-26">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="cpf">CPF:</label>
+                      <input type="text" class="form-control" id="cpf" placeholder="Ex.: 171.251.54-26">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="dataNasc">Data de Nasc.:</label>
+                      <input type="date" class="form-control" id="dataNasc">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="estadoCivil">Estado Civil:</label>
+                      <select class="custom-select" id="estadoCivil">
+                        <option value="solteiro">Solteiro</option>
+                        <option value="casado">Casado</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="sexo">Sexo:</label>
+                      <select class="custom-select" id="sexo">
+                        <option value="masculino">Masculino</option>
+                        <option value="feminino">Feminino</option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                
+              </div>
+              <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="registrar">Registrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      $("#registrar").click(function(){
+        $("#loading").show();
+        var nome = $("#nome").val();
+        var rg = $("#rg").val();
+        var cpf = $("#cpf").val();
+        var dataNasc = $("#dataNasc").val();
+        var estadoCivil = $("#estadoCivil").val();
+        var sexo = $("#sexo").val();
+
+        $.post("php/funcionarios/controle.php",
+        {
+            acao: "registrar",
+            nome: nome,
+            rg: rg,
+            cpf: cpf,
+            dataNasc: dataNasc,
+            estadoCivil: estadoCivil,
+            sexo: sexo
+        },
+        function(data, status){
+          // $("#loading").hide();
+            console.log("Data:\n"+data+"\nStatus:"+status);
+        });
+      });
+    </script>
+  </body>
+</html>
