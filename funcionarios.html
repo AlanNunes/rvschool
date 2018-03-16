@@ -41,7 +41,7 @@
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Dados do Funcionário</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Endereço/Comunicação</a>
+                <a class="nav-link" id="endereco-tab" data-toggle="tab" href="#endereco" role="tab" aria-controls="endereco" aria-selected="false">Endereço/Comunicação</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Dados Profissionais</a>
@@ -92,8 +92,37 @@
                   </div>
                 </form>
               </div>
-              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                
+              <div class="tab-pane fade" id="endereco" role="tabpanel" aria-labelledby="endereco-tab">
+                <form>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="cep">CEP:</label>
+                      <input type="text" class="form-control" id="cep" oninput="buscaCEP(this.value)" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="logradouro">Logradouro:</label>
+                      <input type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida 1">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="numero">Número:</label>
+                      <input type="number" class="form-control" id="numero" placeholder="Ex.: 77">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="complemento">Complemento:</label>
+                      <input type="text" class="form-control" id="complemento">
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="cidade">Cidade:</label>
+                      <input type="text" class="form-control" id="cidade">
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="bairro">Bairro:</label>
+                      <input type="text" class="form-control" id="bairro">
+                    </div>
+                  </div>
+                </form>
               </div>
               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 
@@ -113,7 +142,26 @@
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.mask.js"></script>
     <script>
+      $("#cep").mask("00000-000");
+    </script>
+    <script>
+      function buscaCEP(cep){
+        if(cep.length == 9){
+          $.post("https://viacep.com.br/ws/"+cep+"/json/", function(data, status){
+            if(!data.erro){
+              $("#logradouro").val(data.logradouro);
+              $("#complemento").val(data.complemento);
+              $("#bairro").val(data.bairro);
+              $("#cidade").val(data.localidade);
+            }else{
+              alert('erro');
+            }
+          });
+        }
+      }
+
       $("#registrar").click(function(){
         $("#loading").show();
         var nome = $("#nome").val();
