@@ -1,29 +1,70 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
+<html lang="pt">
+<head>
+  <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/logo/fav.ico"> 
+  <title> Home Page - Revolution School </title>
 
-    <title>Revolution School</title>
-  </head>
-  <body>
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/vertical-bar.css">
+</head>   
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html"><img src="assets/imgs/logo/logo.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+              <a class="nav-link" href="#">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">PROFESSORES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">ALUNOS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">TURMAS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">AULAS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="funcionarios.html">FUNCIONÁRIOS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">MENSALIDADES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">ESTOQUE</a>
+            </li>
+        </ul>
+      </div>  
+    </nav>
+  </header>
 
-    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#registrarFuncionario">Adicionar Funcionário</button>
-    <div class="list-group">
-      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Alan Nunes da Silva</button>
-      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Gustavo de Mello Brandão</button>
-      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Rosenclever Lopes Gazoni</button>
-      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Luan Nunes da Silva</button>
-      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Dienidude Flausino</button>
-      <button type="button" class="list-group-item list-group-item-action" data-toggle="modal">Lílian Freitas</button>
-    </div>
 
-    <!-- Button trigger modal -->
+<!-- CONTENT -->
+
+<nav class="navbar-primary">
+  <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left">></span></a>
+  <ul class="navbar-primary-menu">
+    <li>
+      <a href="#" data-toggle="modal" data-target="#registrarFuncionario"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Incluir</span></a>
+      <a href="#"><span class="glyphicon glyphicon-envelope"></span><span class="nav-label">Relatório</span></a>
+    </li>
+  </ul>
+</nav>
+
+<!-- END CONTENT -->
+
+<!-- MODAL FORM -->
 
     <!-- Modal -->
     <div class="modal fade" id="registrarFuncionario" tabindex="-1" role="dialog" aria-labelledby="registrarFuncionario" aria-hidden="true">
@@ -122,6 +163,20 @@
                       <input type="text" class="form-control" id="bairro">
                     </div>
                   </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="email">Email:</label>
+                      <input type="email" class="form-control" id="email">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="telefone">Telefone:</label>
+                      <input type="text" class="form-control" id="telefone">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="celular">Celular:</label>
+                      <input type="text" class="form-control" id="celular">
+                    </div>
+                  </div>
                 </form>
               </div>
               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -137,14 +192,22 @@
         </div>
       </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<!-- END MODAL FORM -->
+
+
+
+<footer>
+  <a>© Revolution School.</a>
+</footer>
+<!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.mask.js"></script>
     <script>
       $("#cep").mask("00000-000");
+      $("#celular").mask("(00) 000000000");
     </script>
     <script>
       function buscaCEP(cep){
@@ -170,6 +233,8 @@
         var dataNasc = $("#dataNasc").val();
         var estadoCivil = $("#estadoCivil").val();
         var sexo = $("#sexo").val();
+        var email = $("#email").val();
+
 
         $.post("php/funcionarios/controle.php",
         {
@@ -187,5 +252,4 @@
         });
       });
     </script>
-  </body>
 </html>
