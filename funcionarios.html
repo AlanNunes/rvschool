@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/vertical-bar.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/icons/open-iconic-master/font/css/open-iconic-bootstrap.css">
 </head>   
 <body>
   <header>
@@ -54,11 +55,11 @@
 <!-- CONTENT -->
 
 <nav class="navbar-primary" id="vertical-nav-bar">
-  <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left">></span></a>
+  <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-right"></span></a>
   <ul class="navbar-primary-menu">
     <li>
-      <a href="#" data-toggle="modal" data-target="#registrarFuncionario"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Incluir</span></a>
-      <a href="#"><span class="glyphicon glyphicon-envelope"></span><span class="nav-label">Relatório</span></a>
+      <a href="#" data-toggle="modal" data-target="#registrarFuncionario"><span class="oi oi-plus"></span></span><span class="nav-label">   Incluir</span></a>
+      <a href="#"><span class="oi oi-print"></span><span class="nav-label">   Relatório</span></a>
     </li>
   </ul>
 </nav>
@@ -347,9 +348,14 @@
     <script src="js/jquery.mask.js"></script>
     <script>
 
-    $("#buttonHumburguer").click(function(){
-        $("#vertical-nav-bar").toggle();
-    });
+      $("#buttonHumburguer").click(function(){
+          $("#vertical-nav-bar").toggle();
+      });
+
+      $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#vertical-nav-bar").toggleClass("collapsed");
+      });
 
       function showHoristasSecao(){
         $("#mensalistasSecao").hide();
