@@ -133,6 +133,18 @@
                       </select>
                     </div>
                   </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="cargo">Cargo:</label>
+                      <select class="custom-select" id="cargo">
+
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="cidadeNatal">Cidade Natal:</label>
+                      <input type="text" class="form-control" id="cidadeNatal">
+                    </div>
+                  </div>
                 </form>
               </div>
               <div class="tab-pane fade" id="endereco" role="tabpanel" aria-labelledby="endereco-tab">
@@ -348,6 +360,10 @@
     <script src="js/jquery.mask.js"></script>
     <script>
 
+      $( document ).ready(function() {
+          listCargos();
+      });
+
       $("#buttonHumburguer").click(function(){
           $("#vertical-nav-bar").toggle();
       });
@@ -369,8 +385,7 @@
 
       $("#cep").mask("00000-000");
       $("#celular").mask("(00) 000000000");
-    </script>
-    <script>
+
       function buscaCEP(cep){
         if(cep.length == 9){
           $.post("https://viacep.com.br/ws/"+cep+"/json/", function(data, status){
@@ -384,6 +399,23 @@
             }
           });
         }
+      }
+
+      function listCargos(){
+        var data = {
+          "acao": "listCargos"
+        };
+        data = $(this).serialize() + "&" + $.param(data);
+        $.ajax({
+          type: "POST",
+          dataType: "html",
+          url: "php/cargos/controle.php",
+          data: data,
+          success: function(data) {
+            $("#cargo").html(data);
+            console.log(data);
+          }
+        });
       }
 
       $("#registrar").click(function(){
