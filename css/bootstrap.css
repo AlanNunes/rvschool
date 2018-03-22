@@ -50,6 +50,11 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+@font-face {
+     font-family: impact;
+     src: url('../assets/fonts/impact.ttf');
+}
+
 @-ms-viewport {
   width: device-width;
 }
