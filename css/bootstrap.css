@@ -1702,7 +1702,7 @@ pre code {
 }
 
 .table {
-  width: 100%;
+  width: 96.5%;
   max-width: 100%;
   margin-bottom: 1rem;
   background-color: transparent;
@@ -1891,9 +1891,11 @@ pre code {
 }
 
 .table .thead-dark th {
-  color: #fff;
-  background-color: #212529;
-  border-color: #32383e;
+  color: #F3E1B9;
+  background-color: #6D2E33;
+  border-color: #6D2E33;
+  font-family: impact;
+  font-size: 20px;
 }
 
 .table .thead-light th {
@@ -3909,10 +3911,11 @@ tbody.collapse.show {
   border: 1px solid transparent;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
+  background-color: #314178;
 }
 
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  border-color: #e9ecef #e9ecef #dee2e6;
+  background-color: #314178;
 }
 
 .nav-tabs .nav-link.disabled {
@@ -3923,9 +3926,8 @@ tbody.collapse.show {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+  color: #F3E1B9;
+  background-color: #6D2E33;
 }
 
 .nav-tabs .dropdown-menu {

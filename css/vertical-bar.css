@@ -15,7 +15,7 @@
   background-color: #fff0d1;
   bottom: 25px;
   right: 0px;
-  position: absolute;
+  position: fixed;
   top: 106px;
   width: 200px;
   z-index: 8;
