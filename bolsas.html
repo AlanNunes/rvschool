@@ -22,30 +22,33 @@
         </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-              <a class="nav-link" href="#">HOME</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">PROFESSORES</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">ALUNOS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">TURMAS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">AULAS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="bolsas.html">FUNCIONÁRIOS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">MENSALIDADES</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">ESTOQUE</a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">PROFESSORES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">ALUNOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">TURMAS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">AULAS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="bolsas.html">FUNCIONÁRIOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">MENSALIDADES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">ESTOQUE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="bolsas.html">BOLSAS</a>
+          </li>
         </ul>
       </div>  
     </nav>
@@ -58,7 +61,7 @@
   <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-right"></span></a>
   <ul class="navbar-primary-menu">
     <li>
-      <a href="#" data-toggle="modal" data-target="#registrarFuncionario"><span class="oi oi-plus"></span></span><span class="nav-label">   Incluir</span></a>
+      <a href="#" data-toggle="modal" data-target="#registrarFuncionario"><span class="oi oi-plus"></span><span class="nav-label">   Incluir</span></a>
       <a href="#"><span class="oi oi-print"></span><span class="nav-label">   Relatório</span></a>
     </li>
   </ul>
@@ -73,7 +76,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="registrarFuncionario">Registro de Aluno</h5>
+            <h5 class="modal-title" id="registrarFuncionario">Nome do Funcionário</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -81,7 +84,7 @@
           <div class="modal-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Dados do Funcionário</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Registrar Bolsa</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="endereco-tab" data-toggle="tab" href="#endereco" role="tab" aria-controls="endereco" aria-selected="false">Endereço/Comunicação</a>
@@ -102,63 +105,15 @@
                   <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="nome">Nome:</label>
-                      <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira">
+                      <input type="text" class="form-control" id="nome" placeholder="Ex.: Bolsa Gold">
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="rg">RG:</label>
-                      <input type="text" class="form-control" id="rg" placeholder="Ex.: 171.251.54-26">
+                      <label for="desconto">desconto:</label>
+                      <input type="number" class="form-control" id="desconto" placeholder="Ex.: 50 para 50%">
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="cpf">CPF:</label>
-                      <input type="text" class="form-control" id="cpf" placeholder="Ex.: 171.251.54-26">
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label for="dataNasc">Data de Nasc.:</label>
-                      <input type="date" class="form-control" id="dataNasc">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="estadoCivil">Estado Civil:</label>
-                      <select class="custom-select" id="estadoCivil">
-                        <option value="solteiro">Solteiro</option>
-                        <option value="casado">Casado</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="sexo">Sexo:</label>
-                      <select class="custom-select" id="sexo">
-                        <option value="masculino">Masculino</option>
-                        <option value="feminino">Feminino</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label for="escolaAluno">Escola do Aluno:</label>
-                      <select class="custom-select" id="escolaAluno">
-
-                      </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="escolaridade">Escolaridade:</label>
-                      <select class="custom-select" id="escolaridade">
-                        <option selected>Selecione</option>
-                        <option value="Ensino Superior">Ensino Superior</option>
-                        <option value="Ensino Médio">Ensino Médio</option>
-                        <option value="Ensino Fundamental">Ensino Médio</option>
-                        <option value="Analfabeto">Ensino Médio</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="escolaridade">Série:</label>
-                      <select class="custom-select" id="escolaridade">
-                        <option selected>Selecione</option>
-                        <option value="Ensino Superior">1ª série</option>
-                        <option value="Ensino Médio">2ª série</option>
-                        <option value="Ensino Fundamental">3ª séria</option>
-                        <option value="Analfabeto">4ª série</option>
-                      </select>
+                      <label for="descrição">descrição:</label>
+                      <textarea class="form-control" id="descrição" rows="5" placeholder="Ex.: Bolsa de 50% para o curso de inglês"></textarea>
                     </div>
                   </div>
                 </form>
@@ -369,6 +324,7 @@
 <footer>
   <a>© Revolution School.</a>
 </footer>
+</body>
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -377,7 +333,7 @@
     <script>
 
       $( document ).ready(function() {
-          listCargos();
+          listBolsas();
       });
 
       $("#buttonHumburguer").click(function(){
@@ -388,6 +344,16 @@
         e.preventDefault();
         $("#vertical-nav-bar").toggleClass("collapsed");
       });
+
+      function showHoristasSecao(){
+        $("#mensalistasSecao").hide();
+        $("#horistasSecao").show();
+      }
+
+      function showMensalistasSecao(){
+        $("#horistasSecao").hide();
+        $("#mensalistasSecao").show();
+      }
 
       $("#cep").mask("00000-000");
       $("#celular").mask("(00) 000000000");
@@ -407,36 +373,49 @@
         }
       }
 
+      function listBolsas(){
+        var data = {
+          "acao": "listBolsas"
+        };
+        data = $(this).serialize() + "&" + $.param(data);
+        $.ajax({
+          type: "POST",
+          dataType: "html",
+          url: "php/bolsas/controle.php",
+          data: data,
+          success: function(data) {
+            $("#cargo").html(data);
+            console.log(data);
+          }
+        });
+      }
+
       $("#registrar").click(function(){
         $("#loading").show();
         var nome = $("#nome").val();
-        var rg = $("#rg").val();
-        var cpf = $("#cpf").val();
-        var dataNasc = $("#dataNasc").val();
-        var estadoCivil = $("#estadoCivil").val();
-        var sexo = $("#sexo").val();
-        var email = $("#email").val();
-        var telefone = $("#telefone").val();
-        var celular = $("#celular").val();
+        var desconto = $("#desconto").val();
+        var descricao = $("#descrição").val();
 
-        alert(tipoPagamento);
-
-        $.post("php/alunos/controle.php",
-        {
-            acao: "registrar",
+        var data = {
+            acao: "createBolsas",
             nome: nome,
-            rg: rg,
-            cpf: cpf,
-            dataNasc: dataNasc,
-            estadoCivil: estadoCivil,
-            sexo: sexo,
-            email: email,
-            telefone: telefone,
-            celular: celular,
-        },
-        function(data, status){
-          // $("#loading").hide();
-            console.log("Data:\n"+data+"\nStatus:"+status);
+            desconto: desconto,
+            descricao: descricao
+        };
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "php/bolsas/controle.php",
+            data: data,
+            success: function(data) {
+                console.log(data);
+                alert(data.responseText);
+            },
+            error: function(data, status) {
+                alert(data.responseText);
+                console.log(data, status);
+            }
         });
       });
     </script>
