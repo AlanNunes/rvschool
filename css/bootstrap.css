@@ -71,7 +71,8 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #f4e5c3;
+  background-image: url(../assets/imgs/background.jpg);
+  background-attachment: fixed;
 }
 
 footer{
@@ -1702,10 +1703,10 @@ pre code {
 }
 
 .table {
-  width: 96.5%;
+  width: 96.6%;
   max-width: 100%;
-  margin-bottom: 1rem;
-  background-color: transparent;
+  margin-bottom: 3rem;
+  background-color: #F3E1B9;
 }
 
 .table th,
@@ -1752,7 +1753,8 @@ pre code {
 }
 
 .table-hover tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: #314178;
+  color: #F3E1B9;
 }
 
 .table-primary,
@@ -3911,11 +3913,11 @@ tbody.collapse.show {
   border: 1px solid transparent;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
-  background-color: #314178;
+  background-color: #6D2E33;
 }
 
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  background-color: #314178;
+  background-color: #6D2E33;
 }
 
 .nav-tabs .nav-link.disabled {
@@ -3927,7 +3929,7 @@ tbody.collapse.show {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #F3E1B9;
-  background-color: #6D2E33;
+  background-color: #314178;
 }
 
 .nav-tabs .dropdown-menu {
