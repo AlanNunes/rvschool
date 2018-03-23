@@ -29,13 +29,12 @@ function listBolsas(){
 	if($response["erro"]){
 		echo "Cadastre uma bolsa.";
 	}else{
+	    $output = array();
 		foreach ($response["response"] as $row) {
-			$id = $row["id"];
-			$nome = $row["nome"];
-			$descrição = $row["descrição"];
-			$desconto = $row["desconto"];
-			echo "<option value='".$id."'>".$nome."</option>";
+		    $output[] = array("id" => $row["id"], "nome" => $row["nome"], "desconto" => $row["desconto"], "descricao" => $row["descricao"]);
 		}
+		header('Content-Type: application/json');
+        echo json_encode($output);
 	}
 }
 

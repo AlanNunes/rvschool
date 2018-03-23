@@ -12,7 +12,7 @@ class Bolsas {
 	}
 
 	public function listBolsas() {
-		$query = "SELECT id, nome FROM bolsas";
+		$query = "SELECT id, nome, desconto, descricao FROM bolsas";
 		$result = $this->conn->query($query);
 
 		if($result->num_rows > 0) {
