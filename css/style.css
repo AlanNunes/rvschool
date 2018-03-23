@@ -18,3 +18,7 @@
 	background-color: #6D2E33;
 	color: white;
 }
+
+.imglbl{
+  background-image: url(../assets/imgs/imglbl.png);
+}
