@@ -9,9 +9,11 @@
 
   <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="assets/icons/open-iconic-master/font/css/open-iconic-bootstrap.css">
     <link rel="stylesheet" href="css/vertical-bar.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="assets/icons/open-iconic-master/font/css/open-iconic-bootstrap.css">
+    <link rel="stylesheet" href="css/avatar-image.css">
+    
 </head>   
 <body>
   <header>
@@ -98,6 +100,23 @@
             </ul>
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <form name="avatarForm" id="avatarForm">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <div class="avatar-upload">
+                          <div class="avatar-edit">
+                              <input type='file' name="image" id="image" accept=".png, .jpg, .jpeg" />
+                              <label for="image"></label>
+                          </div>
+                          <div class="avatar-preview">
+                              <div id="imagePreview">
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <input type="submit" name="submit">
+                </form>
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-4">
@@ -374,11 +393,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.mask.js"></script>
+    <script  src="js/avatar-image.js"></script>
     <script>
 
       $( document ).ready(function() {
-          listCargos();
+          
       });
+
+      
 
       $("#buttonHumburguer").click(function(){
           $("#vertical-nav-bar").toggle();
@@ -407,37 +429,57 @@
         }
       }
 
-      $("#registrar").click(function(){
-        $("#loading").show();
-        var nome = $("#nome").val();
-        var rg = $("#rg").val();
-        var cpf = $("#cpf").val();
-        var dataNasc = $("#dataNasc").val();
-        var estadoCivil = $("#estadoCivil").val();
-        var sexo = $("#sexo").val();
-        var email = $("#email").val();
-        var telefone = $("#telefone").val();
-        var celular = $("#celular").val();
+      $("#avatarForm").on('submit',(function(e) {
 
-        alert(tipoPagamento);
-
-        $.post("php/alunos/controle.php",
+        e.preventDefault();
+        $.ajax({
+        url: "php/avatar/upload.php", // Url to which the request is send
+        type: "POST",             // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false,       // The content type used when sending data to the server.
+        cache: false,             // To unable request pages to be cached
+        processData:false,        // To send DOMDocument or non processed data file it is set to false
+        success: function(data)   // A function to be called if request succeeds
         {
-            acao: "registrar",
-            nome: nome,
-            rg: rg,
-            cpf: cpf,
-            dataNasc: dataNasc,
-            estadoCivil: estadoCivil,
-            sexo: sexo,
-            email: email,
-            telefone: telefone,
-            celular: celular,
-        },
-        function(data, status){
-          // $("#loading").hide();
-            console.log("Data:\n"+data+"\nStatus:"+status);
+          alert(data);
+        }
         });
+      }));
+
+      $("#registrar").click(function(){
+
+
+
+        // $("#loading").show();
+        // var nome = $("#nome").val();
+        // var rg = $("#rg").val();
+        // var cpf = $("#cpf").val();
+        // var dataNasc = $("#dataNasc").val();
+        // var estadoCivil = $("#estadoCivil").val();
+        // var sexo = $("#sexo").val();
+        // var email = $("#email").val();
+        // var telefone = $("#telefone").val();
+        // var celular = $("#celular").val();
+
+        // alert(tipoPagamento);
+
+        // $.post("php/alunos/controle.php",
+        // {
+        //     acao: "registrar",
+        //     nome: nome,
+        //     rg: rg,
+        //     cpf: cpf,
+        //     dataNasc: dataNasc,
+        //     estadoCivil: estadoCivil,
+        //     sexo: sexo,
+        //     email: email,
+        //     telefone: telefone,
+        //     celular: celular,
+        // },
+        // function(data, status){
+        //   // $("#loading").hide();
+        //     console.log("Data:\n"+data+"\nStatus:"+status);
+        // });
       });
     </script>
 </html>
