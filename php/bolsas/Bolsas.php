@@ -25,7 +25,20 @@ class Bolsas {
 		return array("erro" => false, "response" => $response);
 	}
 
-	public function createBolsas($nome, $desconto, $descricao){
+	public function getBolsa($id){
+	    $query = "SELECT * FROM bolsas where id = " . $id;
+	    $result = $this->conn->query($query);
+
+	    if($result->num_rows > 0) {
+	        $row = $result->fetch_assoc();
+	    }
+	    else {
+	        return array("erro" => true);
+	    }
+	    return array("erro" => false, "response" => $row);
+	}
+
+	public function createBolsa($nome, $desconto, $descricao){
         $nome = filter_var(trim($nome), FILTER_SANITIZE_STRING);
         $desconto = filter_var($desconto, FILTER_SANITIZE_NUMBER_INT);
         $descricao = filter_var(trim($descricao), FILTER_SANITIZE_STRING);

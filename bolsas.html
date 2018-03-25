@@ -63,6 +63,9 @@
           <th scope="col">Nome</th>
           <th scope="col">Desconto</th>
           <th scope="col">Descrição</th>
+          <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </tr>
         </thead>
         <tbody id="tableContent"></tbody>
@@ -81,6 +84,9 @@
     </li>
   </ul>
 </nav>
+
+  <button id="confirm-trigger" data-toggle="modal" data-target="#confirm-delete" hidden>
+  </button>
 
 <!-- END CONTENT -->
 
@@ -140,6 +146,23 @@
 
 <!-- END MODAL FORM -->
 
+<!-- CLOSE MODAL FORM -->
+
+  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">Excluir</div>
+        <div class="modal-body">Você tem certeza que deseja excluir esta bolsa?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button id="delete-bolsa" type="button" class="btn btn-danger btn-ok">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- END CLOSE MODAL -->
+
 
 
 <footer>
@@ -184,8 +207,20 @@
                 var bolsa = data[i];
                 var tr = new DOM_Element("tr");
                 var name = new DOM_Element("td", false, false, false, bolsa.nome);
-                var desconto = new DOM_Element("td", false, false, false, bolsa.desconto);
+                var desconto = new DOM_Element("td", false, false, false, bolsa.desconto + "%");
                 var descricao = new DOM_Element("td", false, false, false, bolsa.descricao);
+                var closeButton = new DOM_Element("button", "close", false, [
+                    {name: "type", value: "button"},
+                    {name: "aria-label", value: "Close"},
+                    {name: "data-toggle", value: "modal"},
+                    {name: "data-target", value: "confirm-delete"}]);
+                var closeSpan = new DOM_Element("span", false, false, [{name: "aria-hidden", value: "true"}], "&times;");
+                closeButton.click(function(e) {
+                    e.preventDefault();
+                    $("#confirm-trigger").click();
+                });
+                closeButton.appendChild(closeSpan.element);
+                descricao.appendChild(closeButton.element);
                 tr.appendChild(name.element);
                 tr.appendChild(desconto.element);
                 tr.appendChild(descricao.element);
@@ -206,7 +241,7 @@
         var descricao = $("#descrição").val();
 
         var data = {
-            acao: "createBolsas",
+            acao: "createBolsa",
             nome: nome,
             desconto: desconto,
             descricao: descricao
