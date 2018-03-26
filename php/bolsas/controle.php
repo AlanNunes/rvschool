@@ -74,7 +74,6 @@ function createBolsa(){
     if($response["erro"]){
         echo $response["responseText"];
     }else{
-        # code...
         echo $response["responseText"];
     }
 }
@@ -83,5 +82,11 @@ function deleteBolsa(){
     $db = new DataBase();
     $conn = $db->getConnection();
     $bolsas = new Bolsas($conn);
+    $response = $bolsas->deleteBolsa($_POST["id"]);
+    if($response["erro"]){
+        echo $reponse["responseText"];
+    }else{
+        echo $response["responseText"];
+    }
 }
 ?>

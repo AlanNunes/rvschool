@@ -61,5 +61,15 @@ class Bolsas {
             return array("erro" => true, "responseText" => "Falha ao criar bolsa.");
         }
 	}
+
+	public function deleteBolsa($id){
+	    $query = "DELETE FROM bolsas WHERE id=" . $id;
+	    $result = $this->conn->query($query);
+
+	    if($result){
+	        return array("erro" =>false, "responseText" => "Bolsa excluida com sucesso.");
+	    }
+	    return array("erro" => true, "responseText" => "Falha ao exluir bolsa");
+	}
 }
 ?>

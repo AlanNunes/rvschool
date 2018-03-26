@@ -148,7 +148,7 @@
 
 <!-- CLOSE MODAL FORM -->
 
-  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-label" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">Excluir</div>
@@ -191,6 +191,12 @@
         $("#vertical-nav-bar").toggleClass("collapsed");
       });
 
+      $("#delete-bolsa").click(function(e) {
+          e.preventDefault();
+          console.log(e.target.bolsa);
+          deleteBolsa(e.target.bolsa);
+      });
+
       function listBolsas(){
         var data = {
           "acao": "listBolsas"
@@ -213,13 +219,17 @@
                     {name: "type", value: "button"},
                     {name: "aria-label", value: "Close"},
                     {name: "data-toggle", value: "modal"},
-                    {name: "data-target", value: "confirm-delete"}]);
-                var closeSpan = new DOM_Element("span", false, false, [{name: "aria-hidden", value: "true"}], "&times;");
+                    {name: "data-target", value: "confirm-delete"}], "&times;");
+                var closeSpan = new DOM_Element("span", false, false, [{name: "aria-hidden", value: "true"}]);
+
+                closeButton.element.bolsa = bolsa.id;
                 closeButton.click(function(e) {
                     e.preventDefault();
+                    var deleteBolsa = document.getElementById("delete-bolsa");
+                    deleteBolsa.bolsa = e.target.bolsa;
                     $("#confirm-trigger").click();
                 });
-                closeButton.appendChild(closeSpan.element);
+//                closeButton.appendChild(closeSpan.element);
                 descricao.appendChild(closeButton.element);
                 tr.appendChild(name.element);
                 tr.appendChild(desconto.element);
@@ -253,18 +263,42 @@
             url: "php/bolsas/controle.php",
             data: data,
             success: function(data) {
-                console.log(data);
                 alert(data.responseText);
                 document.getElementById("tableContent").innerHTML = "";
                 listBolsas();
             },
-            error: function(data, status) {
-                console.log(data, status);
+            error: function(data) {
                 alert(data.responseText);
                 document.getElementById("tableContent").innerHTML = "";
                 listBolsas();
             }
         });
       });
+
+      function deleteBolsa(bolsaId) {
+          var data = {
+              acao: "deleteBolsa",
+              id: bolsaId
+          };
+
+          $.ajax({
+              type: "POST",
+              dataType: "json",
+              url: "php/bolsas/controle.php",
+              data: data,
+              success: function(data) {
+                  alert(data.responseText);
+                  document.getElementById("tableContent").innerHTML = "";
+                  listBolsas();
+                  $("#confirm-delete").modal("hide");
+              },
+              error: function(data) {
+                  alert(data.responseText);
+                  document.getElementById("tableContent").innerHTML = "";
+                  listBolsas();
+                  $("#confirm-delete").modal("hide");
+              }
+          });
+      }
     </script>
 </html>
