@@ -12,7 +12,7 @@ class Bolsas {
 	}
 
 	public function listBolsas() {
-		$query = "SELECT id, nome, desconto, descricao FROM bolsas";
+		$query = "SELECT id, nome, desconto, descricao, fixa, dataInicio, dataTermino FROM bolsas";
 		$result = $this->conn->query($query);
 
 		if($result->num_rows > 0) {
@@ -38,21 +38,41 @@ class Bolsas {
 	    return array("erro" => false, "response" => $row);
 	}
 
-	public function createBolsa($nome, $desconto, $descricao){
+	public function createBolsa($nome, $desconto, $descricao, $fixa, $dataInicio, $dataTermino){
         $nome = filter_var(trim($nome), FILTER_SANITIZE_STRING);
         $desconto = filter_var($desconto, FILTER_SANITIZE_NUMBER_INT);
         $descricao = filter_var(trim($descricao), FILTER_SANITIZE_STRING);
+        $fixa = filter_var($fixa, FILTER_SANITIZE_NUMBER_INT);
+        $dataInicio = filter_var($dataInicio, FILTER_SANITIZE_STRING);
+        $dataTermino = filter_var($dataTermino, FILTER_SANITIZE_STRING);
+        $fixa = (int)$fixa;
+
+        if($fixa != 0 && $fixa != 1){
+            $fixa = 1;
+        }
+
         if(!$nome || empty($nome)){
             echo "Por favor, digite o nome da bolsa.";
         }
         else if(!$desconto || empty($desconto)){
             echo "Por favor, digite o desconto referente a bolsa.";
         }
+        else if(!$fixa && !$dataInicio){
+            echo "Por favor, selecione uma data de início para a bolsa";
+        }
+        else if(!$fixa && !$dataTermino){
+            echo "Por favor, selecione uma data de Término para a bolsa";
+        }
         else if(!$descricao || empty($descricao)){
             echo "Por favor, digite a descrição da bolsa.";
         }
         else {
-            $query = "INSERT INTO bolsas (nome, desconto, descricao) VALUES ('{$nome}', {$desconto}, '{$descricao}');";
+            if($fixa == 0){
+                $query = "INSERT INTO bolsas (nome, desconto, descricao, fixa, dataInicio, dataTermino) VALUES ('{$nome}', '{$desconto}', '{$descricao}', '{$fixa}', '{$dataInicio}', '{$dataTermino}');";
+            }
+            else {
+                $query = "INSERT INTO bolsas (nome, desconto, descricao, fixa) VALUES ('{$nome}', '{$desconto}', '{$descricao}', '{$fixa}');";
+            }
             $result = $this->conn->query($query);
 
             if($result){

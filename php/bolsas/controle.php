@@ -33,11 +33,16 @@ function listBolsas(){
 	$response = $bolsas->listBolsas();
 
 	if($response["erro"]){
-		echo "Cadastre uma bolsa.";
+		// echo "Cadastre uma bolsa.";
+		echo json_encode(array());
 	}else{
 	    $output = array();
 		foreach ($response["response"] as $row) {
-		    $output[] = array("id" => $row["id"], "nome" => $row["nome"], "desconto" => $row["desconto"], "descricao" => $row["descricao"]);
+		    $bolsa = array();
+		    foreach($row as $key => $value) {
+		        $bolsa[$key] = $value;
+		    }
+		    $output[] = $bolsa;
 		}
 		header('Content-Type: application/json');
         echo json_encode($output);
@@ -69,7 +74,7 @@ function createBolsa(){
     $db = new DataBase();
     $conn = $db->getConnection();
     $bolsas = new Bolsas($conn);
-    $response = $bolsas->createBolsa($_POST["nome"], $_POST["desconto"], $_POST["descricao"]);
+    $response = $bolsas->createBolsa($_POST["nome"], $_POST["desconto"], $_POST["descricao"], $_POST["fixa"], $_POST["dataInicio"], $_POST["dataTermino"]);
 
     if($response["erro"]){
         echo $response["responseText"];

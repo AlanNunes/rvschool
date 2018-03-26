@@ -62,6 +62,9 @@
         <tr>
           <th scope="col">Nome</th>
           <th scope="col">Desconto</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Data de Início</th>
+          <th scope="col">Data de Término</th>
           <th scope="col">Descrição</th>
           <button type="button" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -123,6 +126,32 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text">%</span>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateRadio" id="fixDateRadio" value="1" checked>
+                    <label class="form-check-label" for="fixDateRadio">Fixa</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateRadio" id="tempDateRadio" value="0">
+                    <label class="form-check-label" for="tempDateRadio">Temporária</label>
+                  </div>
+
+                  <div class="form-row" id="dateSection" style="display: none">
+                    <div class="form-group col-md-6">
+                      <label for="initDate">Data de início da Bolsa</label>
+                      <div class="input-group">
+                        <input type="datetime-local" class="form-control" id="initDate">
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="endDate">Data de Término da Bolsa</label>
+                      <div class="input-group">
+                        <input type="datetime-local" class="form-control" id="endDate">
                       </div>
                     </div>
                   </div>
@@ -193,8 +222,15 @@
 
       $("#delete-bolsa").click(function(e) {
           e.preventDefault();
-          console.log(e.target.bolsa);
           deleteBolsa(e.target.bolsa);
+      });
+
+      $("#fixDateRadio").click(function() {
+          $("#dateSection").hide();
+      });
+
+      $("#tempDateRadio").click(function() {
+          $("#dateSection").show();
       });
 
       function listBolsas(){
@@ -215,6 +251,26 @@
                 var name = new DOM_Element("td", false, false, false, bolsa.nome);
                 var desconto = new DOM_Element("td", false, false, false, bolsa.desconto + "%");
                 var descricao = new DOM_Element("td", false, false, false, bolsa.descricao);
+                var fixa = new DOM_Element("td");
+                var dataInicio = new DOM_Element("td");
+                var dataTermino = new DOM_Element("td");
+
+                if(Number(bolsa.fixa)) {
+                    fixa.changeContent("fixa");
+                    dataInicio.changeContent("fixa");
+                    dataTermino.changeContent("fixa");
+                }
+                else {
+                    var options = {day: "numeric", month: "numeric", year: "numeric", hour: "numeric", minute: "numeric"};
+                    var localInitDate = new Date(bolsa.dataInicio);
+                    var localEndDate = new Date(bolsa.dataTermino);
+                    localInitDate = localInitDate.toLocaleDateString("pt-BR", options);
+                    localEndDate = localEndDate.toLocaleDateString("pt-BR", options);
+                    fixa.changeContent("Temporária");
+                    dataInicio.changeContent(localInitDate);
+                    dataTermino.changeContent(localEndDate);
+                }
+
                 var closeButton = new DOM_Element("button", "close", false, [
                     {name: "type", value: "button"},
                     {name: "aria-label", value: "Close"},
@@ -227,15 +283,24 @@
                     e.preventDefault();
                     var deleteBolsa = document.getElementById("delete-bolsa");
                     deleteBolsa.bolsa = e.target.bolsa;
-                    $("#confirm-trigger").click();
+                    $("#confirm-delete").modal("show");
                 });
 //                closeButton.appendChild(closeSpan.element);
                 descricao.appendChild(closeButton.element);
                 tr.appendChild(name.element);
                 tr.appendChild(desconto.element);
+                tr.appendChild(fixa.element);
+                tr.appendChild(dataInicio.element);
+                tr.appendChild(dataTermino.element);
                 tr.appendChild(descricao.element);
                 tr.addToDOM(tBody);
             }
+
+            //Contagem de Bolsas
+            var trCount = new DOM_Element("tr");
+            var tdCount = new DOM_Element("td", "text-center", false, [{name: "colspan", value: 6}], data.length + " Bolsas");
+            trCount.appendChild(tdCount.element);
+            trCount.addToDOM(tBody);
             console.log(data);
           },
             error: function(data) {
@@ -249,12 +314,25 @@
         var nome = $("#nome").val();
         var desconto = $("#desconto").val();
         var descricao = $("#descrição").val();
+        var initDate = $("#initDate").val();
+        var endDate =  $("#endDate").val();
+        var fixed = 1;
+        var dateForms = document.getElementsByName("dateRadio");
+        for(var i = 0;i < dateForms.length;i++) {
+            if(dateForms[i].checked) {
+                fixed = Number(dateForms[i].value);
+                break;
+            }
+        }
 
         var data = {
             acao: "createBolsa",
             nome: nome,
             desconto: desconto,
-            descricao: descricao
+            descricao: descricao,
+            fixa: fixed,
+            dataInicio: initDate,
+            dataTermino: endDate
         };
 
         $.ajax({

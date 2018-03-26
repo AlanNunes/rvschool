@@ -27,8 +27,11 @@ CREATE TABLE `bolsas` (
   `nome` varchar(100) NOT NULL,
   `descricao` varchar(255) NOT NULL,
   `desconto` int(11) NOT NULL,
+  `fixa` tinyint(4) NOT NULL,
+  `dataInicio` datetime DEFAULT NULL,
+  `dataTermino` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +40,7 @@ CREATE TABLE `bolsas` (
 
 LOCK TABLES `bolsas` WRITE;
 /*!40000 ALTER TABLE `bolsas` DISABLE KEYS */;
-INSERT INTO `bolsas` VALUES (1,'Bolsa inglês Gold','Bolsa de 75% de desconto no curso de inglês.',75),(2,'Bolsa Inglês Silver','Bolsa de 50% de desconto no curso de inglês.',50),(3,'Bolsa Inglês Bronze','Bolsa de 25% de desconto do curso de inglês.',25);
+INSERT INTO `bolsas` VALUES (18,'Bolsa Inglês Silver Temporária','Bolsa de 50% de desconto no curso de inglês.',50,0,'2018-03-13 00:00:00','2018-03-28 23:59:00'),(17,'Bolsa Inglês Gold Temporária','Bolsa de 75% de desconto no curso de inglês.',75,0,'2018-03-01 00:00:00','2018-03-31 23:59:00'),(16,'Bolsa Inglês Gold','Bolsa de 75% de desconto no curso de inglês.',75,1,NULL,NULL),(20,'Bolsa Inglês Silver','Bolsa de 50% de desconto no curso de inglês.',50,1,NULL,NULL),(21,'Bolsa Inglês Silver Temporária','Bolsa temporária de 50% de desconto no curso de inglês.',50,0,'2018-03-01 00:00:00','2018-03-31 23:59:00'),(22,'Bolsa Inglês Copper','Bolsa de 25% de desconto no curso de inglês.',25,1,NULL,NULL);
 /*!40000 ALTER TABLE `bolsas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-22 22:23:25
+-- Dump completed on 2018-03-26 19:17:02

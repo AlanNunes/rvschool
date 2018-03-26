@@ -22,3 +22,8 @@
 .imglbl{
   background-image: url(../assets/imgs/imglbl.png);
 }
+
+.bolsas-count
+{
+    padding: 100px;
+}
