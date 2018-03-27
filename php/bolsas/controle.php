@@ -39,8 +39,25 @@ function listBolsas(){
 	    $output = array();
 		foreach ($response["response"] as $row) {
 		    $bolsa = array();
+		    $timeZone = new DateTimeZone("America/Sao_Paulo");
+		    $now = new DateTime("now", $timeZone);
+		    $dateTimeInicio = new DateTime($row["dataInicio"], $timeZone);
+		    $dateTimeTermino = new DateTime($row["dataTermino"], $timeZone);
 		    foreach($row as $key => $value) {
 		        $bolsa[$key] = $value;
+		    }
+
+		    if($now < $dateTimeInicio){
+		        $bolsa["validade"] = "Em espera";
+		        $bolsa["validadeClass"] = "bolsaWaiting";
+		    }
+		    else if($now > $dateTimeInicio && $now < $dateTimeTermino) {
+		        $bolsa["validade"] = "Em vigor";
+		        $bolsa["validadeClass"] = "bolsaActive";
+		    }
+		    else if($now > $dateTimeTermino) {
+		        $bolsa["validade"] = "Expirada";
+		        $bolsa["validadeClass"] = "bolsaExpired";
 		    }
 		    $output[] = $bolsa;
 		}

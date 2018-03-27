@@ -27,3 +27,18 @@
 {
     padding: 100px;
 }
+
+.bolsaWaiting
+{
+    color: yellow;
+}
+
+.bolsaActive
+{
+    color: green;
+}
+
+.bolsaExpired
+{
+    color: red;
+}

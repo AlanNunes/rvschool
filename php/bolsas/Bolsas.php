@@ -46,6 +46,10 @@ class Bolsas {
         $dataInicio = filter_var($dataInicio, FILTER_SANITIZE_STRING);
         $dataTermino = filter_var($dataTermino, FILTER_SANITIZE_STRING);
         $fixa = (int)$fixa;
+        $timeZone = new DateTimeZone("America/Sao_Paulo");
+        $now = new DateTime("now", $timeZone);
+        $dateTimeInicio = new DateTime($dataInicio, $timeZone);
+        $dateTimeTermino = new DateTime($dataTermino, $timeZone);
 
         if($fixa != 0 && $fixa != 1){
             $fixa = 1;
@@ -61,9 +65,18 @@ class Bolsas {
             echo "Por favor, selecione uma data de início para a bolsa";
         }
         else if(!$fixa && !$dataTermino){
-            echo "Por favor, selecione uma data de Término para a bolsa";
+            echo "Por favor, selecione uma data de término para a bolsa";
         }
-        else if(!$descricao || empty($descricao)){
+        else if(!$fixa && $dateTimeInicio < $now){
+            echo "Por favor, selecione uma data de início que não esteja no passado.";
+        }
+        else if(!$fixa && $dateTimeTermino < $dateTimeInicio){
+            echo "Por favor, selecione uma data de término após a data de início.";
+        }
+        else if(!$fixa && $dateTimeInicio == $dateTimeTermino){
+            echo "Por favor, selecione datas distintas.";
+        }
+        else if(!$fixa && !$descricao || empty($descricao)){
             echo "Por favor, digite a descrição da bolsa.";
         }
         else {

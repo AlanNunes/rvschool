@@ -66,6 +66,7 @@
           <th scope="col">Data de Início</th>
           <th scope="col">Data de Término</th>
           <th scope="col">Descrição</th>
+          <th scope="col">Validade</th>
           <button type="button" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -254,21 +255,28 @@
                 var fixa = new DOM_Element("td");
                 var dataInicio = new DOM_Element("td");
                 var dataTermino = new DOM_Element("td");
+                var validity = new DOM_Element("td");
 
                 if(Number(bolsa.fixa)) {
                     fixa.changeContent("fixa");
                     dataInicio.changeContent("fixa");
                     dataTermino.changeContent("fixa");
+                    validity.changeContent("Em vigor");
+                    validity.changeClass("bolsaActive");
                 }
                 else {
                     var options = {day: "numeric", month: "numeric", year: "numeric", hour: "numeric", minute: "numeric"};
-                    var localInitDate = new Date(bolsa.dataInicio);
-                    var localEndDate = new Date(bolsa.dataTermino);
-                    localInitDate = localInitDate.toLocaleDateString("pt-BR", options);
-                    localEndDate = localEndDate.toLocaleDateString("pt-BR", options);
+                    var initDate = new Date(bolsa.dataInicio);
+                    var endDate = new Date(bolsa.dataTermino);
+                    var now = Date.now();
+                    var localInitDate = initDate.toLocaleDateString("pt-BR", options);
+                    var localEndDate = endDate.toLocaleDateString("pt-BR", options);
+
                     fixa.changeContent("Temporária");
                     dataInicio.changeContent(localInitDate);
                     dataTermino.changeContent(localEndDate);
+                    validity.changeContent(bolsa.validade);
+                    validity.changeClass(bolsa.validadeClass);
                 }
 
                 var closeButton = new DOM_Element("button", "close", false, [
@@ -286,20 +294,21 @@
                     $("#confirm-delete").modal("show");
                 });
 //                closeButton.appendChild(closeSpan.element);
-                descricao.appendChild(closeButton.element);
-                tr.appendChild(name.element);
-                tr.appendChild(desconto.element);
-                tr.appendChild(fixa.element);
-                tr.appendChild(dataInicio.element);
-                tr.appendChild(dataTermino.element);
-                tr.appendChild(descricao.element);
+                validity.appendChild(closeButton);
+                tr.appendChild(name);
+                tr.appendChild(desconto);
+                tr.appendChild(fixa);
+                tr.appendChild(dataInicio);
+                tr.appendChild(dataTermino);
+                tr.appendChild(descricao);
+                tr.appendChild(validity);
                 tr.addToDOM(tBody);
             }
 
             //Contagem de Bolsas
             var trCount = new DOM_Element("tr");
             var tdCount = new DOM_Element("td", "text-center", false, [{name: "colspan", value: 6}], data.length + " Bolsas");
-            trCount.appendChild(tdCount.element);
+            trCount.appendChild(tdCount);
             trCount.addToDOM(tBody);
             console.log(data);
           },
