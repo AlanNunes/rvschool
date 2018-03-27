@@ -36,7 +36,7 @@ DOMElement: element from document to which add the element
  nodeIsDom: set to true if object is not a stance of DOM_Element
  */
 DOM_Element.prototype.addToDOM = function(DOMElement, nodeIsDom) {
-    var DOMNode = nodeIsDom ? DOMElement: DOMElement.element;
+    var DOMNode = nodeIsDom ? DOMElement.element : DOMElement;
     DOMNode.appendChild(this.element);
 };
 

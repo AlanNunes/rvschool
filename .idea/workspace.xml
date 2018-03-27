@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="52e2bfd8-4502-4395-8128-2a4ec438e179" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bolsas.html" afterPath="$PROJECT_DIR$/bolsas.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/dynamical-dom.js" afterPath="$PROJECT_DIR$/js/dynamical-dom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/bolsas/Bolsas.php" afterPath="$PROJECT_DIR$/php/bolsas/Bolsas.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/bolsas/controle.php" afterPath="$PROJECT_DIR$/php/bolsas/controle.php" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,8 +21,8 @@
       <file leaf-file-name="bolsas.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bolsas.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="191" column="8" lean-forward="true" selection-start-line="191" selection-start-column="8" selection-end-line="191" selection-end-column="8" />
+            <state relative-caret-position="391">
+              <caret line="304" column="33" lean-forward="false" selection-start-line="304" selection-start-column="33" selection-end-line="304" selection-end-column="33" />
               <folding>
                 <element signature="e#2738#2745#1" expanded="true" />
                 <element signature="n#style#0;n#div#3;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -81,17 +77,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dynamical-dom.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="dynamical-dom.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/dynamical-dom.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="70" column="99" lean-forward="false" selection-start-line="70" selection-start-column="99" selection-end-line="70" selection-end-column="99" />
+            <state relative-caret-position="459">
+              <caret line="39" column="38" lean-forward="true" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bolsas.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Bolsas.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/php/bolsas/Bolsas.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="648">
@@ -136,9 +132,9 @@
         <option value="$PROJECT_DIR$/php/cargos/controle.php" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/php/bolsas/controle.php" />
+        <option value="$PROJECT_DIR$/php/bolsas/Bolsas.php" />
         <option value="$PROJECT_DIR$/bolsas.html" />
         <option value="$PROJECT_DIR$/js/dynamical-dom.js" />
-        <option value="$PROJECT_DIR$/php/bolsas/Bolsas.php" />
       </list>
     </option>
   </component>
@@ -389,12 +385,12 @@
       <workItem from="1521998661074" duration="977000" />
       <workItem from="1522074516046" duration="18788000" />
       <workItem from="1522174960262" duration="2628000" />
-      <workItem from="1522180524369" duration="5414000" />
+      <workItem from="1522180524369" duration="5768000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78942000" />
+    <option name="totallyTimeSpent" value="79296000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1924" height="1000" extended-state="0" />
@@ -908,8 +904,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bolsas.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="191" column="8" lean-forward="true" selection-start-line="191" selection-start-column="8" selection-end-line="191" selection-end-column="8" />
+        <state relative-caret-position="391">
+          <caret line="304" column="33" lean-forward="false" selection-start-line="304" selection-start-column="33" selection-end-line="304" selection-end-column="33" />
           <folding>
             <element signature="e#2738#2745#1" expanded="true" />
             <element signature="n#style#0;n#div#3;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -917,10 +913,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/dynamical-dom.js">
+    <entry file="file://$PROJECT_DIR$/php/bolsas/Bolsas.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="70" column="99" lean-forward="false" selection-start-line="70" selection-start-column="99" selection-end-line="70" selection-end-column="99" />
+        <state relative-caret-position="648">
+          <caret line="78" column="18" lean-forward="false" selection-start-line="78" selection-start-column="18" selection-end-line="78" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -933,10 +929,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/php/bolsas/Bolsas.php">
+    <entry file="file://$PROJECT_DIR$/js/dynamical-dom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="78" column="18" lean-forward="false" selection-start-line="78" selection-start-column="18" selection-end-line="78" selection-end-column="18" />
+        <state relative-caret-position="459">
+          <caret line="39" column="38" lean-forward="true" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
           <folding />
         </state>
       </provider>
