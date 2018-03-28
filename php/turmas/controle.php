@@ -1,21 +1,21 @@
 <?php
 header('Content-Type: application/json');
 require_once('../database/DataBase.php');
-require_once('Bolsas.php');
+require_once('Turmas.php');
 // echo var_dump($_POST);
 if(!empty($_POST["acao"]) && isset($_POST["acao"])){
 	switch ($_POST["acao"]) {
-		case 'listBolsas':
-			listBolsas();
+		case 'listTurmas':
+			listTurmas();
 			break;
-        case 'getBolsa':
-            getBolsa();
+        case 'getTurma':
+            getTurma();
             break;
-        case 'createBolsa':
-			createBolsa();
+        case 'createTurma':
+			createTurma();
 			break;
-        case 'deleteBolsa':
-            deleteBolsa();
+        case 'deleteTurma':
+            deleteTurma();
             break;
 		
 		default:
@@ -26,54 +26,54 @@ if(!empty($_POST["acao"]) && isset($_POST["acao"])){
 
 // Functions
 
-function listBolsas(){
+function listTurmas(){
 	$db = new DataBase();
 	$conn = $db->getConnection();
-	$bolsas = new Bolsas($conn);
-	$response = $bolsas->listBolsas();
+	$turmas = new Turmas($conn);
+	$response = $turmas->listTurmas();
 
 	if($response["erro"]){
-		// echo "Cadastre uma bolsa.";
+		// echo "Cadastre uma turma.";
 		echo json_encode(array());
 	}else{
 	    $output = array();
 		foreach ($response["response"] as $row) {
-		    $bolsa = array();
+		    $turma = array();
 		    $timeZone = new DateTimeZone("America/Sao_Paulo");
 		    $now = new DateTime("now", $timeZone);
 		    $dateTimeInicio = new DateTime($row["dataInicio"], $timeZone);
 		    $dateTimeTermino = new DateTime($row["dataTermino"], $timeZone);
 		    foreach($row as $key => $value) {
-		        $bolsa[$key] = $value;
+		        $turma[$key] = $value;
 		    }
 
 		    if($now < $dateTimeInicio){
-		        $bolsa["validade"] = "Em espera";
-		        $bolsa["validadeClass"] = "itemWaiting";
+		        $turma["validade"] = "Em espera";
+		        $turma["validadeClass"] = "itemWaiting";
 		    }
 		    else if($now > $dateTimeInicio && $now < $dateTimeTermino) {
-		        $bolsa["validade"] = "Em vigor";
-		        $bolsa["validadeClass"] = "itemActive";
+		        $turma["validade"] = "Em vigor";
+		        $turma["validadeClass"] = "itemActive";
 		    }
 		    else if($now > $dateTimeTermino) {
-		        $bolsa["validade"] = "Expirada";
-		        $bolsa["validadeClass"] = "itemExpired";
+		        $turma["validade"] = "Expirada";
+		        $turma["validadeClass"] = "itemExpired";
 		    }
-		    $output[] = $bolsa;
+		    $output[] = $turma;
 		}
 		header('Content-Type: application/json');
         echo json_encode($output);
 	}
 }
 
-function getBolsa() {
+function getTurma() {
     $db = new DataBase();
     $conn = $db->getConnection();
-    $bolsas = new Bolsas($conn);
-    $response = $bolsas->getBolsa($_POST["id"]);
+    $turmas = new Turmas($conn);
+    $response = $turmas->getTurma($_POST["id"]);
 
     if($response["erro"]) {
-        echo "404 Bolsa não encontrada.";
+        echo "404 Turma não encontrada.";
     }
     else {
         header('Content-Type: application/json');
@@ -87,11 +87,11 @@ function getBolsa() {
     }
 }
 
-function createBolsa(){
+function createTurma(){
     $db = new DataBase();
     $conn = $db->getConnection();
-    $bolsas = new Bolsas($conn);
-    $response = $bolsas->createBolsa($_POST["nome"], $_POST["desconto"], $_POST["descricao"], $_POST["fixa"], $_POST["dataInicio"], $_POST["dataTermino"]);
+    $turmas = new Turmas($conn);
+    $response = $turmas->createTurma($_POST["nome"], $_POST["desconto"], $_POST["descricao"], $_POST["fixa"], $_POST["dataInicio"], $_POST["dataTermino"]);
 
     if($response["erro"]){
         echo $response["responseText"];
@@ -100,11 +100,11 @@ function createBolsa(){
     }
 }
 
-function deleteBolsa(){
+function deleteTurma(){
     $db = new DataBase();
     $conn = $db->getConnection();
-    $bolsas = new Bolsas($conn);
-    $response = $bolsas->deleteBolsa($_POST["id"]);
+    $turmas = new Turmas($conn);
+    $response = $turmas->deleteTurma($_POST["id"]);
     if($response["erro"]){
         echo $reponse["responseText"];
     }else{

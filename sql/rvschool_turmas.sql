@@ -16,32 +16,39 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `bolsas`
+-- Table structure for table `turmas`
 --
 
-DROP TABLE IF EXISTS `bolsas`;
+DROP TABLE IF EXISTS `turmas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bolsas` (
+CREATE TABLE `turmas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  `descricao` varchar(255) NOT NULL,
-  `desconto` int(11) NOT NULL,
-  `fixa` tinyint(4) NOT NULL,
-  `dataInicio` date DEFAULT NULL,
-  `dataTermino` date DEFAULT NULL,
+  `nome` varchar(45) NOT NULL,
+  `situacao` tinyint(4) NOT NULL,
+  `professor` varchar(45) DEFAULT NULL,
+  `estagio` varchar(45) NOT NULL,
+  `curso` varchar(45) NOT NULL,
+  `horario` varchar(45) NOT NULL,
+  `maximoDeAlunos` int(11) NOT NULL,
+  `sala` varchar(45) NOT NULL,
+  `duracaoDaAula` int(11) NOT NULL,
+  `dataInicio` date NOT NULL,
+  `dataTermino` date NOT NULL,
+  `ultimaPalavra` varchar(45) NOT NULL,
+  `ultimaLicao` int(11) NOT NULL,
+  `ultimoSitato` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bolsas`
+-- Dumping data for table `turmas`
 --
 
-LOCK TABLES `bolsas` WRITE;
-/*!40000 ALTER TABLE `bolsas` DISABLE KEYS */;
-INSERT INTO `bolsas` VALUES (31,'Bolsa Inglês Gold Temporária','Bolsa temporária de 75% de desconto no curso de Inglês.',75,0,'2018-03-28','2018-03-31'),(32,'Bolsa Inglês Gold','Bolsa de 75% de desconto no curso de inglês.',75,1,NULL,NULL),(33,'Bolsa Silver Gold Temporária','Bolsa temporária de 50% de desconto no curso de inglês.',50,0,'2018-03-29','2018-03-30');
-/*!40000 ALTER TABLE `bolsas` ENABLE KEYS */;
+LOCK TABLES `turmas` WRITE;
+/*!40000 ALTER TABLE `turmas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `turmas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

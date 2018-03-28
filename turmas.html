@@ -1,0 +1,593 @@
+<html lang="pt">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/logo/fav.ico">
+  <title> Home Page - Revolution School </title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/vertical-bar.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="assets/icons/open-iconic-master/font/css/open-iconic-bootstrap.css">
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html"><img src="assets/imgs/logo/logo.png"></a>
+    <button class="navbar-toggler" type="button" id="buttonHumburguer" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">PROFESSORES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">ALUNOS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">TURMAS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">AULAS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="funcionarios.html">FUNCIONÁRIOS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">MENSALIDADES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">ESTOQUE</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="bolsas.html">BOLSAS</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<br>
+<div class="container-fluid" id="content">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Professor</th>
+        <th scope="col">Estágio</th>
+        <th scope="col">Curso</th>
+        <th scope="col">Horário</th>
+        <th scope="col">Máximo de Alunos</th>
+        <th scope="col">Sala</th>
+        <th scope="col">Duração da Aula</th>
+        <th scope="col">Data de Início</th>
+        <th scope="col">Data de Término</th>
+        <th scope="col">Última Palavra</th>
+        <th scope="col">Última Lição</th>
+        <th scope="col">Último Sitato</th>
+        <th scope="col">Situação</th>
+      </tr>
+      </thead>
+      <tbody id="tableContent"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CONTENT -->
+
+<nav class="navbar-primary" id="vertical-nav-bar">
+  <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-right"></span></a>
+  <ul class="navbar-primary-menu">
+    <li>
+      <a href="#" data-toggle="modal" data-target="#registrarTurma"><span class="oi oi-plus"></span><span class="nav-label">   Incluir</span></a>
+      <a href="#"><span class="oi oi-print"></span><span class="nav-label">   Relatório</span></a>
+    </li>
+  </ul>
+</nav>
+
+<button id="confirm-trigger" data-toggle="modal" data-target="#confirm-delete" hidden>
+</button>
+
+<!-- END CONTENT -->
+
+<!-- MODAL FORM -->
+
+<!-- Modal -->
+<div class="modal fade" id="registrarTurma" tabindex="-1" role="dialog" aria-labelledby="registrarTurma" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registrarTurma">Registrar Turma</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Registrar Turma</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <form>
+              <div class="form-row">
+                <div class="col-md-6">
+                  <label for="nome">Nome:*</label>
+                  <input type="text" class="form-control" id="nome" placeholder="Ex.: Turma A">
+                </div>
+
+                <div class="col-md-4 offset-md-2">
+                  <label for="situacao">Situação:*</label>
+                  <select id="situacao" class="form-control">
+                    <option value="1">Ativa</option>
+                    <option value="0">Inativa</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="sala">Sala:*</label>
+                  <select id="sala" class="form-control">
+                    <option value="United States">United States</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                    <option value="England">England</option>
+                  </select>
+                </div>
+
+                <div class="col-md-4 offset-2">
+                  <label for="duracao">Duração da aula:*</label>
+                  <select id="duracao" class="form-control">
+                    <option value="50">50</option>
+                  </select>
+                </div>
+
+                <div class="col-md-8">
+                  <label for="horario">horário:*</label>
+                  <select id="horario" class="form-control">
+                    <option value="Seg-Ter-Qua-Qui-Sex(18:00/18:50)">Seg-Ter-Qua-Qui-Sex(18:00/18:50)</option>
+                    <option value="Seg-Ter-Qua-Qui-Sex(15:00/15:50)">Seg-Ter-Qua-Qui-Sex(15:00/15:50)</option>
+                    <option value="Sab-Dom-(12:00/12:50)">Sab-Dom-(12:00/12:50)</option>
+                    <option value="Sab-Dom-(18:00/18:50)">Sab-Dom-(18:00/18:50)</option>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="max-alunos">Máximo de Alunos:*</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="max-alunos" min="0" required>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="initDate">Data de início da Turma</label>
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="initDate">
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="endDate">Data de Término da Turma</label>
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="endDate">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="professor">Professor:</label>
+                  <select id="professor" class="form-control">
+                    <option value="">Nenhum</option>
+                    <option value="Marcos Junior">Marcos Junior</option>
+                    <option value="Elias Silva">Elias Silva</option>
+                    <option value="José Gustavo">José Gustavo</option>
+                    <option value="Adriana Nunes">Adriana Nunes</option>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="estagio">Estágio:*</label>
+                  <select id="estagio" class="form-control">
+                    <option value="Iniciante">Iniciante</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Expert">Expert</option>
+                    <option value="fluente">Fluente</option>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="curso">Curso:*</label>
+                  <select id="curso" class="form-control">
+                    <option value="That's the way">That's the way</option>
+                    <option value="Kids">kids</option>
+                    <option value="Teens">Teens</option>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="palavra">Última Palavra:*</label>
+                  <input type="text" class="form-control" id="palavra" placeholder="ex: Keep">
+                </div>
+
+                <div class="col-md-4">
+                  <label for="licao">Última Lição:*</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="licao" min="0" required>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="sitato">Último Sitato:*</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="sitato" min="0" required>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="registrar">Registrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- END MODAL FORM -->
+
+<!-- CLOSE MODAL FORM -->
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">Excluir</div>
+      <div class="modal-body">Você tem certeza que deseja excluir esta turma?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="delete-turma" type="button" class="btn btn-danger btn-ok">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- END CLOSE MODAL -->
+
+
+
+<footer>
+  <a>© Revolution School.</a>
+</footer>
+</body>
+<!-- Scripts -->
+<script src="js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.mask.js"></script>
+<script src="js/dynamical-dom.js"></script>
+<script>
+
+    $( document ).ready(function() {
+        listTurmas();
+        $("#vertical-nav-bar").toggleClass("collapsed");
+    });
+
+    $("#buttonHumburguer").click(function(){
+        $("#vertical-nav-bar").toggle();
+    });
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#vertical-nav-bar").toggleClass("collapsed");
+    });
+
+    $("#delete-turma").click(function(e) {
+        e.preventDefault();
+        deleteTurma(e.target.turma);
+    });
+
+    $("#fixDateRadio").click(function() {
+        $("#dateSection").hide();
+    });
+
+    $("#tempDateRadio").click(function() {
+        $("#dateSection").show();
+    });
+
+    var mockTurmas = [{
+        id: 0,
+        nome: "Adriana",
+        situacao: 1,
+        professor: "Adriana Nunes",
+        estagio: "Iniciante",
+        curso: "Kids",
+        horario: "Seg-Ter-Que-Qui-Sex(12:00/12:50)",
+        maximoDeAlunos: 40,
+        sala: "United States",
+        duracaoDaAula: 50,
+        dataInicio: "30/04/2018",
+        dataTermino: "30/04/2020",
+        ultimaPalavra: "Know",
+        ultimaLicao: 120,
+        ultimoSitato: 10
+    },{
+        id: 1,
+        nome: "Teens",
+        situacao: 1,
+        professor: null,
+        estagio: "Médio",
+        curso: "Teens",
+        horario: "Seg-Ter-Que-Qui-Sex(18:00/18:50)",
+        maximoDeAlunos: 30,
+        sala: "Canada",
+        duracaoDaAula: 50,
+        dataInicio: "20/04/2018",
+        dataTermino: "20/04/2020",
+        ultimaPalavra: "Away",
+        ultimaLicao: 350,
+        ultimoSitato: 28
+    }];
+
+    function listTurmas(){
+        var data = {
+            "acao": "listTurmas"
+        };
+        data = $(this).serialize() + "&" + $.param(data);
+//        $.ajax({
+//            type: "POST",
+//            dataType: "json",
+//            url: "php/turmas/controle.php",
+//            data: data,
+//            success: listSuccess,
+//            error: function(data) {
+//                console.log(data);
+//            }
+//        });
+
+        listSuccess(mockTurmas);
+
+        function listSuccess(data) {
+            var tBody = document.getElementById("tableContent");
+            tBody.innerHTML = "";
+            for(var i = 0;i < data.length;i++) {
+                var turma = data[i];
+                var tr = new DOM_Element("tr");
+                var name = new DOM_Element("th", false, false, false, turma.nome);
+                var professor = new DOM_Element("td", false, false, false, turma.professor);
+                var estagio = new DOM_Element("td", false, false, false, turma.estagio);
+                var curso = new DOM_Element("td", false, false, false, turma.curso);
+                var horario = new DOM_Element("td", false, false, false, turma.horario);
+                var maxAlunos = new DOM_Element("td", false, false, false, turma.maximoDeAlunos);
+                var sala = new DOM_Element("td", false, false, false, turma.sala);
+                var duracaoAula = new DOM_Element("td", false, false, false, turma.duracaoDaAula);
+                var dataInicio = new DOM_Element("td", false, false, false, turma.dataInicio);
+                var dataTermino = new DOM_Element("td", false, false, false, turma.dataTermino);
+                var ultimaPalavra = new DOM_Element("td", false, false, false, turma.ultimaPalavra);
+                var ultimaLicao = new DOM_Element("td", false, false, false, turma.ultimaLicao);
+                var ultimoSitato = new DOM_Element("td", false, false, false, turma.ultimoSitato);
+                var situacao = new DOM_Element("td");
+
+                if(!turma.professor) professor.changeContent("Sem Professor");
+
+                if(Number(turma.situacao)) {
+                    situacao.changeContent("Ativa");
+                    situacao.changeClass("itemActive");
+                }
+                else {
+                    situacao.changeContent("Inativa");
+                    situacao.changeClass("itemExpired");
+                }
+
+                var closeButton = new DOM_Element("button", "close", false, [
+                    {name: "type", value: "button"},
+                    {name: "aria-label", value: "Close"},
+                    {name: "data-toggle", value: "modal"},
+                    {name: "data-target", value: "confirm-delete"}], "&times;");
+
+                closeButton.element.turma = turma.id;
+                closeButton.click(function(e) {
+                    e.preventDefault();
+                    var deleteTurma = document.getElementById("delete-turma");
+                    deleteTurma.turma = e.target.turma;
+                    $("#confirm-delete").modal("show");
+                });
+                situacao.appendChild(closeButton);
+                tr.appendChild(name);
+                tr.appendChild(professor);
+                tr.appendChild(estagio);
+                tr.appendChild(curso);
+                tr.appendChild(horario);
+                tr.appendChild(maxAlunos);
+                tr.appendChild(sala);
+                tr.appendChild(duracaoAula);
+                tr.appendChild(dataInicio);
+                tr.appendChild(dataTermino);
+                tr.appendChild(ultimaPalavra);
+                tr.appendChild(ultimaLicao);
+                tr.appendChild(ultimoSitato);
+                tr.appendChild(situacao);
+                tr.addToDOM(tBody);
+            }
+
+            //Contagem de turmas
+            var trCount = new DOM_Element("tr");
+            var tdCount = new DOM_Element("td", "text-center", false, [{name: "colspan", value: 14}], data.length + " Turmas");
+            trCount.appendChild(tdCount);
+            trCount.addToDOM(tBody);
+            console.log(data);
+        }
+    }
+
+    $("#registrar").click(function(){
+        $("#loading").show();
+        var nome = $("#nome").val();
+        var situacao = $("#situacao").val();
+        var professor = $("#professor").val();
+        var estagio = $("#estagio").val();
+        var curso = $("#curso").val();
+        var horario = $("#horario").val();
+        var maxAlunos = $("#max-alunos").val();
+        var sala = $("#sala").val();
+        var duracao = $("#duracao").val();
+        var initDate = $("#initDate").val();
+        var endDate =  $("#endDate").val();
+        var palavra =  $("#palavra").val();
+        var licao =  $("#licao").val();
+        var sitato =  $("#sitato").val();
+        var now = Date.now();
+        var dateInit = new Date(initDate);
+        var dateEnd = new Date(endDate);
+
+        if(!nome || nome.trim() === "") {
+            alert("Por favor, digite o nome da turma.");
+            return;
+        }
+        else if(!situacao) {
+            alert("Por favor, escolha a situação da turma.");
+            return;
+        }
+        else if(!sala) {
+            alert("Por favor, escolha a sala da turma.");
+            return;
+        }
+        else if(!duracao) {
+            alert("Por favor, escolha a duração das aulas da turma.");
+            return;
+        }
+        else if(!horario) {
+            alert("Por favor, escolha o horário das aulas da turma.");
+            return;
+        }
+        else if(!maxAlunos){
+            alert("Por favor, digite a quantidade máxima de alunos da turma.");
+            return;
+        }
+        else if(!initDate) {
+            alert("Por favor, escolha a data de início da turma.");
+            return;
+        }
+        else if(!endDate) {
+            alert("Por favor, escolha a data de termino da turma.");
+            return;
+        }
+        else if(dateInit.getTime() < now) {
+            alert("Por favor, escolha uma data de início que esteja no futuro.");
+            return;
+        }
+        else if(dateEnd.getTime() < dateInit.getTime()) {
+            alert("Por favor, escolha uma data de término após a data de início");
+            return;
+        }
+        else if(dateInit.getTime() === dateEnd.getTime()) {
+            alert("Por favor, escolha datas distintas.");
+            return;
+        }
+        else if(!estagio) {
+            alert("Por favor, escolha o estagio da turma.");
+            return;
+        }
+        else if(!curso) {
+            alert("Por favor, escolha o curso da turma.");
+            return;
+        }
+        else if(!palavra || palavra.trim() === "") {
+            alert("Por favor, digite a última palavra da turma.");
+            return;
+        }
+        else if(!licao) {
+            alert("Por favor, digite a última lição da turma.");
+            return;
+        }
+        else if(!sitato) {
+            alert("Por favor, digite o último sitato da turma.");
+            return;
+        }
+
+        var data = {
+            id: mockTurmas.length,
+            acao: "createTurma",
+            nome: nome,
+            situacao: Number(situacao),
+            professor: professor,
+            estagio: estagio,
+            curso: curso,
+            horario: horario,
+            maximoDeAlunos: maxAlunos,
+            sala: sala,
+            duracaoDaAula: duracao,
+            dataInicio: initDate,
+            dataTermino: endDate,
+            ultimaPalavra: palavra,
+            ultimaLicao: licao,
+            ultimoSitato: sitato
+        };
+
+        mockTurmas.push(data);
+
+        alert("Turma criada com sucesso.");
+
+        listTurmas();
+
+//        $.ajax({
+//            type: "POST",
+//            dataType: "json",
+//            url: "php/turmas/controle.php",
+//            data: data,
+//            success: function(data) {
+//                alert(data.responseText);
+//                document.getElementById("tableContent").innerHTML = "";
+//                listTurmas();
+//            },
+//            error: function(data) {
+//                alert(data.responseText);
+//                document.getElementById("tableContent").innerHTML = "";
+//                listTurmas();
+//            }
+//        });
+    });
+
+    function deleteTurma(turmaId) {
+        var data = {
+            acao: "deleteTurma",
+            id: turmaId
+        };
+
+        for(var i = 0;i < mockTurmas.length;i++) {
+            if(mockTurmas[i].id === turmaId) {
+                mockTurmas.splice(i, 1);
+                alert("Turma excluída com successo.");
+                listTurmas();
+                $("#confirm-delete").modal("hide");
+                break;
+            }
+        }
+
+//        $.ajax({
+//            type: "POST",
+//            dataType: "json",
+//            url: "php/turmas/controle.php",
+//            data: data,
+//            success: function(data) {
+//                alert(data.responseText);
+//                document.getElementById("tableContent").innerHTML = "";
+//                listTurmas();
+//                $("#confirm-delete").modal("hide");
+//            },
+//            error: function(data) {
+//                alert(data.responseText);
+//                document.getElementById("tableContent").innerHTML = "";
+//                listTurmas();
+//                $("#confirm-delete").modal("hide");
+//            }
+//        });
+    }
+</script>
+</html>

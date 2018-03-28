@@ -32,7 +32,7 @@
             <a class="nav-link" href="#">ALUNOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">TURMAS</a>
+            <a class="nav-link" href="turmas.html">TURMAS</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">AULAS</a>
@@ -67,9 +67,6 @@
           <th scope="col">Data de Término</th>
           <th scope="col">Descrição</th>
           <th scope="col">Validade</th>
-          <button type="button" class="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </tr>
         </thead>
         <tbody id="tableContent"></tbody>
@@ -145,14 +142,14 @@
                     <div class="form-group col-md-6">
                       <label for="initDate">Data de início da Bolsa</label>
                       <div class="input-group">
-                        <input type="datetime-local" class="form-control" id="initDate">
+                        <input type="date" class="form-control" id="initDate">
                       </div>
                     </div>
 
                     <div class="form-group col-md-6">
                       <label for="endDate">Data de Término da Bolsa</label>
                       <div class="input-group">
-                        <input type="datetime-local" class="form-control" id="endDate">
+                        <input type="date" class="form-control" id="endDate">
                       </div>
                     </div>
                   </div>
@@ -262,19 +259,22 @@
                     dataInicio.changeContent("fixa");
                     dataTermino.changeContent("fixa");
                     validity.changeContent("Em vigor");
-                    validity.changeClass("bolsaActive");
+                    validity.changeClass("itemActive");
                 }
                 else {
                     var options = {day: "numeric", month: "numeric", year: "numeric", hour: "numeric", minute: "numeric"};
                     var initDate = new Date(bolsa.dataInicio);
                     var endDate = new Date(bolsa.dataTermino);
-                    var now = Date.now();
-                    var localInitDate = initDate.toLocaleDateString("pt-BR", options);
-                    var localEndDate = endDate.toLocaleDateString("pt-BR", options);
+                    var initDayString = initDate.getUTCDate().toString().length < 2 ? "0" + initDate.getUTCDate() : initDate.getUTCDate();
+                    var initMonthString = initDate.getUTCMonth().toString().length < 2 ? "0" + initDate.getUTCMonth() : initDate.getUTCMonth();
+                    var endDayString = endDate.getUTCDate().toString().length < 2 ? "0" + endDate.getUTCDate() : endDate.getUTCDate();
+                    var endMonthString = endDate.getUTCMonth().toString().length < 2 ? "0" + endDate.getUTCMonth() : endDate.getUTCMonth();
+                    var initDateString = initDayString + "/" + initMonthString + "/" + initDate.getUTCFullYear();
+                    var endDateString = endDayString + "/" + endMonthString + "/" + endDate.getUTCFullYear();
 
                     fixa.changeContent("Temporária");
-                    dataInicio.changeContent(localInitDate);
-                    dataTermino.changeContent(localEndDate);
+                    dataInicio.changeContent(initDateString);
+                    dataTermino.changeContent(endDateString);
                     validity.changeContent(bolsa.validade);
                     validity.changeClass(bolsa.validadeClass);
                 }

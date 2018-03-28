@@ -28,17 +28,17 @@
     padding: 100px;
 }
 
-.bolsaWaiting
+.itemWaiting
 {
     color: yellow;
 }
 
-.bolsaActive
+.itemActive
 {
     color: green;
 }
 
-.bolsaExpired
+.itemExpired
 {
     color: red;
 }
