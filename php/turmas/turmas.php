@@ -42,7 +42,9 @@ class Turmas {
 	 $sala, $duracaoDaAula, $dataInicio, $dataTermino, $ultimaPalavra, $ultimaLicao, $ultimoSitato){
         $nome = filter_var(trim($nome), FILTER_SANITIZE_STRING);
         $situacao = filter_var($situacao, FILTER_SANITIZE_NUMBER_INT);
+        $situacao = (int)$situacao;
         $professor = filter_var($professor, FILTER_SANITIZE_STRING);
+        $estagio = filter_var($estagio, FILTER_SANITIZE_STRING);
         $curso = filter_var($curso, FILTER_SANITIZE_STRING);
         $horario = filter_var($horario, FILTER_SANITIZE_STRING);
         $maximoDeAlunos = filter_var($maximoDeAlunos, FILTER_SANITIZE_NUMBER_INT);
@@ -53,47 +55,64 @@ class Turmas {
         $ultimaPalavra = filter_var($ultimaPalavra, FILTER_SANITIZE_STRING);
         $ultimaLicao = filter_var($ultimaLicao, FILTER_SANITIZE_NUMBER_INT);
         $ultimoSitato = filter_var($ultimoSitato, FILTER_SANITIZE_NUMBER_INT);
-        $fixa = (int)$fixa;
         $timeZone = new DateTimeZone("America/Sao_Paulo");
         $now = new DateTime("now", $timeZone);
         $dateTimeInicio = new DateTime($dataInicio, $timeZone);
         $dateTimeTermino = new DateTime($dataTermino, $timeZone);
 
-        if($fixa != 0 && $fixa != 1){
-            $fixa = 1;
-        }
-
         if(!$nome || empty($nome)){
             echo "Por favor, digite o nome da turma.";
         }
-        else if(!$desconto || empty($desconto)){
-            echo "Por favor, digite o desconto referente a turma.";
+        else if(is_nan($situacao)){
+            echo "Por favor, selecione a situação da turma.";
         }
-        else if(!$fixa && !$dataInicio){
+        else if(!$sala || empty($sala)) {
+            echo "Por favor, selecione uma sala para a turma.";
+        }
+        else if(!$duracaoDaAula || empty($duracaoDaAula)) {
+            echo "Por favor, selecione a duracao da aula.";
+        }
+        else if(!$horario || empty($horario)) {
+            echo "Por favor, selecione o horario da turma.";
+        }
+        else if(!$maximoDeAlunos || empty($maximoDeAlunos)) {
+            echo "Por favor, digite o máximo de alunos permitido na turma.";
+        }
+        else if(!$dataInicio){
             echo "Por favor, selecione uma data de início para a turma";
         }
-        else if(!$fixa && !$dataTermino){
+        else if(!$dataTermino){
             echo "Por favor, selecione uma data de término para a turma";
         }
-        else if(!$fixa && $dateTimeInicio < $now){
+        else if($dateTimeInicio < $now){
             echo "Por favor, selecione uma data de início que não esteja no passado.";
         }
-        else if(!$fixa && $dateTimeTermino < $dateTimeInicio){
+        else if($dateTimeTermino < $dateTimeInicio){
             echo "Por favor, selecione uma data de término após a data de início.";
         }
-        else if(!$fixa && $dateTimeInicio == $dateTimeTermino){
+        else if($dateTimeInicio == $dateTimeTermino){
             echo "Por favor, selecione datas distintas.";
         }
-        else if(!$fixa && !$descricao || empty($descricao)){
-            echo "Por favor, digite a descrição da turma.";
+        else if(!$estagio || empty($estagio)){
+            echo "Por favor, selecione o estágio da turma.";
+        }
+        else if(!$curso || empty($curso)){
+            echo "Por favor, selecione o curso da turma.";
+        }
+        else if(!$ultimaPalavra || empty($ultimaPalavra)){
+            echo "Por favor, digite a última palavra da turma.";
+        }
+        else if(!$ultimaLicao || empty($ultimaLicao)) {
+            echo "Por favor, digite a última licao da turma.";
+        }
+        else if(!$ultimoSitato || empty($ultimoSitato)) {
+            echo "Por favor, digite o último sitato da turma.";
         }
         else {
-            if($fixa == 0){
-                $query = "INSERT INTO turmas (nome, desconto, descricao, fixa, dataInicio, dataTermino) VALUES ('{$nome}', '{$desconto}', '{$descricao}', '{$fixa}', '{$dataInicio}', '{$dataTermino}');";
-            }
-            else {
-                $query = "INSERT INTO turmas (nome, desconto, descricao, fixa) VALUES ('{$nome}', '{$desconto}', '{$descricao}', '{$fixa}');";
-            }
+            $query = "INSERT INTO turmas(nome, situacao, professor, estagio, curso, horario, maximoDeAlunos, sala,
+             duracaoDaAula, dataInicio, dataTermino, ultimaPalavra, ultimaLicao, ultimoSitato) VALUES ('{$nome}',
+              '{$situacao}', '{$professor}', '{$estagio}', '{$curso}', '{$horario}', '{$maximoDeAlunos}', '{$sala}',
+               '{$duracaoDaAula}', '{$dataInicio}', '{$dataTermino}', '{$ultimaPalavra}', '{$ultimaLicao}', '{$ultimoSitato}');";
             $result = $this->conn->query($query);
 
             if($result){

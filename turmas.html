@@ -74,6 +74,7 @@
         <th scope="col">Última Lição</th>
         <th scope="col">Último Sitato</th>
         <th scope="col">Situação</th>
+        <th scope="col">edit</th>
       </tr>
       </thead>
       <tbody id="tableContent"></tbody>
@@ -87,7 +88,7 @@
   <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-right"></span></a>
   <ul class="navbar-primary-menu">
     <li>
-      <a href="#" data-toggle="modal" data-target="#registrarTurma"><span class="oi oi-plus"></span><span class="nav-label">   Incluir</span></a>
+      <a href="#" id="openRegisterModal" data-toggle="modal" data-target="#registrarTurma"><span class="oi oi-plus"></span><span class="nav-label">   Incluir</span></a>
       <a href="#"><span class="oi oi-print"></span><span class="nav-label">   Relatório</span></a>
     </li>
   </ul>
@@ -105,7 +106,8 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="registrarTurma">Registrar Turma</h5>
+        <h5 class="modal-title" id="registrarTurmaTitle">Registrar Turma</h5>
+        <h5 class="modal-title" id="editarTurmaTitle" aria-hidden="true">Editar Turma</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -237,6 +239,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" id="registrar">Registrar</button>
+        <button type="button" class="btn btn-primary" id="editar" aria-hidden="true">Editar</button>
       </div>
     </div>
   </div>
@@ -265,6 +268,7 @@
 
 <footer>
   <a>© Revolution School.</a>
+  <i class="glyphicon glyphicon-edit"></i>
 </footer>
 </body>
 <!-- Scripts -->
@@ -302,57 +306,26 @@
         $("#dateSection").show();
     });
 
-    var mockTurmas = [{
-        id: 0,
-        nome: "Adriana",
-        situacao: 1,
-        professor: "Adriana Nunes",
-        estagio: "Iniciante",
-        curso: "Kids",
-        horario: "Seg-Ter-Que-Qui-Sex(12:00/12:50)",
-        maximoDeAlunos: 40,
-        sala: "United States",
-        duracaoDaAula: 50,
-        dataInicio: "30/04/2018",
-        dataTermino: "30/04/2020",
-        ultimaPalavra: "Know",
-        ultimaLicao: 120,
-        ultimoSitato: 10
-    },{
-        id: 1,
-        nome: "Teens",
-        situacao: 1,
-        professor: null,
-        estagio: "Médio",
-        curso: "Teens",
-        horario: "Seg-Ter-Que-Qui-Sex(18:00/18:50)",
-        maximoDeAlunos: 30,
-        sala: "Canada",
-        duracaoDaAula: 50,
-        dataInicio: "20/04/2018",
-        dataTermino: "20/04/2020",
-        ultimaPalavra: "Away",
-        ultimaLicao: 350,
-        ultimoSitato: 28
-    }];
+    $("#openRegisterModal").click(function() {
+        $("#editar").hide();
+        $("#registrar").show();
+    });
 
     function listTurmas(){
         var data = {
             "acao": "listTurmas"
         };
         data = $(this).serialize() + "&" + $.param(data);
-//        $.ajax({
-//            type: "POST",
-//            dataType: "json",
-//            url: "php/turmas/controle.php",
-//            data: data,
-//            success: listSuccess,
-//            error: function(data) {
-//                console.log(data);
-//            }
-//        });
-
-        listSuccess(mockTurmas);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "php/turmas/controle.php",
+            data: data,
+            success: listSuccess,
+            error: function(data) {
+                console.log(data);
+            }
+        });
 
         function listSuccess(data) {
             var tBody = document.getElementById("tableContent");
@@ -374,6 +347,7 @@
                 var ultimaLicao = new DOM_Element("td", false, false, false, turma.ultimaLicao);
                 var ultimoSitato = new DOM_Element("td", false, false, false, turma.ultimoSitato);
                 var situacao = new DOM_Element("td");
+                var edit = new DOM_Element("td");
 
                 if(!turma.professor) professor.changeContent("Sem Professor");
 
@@ -386,20 +360,58 @@
                     situacao.changeClass("itemExpired");
                 }
 
-                var closeButton = new DOM_Element("button", "close", false, [
+                var closeButton = new DOM_Element("button", "btn transparent-button", false, [
                     {name: "type", value: "button"},
                     {name: "aria-label", value: "Close"},
                     {name: "data-toggle", value: "modal"},
-                    {name: "data-target", value: "confirm-delete"}], "&times;");
+                    {name: "data-target", value: "confirm-delete"},
+                    {name: "style", value: "left: 18px;top: -30px"}]);
+                var deleteIcon = new DOM_Element("img", "img img-responsive", false, [{name: "src", value: "assets/icons/open-iconic-master/png/trash-2x.png"}]);
 
                 closeButton.element.turma = turma.id;
+                deleteIcon.element.turma = turma.id;
                 closeButton.click(function(e) {
                     e.preventDefault();
                     var deleteTurma = document.getElementById("delete-turma");
                     deleteTurma.turma = e.target.turma;
                     $("#confirm-delete").modal("show");
                 });
-                situacao.appendChild(closeButton);
+
+                var editButton = new DOM_Element("button", "btn transparent-button", false, [{name: "style", value: "left: -18px;"}]);
+                var editIcon = new DOM_Element("img", "img img-responsive", false, [
+                    {name: "src", value: "assets/icons/open-iconic-master/png/cog-2x.png"}
+                    ]);
+
+                editButton.element.turma = turma;
+                editIcon.element.turma = turma;
+                editButton.click(function(e) {
+                    console.log(e.target.turma.curso);
+                    var currentTurma = e.target.turma;
+                    e.preventDefault();
+                    $("#registrar").hide();
+                    $("#editar").show();
+
+                    $("#nome").val(currentTurma.nome);
+                    $("#situacao").val(currentTurma.situacao);
+                    $("#professor").val(currentTurma.professor);
+                    $("#estagio").val(currentTurma.estagio);
+                    $("#curso").val(currentTurma.curso);
+                    $("#horario").val(currentTurma.horario);
+                    $("#max-alunos").val(currentTurma.maximoDeAlunos);
+                    $("#sala").val(currentTurma.sala);
+                    $("#duracao").val(currentTurma.duracaoDaAula);
+                    $("#initDate").val(currentTurma.dataInicio);
+                    $("#endDate").val(currentTurma.dataTermino);
+                    $("#palavra").val(currentTurma.ultimaPalavra);
+                    $("#licao").val(currentTurma.ultimaLicao);
+                    $("#sitato").val(currentTurma.ultimoSitato);
+
+                    $("#registrarTurma").modal("show");
+                });
+                closeButton.appendChild(deleteIcon);
+                editButton.appendChild(editIcon);
+                edit.appendChild(editButton);
+                edit.appendChild(closeButton);
                 tr.appendChild(name);
                 tr.appendChild(professor);
                 tr.appendChild(estagio);
@@ -414,6 +426,7 @@
                 tr.appendChild(ultimaLicao);
                 tr.appendChild(ultimoSitato);
                 tr.appendChild(situacao);
+                tr.appendChild(edit);
                 tr.addToDOM(tBody);
             }
 
@@ -442,77 +455,8 @@
         var palavra =  $("#palavra").val();
         var licao =  $("#licao").val();
         var sitato =  $("#sitato").val();
-        var now = Date.now();
-        var dateInit = new Date(initDate);
-        var dateEnd = new Date(endDate);
-
-        if(!nome || nome.trim() === "") {
-            alert("Por favor, digite o nome da turma.");
-            return;
-        }
-        else if(!situacao) {
-            alert("Por favor, escolha a situação da turma.");
-            return;
-        }
-        else if(!sala) {
-            alert("Por favor, escolha a sala da turma.");
-            return;
-        }
-        else if(!duracao) {
-            alert("Por favor, escolha a duração das aulas da turma.");
-            return;
-        }
-        else if(!horario) {
-            alert("Por favor, escolha o horário das aulas da turma.");
-            return;
-        }
-        else if(!maxAlunos){
-            alert("Por favor, digite a quantidade máxima de alunos da turma.");
-            return;
-        }
-        else if(!initDate) {
-            alert("Por favor, escolha a data de início da turma.");
-            return;
-        }
-        else if(!endDate) {
-            alert("Por favor, escolha a data de termino da turma.");
-            return;
-        }
-        else if(dateInit.getTime() < now) {
-            alert("Por favor, escolha uma data de início que esteja no futuro.");
-            return;
-        }
-        else if(dateEnd.getTime() < dateInit.getTime()) {
-            alert("Por favor, escolha uma data de término após a data de início");
-            return;
-        }
-        else if(dateInit.getTime() === dateEnd.getTime()) {
-            alert("Por favor, escolha datas distintas.");
-            return;
-        }
-        else if(!estagio) {
-            alert("Por favor, escolha o estagio da turma.");
-            return;
-        }
-        else if(!curso) {
-            alert("Por favor, escolha o curso da turma.");
-            return;
-        }
-        else if(!palavra || palavra.trim() === "") {
-            alert("Por favor, digite a última palavra da turma.");
-            return;
-        }
-        else if(!licao) {
-            alert("Por favor, digite a última lição da turma.");
-            return;
-        }
-        else if(!sitato) {
-            alert("Por favor, digite o último sitato da turma.");
-            return;
-        }
 
         var data = {
-            id: mockTurmas.length,
             acao: "createTurma",
             nome: nome,
             situacao: Number(situacao),
@@ -530,28 +474,20 @@
             ultimoSitato: sitato
         };
 
-        mockTurmas.push(data);
-
-        alert("Turma criada com sucesso.");
-
-        listTurmas();
-
-//        $.ajax({
-//            type: "POST",
-//            dataType: "json",
-//            url: "php/turmas/controle.php",
-//            data: data,
-//            success: function(data) {
-//                alert(data.responseText);
-//                document.getElementById("tableContent").innerHTML = "";
-//                listTurmas();
-//            },
-//            error: function(data) {
-//                alert(data.responseText);
-//                document.getElementById("tableContent").innerHTML = "";
-//                listTurmas();
-//            }
-//        });
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "php/turmas/controle.php",
+            data: data,
+            success: function(data) {
+                alert(data.responseText);
+                listTurmas();
+            },
+            error: function(data) {
+                alert(data.responseText);
+                listTurmas();
+            }
+        });
     });
 
     function deleteTurma(turmaId) {
@@ -560,34 +496,22 @@
             id: turmaId
         };
 
-        for(var i = 0;i < mockTurmas.length;i++) {
-            if(mockTurmas[i].id === turmaId) {
-                mockTurmas.splice(i, 1);
-                alert("Turma excluída com successo.");
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "php/turmas/controle.php",
+            data: data,
+            success: function(data) {
+                alert(data.responseText);
                 listTurmas();
                 $("#confirm-delete").modal("hide");
-                break;
+            },
+            error: function(data) {
+                alert(data.responseText);
+                listTurmas();
+                $("#confirm-delete").modal("hide");
             }
-        }
-
-//        $.ajax({
-//            type: "POST",
-//            dataType: "json",
-//            url: "php/turmas/controle.php",
-//            data: data,
-//            success: function(data) {
-//                alert(data.responseText);
-//                document.getElementById("tableContent").innerHTML = "";
-//                listTurmas();
-//                $("#confirm-delete").modal("hide");
-//            },
-//            error: function(data) {
-//                alert(data.responseText);
-//                document.getElementById("tableContent").innerHTML = "";
-//                listTurmas();
-//                $("#confirm-delete").modal("hide");
-//            }
-//        });
+        });
     }
 </script>
 </html>

@@ -42,3 +42,8 @@
 {
     color: red;
 }
+
+.transparent-button {
+    background-color: transparent;
+    position: relative;
+}

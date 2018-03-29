@@ -91,7 +91,9 @@ function createTurma(){
     $db = new DataBase();
     $conn = $db->getConnection();
     $turmas = new Turmas($conn);
-    $response = $turmas->createTurma($_POST["nome"], $_POST["desconto"], $_POST["descricao"], $_POST["fixa"], $_POST["dataInicio"], $_POST["dataTermino"]);
+    $response = $turmas->createTurma($_POST["nome"], $_POST["situacao"], $_POST["professor"], $_POST["estagio"],
+     $_POST["curso"], $_POST["horario"], $_POST["maximoDeAlunos"], $_POST["sala"], $_POST["duracaoDaAula"],
+      $_POST["dataInicio"], $_POST["dataTermino"], $_POST["ultimaPalavra"], $_POST["ultimaLicao"], $_POST["ultimoSitato"]);
 
     if($response["erro"]){
         echo $response["responseText"];
