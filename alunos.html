@@ -174,20 +174,6 @@
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="nome">Nome:</label>
-                      <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="rg">RG:</label>
-                      <input type="text" class="form-control" id="rg" placeholder="Ex.: 171.251.54-26">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="cpf">CPF:</label>
-                      <input type="text" class="form-control" id="cpf" placeholder="Ex.: 171.251.54-26">
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
                       <label for="dataNasc">Data de Nasc.:</label>
                       <input type="date" class="form-control" id="dataNasc">
                     </div>
@@ -216,7 +202,7 @@
                     <div class="form-group col-md-4">
                       <label for="escolaridade">Escolaridade:</label>
                       <select class="custom-select" id="escolaridade">
-                        <option selected>Selecione</option>
+                        <option value="" selected>Selecione</option>
                         <option value="Ensino Superior">Ensino Superior</option>
                         <option value="Ensino Médio">Ensino Médio</option>
                         <option value="Ensino Fundamental">Ensino Médio</option>
@@ -224,9 +210,9 @@
                       </select>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="escolaridade">Série:</label>
-                      <select class="custom-select" id="escolaridade">
-                        <option selected>Selecione</option>
+                      <label for="serie">Série:</label>
+                      <select class="custom-select" id="serie">
+                        <option value="" selected>Selecione</option>
                         <option value="Ensino Superior">1ª série</option>
                         <option value="Ensino Médio">2ª série</option>
                         <option value="Ensino Fundamental">3ª séria</option>
@@ -248,8 +234,8 @@
                       <input type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida 1">
                     </div>
                     <div class="form-group col-md-2">
-                      <label for="numero">Número:</label>
-                      <input type="number" class="form-control" id="numero" placeholder="Ex.: 77">
+                      <label for="numeroCasa">Número:</label>
+                      <input type="number" class="form-control" id="numeroCasa" placeholder="Ex.: 77">
                     </div>
                   </div>
                   <div class="form-row">
@@ -323,10 +309,10 @@
                   <div class="form-row">
                     <div class="form-group col-md-4">
                       <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                        <input type="checkbox" class="custom-control-input" id="inadimplencia">
+                        <label class="custom-control-label" for="inadimplencia">Inadimplência</label>
                       </div>
-                      <small id="inadimplenteHelp" class="form-text text-muted">Marque esta opção se o aluno possui inadimplência.</small>
+                      <small id="inadimplenteHelp" class="form-text text-muted">Marque esta opção se o aluno possuir inadimplência.</small>
                     </div>
                   </div>
                 </form>
@@ -391,7 +377,7 @@
 <!-- MODAL EDITAR ALUNO -->
 
     <!-- Modal -->
-    <div class="modal fade" id="editarAluno" tabindex="-1" role="dialog" aria-labelledby="editarAluno" aria-hidden="true">
+    <!-- <div class="modal fade" id="editarAluno" tabindex="-1" role="dialog" aria-labelledby="editarAluno" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -512,8 +498,8 @@
                       <input type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida 1">
                     </div>
                     <div class="form-group col-md-2">
-                      <label for="numero">Número:</label>
-                      <input type="number" class="form-control" id="numero" placeholder="Ex.: 77">
+                      <label for="numeroCasa">Número:</label>
+                      <input type="number" class="form-control" id="numeroCasa" placeholder="Ex.: 77">
                     </div>
                   </div>
                   <div class="form-row">
@@ -568,10 +554,6 @@
                     </div>
                   </div>
                   <div class="form-row">
-                    <!-- <div class="form-group col-md-4">
-                      <label for="carteiraProfissional">Carteira Profissional:</label>
-                      <input type="text" class="form-control" id="carteiraProfissional">
-                    </div> -->
                     <div class="form-group col-md-2">
                       <label for="inss">INSS:</label>
                       <input type="text" class="form-control" id="inss">
@@ -697,7 +679,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 <!-- END EDITAR ALUNO -->
 
@@ -796,40 +778,63 @@
         });
       }));
 
-      $("#registrar").click(function(){
+      $("#btn-registrarAluno").click(function(){
+        $("#loading").show();
+        if ($('#inadimplencia').is(':checked')) {
+          var inadimplencia = true;
+        }else{
+          var inadimplencia = false;
+        }
+        var dataAluno = {
+          "acao": "registrarAluno",
+          "nome": $("#nome").val(),
+          "rg": $("#rg").val(),
+          "cpf": $("#cpf").val(),
+          "dataNasc": $("#dataNasc").val(),
+          "estadoCivil": $("#estadoCivil").val(),
+          "escola": $("#escolaAluno").val(),
+          "escolaridade": $("#escolaridade").val(),
+          "serie": $("#serie").val(),
+          "sexo": $("#sexo").val(),
+          "cep": $("#cep").val(),
+          "logradouro": $("#logradouro").val(),
+          "numeroCasa": $("#numeroCasa").val(),
+          "complemento": $("#complemento").val(),
+          "cidade": $("#cidade").val(),
+          "bairro": $("#bairro").val(),
+          "email": $("#email").val(),
+          "telefone": $("#telefone").val(),
+          "celular": $("#celular").val(),
+          "banco": $("#banco").val(),
+          "agencia": $("#agencia").val(),
+          "conta": $("#conta").val(),
+          "codigoClienteBanco": $("#codigoClienteBanco").val(),
+          "bolsa": $("#bolsas").val(),
+          "inadimplencia": inadimplencia,
+          "nomeResponsavelUm": $("#nomeResponsavelUm").val(),
+          "telefoneResponsavelUm": $("#telefoneResponsavelUm").val(),
+          "celularResponsavelUm": $("#celularResponsavelUm").val(),
+          "nomeResponsavelDois": $("#nomeResponsavelDois").val(),
+          "telefoneResponsavelDois": $("#telefoneResponsavelDois").val(),
+          "celularResponsavelDois": $("#celularResponsavelDois").val(),
+          "observacoes": $("#observacaoText").val()
+        };
+        // dataAluno = $(this).serialize() + "&" + $.param(dataAluno);
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/alunos/controle.php",
+          data: dataAluno,
+          success: function(data) {
+            alert('worked');
+            console.log(data);
+          },
+          error: function(data) {
+            console.log(data);
+            alert('deu erro');
+          }
+        });
 
-
-
-        // $("#loading").show();
-        // var nome = $("#nome").val();
-        // var rg = $("#rg").val();
-        // var cpf = $("#cpf").val();
-        // var dataNasc = $("#dataNasc").val();
-        // var estadoCivil = $("#estadoCivil").val();
-        // var sexo = $("#sexo").val();
-        // var email = $("#email").val();
-        // var telefone = $("#telefone").val();
-        // var celular = $("#celular").val();
-
-        // alert(tipoPagamento);
-
-        // $.post("php/alunos/controle.php",
-        // {
-        //     acao: "registrar",
-        //     nome: nome,
-        //     rg: rg,
-        //     cpf: cpf,
-        //     dataNasc: dataNasc,
-        //     estadoCivil: estadoCivil,
-        //     sexo: sexo,
-        //     email: email,
-        //     telefone: telefone,
-        //     celular: celular,
-        // },
-        // function(data, status){
-        //   // $("#loading").hide();
-        //     console.log("Data:\n"+data+"\nStatus:"+status);
-        // });
       });
     </script>
 </html>
