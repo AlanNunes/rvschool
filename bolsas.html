@@ -67,6 +67,7 @@
           <th scope="col">Data de Término</th>
           <th scope="col">Descrição</th>
           <th scope="col">Validade</th>
+          <th scope="col">Edit</th>
         </tr>
         </thead>
         <tbody id="tableContent"></tbody>
@@ -80,7 +81,7 @@
   <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-right"></span></a>
   <ul class="navbar-primary-menu">
     <li>
-      <a href="#" data-toggle="modal" data-target="#registrarBolsa"><span class="oi oi-plus"></span><span class="nav-label">   Incluir</span></a>
+      <a href="#" id="openRegisterModal" data-toggle="modal" data-target="#registrarBolsa"><span class="oi oi-plus"></span><span class="nav-label">   Incluir</span></a>
       <a href="#"><span class="oi oi-print"></span><span class="nav-label">   Relatório</span></a>
     </li>
   </ul>
@@ -98,10 +99,8 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="registrarBolsa">Registrar Nova Bolsa</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <h5 class="modal-title" id="registrarBolsaTitle">Registrar Nova Bolsa</h5>
+            <h5 class="modal-title" id="editarBolsaTitle" aria-hidden="true">Editar Nova Bolsa</h5>
           </div>
           <div class="modal-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -155,8 +154,8 @@
                   </div>
                   <div class="form-row">
                   <div class="form-group col-md-12">
-                    <label for="descrição">Descrição:</label>
-                    <textarea class="form-control" id="descrição" rows="5" placeholder="Ex.: Bolsa de 50% para o curso de inglês"></textarea>
+                    <label for="descricao">Descrição:</label>
+                    <textarea class="form-control" id="descricao" rows="5" placeholder="Ex.: Bolsa de 50% para o curso de inglês"></textarea>
                   </div>
                 </div>
                 </form>
@@ -166,6 +165,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" id="registrar">Registrar</button>
+            <button type="button" class="btn btn-primary" id="editar" aria-hidden="true">Editar</button>
           </div>
         </div>
       </div>
@@ -231,6 +231,17 @@
           $("#dateSection").show();
       });
 
+      $("#openRegisterModal").click(function() {
+          $("#editar").hide();
+          $("#editarBolsaTitle").hide();
+          $("#registrar").show();
+          $("#registrarBolsaTitle").show();
+      });
+
+      $("#editar").click(function(e) {
+          updateBolsa(e.target.bolsa);
+      });
+
       function listBolsas(){
         var data = {
           "acao": "listBolsas"
@@ -243,6 +254,7 @@
           data: data,
           success: function(data) {
               var tBody = document.getElementById("tableContent");
+              tBody.innerHTML = "";
             for(var i = 0;i < data.length;i++) {
                 var bolsa = data[i];
                 var tr = new DOM_Element("tr");
@@ -253,6 +265,7 @@
                 var dataInicio = new DOM_Element("td");
                 var dataTermino = new DOM_Element("td");
                 var validity = new DOM_Element("td");
+                var edit = new DOM_Element("td");
 
                 if(Number(bolsa.fixa)) {
                     fixa.changeContent("fixa");
@@ -262,15 +275,14 @@
                     validity.changeClass("itemActive");
                 }
                 else {
-                    var options = {day: "numeric", month: "numeric", year: "numeric", hour: "numeric", minute: "numeric"};
-                    var initDate = new Date(bolsa.dataInicio);
-                    var endDate = new Date(bolsa.dataTermino);
-                    var initDayString = initDate.getUTCDate().toString().length < 2 ? "0" + initDate.getUTCDate() : initDate.getUTCDate();
-                    var initMonthString = initDate.getUTCMonth().toString().length < 2 ? "0" + initDate.getUTCMonth() : initDate.getUTCMonth();
-                    var endDayString = endDate.getUTCDate().toString().length < 2 ? "0" + endDate.getUTCDate() : endDate.getUTCDate();
-                    var endMonthString = endDate.getUTCMonth().toString().length < 2 ? "0" + endDate.getUTCMonth() : endDate.getUTCMonth();
-                    var initDateString = initDayString + "/" + initMonthString + "/" + initDate.getUTCFullYear();
-                    var endDateString = endDayString + "/" + endMonthString + "/" + endDate.getUTCFullYear();
+                    var initDate = bolsa.dataInicio.split("-");
+                    var endDate = bolsa.dataTermino.split("-");
+                    var initDateDayString = initDate[2].length < 2 ? "0" + initDate[2] : initDate[2];
+                    var initDateMonthString = initDate[1].length < 2 ? "0" + initDate[1] : initDate[1];
+                    var endDateDayString = endDate[2].length < 2 ? "0" + endDate[2] : endDate[2];
+                    var endDateMonthString = endDate[1].length < 2 ? "0" + endDate[1] : endDate[1];
+                    var initDateString = initDateDayString + "/" + initDateMonthString + "/" + initDate[0];
+                    var endDateString = endDateDayString + "/" + endDateMonthString + "/" + endDate[0];
 
                     fixa.changeContent("Temporária");
                     dataInicio.changeContent(initDateString);
@@ -279,22 +291,58 @@
                     validity.changeClass(bolsa.validadeClass);
                 }
 
-                var closeButton = new DOM_Element("button", "close", false, [
+                var closeButton = new DOM_Element("button", "btn transparent-button", false, [
                     {name: "type", value: "button"},
                     {name: "aria-label", value: "Close"},
                     {name: "data-toggle", value: "modal"},
-                    {name: "data-target", value: "confirm-delete"}], "&times;");
-                var closeSpan = new DOM_Element("span", false, false, [{name: "aria-hidden", value: "true"}]);
+                    {name: "data-target", value: "confirm-delete"}]);
+                var deleteIcon = new DOM_Element("img", false, false, [{name: "src", value: "assets/icons/open-iconic-master/png/trash-2x.png"}]);
 
                 closeButton.element.bolsa = bolsa.id;
+                deleteIcon.element.bolsa = bolsa.id;
                 closeButton.click(function(e) {
                     e.preventDefault();
                     var deleteBolsa = document.getElementById("delete-bolsa");
                     deleteBolsa.bolsa = e.target.bolsa;
                     $("#confirm-delete").modal("show");
                 });
-//                closeButton.appendChild(closeSpan.element);
-                validity.appendChild(closeButton);
+
+                var editButton = new DOM_Element("button", "btn transparent-button");
+                var editIcon = new DOM_Element("img", false, false, [{name: "src", value: "assets/icons/open-iconic-master/png/cog-2x.png"}]);
+
+                editButton.element.bolsa = bolsa;
+                editIcon.element.bolsa = bolsa;
+                editButton.click(function(e) {
+                    var currentBolsa = e.target.bolsa;
+                    document.getElementById("editar").bolsa = currentBolsa.id;
+                    e.preventDefault();
+                    $("#registrar").hide();
+                    $("#registrarBolsaTitle").hide();
+                    $("#editar").show();
+                    $("#editarBolsaTitle").show();
+
+                    $("#nome").val(currentBolsa.nome);
+                    $("#desconto").val(currentBolsa.desconto);
+                    $("#initDate").val(currentBolsa.dataInicio);
+                    $("#endDate").val(currentBolsa.dataTermino);
+                    $("#descricao").val(currentBolsa.descricao);
+
+                    if(Number(currentBolsa.fixa)) {
+                        $("#tempDateRadio").prop("checked", false);
+                        $("#fixDateRadio").prop("checked", true).click();
+                    }
+                    else {
+                        $("#fixDateRadio").prop("checked", false);
+                        $("#tempDateRadio").prop("checked", true).click();
+                    }
+
+                    $("#registrarBolsa").modal("show");
+                });
+
+                closeButton.appendChild(deleteIcon);
+                editButton.appendChild(editIcon);
+                edit.appendChild(editButton);
+                edit.appendChild(closeButton);
                 tr.appendChild(name);
                 tr.appendChild(desconto);
                 tr.appendChild(fixa);
@@ -302,12 +350,13 @@
                 tr.appendChild(dataTermino);
                 tr.appendChild(descricao);
                 tr.appendChild(validity);
+                tr.appendChild(edit);
                 tr.addToDOM(tBody);
             }
 
             //Contagem de Bolsas
             var trCount = new DOM_Element("tr");
-            var tdCount = new DOM_Element("td", "text-center", false, [{name: "colspan", value: 6}], data.length + " Bolsas");
+            var tdCount = new DOM_Element("td", "text-center", false, [{name: "colspan", value: 7}], data.length + " Bolsas");
             trCount.appendChild(tdCount);
             trCount.addToDOM(tBody);
             console.log(data);
@@ -320,29 +369,9 @@
 
       $("#registrar").click(function(){
         $("#loading").show();
-        var nome = $("#nome").val();
-        var desconto = $("#desconto").val();
-        var descricao = $("#descrição").val();
-        var initDate = $("#initDate").val();
-        var endDate =  $("#endDate").val();
-        var fixed = 1;
-        var dateForms = document.getElementsByName("dateRadio");
-        for(var i = 0;i < dateForms.length;i++) {
-            if(dateForms[i].checked) {
-                fixed = Number(dateForms[i].value);
-                break;
-            }
-        }
 
-        var data = {
-            acao: "createBolsa",
-            nome: nome,
-            desconto: desconto,
-            descricao: descricao,
-            fixa: fixed,
-            dataInicio: initDate,
-            dataTermino: endDate
-        };
+        var data = getFormsVal();
+        data.acao = "createBolsa";
 
         $.ajax({
             type: "POST",
@@ -351,16 +380,36 @@
             data: data,
             success: function(data) {
                 alert(data.responseText);
-                document.getElementById("tableContent").innerHTML = "";
                 listBolsas();
             },
             error: function(data) {
                 alert(data.responseText);
-                document.getElementById("tableContent").innerHTML = "";
                 listBolsas();
             }
         });
       });
+
+      function updateBolsa(bolsaId) {
+          $("#loading").show();
+          var data = getFormsVal();
+          data.acao = "updateBolsa";
+          data.id = bolsaId;
+
+          $.ajax({
+              type: "POST",
+              dataType: "json",
+              url: "php/bolsas/controle.php",
+              data: data,
+              success: function(data) {
+                  alert(data.responseText);
+                  listBolsas();
+              },
+              error: function(data) {
+                  alert(data.responseText);
+                  listBolsas();
+              }
+          });
+      }
 
       function deleteBolsa(bolsaId) {
           var data = {
@@ -375,17 +424,40 @@
               data: data,
               success: function(data) {
                   alert(data.responseText);
-                  document.getElementById("tableContent").innerHTML = "";
                   listBolsas();
                   $("#confirm-delete").modal("hide");
               },
               error: function(data) {
                   alert(data.responseText);
-                  document.getElementById("tableContent").innerHTML = "";
                   listBolsas();
                   $("#confirm-delete").modal("hide");
               }
           });
+      }
+
+      function getFormsVal() {
+          var nome = $("#nome").val();
+          var desconto = $("#desconto").val();
+          var descricao = $("#descricao").val();
+          var initDate = $("#initDate").val();
+          var endDate =  $("#endDate").val();
+          var fixed = 1;
+          var dateForms = document.getElementsByName("dateRadio");
+          for(var i = 0;i < dateForms.length;i++) {
+              if(dateForms[i].checked) {
+                  fixed = Number(dateForms[i].value);
+                  break;
+              }
+          }
+
+          return {
+              nome: nome,
+              desconto: desconto,
+              descricao: descricao,
+              fixa: fixed,
+              dataInicio: initDate,
+              dataTermino: endDate
+          };
       }
     </script>
 </html>

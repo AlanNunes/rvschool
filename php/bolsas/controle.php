@@ -14,6 +14,9 @@ if(!empty($_POST["acao"]) && isset($_POST["acao"])){
         case 'createBolsa':
 			createBolsa();
 			break;
+        case 'updateBolsa':
+            updateBolsa();
+            break;
         case 'deleteBolsa':
             deleteBolsa();
             break;
@@ -98,6 +101,21 @@ function createBolsa(){
     }else{
         echo $response["responseText"];
     }
+}
+
+function updateBolsa(){
+    $db = new DataBase();
+        $conn = $db->getConnection();
+        $bolsas = new Bolsas($conn);
+        $bolsa = $bolsas->getBolsa($_POST["id"]);
+        $response = $bolsas->updateBolsa($_POST["id"], $_POST["nome"], $_POST["desconto"], $_POST["descricao"],
+         $_POST["fixa"], $_POST["dataInicio"], $_POST["dataTermino"], $bolsa["response"]);
+
+        if($response["erro"]){
+            echo $response["responseText"];
+        }else{
+            echo $response["responseText"];
+        }
 }
 
 function deleteBolsa(){

@@ -308,11 +308,13 @@
 
     $("#openRegisterModal").click(function() {
         $("#editar").hide();
+        $("#editarTurmaTitle").hide();
         $("#registrar").show();
+        $("#registrarTurmaTitle").show();
     });
 
     $("#editar").click(function(e) {
-        editarTurma(e.target.turma);
+        updateTurma(e.target.turma);
     });
 
     function listTurmas(){
@@ -344,7 +346,7 @@
                 var horario = new DOM_Element("td", false, false, false, turma.horario);
                 var maxAlunos = new DOM_Element("td", false, false, false, turma.maximoDeAlunos);
                 var sala = new DOM_Element("td", false, false, false, turma.sala);
-                var duracaoAula = new DOM_Element("td", false, false, false, turma.duracaoDaAula);
+                var duracaoAula = new DOM_Element("td", false, false, false, turma.duracaoDaAula + " min.");
                 var dataInicio = new DOM_Element("td", false, false, false, turma.dataInicio);
                 var dataTermino = new DOM_Element("td", false, false, false, turma.dataTermino);
                 var ultimaPalavra = new DOM_Element("td", false, false, false, turma.ultimaPalavra);
@@ -369,7 +371,7 @@
                     {name: "aria-label", value: "Close"},
                     {name: "data-toggle", value: "modal"},
                     {name: "data-target", value: "confirm-delete"}]);
-                var deleteIcon = new DOM_Element("img", "img img-responsive", false, [{name: "src", value: "assets/icons/open-iconic-master/png/trash-2x.png"}]);
+                var deleteIcon = new DOM_Element("img", false, false, [{name: "src", value: "assets/icons/open-iconic-master/png/trash-2x.png"}]);
 
                 closeButton.element.turma = turma.id;
                 deleteIcon.element.turma = turma.id;
@@ -381,7 +383,7 @@
                 });
 
                 var editButton = new DOM_Element("button", "btn transparent-button");
-                var editIcon = new DOM_Element("img", "img img-responsive", false, [
+                var editIcon = new DOM_Element("img", false, false, [
                     {name: "src", value: "assets/icons/open-iconic-master/png/cog-2x.png"}
                     ]);
 
@@ -393,7 +395,9 @@
                     document.getElementById("editar").turma = currentTurma.id;
                     e.preventDefault();
                     $("#registrar").hide();
+                    $("#registrarTurmaTitle").hide();
                     $("#editar").show();
+                    $("#editarTurmaTitle").show();
 
                     $("#nome").val(currentTurma.nome);
                     $("#situacao").val(currentTurma.situacao);
@@ -488,7 +492,7 @@
         });
     }
 
-    function editarTurma(turmaId) {
+    function updateTurma(turmaId) {
         $("#loading").show();
         var data = getFormsVal();
         data.acao = "updateTurma";
