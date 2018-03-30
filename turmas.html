@@ -57,7 +57,7 @@
 <br>
 <div class="container-fluid" id="content">
   <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-hover table-sm">
       <thead class="thead-dark">
       <tr>
         <th scope="col">Nome</th>
@@ -311,6 +311,10 @@
         $("#registrar").show();
     });
 
+    $("#editar").click(function(e) {
+        editarTurma(e.target.turma);
+    });
+
     function listTurmas(){
         var data = {
             "acao": "listTurmas"
@@ -364,8 +368,7 @@
                     {name: "type", value: "button"},
                     {name: "aria-label", value: "Close"},
                     {name: "data-toggle", value: "modal"},
-                    {name: "data-target", value: "confirm-delete"},
-                    {name: "style", value: "left: 18px;top: -30px"}]);
+                    {name: "data-target", value: "confirm-delete"}]);
                 var deleteIcon = new DOM_Element("img", "img img-responsive", false, [{name: "src", value: "assets/icons/open-iconic-master/png/trash-2x.png"}]);
 
                 closeButton.element.turma = turma.id;
@@ -377,7 +380,7 @@
                     $("#confirm-delete").modal("show");
                 });
 
-                var editButton = new DOM_Element("button", "btn transparent-button", false, [{name: "style", value: "left: -18px;"}]);
+                var editButton = new DOM_Element("button", "btn transparent-button");
                 var editIcon = new DOM_Element("img", "img img-responsive", false, [
                     {name: "src", value: "assets/icons/open-iconic-master/png/cog-2x.png"}
                     ]);
@@ -387,6 +390,7 @@
                 editButton.click(function(e) {
                     console.log(e.target.turma.curso);
                     var currentTurma = e.target.turma;
+                    document.getElementById("editar").turma = currentTurma.id;
                     e.preventDefault();
                     $("#registrar").hide();
                     $("#editar").show();
@@ -441,39 +445,9 @@
 
     $("#registrar").click(function(){
         $("#loading").show();
-        var nome = $("#nome").val();
-        var situacao = $("#situacao").val();
-        var professor = $("#professor").val();
-        var estagio = $("#estagio").val();
-        var curso = $("#curso").val();
-        var horario = $("#horario").val();
-        var maxAlunos = $("#max-alunos").val();
-        var sala = $("#sala").val();
-        var duracao = $("#duracao").val();
-        var initDate = $("#initDate").val();
-        var endDate =  $("#endDate").val();
-        var palavra =  $("#palavra").val();
-        var licao =  $("#licao").val();
-        var sitato =  $("#sitato").val();
 
-        var data = {
-            acao: "createTurma",
-            nome: nome,
-            situacao: Number(situacao),
-            professor: professor,
-            estagio: estagio,
-            curso: curso,
-            horario: horario,
-            maximoDeAlunos: maxAlunos,
-            sala: sala,
-            duracaoDaAula: duracao,
-            dataInicio: initDate,
-            dataTermino: endDate,
-            ultimaPalavra: palavra,
-            ultimaLicao: licao,
-            ultimoSitato: sitato
-        };
-
+        var data = getFormsVal();
+        data.acao = "createTurma";
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -512,6 +486,62 @@
                 $("#confirm-delete").modal("hide");
             }
         });
+    }
+
+    function editarTurma(turmaId) {
+        $("#loading").show();
+        var data = getFormsVal();
+        data.acao = "updateTurma";
+        data.id = turmaId;
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "php/turmas/controle.php",
+            data: data,
+            success: function(data) {
+                alert(data.responseText);
+                listTurmas();
+            },
+            error: function(data) {
+                alert(data.responseText);
+                listTurmas();
+            }
+        });
+    }
+
+    function getFormsVal() {
+        var nome = $("#nome").val();
+        var situacao = $("#situacao").val();
+        var professor = $("#professor").val();
+        var estagio = $("#estagio").val();
+        var curso = $("#curso").val();
+        var horario = $("#horario").val();
+        var maxAlunos = $("#max-alunos").val();
+        var sala = $("#sala").val();
+        var duracao = $("#duracao").val();
+        var initDate = $("#initDate").val();
+        var endDate =  $("#endDate").val();
+        var palavra =  $("#palavra").val();
+        var licao =  $("#licao").val();
+        var sitato =  $("#sitato").val();
+
+        return {
+            nome: nome,
+            situacao: Number(situacao),
+            professor: professor,
+            estagio: estagio,
+            curso: curso,
+            horario: horario,
+            maximoDeAlunos: maxAlunos,
+            sala: sala,
+            duracaoDaAula: duracao,
+            dataInicio: initDate,
+            dataTermino: endDate,
+            ultimaPalavra: palavra,
+            ultimaLicao: licao,
+            ultimoSitato: sitato
+        };
     }
 </script>
 </html>
