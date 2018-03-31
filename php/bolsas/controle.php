@@ -1,4 +1,14 @@
 <?php
+/**
+ * This file is the controller of the Class Bolsas.
+ *
+ * Data are received in this file from the view bolsas.html and validated here.
+ * It's data is sent to the Class Bolsas and then catch the response of the request and return it to the view.
+ *
+ * @category   CategoryName
+ * @author     Luan Nunes da Silva <lunanunesrpg@gmail.com>
+ * @copyright  2018 Dual Dev
+ */
 header('Content-Type: application/json');
 require_once('../database/DataBase.php');
 require_once('Bolsas.php');

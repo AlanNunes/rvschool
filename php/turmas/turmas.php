@@ -1,4 +1,12 @@
 <?php
+/**
+ * It's the Class Turmas where all the datas relationed to the turmas
+ * are manipulated.
+ *
+ * @category   CategoryName
+ * @author     Luan Nunes da Silva <lunanunesrpg@gmail.com>
+ * @copyright  2018 Dual Dev
+ */
 header('Content-Type: application/json');
 class Turmas {
 	private $id;
