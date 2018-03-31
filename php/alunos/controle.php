@@ -87,37 +87,36 @@ function registrarAluno(){
   if(validate_cpf($data["cpf"])){
     array_push($invalidFields, "cpf");
   }
-  if(validate_telefone($data["telefone"])){
+  if(validate_telefone($data["telefone"]) && $data["telefone"] != ""){
     array_push($invalidFields, "telefone");
   }
-  if(validate_celular($data["celular"])){
+  if(validate_celular($data["celular"]) && $data["celular"] != ""){
     array_push($invalidFields, "celular");
   }
-  if(validate_data($data["dataNasc"])){
-    array_push($invalidFields, "dataNasc");
-  }
-  if(validate_email($data["email"])){
+  // if(validate_data($data["dataNasc"])){
+  //   array_push($invalidFields, "dataNasc");
+  // }
+  if(validate_email($data["email"]) && $data["email"] != ""){
     array_push($invalidFields, "email");
   }
-  if(validate_telefone($data["telefoneResponsavelUm"])){
+  if(validate_telefone($data["telefoneResponsavelUm"]) && $data["telefoneResponsavelUm"] != ""){
     array_push($invalidFields, "telefoneResponsavelUm");
   }
-  if(validate_celular($data["celularResponsavelUm"])){
+  if(validate_celular($data["celularResponsavelUm"]) && $data["celularResponsavelUm"] != ""){
     array_push($invalidFields, "celularResponsavelUm");
   }
-  if(validate_telefone($data["telefoneResponsavelDois"])){
+  if(validate_telefone($data["telefoneResponsavelDois"]) && $data["telefoneResponsavelDois"] != ""){
     array_push($invalidFields, "telefoneResponsavelDois");
   }
-  if(validate_celular($data["celularResponsavelDois"])){
+  if(validate_celular($data["celularResponsavelDois"]) && $data["celularResponsavelDois"] != ""){
     array_push($invalidFields, "celularResponsavelDois");
   }
 
   // return false if there is no empty field
   $erro = (empty($invalidFields))? false:true;
   if($erro){
-    $response = array('erro' => $erro, $invalidFields);
+    $response = array('erro' => $erro, 'invalidFields' => $invalidFields);
     echo json_encode($response);
-    exit 0;
   }else{
     $db = new DataBase();
     $conn = $db->getConnection();
