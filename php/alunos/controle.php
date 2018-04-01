@@ -3,7 +3,8 @@
  * This file is the controller of the Class Alunos.
  *
  * Data are received in this file from the view alunos.html and validated here.
- * It's data is sent to the Class Alunos and then catch the response of the request and return it to the view.
+ * The data is sent to the Class Alunos and then catch the response of the request and return it to the view.
+ * Created in 31/03/2018
  *
  * @category   CategoryName
  * @author     Alan Nunes da Silva <alann.625@gmail.com>
@@ -19,13 +20,16 @@ switch ($process) {
   case 'registrarAluno':
     registrarAluno();
     break;
+  case 'listStudents':
+    listStudents();
+    break;
 
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
     break;
 }
 
-// It's function add a new student
+// This function add a new student
 function registrarAluno(){
   // This array has all the datas sent from the View alunos
   // The datas is put in the dictionary after passing by
@@ -62,6 +66,7 @@ function registrarAluno(){
     "telefoneResponsavelDois" => safe_data($_POST["telefoneResponsavelDois"]),
     "celularResponsavelDois" => safe_data($_POST["celularResponsavelDois"]),
     "observacoes" => safe_data($_POST["observacoes"]),
+    "avatar" => safe_data($_POST["avatar"])
   );
   $dataSize = sizeof($data);
   $requiredFields = array(
@@ -70,6 +75,7 @@ function registrarAluno(){
     "cidade",
     "bairro",
     "logradouro",
+    "celular",
     "numeroCasa"
   );
   $requiredAmount = sizeof($requiredFields);
@@ -124,5 +130,16 @@ function registrarAluno(){
     $response = $aluno->registerStudent($data);
     echo json_encode($response);
   }
+}
+
+// This function do a request to the Class Alunos
+// and receive all the students and then give back to the View as a JSON
+function listStudents(){
+    $db = new DataBase();
+    $conn = $db->getConnection();
+    $aluno = new Alunos($conn);
+    $response = $aluno->listStudents();
+    // It return if there is any error or not and the data if there is
+    echo json_encode($response);
 }
  ?>

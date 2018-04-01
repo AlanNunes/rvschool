@@ -1,6 +1,7 @@
 <?php
 /**
  * All the validation functions are here.
+ * Created on 31/03/2018
  *
  * @author     Alan Nunes da Silva <alann.625@gmail.com>
  * @copyright  2018 Dual Dev

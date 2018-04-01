@@ -47,3 +47,11 @@
     background-color: transparent;
     position: relative;
 }
+
+table .inativo {
+  background: #f45342;
+}
+
+table .inativo:hover {
+  background: #f24230!important;
+}

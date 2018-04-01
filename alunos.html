@@ -66,24 +66,17 @@
   <table class="table table-hover" style="text-align: center;">
   <thead class="thead-dark">
     <tr>
+      <th scope="col">AVATAR</th>
       <th scope="col">NOME</th>
       <th scope="col">MATRÍCULA</th>
-      <th scope="col">CPF</th>
-      <th scope="col">SITUAÇÃO</th>
-      <th scope="col">TELEFONE</th>
+      <th scope="col">ATIVO</th>
+      <th scope="col">DATA NASC.</th>
+      <th scope="col">CELULAR</th>
       <th scope="col">EMAIL</th>
     </tr>
   </thead>
-  <tbody>
-    <tr data-toggle="modal" data-target="#editarAluno">
+  <tbody id="tableContent">
 
-      <td>Nome do Aluno</td>
-      <td>001</td>
-      <td>999999</td>
-      <td>Ativo</td>
-      <td>(24)9999-9999</td>
-      <td>email@example.com</td>
-    </tr>
   </tbody>
 </table>
 
@@ -95,7 +88,7 @@
 <!-- CONTENT -->
 
 <nav class="navbar-primary" id="vertical-nav-bar">
-  <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-right"></span></a>
+  <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-left"></span></a>
   <ul class="navbar-primary-menu">
     <li>
       <a href="#" data-toggle="modal" data-target="#registrarAluno" onclick="prepareRegistroAluno()"><span class="oi oi-plus"></span></span><span class="nav-label">   Incluir</span></a>
@@ -223,7 +216,7 @@
                 <!-- </form> -->
               </div>
               <div class="tab-pane fade" id="endereco" role="tabpanel" aria-labelledby="endereco-tab">
-                <!-- <form> -->
+                  <!-- <form> -->
                   <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="cep">CEP:</label>
@@ -270,7 +263,7 @@
               </div>
               <!-- BEGIN DADOS BANCÁRIOS -->
               <div class="tab-pane fade" id="dadosBancarios" role="tabpanel" aria-labelledby="dadosBancarios-tab">
-                <!-- <form> -->
+                  <!-- <form> -->
                   <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="banco">Banco:</label>
@@ -320,7 +313,7 @@
               <!-- END DADOS BANCÁRIOS -->
               <!-- BEGIN DADOS RESPONSÁVEIS -->
               <div class="tab-pane fade" id="responsaveis" role="tabpanel" aria-labelledby="dadosBancarios-tab">
-                <!-- <form> -->
+                  <!-- <form> -->
                   <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="nomeResponsavelUm">Nome:</label>
@@ -354,7 +347,7 @@
               <!-- END DADOS RESPONSÁVEIS -->
               <!-- BEGIN DADOS RESPONSÁVEIS -->
               <div class="tab-pane fade" id="observacoes" role="tabpanel" aria-labelledby="dadosBancarios-tab">
-                <!-- <form> -->
+                  <!-- <form> -->
                   <label>Escreva observações:</label>
                   <textarea class="form-control" id="observacaoText" rows="6"></textarea>
                   <small id="observacaoHelp" class="form-text text-muted">Escreva coisas importantes sobre o aluno neste campo.</small>
@@ -712,11 +705,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.mask.js"></script>
-    <script  src="js/avatar-image.js"></script>
+    <script src="js/avatar-image.js"></script>
+    <script src="js/dynamical-dom.js"></script>
     <script>
 
       $( document ).ready(function() {
+        // Collapse the vertical menu
         $("#vertical-nav-bar").toggleClass("collapsed");
+        // list all the students inner the Table
+        listStudents();
+        // Starts a Global Variable that's going to contain the path of the image's student
+        var avatar =  "";
       });
 
 
@@ -783,7 +782,7 @@
         success: function(data)   // A function to be called if request succeeds
         {
           if(data.erro){
-            alert(data.description);
+            alert(data);
             $("#imagePreview").removeClass("avatar-preview");
             $("#imagePreview").removeClass("avatar-previewSuccess");
             $("#imagePreview").addClass("avatar-previewFailure");
@@ -792,6 +791,7 @@
             $("#imagePreview").removeClass("avatar-preview");
             $("#imagePreview").removeClass("avatar-previewFailure");
             $("#imagePreview").addClass("avatar-previewSuccess");
+            avatar = data.imageName;
           }
         }
         });
@@ -836,7 +836,8 @@
           "nomeResponsavelDois": $("#nomeResponsavelDois").val(),
           "telefoneResponsavelDois": $("#telefoneResponsavelDois").val(),
           "celularResponsavelDois": $("#celularResponsavelDois").val(),
-          "observacoes": $("#observacaoText").val()
+          "observacoes": $("#observacaoText").val(),
+          "avatar": avatar
         };
         // dataAluno = $(this).serialize() + "&" + $.param(dataAluno);
         $.ajax({
@@ -851,6 +852,8 @@
             }else{
               $("#registrarAluno").modal('hide');
               $("#sucessoRegistro").modal('show');
+              // Update the table
+              listStudents();
             }
             console.log(data);
           },
@@ -861,5 +864,60 @@
         });
 
       });
+
+      // list all the students inner the Table
+      function listStudents(){
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/alunos/controle.php",
+          data: {'acao': 'listStudents'},
+          success: function(data) {
+            if(data.erro){
+              alert('Erro ao listar os alunos.');
+            }else{
+              var tBody = document.getElementById("tableContent");
+              tBody.innerHTML = "";
+              var i = 0;
+              var amountStudents = data.students.length;
+              for(i; i < amountStudents; i++){
+                var student = data.students[i];
+                var tr = new DOM_Element("tr");
+                var avatar = new DOM_Element("td");
+                var nome = new DOM_Element("td", false, false, false, student.nome);
+                var matricula = new DOM_Element("td", false, false, false, student.matricula);
+                var dataNasc = new DOM_Element("td", false, false, false, student.dataNasc);
+                var ativo = new DOM_Element("td", false, false, false, student.ativo);
+                var celular = new DOM_Element("td", false, false, false, student.celular);
+                var email = new DOM_Element("td", false, false, false, student.email);
+
+                if(student.avatar != null){
+                  var img = new DOM_Element("img", "avatar", false, [{name: "src", value: 'avatars/'+student.avatar}], false);
+                  avatar.appendChild(img);
+                }
+                if(student.ativo == true){
+                  ativo.changeContent("Ativo");
+                }else{
+                  ativo.changeContent("Inativo");
+                  tr.changeClass("inativo");
+                }
+                tr.appendChild(avatar);
+                tr.appendChild(nome);
+                tr.appendChild(matricula);
+                tr.appendChild(ativo);
+                tr.appendChild(dataNasc);
+                tr.appendChild(celular);
+                tr.appendChild(email);
+                tr.addToDOM(tBody);
+              }
+            }
+            console.log(data);
+          },
+          error: function(data) {
+            console.log(data);
+            alert('deu erro');
+          }
+        });
+      }
     </script>
 </html>
