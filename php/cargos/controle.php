@@ -1,4 +1,13 @@
 <?php
+/**
+ * This file is the controller of the Class Cargos.
+ * All the datas related to Cargos is handled here
+ * Created on ??/03/2018
+ *
+ * @category   CategoryName
+ * @author     Alan Nunes da Silva <alann.625@gmail.com>
+ * @copyright  2018 Dual Dev
+ */
 header('Content-Type: application/json');
 require_once('../database/DataBase.php');
 require_once('Cargos.php');
@@ -8,7 +17,7 @@ if(!empty($_POST["acao"]) && isset($_POST["acao"])){
 		case 'listCargos':
 			listCargos();
 			break;
-		
+
 		default:
 			# code...
 			break;

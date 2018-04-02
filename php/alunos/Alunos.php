@@ -117,7 +117,7 @@ Class Alunos {
   // This function has the only responsability to list all
   // the students from the table Alunos, and just it
   public function listStudents(){
-    $sql = "SELECT nome, matricula, cpf, ativo, celular, email, avatar, dataNasc FROM alunos";
+    $sql = "SELECT * FROM alunos";
     $response = $this->conn->query($sql);
     if($response->num_rows > 0){
       $students;

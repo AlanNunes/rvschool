@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `alunos`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `alunos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `matricula` int(11) DEFAULT NULL,
+  `matricula` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
   `nome` varchar(100) CHARACTER SET utf8 NOT NULL,
   `rg` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
   `cpf` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
@@ -56,11 +56,23 @@ CREATE TABLE `alunos` (
   `telefoneResponsavelDois` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `celularResponsavelDois` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `observacoes` text,
+  `avatar` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
+  `ativo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `matricula` (`matricula`),
   KEY `bolsa` (`bolsa`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alunos`
+--
+
+LOCK TABLES `alunos` WRITE;
+/*!40000 ALTER TABLE `alunos` DISABLE KEYS */;
+INSERT INTO `alunos` VALUES (1,'2018-1','Alan Nunes da Silva','132.123.124-8','651.897.403-66','2000-04-29','solteiro','masculino','','Ensino Superior','','27259-290','Rua Vinte e Sete',28,'','Volta Redonda','Jardim Vila Rica - Tiradentes','alann.625@gmail.com','','(24) 998844351','Bradesco','','','',32,0,'Eunice Maria Ferreira Nunes','','','Anderson Mariano da Cruz Silva','','','Aluno disse já ter estudado inglês em casa como autodidata e está muito feliz por ter ganhado a bolsa de desconto.','1522602945.jpg',1),(2,'2018-2','Steven Paul Jobs','123.321.123-3','123.321.123-12','1955-02-24','solteiro','masculino','','Ensino Superior','','','Street 17',17,'','San Francisco','Palo Alto','stevejobs@apple.com','','(24) 998844351','','','','',0,0,'','','','','','','','1522612719.jpg',0),(3,'2018-3','William Henry Gates III','321.123.321-3','321.123.321-32','1955-10-28','casado','masculino','','Ensino Superior','','','Street 17',17,'','Lake Washington in Medina, Washington','Medina','billgates@microsoft.com','','(24) 998844351','','','','',0,0,'','','','','','','','1522613743.jpg',1);
+/*!40000 ALTER TABLE `alunos` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -71,4 +83,4 @@ CREATE TABLE `alunos` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-31  1:12:54
+-- Dump completed on 2018-04-02  0:48:43

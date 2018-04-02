@@ -4,7 +4,7 @@
  *
  * Data are received in this file from the view alunos.html and validated here.
  * The data is sent to the Class Alunos and then catch the response of the request and return it to the view.
- * Created in 31/03/2018
+ * Created on 31/03/2018
  *
  * @category   CategoryName
  * @author     Alan Nunes da Silva <alann.625@gmail.com>

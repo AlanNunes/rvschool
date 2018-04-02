@@ -73,6 +73,7 @@
       <th scope="col">DATA NASC.</th>
       <th scope="col">CELULAR</th>
       <th scope="col">EMAIL</th>
+      <th scope="col">EDIT</th>
     </tr>
   </thead>
   <tbody id="tableContent">
@@ -152,7 +153,10 @@
                   </form>
                     <div class="form-group col-md-3" style="margin-top: 40px;">
                       <label for="nome">Nome:</label>
-                      <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira">
+                      <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira" required>
+                      <div class="invalid-feedback" id="invalid-feedback-nome">
+                        Preencha o nome do aluno.
+                      </div>
                     </div>
                     <div class="form-group col-md-3" style="margin-top: 40px;">
                       <label for="rg">RG:</label>
@@ -161,6 +165,9 @@
                     <div class="form-group col-md-3" style="margin-top: 40px;">
                       <label for="cpf">CPF:</label>
                       <input type="text" class="form-control" id="cpf" placeholder="Ex.: 171.251.54-26">
+                      <div class="invalid-feedback" id="invalid-feedback-cpf">
+                        Informe um CPF válido.
+                      </div>
                     </div>
                   </div>
                 <hr>
@@ -168,7 +175,10 @@
                   <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="dataNasc">Data de Nasc.:</label>
-                      <input type="date" class="form-control" id="dataNasc">
+                      <input type="date" class="form-control" id="dataNasc" required>
+                      <div class="invalid-feedback" id="invalid-feedback-dataNasc">
+                        Este campo não pode estar vazio.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="estadoCivil">Estado Civil:</label>
@@ -179,7 +189,7 @@
                     </div>
                     <div class="form-group col-md-4">
                       <label for="sexo">Sexo:</label>
-                      <select class="custom-select" id="sexo">
+                      <select class="custom-select" id="sexo" required>
                         <option value="masculino">Masculino</option>
                         <option value="feminino">Feminino</option>
                       </select>
@@ -224,7 +234,10 @@
                     </div>
                     <div class="form-group col-md-6">
                       <label for="logradouro">Logradouro:</label>
-                      <input type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida 1">
+                      <input type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida 1" required>
+                      <div class="invalid-feedback" id="invalid-feedback-logradouro">
+                        Informe o logradouro.
+                      </div>
                     </div>
                     <div class="form-group col-md-2">
                       <label for="numeroCasa">Número:</label>
@@ -238,17 +251,26 @@
                     </div>
                     <div class="form-group col-md-3">
                       <label for="cidade">Cidade:</label>
-                      <input type="text" class="form-control" id="cidade">
+                      <input type="text" class="form-control" id="cidade" required>
+                      <div class="invalid-feedback" id="invalid-feedback-cidade">
+                        Informe a cidade.
+                      </div>
                     </div>
                     <div class="form-group col-md-3">
                       <label for="bairro">Bairro:</label>
-                      <input type="text" class="form-control" id="bairro">
+                      <input type="text" class="form-control" id="bairro" required>
+                      <div class="invalid-feedback" id="invalid-feedback-bairro">
+                        Informe o bairro.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="email">Email:</label>
-                      <input type="email" class="form-control" id="email">
+                      <label for="email">E-mail:</label>
+                      <input type="email" class="form-control" id="email" required>
+                      <div class="invalid-feedback" id="invalid-feedback-email">
+                        Informe um e-mail válido
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="telefone">Telefone:</label>
@@ -256,7 +278,10 @@
                     </div>
                     <div class="form-group col-md-4">
                       <label for="celular">Celular:</label>
-                      <input type="text" class="form-control" id="celular">
+                      <input type="text" class="form-control" id="celular" required>
+                      <div class="invalid-feedback" id="invalid-feedback-celular">
+                        Número de celular inválido.
+                      </div>
                     </div>
                   </div>
                 <!-- </form> -->
@@ -366,316 +391,6 @@
 
 <!-- END INCLUIR ALUNO -->
 
-
-<!-- MODAL EDITAR ALUNO -->
-
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="editarAluno" tabindex="-1" role="dialog" aria-labelledby="editarAluno" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editarAluno">Registro de Aluno</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="color: #F3E1B9">Dados do Funcionário</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="endereco-tab" data-toggle="tab" href="#endereco" role="tab" aria-controls="endereco" aria-selected="false" style="color: #F3E1B9">Endereço/Comunicação</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="dadosProfissionais-tab" data-toggle="tab" href="#dadosProfissionais" role="tab" aria-controls="dadosProfissionais" aria-selected="false" style="color: #F3E1B9">Dados Profissionais</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="financeiro-tab" data-toggle="tab" href="#financeiro" role="tab" aria-controls="financeiro" aria-selected="false" style="color: #F3E1B9">Financeiro</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="comissoes-tab" data-toggle="tab" href="#comissoes" role="tab" aria-controls="comissoes" aria-selected="false" style="color: #F3E1B9">Comissões</a>
-              </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <form name="avatarFormEdit" id="avatarFormEdit">
-                  <div class="form-row">
-                    <div class="form-group col-md-3">
-                      <div class="avatar-upload">
-                          <div class="avatar-edit">
-                              <input type='file' name="image" id="imageEdit" accept=".png, .jpg, .jpeg" />
-                              <label for="image"></label>
-                          </div>
-                          <div class="avatar-preview">
-                              <div id="imagePreviewEdit">
-                              </div>
-                          </div>
-                      </div>
-                    </div>
-                  </form>
-                    <div class="form-group col-md-3" style="margin-top: 40px;">
-                      <label for="nome">Nome:</label>
-                      <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira">
-                    </div>
-                    <div class="form-group col-md-3" style="margin-top: 40px;">
-                      <label for="rg">RG:</label>
-                      <input type="text" class="form-control" id="rg" placeholder="Ex.: 171.251.54-26">
-                    </div>
-                    <div class="form-group col-md-3" style="margin-top: 40px;">
-                      <label for="cpf">CPF:</label>
-                      <input type="text" class="form-control" id="cpf" placeholder="Ex.: 171.251.54-26">
-                    </div>
-                  </div>
-                <hr>
-                <form>
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label for="dataNasc">Data de Nasc.:</label>
-                      <input type="date" class="form-control" id="dataNasc">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="estadoCivil">Estado Civil:</label>
-                      <select class="custom-select" id="estadoCivil">
-                        <option value="solteiro">Solteiro</option>
-                        <option value="casado">Casado</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="sexo">Sexo:</label>
-                      <select class="custom-select" id="sexo">
-                        <option value="masculino">Masculino</option>
-                        <option value="feminino">Feminino</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label for="escolaAluno">Escola do Aluno:</label>
-                      <input type="text" class="form-control" id="escolaAluno" placeholder="Ex.: Escola Municipal Professor Delce Horta">
-
-                      </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="escolaridade">Escolaridade:</label>
-                      <select class="custom-select" id="escolaridade">
-                        <option selected>Selecione</option>
-                        <option value="Ensino Superior">Ensino Superior</option>
-                        <option value="Ensino Médio">Ensino Médio</option>
-                        <option value="Ensino Fundamental">Ensino Médio</option>
-                        <option value="Analfabeto">Ensino Médio</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="escolaridade">Série:</label>
-                      <select class="custom-select" id="escolaridade">
-                        <option selected>Selecione</option>
-                        <option value="Ensino Superior">1ª série</option>
-                        <option value="Ensino Médio">2ª série</option>
-                        <option value="Ensino Fundamental">3ª séria</option>
-                        <option value="Analfabeto">4ª série</option>
-                      </select>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="tab-pane fade" id="endereco" role="tabpanel" aria-labelledby="endereco-tab">
-                <form>
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label for="cep">CEP:</label>
-                      <input type="text" class="form-control" id="cep" oninput="buscaCEP(this.value)" placeholder="">
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="logradouro">Logradouro:</label>
-                      <input type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida 1">
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label for="numeroCasa">Número:</label>
-                      <input type="number" class="form-control" id="numeroCasa" placeholder="Ex.: 77">
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="complemento">Complemento:</label>
-                      <input type="text" class="form-control" id="complemento">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label for="cidade">Cidade:</label>
-                      <input type="text" class="form-control" id="cidade">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label for="bairro">Bairro:</label>
-                      <input type="text" class="form-control" id="bairro">
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label for="email">Email:</label>
-                      <input type="email" class="form-control" id="email">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="telefone">Telefone:</label>
-                      <input type="text" class="form-control" id="telefone">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="celular">Celular:</label>
-                      <input type="text" class="form-control" id="celular">
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="tab-pane fade" id="dadosProfissionais" role="tabpanel" aria-labelledby="dadosProfissionais-tab">
-                <form>
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label for="contentTipoPagamento">Tipo de Pagamento:</label>
-                      <div id="contentTipoPagamento">
-                        <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" id="horista" name="tipoPagamento" class="custom-control-input" value="horista" onclick="showHoristasSecao()" checked>
-                          <label class="custom-control-label" for="horista">Horista</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" id="mensalista" name="tipoPagamento" class="custom-control-input" value="mensalista" onclick="showMensalistasSecao()">
-                          <label class="custom-control-label" for="mensalista">Mensalista</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-4 offset-md-4">
-                      <label for="carteiraProfissional">Carteira Profissional:</label>
-                      <input type="text" class="form-control" id="carteiraProfissional">
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-2">
-                      <label for="inss">INSS:</label>
-                      <input type="text" class="form-control" id="inss">
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label for="inssPercentual">Percentual INSS:</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" id="inssPercentual" aria-describedby="inputGroupInssPercentual" min="0" max="100" required>
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroupInssPercentual">%</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group col-md-4 offset-md-4">
-                      <label for="dataAdmissao">Data de Admissão:</label>
-                      <input type="date" class="form-control" id="dataAdmissao">
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-2">
-                      <label for="ccm">CCM:</label>
-                      <input type="text" class="form-control" id="ccm">
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label for="issPercentual">Percentual ISS:</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" id="issPercentual" aria-describedby="inputGroupInssPercentual" min="0" max="100" required>
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroupInssPercentual">%</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-4 offset-md-4">
-                      <label for="dataDemissao">Data de Demissão:</label>
-                      <input type="date" class="form-control" id="dataDemissao" disabled="true">
-                    </div>
-                  </div>
-                  <div class="form-row" id="horistasSecao">
-                    <div class="form-group col">
-                      <fieldset>
-                        <legend>Pagamento para Professores horistas</legend>
-                        <div class="table-responsive">
-                          <table class="table table-striped table-light">
-                            <thead>
-                              <tr>
-                                <th scope="col">Tipo de Pagamento</th>
-                                <th scope="col">Valor</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Aula Interna</td>
-                                <td>
-                                  <div class="form-group col-md-4">
-                                    <div class="input-group">
-                                      <input type="number" class="form-control" id="aulaInterna" aria-describedby="inputGroupAulaInterna" required>
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupAulaInterna">R$</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Aula Externa</td>
-                                <td>
-                                  <div class="form-group col-md-4">
-                                    <div class="input-group">
-                                      <input type="number" class="form-control" id="aulaExterna" aria-describedby="inputGroupAulaExterna" required>
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupAulaExterna">R$</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </fieldset>
-                    </div>
-                  </div>
-                  <div class="form-row" id="mensalistasSecao" style="display: none">
-                    <div class="form-group col">
-                      <fieldset>
-                        <legend>Pagamento para Professores horistas</legend>
-                        <div class="table-responsive">
-                          <table class="table table-striped table-light">
-                            <thead>
-                              <tr>
-                                <th scope="col">Tipo de Pagamento</th>
-                                <th scope="col">Valor</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Salário Mensal</td>
-                                <td>
-                                  <div class="form-group col-md-4">
-                                    <div class="input-group">
-                                      <input type="number" class="form-control" id="salarioMensal" aria-describedby="inputGroupSalarioMensal" required>
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupSalarioMensal">R$</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </fieldset>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="registrar">Registrar</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-<!-- END EDITAR ALUNO -->
-
 <!-- MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
 <div class="modal fade" id="sucessoRegistro" tabindex="-1" role="dialog" aria-labelledby="sucessoRegistroLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -708,14 +423,13 @@
     <script src="js/avatar-image.js"></script>
     <script src="js/dynamical-dom.js"></script>
     <script>
-
+      // Starts a Global Variable that's going to contain the path of the image's student
+      var avatar =  "";
       $( document ).ready(function() {
         // Collapse the vertical menu
         $("#vertical-nav-bar").toggleClass("collapsed");
         // list all the students inner the Table
         listStudents();
-        // Starts a Global Variable that's going to contain the path of the image's student
-        var avatar =  "";
       });
 
 
@@ -848,8 +562,21 @@
           success: function(data) {
             alert('worked');
             if(data.erro){
-
+              var i = 0;
+              var sizeInvalidFields = data.invalidFields.length;
+              var invalidFields = data.invalidFields;
+              $('input').addClass('is-valid');
+              $('select').addClass('is-valid');
+              $('textarea').addClass('is-valid');
+              $('input').removeClass('is-invalid');
+              for(i; i < sizeInvalidFields; i++){
+                console.log(invalidFields[i]);
+                $("#"+invalidFields[i]).removeClass("is-valid");
+                $("#"+invalidFields[i]).addClass("is-invalid");
+                $("#invalid-feedback-"+invalidFields[i]).show();
+              }
             }else{
+
               $("#registrarAluno").modal('hide');
               $("#sucessoRegistro").modal('show');
               // Update the table
@@ -890,6 +617,25 @@
                 var ativo = new DOM_Element("td", false, false, false, student.ativo);
                 var celular = new DOM_Element("td", false, false, false, student.celular);
                 var email = new DOM_Element("td", false, false, false, student.email);
+                var edit = new DOM_Element("td");
+                var editButton = new DOM_Element("button", "btn transparent-button");
+                var deleteButton = new DOM_Element("button", "btn transparent-button");
+                var deleteIcon = new DOM_Element("img", false, false, [{name: 'src', value: 'assets/icons/open-iconic-master/png/cog-2x.png'}]);
+                var editIcon = new DOM_Element("img", false, false, [{name: 'src', value: 'assets/icons/open-iconic-master/png/trash-2x.png'}]);
+
+                editButton.element.matricula = student.matricula;
+                deleteButton.element.matricula = student.matricula;
+
+                editButton.click(function(e) {
+                    e.preventDefault();
+                    console.log(e);
+                    alert(e.currentTarget.matricula);
+                });
+                deleteButton.click(function(e) {
+                    e.preventDefault();
+                    console.log(e);
+                    alert(e.currentTarget.matricula);
+                });
 
                 if(student.avatar != null){
                   var img = new DOM_Element("img", "avatar", false, [{name: "src", value: 'avatars/'+student.avatar}], false);
@@ -901,6 +647,10 @@
                   ativo.changeContent("Inativo");
                   tr.changeClass("inativo");
                 }
+                editButton.appendChild(editIcon);
+                deleteButton.appendChild(deleteIcon);
+                edit.appendChild(editButton);
+                edit.appendChild(deleteButton);
                 tr.appendChild(avatar);
                 tr.appendChild(nome);
                 tr.appendChild(matricula);
@@ -908,6 +658,7 @@
                 tr.appendChild(dataNasc);
                 tr.appendChild(celular);
                 tr.appendChild(email);
+                tr.appendChild(edit);
                 tr.addToDOM(tBody);
               }
             }
