@@ -72,7 +72,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr data-toggle="modal" data-target="#editarFuncionario">
+    <!--<tr data-toggle="modal" data-target="#editarFuncionario">
 
       <td>Gustavo de Mello Brandão</td>
       <td>Developer</td>
@@ -248,7 +248,7 @@
         <td>18270598771</td>
         <td>287274419</td>
         <td>(24)98851-5335</td>
-    </tr>
+    </tr>-->
   </tbody>
 </table>
 
@@ -594,9 +594,12 @@
                     <label for="comment">Observações:</label>
                     <textarea class="form-control" rows="5" id="comment"></textarea>
                   </div>
+                </form>
+                <form id="anexo" name="anexo">
                   <div class="form-group">
                     <label for="inputFile">Enviar Arquivos</label>
-                    <input type="file" class="form-control-file" id="inputFile" aria-describedby="fileHelp" multiple>
+                    <input type="file" class="form-control-file" id="inputFile" name="inputFile" aria-describedby="fileHelp" multiple>
+                    <button type="submit" id="submitFile" hidden>submit</button>
                   </div>
                 </form>
               </div>
@@ -653,6 +656,41 @@
         $("#mensalistasSecao").show();
       }
 
+      $("#anexo").on('submit',function(e) {
+          e.preventDefault();
+          console.log('submit');
+          $.ajax({
+              url: "php/anexo/upload.php", // Url to which the request is send
+              type: "POST",             // Type of request to be send, called as method
+              data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+              dataType: 'json',
+              contentType: false,       // The content type used when sending data to the server.
+              cache: false,             // To unable request pages to be cached
+              processData: false,        // To send DOMDocument or non processed data file it is set to false
+              success: function (data)   // A function to be called if request succeeds
+              {
+                  if (data.erro) {
+                      alert(data);
+//                      $("#imagePreview").removeClass("avatar-preview");
+//                      $("#imagePreview").removeClass("avatar-previewSuccess");
+//                      $("#imagePreview").addClass("avatar-previewFailure");
+                      console.log(data);
+                  } else {
+                      console.log(data);
+//                      $("#imagePreview").removeClass("avatar-preview");
+//                      $("#imagePreview").removeClass("avatar-previewFailure");
+//                      $("#imagePreview").addClass("avatar-previewSuccess");
+                      var anexo = data.fileName;
+                      console.log(anexo);
+                      createFuncionario(anexo);
+                  }
+              },
+              error: function(data) {
+                  console.log(data);
+              }
+          });
+      });
+
       $("#cep").mask("00000-000");
       $("#celular").mask("(00) 000000000");
 
@@ -691,16 +729,22 @@
       $("#registrar").click(function(){
         $("#loading").show();
 
-        var data = getFormsVal();
-        data.acao = "createFuncionario";
-        alert(data.tipoPagamento);
-
-        $.post("php/funcionarios/controle.php", data,
-        function(data, status){
-          // $("#loading").hide();
-            console.log("Data:\n"+data+"\nStatus:"+status);
-        });
+        $("#submitFile").click();
       });
+
+      function createFuncionario(anexo) {
+          var data = getFormVal();
+          data.acao = "createFuncionario";
+          data.anexo = anexo;
+          alert(data.tipoPagamento);
+          console.log(data.anexo);
+
+//        $.post("php/funcionarios/controle.php", data,
+//        function(data, status){
+//          // $("#loading").hide();
+//            console.log("Data:\n"+data+"\nStatus:"+status);
+//        });
+      }
 
       function getFormVal() {
           var nome = $("#nome").val();
@@ -736,13 +780,13 @@
           var conta = $("#conta").val();
           var codigoBanco = $("#codigoBanco").val();
           var observacoes = $("#comment").val();
-          var anexo = $("#inputFile").val();
+//          var anexo = $("#inputFile").val();
 
           return {
               nome: nome,
               rg: rg,
               cpf: cpf,
-              dataDeNascimento: dataNasc,
+              dataNascimento: dataNasc,
               estadoCivil: estadoCivil,
               sexo: sexo,
               cargo: cargo,
@@ -756,17 +800,17 @@
               email: email,
               telefone: telefone,
               celular: celular,
-              tipeDePagamento: tipoPagamento,
+              tipePagamento: tipoPagamento,
               carteiraProfissional: carteiraProfissional,
               inss: inss,
               percentualInss: inssPercentual,
-              dataDeAdmissao: dataAdmissao,
+              dataAdmissao: dataAdmissao,
               cmm: cmm,
               percentualIss: issPercentual,
-              dataDeDemissao: dataDemissao,
-              pagamentoAulaInterna: aulaInterna,
-              pagamentoAulaExterna: aulaExterna,
-              pagamentoMensal: salarioMensal,
+              dataDemissao: dataDemissao,
+              aulaInterna: aulaInterna,
+              aulaExterna: aulaExterna,
+              salarioMensal: salarioMensal,
               banco: banco,
               agencia: agencia,
               conta: conta,

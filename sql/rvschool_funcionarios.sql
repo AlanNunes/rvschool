@@ -45,10 +45,10 @@ CREATE TABLE `funcionarios` (
   `carteiraProfissional` varchar(45) NOT NULL,
   `inss` varchar(45) NOT NULL,
   `percentualInss` int(11) NOT NULL,
-  `dataDeAdmissão` date NOT NULL,
+  `dataDeAdmissao` date NOT NULL,
   `cmm` varchar(45) NOT NULL,
   `percentualIss` int(11) NOT NULL,
-  `dataDeDemissão` date DEFAULT NULL,
+  `dataDeDemissao` date DEFAULT NULL,
   `pagamentoAulaInterna` int(11) DEFAULT NULL,
   `pagamentoAulaExterna` int(11) DEFAULT NULL,
   `pagamentoMensal` int(11) DEFAULT NULL,
@@ -80,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-31 16:48:29
+-- Dump completed on 2018-04-02 19:08:09
