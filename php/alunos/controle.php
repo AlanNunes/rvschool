@@ -24,6 +24,10 @@ switch ($process) {
     listStudents();
     break;
 
+  case 'deleteStudent':
+    deleteStudent();
+    break;
+
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
     break;
@@ -141,5 +145,20 @@ function listStudents(){
     $response = $aluno->listStudents();
     // It return if there is any error or not and the data if there is
     echo json_encode($response);
+}
+
+// This function calls a method to delete a student in the Class ALunos
+// and return a json with the response
+function deleteStudent(){
+  if(isset($_POST["matricula"]) && !empty($_POST["matricula"])){
+    $db = new DataBase();
+    $conn = $db->getConnection();
+    $aluno = new Alunos($conn);
+    $response = $aluno->deleteStudent($_POST["matricula"]);
+    // It return if there is any error or not and the data if there is
+    echo json_encode($response);
+  }else{
+    echo json_encode(array('erro' => true, 'description' => 'Dados insuficientes.'));
+  }
 }
  ?>

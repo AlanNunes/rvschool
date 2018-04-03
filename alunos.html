@@ -160,7 +160,7 @@
                     </div>
                     <div class="form-group col-md-3" style="margin-top: 40px;">
                       <label for="rg">RG:</label>
-                      <input type="text" class="form-control" id="rg" placeholder="Ex.: 171.251.54-26">
+                      <input type="text" class="form-control" id="rg" placeholder="Ex.: 171.251.54-2">
                     </div>
                     <div class="form-group col-md-3" style="margin-top: 40px;">
                       <label for="cpf">CPF:</label>
@@ -412,6 +412,22 @@
 </div>
 <!-- FIM MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
 
+<!-- EXCUIR ALUNO MODAL FORM -->
+
+  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">Excluir</div>
+        <div class="modal-body">Você tem certeza que deseja excluir este aluno, permanentemente ?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button id="delete-student" type="button" class="btn btn-danger btn-ok">Estou Ciente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- END EXCLUIR ALUNO CLOSE MODAL -->
 <footer>
   <a>© Revolution School.</a>
 </footer>
@@ -430,9 +446,10 @@
         $("#vertical-nav-bar").toggleClass("collapsed");
         // list all the students inner the Table
         listStudents();
+        $("#rg").mask("99.999.999-9");
+        $("#cpf").mask("999.999.999-99");
+        $("#cep").mask("99999-999");
       });
-
-
 
       $("#buttonHumburguer").click(function(){
           $("#vertical-nav-bar").toggle();
@@ -441,6 +458,12 @@
       $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#vertical-nav-bar").toggleClass("collapsed");
+      });
+
+      $("#delete-student").click(function(e) {
+        e.preventDefault();
+        console.log(e);
+        deleteStudent(e.target.matricula);
       });
 
       $("#cep").mask("00000-000");
@@ -463,6 +486,19 @@
 
       function prepareRegistroAluno(){
         listBolsas();
+      }
+
+      // Delete a student having a enrol code as identification
+      function deleteStudent(matricula){
+        console.log("Deleting the user "+ matricula);
+        $.post("php/alunos/controle.php", {'acao': 'deleteStudent', 'matricula': matricula}, function(data){
+          if(data.erro){
+            console.log(data);
+            alert('Erro inesperado.');
+          }
+          $("#confirm-delete").modal('hide');
+          listStudents();
+        }, 'json');
       }
 
       function listBolsas(){
@@ -620,8 +656,8 @@
                 var edit = new DOM_Element("td");
                 var editButton = new DOM_Element("button", "btn transparent-button");
                 var deleteButton = new DOM_Element("button", "btn transparent-button");
-                var deleteIcon = new DOM_Element("img", false, false, [{name: 'src', value: 'assets/icons/open-iconic-master/png/cog-2x.png'}]);
-                var editIcon = new DOM_Element("img", false, false, [{name: 'src', value: 'assets/icons/open-iconic-master/png/trash-2x.png'}]);
+                var deleteIcon = new DOM_Element("img", false, false, [{name: 'src', value: 'assets/icons/open-iconic-master/png/trash-2x.png'}]);
+                var editIcon = new DOM_Element("img", false, false, [{name: 'src', value: 'assets/icons/open-iconic-master/png/cog-2x.png'}]);
 
                 editButton.element.matricula = student.matricula;
                 deleteButton.element.matricula = student.matricula;
@@ -635,10 +671,18 @@
                     e.preventDefault();
                     console.log(e);
                     alert(e.currentTarget.matricula);
+                    // Show the modal for the user confirm the process of deleting
+                    // If the user click in the button 'delete-student' it calls
+                    // the function deleteStudent() passing the enrol as parameter
+                    document.getElementById("delete-student").matricula = e.currentTarget.matricula;
+                    $("#confirm-delete").modal('show');
                 });
 
-                if(student.avatar != null){
+                if(student.avatar != null && student.avatar != ""){
                   var img = new DOM_Element("img", "avatar", false, [{name: "src", value: 'avatars/'+student.avatar}], false);
+                  avatar.appendChild(img);
+                }else{
+                  var img = new DOM_Element("img", "avatar", false, [{name: "src", value: 'avatars/default.png'}], false);
                   avatar.appendChild(img);
                 }
                 if(student.ativo == true){

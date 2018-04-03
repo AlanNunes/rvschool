@@ -599,7 +599,7 @@
                   <div class="form-group">
                     <label for="inputFile">Enviar Arquivos</label>
                     <input type="file" class="form-control-file" id="inputFile" name="inputFile" aria-describedby="fileHelp" multiple>
-                    <button type="submit" id="submitFile" hidden>submit</button>
+                    <!-- <button type="submit" id="submitFile" hidden>submit</button> -->
                   </div>
                 </form>
               </div>
@@ -656,40 +656,40 @@
         $("#mensalistasSecao").show();
       }
 
-      $("#anexo").on('submit',function(e) {
-          e.preventDefault();
-          console.log('submit');
-          $.ajax({
-              url: "php/anexo/upload.php", // Url to which the request is send
-              type: "POST",             // Type of request to be send, called as method
-              data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-              dataType: 'json',
-              contentType: false,       // The content type used when sending data to the server.
-              cache: false,             // To unable request pages to be cached
-              processData: false,        // To send DOMDocument or non processed data file it is set to false
-              success: function (data)   // A function to be called if request succeeds
-              {
-                  if (data.erro) {
-                      alert(data);
-//                      $("#imagePreview").removeClass("avatar-preview");
-//                      $("#imagePreview").removeClass("avatar-previewSuccess");
-//                      $("#imagePreview").addClass("avatar-previewFailure");
-                      console.log(data);
-                  } else {
-                      console.log(data);
-//                      $("#imagePreview").removeClass("avatar-preview");
-//                      $("#imagePreview").removeClass("avatar-previewFailure");
-//                      $("#imagePreview").addClass("avatar-previewSuccess");
-                      var anexo = data.fileName;
-                      console.log(anexo);
-                      createFuncionario(anexo);
-                  }
-              },
-              error: function(data) {
-                  console.log(data);
-              }
-          });
-      });
+//       $("#anexo").on('submit',function(e) {
+//           e.preventDefault();
+//           console.log('submit');
+//           $.ajax({
+//               url: "php/anexo/upload.php", // Url to which the request is send
+//               type: "POST",             // Type of request to be send, called as method
+//               data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+//               dataType: 'json',
+//               contentType: false,       // The content type used when sending data to the server.
+//               cache: false,             // To unable request pages to be cached
+//               processData: false,        // To send DOMDocument or non processed data file it is set to false
+//               success: function (data)   // A function to be called if request succeeds
+//               {
+//                   if (data.erro) {
+//                       alert(data);
+// //                      $("#imagePreview").removeClass("avatar-preview");
+// //                      $("#imagePreview").removeClass("avatar-previewSuccess");
+// //                      $("#imagePreview").addClass("avatar-previewFailure");
+//                       console.log(data);
+//                   } else {
+//                       console.log(data);
+// //                      $("#imagePreview").removeClass("avatar-preview");
+// //                      $("#imagePreview").removeClass("avatar-previewFailure");
+// //                      $("#imagePreview").addClass("avatar-previewSuccess");
+//                       var anexo = data.fileName;
+//                       console.log(anexo);
+//                       createFuncionario(anexo);
+//                   }
+//               },
+//               error: function(data) {
+//                   console.log(data);
+//               }
+//           });
+//       });
 
       $("#cep").mask("00000-000");
       $("#celular").mask("(00) 000000000");

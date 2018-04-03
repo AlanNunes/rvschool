@@ -128,5 +128,14 @@ Class Alunos {
     }
     return array("erro" => true, "students" => NULL);
   }
+
+  // This function has the only responsability to delete a student, and just it
+  public function deleteStudent($matricula){
+    $sql = "DELETE FROM alunos WHERE matricula = '{$matricula}'";
+    if($this->conn->query($sql)){
+      return array("erro" => false, "description" => 'Aluno excluído com sucesso');
+    }
+    return array("erro" => true, "description" => 'O Aluno não foi excluído.');
+  }
 }
  ?>
