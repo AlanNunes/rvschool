@@ -635,6 +635,11 @@
       $( document ).ready(function() {
           listFuncionarios();
           $("#vertical-nav-bar").toggleClass("collapsed");
+          $("#rg").mask("99.999.999-9");
+          $("#cpf").mask("999.999.999-99");
+          $("#cep").mask("99999-999");
+          $("#celular").mask("(00) 00000-0000");
+          $("#telefone").mask("(00) 0000-0000");
       });
 
       $("#buttonHumburguer").click(function(){
@@ -691,8 +696,6 @@
 //           });
 //       });
 
-      $("#cep").mask("00000-000");
-      $("#celular").mask("(00) 000000000");
 
       function buscaCEP(cep){
         if(cep.length === 9){

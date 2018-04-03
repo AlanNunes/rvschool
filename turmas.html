@@ -59,25 +59,21 @@
   <div class="table-responsive">
     <table class="table table-hover table-sm">
       <thead class="thead-dark">
-      <tr>
+      <tr style="text-align: center;">
         <th scope="col">Nome</th>
         <th scope="col">Professor</th>
         <th scope="col">Estágio</th>
         <th scope="col">Curso</th>
-        <th scope="col">Horário</th>
-        <th scope="col">Máximo de Alunos</th>
+        <th scope="col">Máx. Alunos</th>
         <th scope="col">Sala</th>
-        <th scope="col">Duração da Aula</th>
-        <th scope="col">Data de Início</th>
-        <th scope="col">Data de Término</th>
         <th scope="col">Última Palavra</th>
         <th scope="col">Última Lição</th>
         <th scope="col">Último Sitato</th>
         <th scope="col">Situação</th>
-        <th scope="col">edit</th>
+        <th scope="col"></th>
       </tr>
       </thead>
-      <tbody id="tableContent"></tbody>
+      <tbody id="tableContent" style="text-align: center;"></tbody>
     </table>
   </div>
 </div>
@@ -424,12 +420,8 @@
                 tr.appendChild(professor);
                 tr.appendChild(estagio);
                 tr.appendChild(curso);
-                tr.appendChild(horario);
                 tr.appendChild(maxAlunos);
                 tr.appendChild(sala);
-                tr.appendChild(duracaoAula);
-                tr.appendChild(dataInicio);
-                tr.appendChild(dataTermino);
                 tr.appendChild(ultimaPalavra);
                 tr.appendChild(ultimaLicao);
                 tr.appendChild(ultimoSitato);
