@@ -110,7 +110,76 @@ class Funcionarios {
 	     if($response){
 	        return array("erro" => false, "Description" => "Funcionário registrado com sucesso.");
 	     }
-	     return array("erro" => true, "Description" => "Falha ao registrar funcionário.", "response" => $response);
+	     return array("erro" => true, "Description" => "Falha ao registrar funcionário.");
 	}
+
+	//updates employees data
+	public function updateFuncionario($data){
+	    $this->id = $data["id"];
+        $this->nome = $data["nome"];
+        $this->rg = $data["rg"];
+        $this->cpf = $data["cpf"];
+        $this->dataNascimento = $data["dataNascimento"];
+        $this->estadoCivil = $data["estadoCivil"];
+        $this->sexo = $data["sexo"];
+        $this->cargo = $data["cargo"];
+        $this->cidadeNatal = $data["cidadeNatal"];
+        $this->cep = $data["cep"];
+        $this->logradouro = $data["logradouro"];
+        $this->numero = $data["numero"];
+        $this->complemento = $data["complemento"];
+        $this->cidade = $data["cidade"];
+        $this->bairro = $data["bairro"];
+        $this->email = $data["email"];
+        $this->telefone = $data["telefone"];
+        $this->celular = $data["celular"];
+        $this->tipoPagamento = $data["tipoPagamento"];
+        $this->carteiraProfissional = $data["carteiraProfissional"];
+        $this->inss = $data["inss"];
+        $this->percentualInss = $data["percentualInss"];
+        $this->dataAdmissao = $data["dataAdmissao"];
+        $this->ccm = $data["ccm"];
+        $this->percentualIss = $data["percentualIss"];
+        $this->dataDemissao = $data["dataDemissao"];
+        $this->aulaInterna = $data["aulaInterna"];
+        $this->aulaExterna = $data["aulaExterna"];
+        $this->salarioMensal = $data["salarioMensal"];
+        $this->banco = $data["banco"];
+        $this->agencia = $data["agencia"];
+        $this->conta = $data["conta"];
+        $this->codigoBanco = $data["codigoBanco"];
+        $this->observacoes = $data["observacoes"];
+        $this->anexo = $data["anexo"];
+
+        $dataDemissaoString = $this->dataDemissao === "null" ? "null" : "'" . $this->dataDemissao . "'";
+
+        $query = "UPDATE funcionarios SET nome = '{$this->nome}', rg = '{$this->rg}', cpf = '{$this->cpf}',
+         dataNascimento = '{$this->dataNascimento}', estadoCivil = '{$this->estadoCivil}', sexo = '{$this->sexo}',
+          cargo = '{$this->cargo}', cidadeNatal = '{$this->cidadeNatal}', cep = '{$this->cep}', logradouro = '{$this->logradouro}',
+           numero = {$this->numero}, complemento = '{$this->complemento}', cidade = '{$this->cidade}', bairro = '{$this->bairro}',
+            email = '{$this->email}', telefone = '{$this->telefone}', celular = '{$this->celular}', tipoPagamento = '{$this->tipoPagamento}',
+             carteiraProfissional = '{$this->carteiraProfissional}', inss = '{$this->inss}', percentualInss = {$this->percentualInss},
+              dataAdmissao = '{$this->dataAdmissao}', ccm = '{$this->ccm}', percentualIss = {$this->percentualIss},
+               dataDemissao = {$dataDemissaoString}, aulaInterna = {$this->aulaInterna}, aulaExterna = {$this->aulaExterna},
+                salarioMensal = {$this->salarioMensal}, banco = '{$this->banco}', agencia = '{$this->agencia}',
+                 conta = '{$this->conta}', codigoBanco = '{$this->codigoBanco}', observacoes = '{$this->observacoes}',
+                  anexo = '{$this->anexo}' WHERE id = {$this->id}";
+
+         $response = $this->conn->query($query);
+         if($response){
+            return array("erro" => false, "Description" => "Funcionário atualizado com sucesso.");
+         }
+         return array("erro" => true, "Description" => "Falha ao atualizar funcionário.");
+    }
+
+    public function deleteFuncionario($id){
+        $query = "DELETE FROM funcionarios WHERE id=" . $id;
+        $result = $this->conn->query($query);
+
+        if($result){
+            return array("erro" =>false, "Description" => "Funcionário excluido com sucesso.");
+        }
+        return array("erro" => true, "Description" => "Falha ao exluir funcionário.");
+    }
 }
 ?>

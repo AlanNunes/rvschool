@@ -121,7 +121,7 @@ function deleteTurma(){
     $turmas = new Turmas($conn);
     $response = $turmas->deleteTurma($_POST["id"]);
     if($response["erro"]){
-        echo $reponse["responseText"];
+        echo $response["responseText"];
     }else{
         echo $response["responseText"];
     }

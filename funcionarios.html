@@ -70,6 +70,7 @@
       <th scope="col">RG</th>
       <th scope="col">sexo</th>
       <th scope="col" id="telefoneColumn">TELEFONE</th>
+      <th scope="col">EDITAR</th>
       <!--<th scope="col" id="celularColumn" hidden>CELULAR</th>-->
     </tr>
   </thead>
@@ -265,7 +266,7 @@
   <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-right"></span></a>
   <ul class="navbar-primary-menu">
     <li>
-      <a href="#" data-toggle="modal" data-target="#registrarFuncionario"><span class="oi oi-plus"></span></span><span class="nav-label">   Incluir</span></a>
+      <a href="#" id="openRegisterModal" data-toggle="modal" data-target="#registrarFuncionario"><span class="oi oi-plus"></span></span><span class="nav-label">   Incluir</span></a>
       <a href="#"><span class="oi oi-print"></span><span class="nav-label">   Relatório</span></a>
     </li>
   </ul>
@@ -724,13 +725,30 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" id="registrar">Registrar</button>
-            <button type="button" class="btn btn-primary" id="editar" hidden>Editar</button>
+            <button type="button" class="btn btn-primary" id="editar">Editar</button>
           </div>
         </div>
       </div>
     </div>
 
 <!-- END REGISTRAR FUNCIONÁRIO -->
+
+<!-- DELETE MODAL FORM -->
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">Excluir</div>
+      <div class="modal-body">Você tem certeza que deseja excluir este funcionário?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="delete-funcionario" type="button" class="btn btn-danger btn-ok">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- END DELETE MODAL -->
 
 
 
@@ -774,6 +792,21 @@
         $("#horistasSecao").hide();
         $("#mensalistasSecao").show();
       }
+
+      $("#openRegisterModal").click(function(e) {
+          $("#editar").hide();
+          $("#registrar").show();
+          $("#dataDemissao").prop("disabled", true).val("");
+      });
+
+      $("#editar").click(function(e) {
+          updateFuncionario(e.target.funcionario);
+      });
+
+      $("#delete-funcionario").click(function(e) {
+          e.preventDefault();
+          deleteFuncionario(e.target.funcionario);
+      });
 
 //       $("#anexo").on('submit',function(e) {
 //           e.preventDefault();
@@ -849,10 +882,47 @@
                   var rg = new DOM_Element("td", false, false, false, funcionario.rg);
                   var sexo = new DOM_Element("td", false, false, false, funcionario.sexo);
                   var telefoneORCelular = new DOM_Element("td", false, false, false, funcionario.telefone);
+                  var edit = new DOM_Element("td");
+
+                  var closeButton = new DOM_Element("button", "btn transparent-button", false, false);
+                  var deleteIcon = new DOM_Element("img", false, false, [{name: "src", value: "assets/icons/open-iconic-master/png/trash-2x.png"}]);
+
+                  var editButton = new DOM_Element("button", "btn transparent-button");
+                  var editIcon = new DOM_Element("img", false, false, [{name: "src", value: "assets/icons/open-iconic-master/png/cog-2x.png"}]);
+
+                  closeButton.element.funcionario = funcionario.id;
+                  deleteIcon.element.funcionario = funcionario.id;
+                  editButton.element.funcionario = funcionario;
+                  editIcon.element.funcionario = funcionario;
+                  editButton.click(function(e) {
+                      console.log(e.target.funcionario);
+                      var currentFuncionario = e.target.funcionario;
+                      document.getElementById("editar").funcionario = currentFuncionario.id;
+                      e.preventDefault();
+                      $("#registrar").hide();
+                      $("#editar").show();
+                      $("#dataDemissao").prop("disabled", false);
+
+                      setFuncionariosFieldsValues(currentFuncionario);
+
+                      $("#registrarFuncionario").modal("show");
+                  });
+
+                  closeButton.click(function(e) {
+                      e.preventDefault();
+                      var deleteFuncionario = document.getElementById("delete-funcionario");
+                      deleteFuncionario.funcionario = e.target.funcionario;
+                      $("#confirm-delete").modal("show");
+                  });
+
                   if(funcionario.celular && funcionario.celular !== "null") {
                       telefoneORCelular.changeContent(funcionario.celular);
                   }
 
+                  closeButton.appendChild(deleteIcon);
+                  editButton.appendChild(editIcon);
+                  edit.appendChild(editButton);
+                  edit.appendChild(closeButton);
                   tr.appendChild(nome);
                   tr.appendChild(email);
                   tr.appendChild(cargo);
@@ -860,11 +930,12 @@
                   tr.appendChild(rg);
                   tr.appendChild(sexo);
                   tr.appendChild(telefoneORCelular);
+                  tr.appendChild(edit);
                   tr.addToDOM(tBody);
               }
 
               var trCount = new DOM_Element("tr");
-              var tdCount = new DOM_Element("td", "text-center", false, [{name: "colspan", value: 7}], data.length + " Funcionários");
+              var tdCount = new DOM_Element("td", "text-center", false, [{name: "colspan", value: 8}], data.length + " Funcionários");
               trCount.appendChild(tdCount);
               trCount.addToDOM(tBody);
             console.log(data);
@@ -879,7 +950,7 @@
       });
 
       function createFuncionario() {
-          var data = getFormVal();
+          var data = getFormsVal();
           data.acao = "createFuncionario";
           alert(data.tipoPagamento);
 
@@ -894,30 +965,131 @@
                           alert(data.Description);
                       }
                       else {
-                          var requiredFields = getRequiredFields();
-                          for(var i = 0;i < requiredFields.length;i++){
-                              var requiredField = requiredFields[i];
-                              if(data.invalidFields.indexOf(requiredField) === -1) {
-                                  $("#" + requiredField).removeClass("is-invalid");
-                              }
-                          }
-                          for(i = 0;i < data.invalidFields.length;i++) {
-                              var invalidField = data.invalidFields[i];
-                              $("#" + invalidField).removeClass("is-valid").addClass("is-invalid");
-                          }
+                          alert("Arrume os campos em vermelho.");
+                         setInvalidFields(data.invalidFields);
                       }
                   }
                   else {
 //                      $("#registrarFuncionario").modal("hide");
 //                      $("#sucessoRegistro").modal("show");
+                      setInvalidFields([]);
                       listFuncionarios();
                   }
-                  console.log(data);
               },
               error: function(data) {
                   console.log(data);
               }
           });
+      }
+      function updateFuncionario(funcionarioId){
+          $("#loading").show();
+          var data = getFormsVal();
+          data.acao = "updateFuncionario";
+          data.id = funcionarioId;
+
+          $.ajax({
+              type: "POST",
+              dataType: "json",
+              url: "php/funcionarios/controle.php",
+              data: data,
+              success: function(data) {
+                  if(data.erro) {
+                      if(data.Description) {
+                          alert(data.Description);
+                      }
+                      else {
+                          alert("Arrume os campos em vermelho.");
+                          setInvalidFields(data.invalidFields);
+                      }
+                  }
+                  else {
+                      alert(data.Description);
+                      setInvalidFields([]);
+                      listFuncionarios();
+                  }
+                  console.log(data);
+              },
+              error: function(data) {
+                  alert(data.Description);
+                  listFuncionarios();
+                  console.log(data);
+              }
+          });
+      }
+
+      function deleteFuncionario(funcionarioId) {
+          var data = {
+              acao: "deleteFuncionario",
+              id: funcionarioId
+          };
+
+          $.ajax({
+              type: "POST",
+              dataType: "json",
+              url: "php/funcionarios/controle.php",
+              data: data,
+              success: function(data) {
+                  alert(data.Description);
+                  listFuncionarios();
+                  $("#confirm-delete").modal("hide");
+              },
+              error: function(data) {
+                  alert(data.responseText);
+                  listFuncionarios();
+                  $("#confirm-delete").modal("hide");
+              }
+          });
+      }
+
+      function setInvalidFields(invalidFields) {
+          var requiredFields = getRequiredFields();
+          for(var i = 0;i < requiredFields.length;i++){
+              var requiredField = requiredFields[i];
+              if(invalidFields.indexOf(requiredField) === -1) {
+                  $("#" + requiredField).removeClass("is-invalid");
+              }
+          }
+          for(i = 0;i < invalidFields.length;i++) {
+              var invalidField = invalidFields[i];
+              $("#" + invalidField).removeClass("is-valid").addClass("is-invalid");
+          }
+      }
+
+      function setFuncionariosFieldsValues(funcionario){
+          $("#nome").val(funcionario.nome);
+          $("#rg").val(funcionario.rg);
+          $("#cpf").val(funcionario.cpf);
+          $("#dataNascimento").val(funcionario.dataNascimento);
+          $("#estadoCivil").val(funcionario.estadoCivil);
+          $("#sexo").val(funcionario.sexo);
+          $("#cargo").val(funcionario.cargo);
+          $("#cidadeNatal").val(funcionario.cidadeNatal);
+          $("#cep").val(funcionario.cep);
+          $("#logradouro").val(funcionario.logradouro);
+          $("#numero").val(funcionario.numero);
+          $("#complemento").val(funcionario.complemento);
+          $("#cidade").val(funcionario.cidade);
+          $("#bairro").val(funcionario.bairro);
+          $("#email").val(funcionario.email);
+          $("#telefone").val(funcionario.telefone);
+          $("#celular").val(funcionario.celular);
+          $("#" + funcionario.tipoPagamento).prop("checked", true).click();
+          $("#carteiraProfissional").val(funcionario.carteiraProfissional);
+          $("#inss").val(funcionario.inss);
+          $("#percentualInss").val(funcionario.percentualInss);
+          $("#dataAdmissao").val(funcionario.dataAdmissao);
+          $("#ccm").val(funcionario.ccm);
+          $("#percentualIss").val(funcionario.percentualIss);
+          $("#dataDemissao").val(funcionario.dataDemissao);
+          $("#aulaInterna").val(funcionario.aulaInterna);
+          $("#aulaExterna").val(funcionario.aulaExterna);
+          $("#salarioMensal").val(funcionario.salarioMensal);
+          $("#banco").val(funcionario.banco);
+          $("#agencia").val(funcionario.agencia);
+          $("#conta").val(funcionario.conta);
+          $("#codigoBanco").val(funcionario.codigoBanco);
+          $("#observacoes").val(funcionario.observacoes);
+          $("#anexo").val(funcionario.anexo);
       }
 
       function getRequiredFields() {
@@ -929,7 +1101,7 @@
           ];
       }
 
-      function getFormVal() {
+      function getFormsVal() {
           var nome = $("#nome").val();
           var rg = $("#rg").val();
           var cpf = $("#cpf").val();

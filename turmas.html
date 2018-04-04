@@ -386,7 +386,6 @@
                 editButton.element.turma = turma;
                 editIcon.element.turma = turma;
                 editButton.click(function(e) {
-                    console.log(e.target.turma.curso);
                     var currentTurma = e.target.turma;
                     document.getElementById("editar").turma = currentTurma.id;
                     e.preventDefault();
