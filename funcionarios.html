@@ -64,14 +64,16 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">NOME</th>
+      <th scope="col">E-MAIL</th>
       <th scope="col">CARGO</th>
-      <th scope="col">USUÁRIO</th>
       <th scope="col">CPF</th>
       <th scope="col">RG</th>
-      <th scope="col">TELEFONE</th>
+      <th scope="col">sexo</th>
+      <th scope="col" id="telefoneColumn">TELEFONE</th>
+      <!--<th scope="col" id="celularColumn" hidden>CELULAR</th>-->
     </tr>
   </thead>
-  <tbody>
+  <tbody id="tableContent">
     <!--<tr data-toggle="modal" data-target="#editarFuncionario">
 
       <td>Gustavo de Mello Brandão</td>
@@ -312,20 +314,32 @@
                     <div class="form-group col-md-4">
                       <label for="nome">Nome:</label>
                       <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira">
+                      <div class="invalid-feedback">
+                        Por favor, digite o nome do funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="rg">RG:</label>
                       <input type="text" class="form-control" id="rg" placeholder="Ex.: 171.251.54-26">
+                      <div class="invalid-feedback">
+                        Por favor, digite um rg válido.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="cpf">CPF:</label>
                       <input type="text" class="form-control" id="cpf" placeholder="Ex.: 171.251.54-26">
+                      <div class="invalid-feedback">
+                        Por favor, digite um cpf válido.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="dataNasc">Data de Nasc.:</label>
-                      <input type="date" class="form-control" id="dataNasc">
+                      <label for="dataNascimento">Data de Nasc.:</label>
+                      <input type="date" class="form-control" id="dataNascimento">
+                      <div class="invalid-feedback">
+                        Por favor, digite uma data de nascimento válida.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="estadoCivil">Estado Civil:</label>
@@ -333,6 +347,9 @@
                         <option value="solteiro">Solteiro</option>
                         <option value="casado">Casado</option>
                       </select>
+                      <div class="invalid-feedback">
+                        Por favor, selecione o estado civil do funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="sexo">Sexo:</label>
@@ -340,6 +357,9 @@
                         <option value="masculino">Masculino</option>
                         <option value="feminino">Feminino</option>
                       </select>
+                      <div class="invalid-feedback">
+                        Por favor, selecione o sexo do funcionário.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row">
@@ -350,10 +370,16 @@
                         <option value="recepcionista">Recepcionista</option>
                         <option value="secretária">Secretária</option>
                       </select>
+                      <div class="invalid-feedback">
+                        Por favor, selecione o cargo do funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="cidadeNatal">Cidade Natal:</label>
                       <input type="text" class="form-control" id="cidadeNatal">
+                      <div class="invalid-feedback">
+                        Por favor, digite a cidade natal do funcionário.
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -367,14 +393,23 @@
                     <div class="form-group col-md-4">
                       <label for="cep">CEP:</label>
                       <input type="text" class="form-control" id="cep" oninput="buscaCEP(this.value)" placeholder="">
+                      <div class="invalid-feedback">
+                        Por favor, digite o cep do funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="logradouro">Logradouro:</label>
                       <input type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida 1">
+                      <div class="invalid-feedback">
+                        Por favor, digite o logradouro onde mora o funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-2">
                       <label for="numero">Número:</label>
                       <input type="number" class="form-control" id="numero" placeholder="Ex.: 77">
+                      <div class="invalid-feedback">
+                        Por favor, digite o numero da residência do funcionário.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row">
@@ -385,24 +420,39 @@
                     <div class="form-group col-md-3">
                       <label for="cidade">Cidade:</label>
                       <input type="text" class="form-control" id="cidade">
+                      <div class="invalid-feedback">
+                        Por favor, digite a cidade onde mora o funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-3">
                       <label for="bairro">Bairro:</label>
                       <input type="text" class="form-control" id="bairro">
+                      <div class="invalid-feedback">
+                        Por favor, digite o bairro onde mora o funcionário.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="email">Email:</label>
                       <input type="email" class="form-control" id="email">
+                      <div class="invalid-feedback">
+                        Por favor, digite um email válido.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="telefone">Telefone:</label>
                       <input type="text" class="form-control" id="telefone">
+                      <div class="invalid-feedback">
+                        Por favor, digite um telefone válido.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="celular">Celular:</label>
                       <input type="text" class="form-control" id="celular">
+                      <div class="invalid-feedback">
+                        Por favor, digite um celular válido.
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -429,6 +479,9 @@
                     <div class="form-group col-md-4 offset-md-4">
                       <label for="carteiraProfissional">Carteira Profissional:</label>
                       <input type="text" class="form-control" id="carteiraProfissional">
+                      <div class="invalid-feedback">
+                        Por favor, digite a carteira profissional do funcionário.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row">
@@ -439,13 +492,19 @@
                     <div class="form-group col-md-2">
                       <label for="inss">INSS:</label>
                       <input type="text" class="form-control" id="inss">
+                      <div class="invalid-feedback">
+                        Por favor, digite o inss do funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-2">
-                      <label for="inssPercentual">Percentual INSS:</label>
+                      <label for="percentualInss">Percentual INSS:</label>
                       <div class="input-group">
-                        <input type="number" class="form-control" id="inssPercentual" aria-describedby="inputGroupInssPercentual" min="0" max="100" required>
+                        <input type="number" class="form-control" id="percentualInss" aria-describedby="inputGroupInssPercentual" min="0" max="100" required>
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroupInssPercentual">%</span>
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, digite a porcentagem do INSS.
                         </div>
                       </div>
                     </div>
@@ -453,25 +512,37 @@
                     <div class="form-group col-md-4 offset-md-4">
                       <label for="dataAdmissao">Data de Admissão:</label>
                       <input type="date" class="form-control" id="dataAdmissao">
+                      <div class="invalid-feedback">
+                        Por favor, digite uma data de admissão válida.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-2">
                       <label for="ccm">CCM:</label>
                       <input type="text" class="form-control" id="ccm">
+                      <div class="invalid-feedback">
+                        Por favor, digite o ccm do funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-2">
-                      <label for="issPercentual">Percentual ISS:</label>
+                      <label for="percentualIss">Percentual ISS:</label>
                       <div class="input-group">
-                        <input type="number" class="form-control" id="issPercentual" aria-describedby="inputGroupInssPercentual" min="0" max="100" required>
+                        <input type="number" class="form-control" id="percentualIss" aria-describedby="inputGroupInssPercentual" min="0" max="100" required>
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroupIssPercentual">%</span>
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, digite o percentual do ISS.
                         </div>
                       </div>
                     </div>
                     <div class="form-group col-md-4 offset-md-4">
                       <label for="dataDemissao">Data de Demissão:</label>
                       <input type="date" class="form-control" id="dataDemissao" disabled="true">
+                      <div class="invalid-feedback">
+                        Por favor, digite uma data de demissão válida.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row" id="horistasSecao">
@@ -496,6 +567,9 @@
                                       <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroupAulaInterna">R$</span>
                                       </div>
+                                      <div class="invalid-feedback">
+                                        Por favor, digite o valor do pagamento para aulas internas.
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
@@ -508,6 +582,9 @@
                                       <input type="number" class="form-control" id="aulaExterna" aria-describedby="inputGroupAulaExterna" required>
                                       <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroupAulaExterna">R$</span>
+                                      </div>
+                                      <div class="invalid-feedback">
+                                        Por favor, digite o valor do pagamento para aulas externas.
                                       </div>
                                     </div>
                                   </div>
@@ -522,7 +599,7 @@
                   <div class="form-row" id="mensalistasSecao" style="display: none">
                     <div class="form-group col">
                       <fieldset>
-                        <legend>Pagamento para Professores horistas</legend>
+                        <legend>Pagamento para Professores Mensalistas</legend>
                         <div class="table-responsive">
                           <table class="table table-striped table-light">
                             <thead>
@@ -540,6 +617,9 @@
                                       <input type="number" class="form-control" id="salarioMensal" aria-describedby="inputGroupSalarioMensal" required>
                                       <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroupSalarioMensal">R$</span>
+                                      </div>
+                                      <div class="invalid-feedback">
+                                        Por favor, digite o valor do salário mensal do funcionário.
                                       </div>
                                     </div>
                                   </div>
@@ -567,20 +647,32 @@
                         <option value="2">Bradesco</option>
                         <option value="3">Itaú</option>
                       </select>
+                      <div class="invalid-feedback">
+                        Por favor, selecione o banco do funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="agencia">Agência:</label>
                       <input type="text" class="form-control" id="agencia" placeholder="Ex.: 0012-3">
+                      <div class="invalid-feedback">
+                        Por favor, digite a agência do banco do funcionário.
+                      </div>
                     </div>
                     <div class="form-group col-md-4">
                       <label for="conta">Conta:</label>
                       <input type="text" class="form-control" id="conta" placeholder="Ex.: 0123456-7">
+                      <div class="invalid-feedback">
+                        Por favor, digite a conta do funcionário.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="codigoBanco">Código do Cliente no Banco:</label>
                       <input type="text" class="form-control" id="codigoBanco">
+                      <div class="invalid-feedback">
+                        Por favor, digite o código do cliente no banco do funcionário.
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -604,6 +696,27 @@
                 </form>
               </div>
               <!--END ANEXOS-->
+
+              <!-- MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
+              <div class="modal fade" id="sucessoRegistro" tabindex="-1" role="dialog" aria-labelledby="sucessoRegistroLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="sucessoRegistroLabel">RevolutionSchool</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      O Funcionário foi registrado com sucesso.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Entendi</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- FIM MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
 
 
             </div>
@@ -630,6 +743,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.mask.js"></script>
+    <script src="js/dynamical-dom.js"></script>
     <script>
 
       $( document ).ready(function() {
@@ -716,11 +830,40 @@
         data = $(this).serialize() + "&" + $.param(data);
         $.ajax({
           type: "POST",
-          dataType: "html",
+          dataType: "json",
           url: "php/funcionarios/controle.php",
           data: data,
           success: function(data) {
-            $("#cargo").html(data);
+              var tBody = document.getElementById("tableContent");
+              tBody.innerHTML = "";
+              for(var i = 0;i < data.length;i++) {
+                  var funcionario = data[i];
+                  var tr = new DOM_Element("tr");
+                  var nome = new DOM_Element("th", false, false, false, funcionario.nome);
+                  var email = new DOM_Element("td", false, false, false, funcionario.email);
+                  var cargo = new DOM_Element("td", false, false, false, funcionario.cargo);
+                  var cpf = new DOM_Element("td", false, false, false, funcionario.cpf);
+                  var rg = new DOM_Element("td", false, false, false, funcionario.rg);
+                  var sexo = new DOM_Element("td", false, false, false, funcionario.sexo);
+                  var telefoneORCelular = new DOM_Element("td", false, false, false, funcionario.telefone);
+                  if(funcionario.celular && funcionario.celular !== "null") {
+                      telefoneORCelular.changeContent(funcionario.celular);
+                  }
+
+                  tr.appendChild(nome);
+                  tr.appendChild(email);
+                  tr.appendChild(cargo);
+                  tr.appendChild(cpf);
+                  tr.appendChild(rg);
+                  tr.appendChild(sexo);
+                  tr.appendChild(telefoneORCelular);
+                  tr.addToDOM(tBody);
+              }
+
+              var trCount = new DOM_Element("tr");
+              var tdCount = new DOM_Element("td", "text-center", false, [{name: "colspan", value: 7}], data.length + " Funcionários");
+              trCount.appendChild(tdCount);
+              trCount.addToDOM(tBody);
             console.log(data);
           }
         });
@@ -729,28 +872,65 @@
       $("#registrar").click(function(){
         $("#loading").show();
 
-        $("#submitFile").click();
+        createFuncionario();
       });
 
-      function createFuncionario(anexo) {
+      function createFuncionario() {
           var data = getFormVal();
           data.acao = "createFuncionario";
-          data.anexo = anexo;
           alert(data.tipoPagamento);
-          console.log(data.anexo);
 
-//        $.post("php/funcionarios/controle.php", data,
-//        function(data, status){
-//          // $("#loading").hide();
-//            console.log("Data:\n"+data+"\nStatus:"+status);
-//        });
+          $.ajax({
+              type: "POST",
+              dataType: "json",
+              url: "php/funcionarios/controle.php",
+              data: data,
+              success: function(data) {
+                  if(data.erro) {
+                      if(data.Description) {
+                          alert(data.Description);
+                      }
+                      else {
+                          var requiredFields = getRequiredFields();
+                          for(var i = 0;i < requiredFields.length;i++){
+                              var requiredField = requiredFields[i];
+                              if(data.invalidFields.indexOf(requiredField) === -1) {
+                                  $("#" + requiredField).removeClass("is-invalid");
+                              }
+                          }
+                          for(i = 0;i < data.invalidFields.length;i++) {
+                              var invalidField = data.invalidFields[i];
+                              $("#" + invalidField).removeClass("is-valid").addClass("is-invalid");
+                          }
+                      }
+                  }
+                  else {
+//                      $("#registrarFuncionario").modal("hide");
+//                      $("#sucessoRegistro").modal("show");
+                      listFuncionarios();
+                  }
+                  console.log(data);
+              },
+              error: function(data) {
+                  console.log(data);
+              }
+          });
+      }
+
+      function getRequiredFields() {
+          return [
+              "nome", "rg", "cpf", "dataNascimento", "estadoCivil", "sexo", "cargo", "cidadeNatal", "cep", "logradouro",
+              "numero", "complemento", "cidade", "bairro", "email", "telefone", "tipoPagamento", "carteiraProfissional",
+              "inss", "percentualInss", "dataAdmissao", "ccm", "percentualIss", "banco", "agencia", "conta",
+              "codigoBanco", "aulaInterna", "aulaExterna", "salarioMensal", "celular"
+          ];
       }
 
       function getFormVal() {
           var nome = $("#nome").val();
           var rg = $("#rg").val();
           var cpf = $("#cpf").val();
-          var dataNasc = $("#dataNasc").val();
+          var dataNascimento = $("#dataNascimento").val();
           var estadoCivil = $("#estadoCivil").val();
           var sexo = $("#sexo").val();
           var cargo = $("#cargo").val();
@@ -759,18 +939,18 @@
           var logradouro = $("#logradouro").val();
           var numero = $("#numero").val();
           var complemento = $("#complemento").val();
-          var cidade = $("#cidade");
-          var bairro = $("#bairro");
+          var cidade = $("#cidade").val();
+          var bairro = $("#bairro").val();
           var email = $("#email").val();
           var telefone = $("#telefone").val();
           var celular = $("#celular").val();
           var tipoPagamento = $('input[name=tipoPagamento]:checked').val();
           var carteiraProfissional = $("#carteiraProfissional").val();
           var inss = $("#inss").val();
-          var inssPercentual = $("#inssPercentual").val();
+          var percentualInss = $("#percentualInss").val();
           var dataAdmissao = $("#dataAdmissao").val();
-          var cmm = $("#cmm").val();
-          var issPercentual = $("#issPercentual").val();
+          var ccm = $("#ccm").val();
+          var percentualIss = $("#percentualIss").val();
           var dataDemissao = $("#dataDemissao").val();
           var aulaInterna = $("#aulaInterna").val();
           var aulaExterna = $("#aulaExterna").val();
@@ -780,13 +960,13 @@
           var conta = $("#conta").val();
           var codigoBanco = $("#codigoBanco").val();
           var observacoes = $("#comment").val();
-//          var anexo = $("#inputFile").val();
+          var anexo = $("#inputFile").val();
 
           return {
               nome: nome,
               rg: rg,
               cpf: cpf,
-              dataNascimento: dataNasc,
+              dataNascimento: dataNascimento,
               estadoCivil: estadoCivil,
               sexo: sexo,
               cargo: cargo,
@@ -794,19 +974,19 @@
               cep: cep,
               logradouro: logradouro,
               numero: numero,
-              comlemento: complemento,
+              complemento: complemento,
               cidade: cidade,
               bairro: bairro,
               email: email,
               telefone: telefone,
               celular: celular,
-              tipePagamento: tipoPagamento,
+              tipoPagamento: tipoPagamento,
               carteiraProfissional: carteiraProfissional,
               inss: inss,
-              percentualInss: inssPercentual,
+              percentualInss: percentualInss,
               dataAdmissao: dataAdmissao,
-              cmm: cmm,
-              percentualIss: issPercentual,
+              ccm: ccm,
+              percentualIss: percentualIss,
               dataDemissao: dataDemissao,
               aulaInterna: aulaInterna,
               aulaExterna: aulaExterna,

@@ -27,39 +27,39 @@ CREATE TABLE `funcionarios` (
   `nome` varchar(45) NOT NULL,
   `rg` varchar(45) NOT NULL,
   `cpf` varchar(45) NOT NULL,
-  `dataDeNascimento` date NOT NULL,
+  `dataNascimento` date NOT NULL,
   `estadoCivil` varchar(45) NOT NULL,
   `sexo` varchar(45) NOT NULL,
   `cargo` varchar(45) NOT NULL,
   `cidadeNatal` varchar(45) NOT NULL,
   `cep` varchar(45) NOT NULL,
-  `logradouro` varchar(45) NOT NULL,
+  `logradouro` varchar(255) NOT NULL,
   `numero` int(11) NOT NULL,
-  `complemento` varchar(45) NOT NULL,
+  `complemento` varchar(45) DEFAULT NULL,
   `cidade` varchar(45) NOT NULL,
   `bairro` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `telefone` varchar(45) NOT NULL,
+  `telefone` varchar(45) DEFAULT NULL,
   `celular` varchar(45) DEFAULT NULL,
-  `tipoDePagamento` varchar(45) NOT NULL,
+  `tipoPagamento` varchar(45) NOT NULL,
   `carteiraProfissional` varchar(45) NOT NULL,
   `inss` varchar(45) NOT NULL,
   `percentualInss` int(11) NOT NULL,
-  `dataDeAdmissao` date NOT NULL,
-  `cmm` varchar(45) NOT NULL,
+  `dataAdmissao` date NOT NULL,
+  `ccm` varchar(45) NOT NULL,
   `percentualIss` int(11) NOT NULL,
-  `dataDeDemissao` date DEFAULT NULL,
-  `pagamentoAulaInterna` int(11) DEFAULT NULL,
-  `pagamentoAulaExterna` int(11) DEFAULT NULL,
-  `pagamentoMensal` int(11) DEFAULT NULL,
-  `banco` int(11) NOT NULL,
+  `dataDemissao` date DEFAULT NULL,
+  `aulaInterna` int(11) DEFAULT NULL,
+  `aulaExterna` int(11) DEFAULT NULL,
+  `salarioMensal` int(11) DEFAULT NULL,
+  `banco` varchar(45) NOT NULL,
   `agencia` varchar(45) NOT NULL,
   `conta` varchar(45) NOT NULL,
   `codigoBanco` varchar(45) NOT NULL,
   `observacoes` varchar(255) DEFAULT NULL,
   `anexo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,6 +68,7 @@ CREATE TABLE `funcionarios` (
 
 LOCK TABLES `funcionarios` WRITE;
 /*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
+INSERT INTO `funcionarios` VALUES (1,'Luan Nunes','236.234.32-57','161.438.287-50','1993-07-10','solteiro','masculino','professor','Volta Redonda','27259-290','Bairro Jardim Vila Rica Tiradentes',28,'null','Volta Redonda','Vila Rica - Tiradentes','alann.625@gmail.com','','(24) 998844351','horista','12412341212','123',23,'2018-04-03','3442',23,NULL,233,344,NULL,'Banco do Brasil','12312-3','1231231-4','12312312312','null','null'),(2,'Luan Nunes','236.234.32-57','161.438.287-50','1993-07-10','solteiro','masculino','professor','Volta Redonda','27259-290','Bairro Jardim Vila Rica Tiradentes',28,'null','Volta Redonda','Vila Rica - Tiradentes','alann.625@gmail.com','','(24) 998844351','horista','12412341212','123',23,'2018-04-03','3442',23,NULL,233,344,NULL,'Banco do Brasil','12312-3','1231231-4','12312312312','null','null'),(3,'Luan Nunes','236.234.32-57','161.438.287-50','1993-07-10','solteiro','masculino','professor','Volta Redonda','27259-290','Bairro Jardim Vila Rica Tiradentes',28,'null','Volta Redonda','Vila Rica - Tiradentes','alann.625@gmail.com','','(24) 998844351','horista','12412341212','123',23,'2018-04-03','3442',23,NULL,233,344,NULL,'Banco do Brasil','12312-3','1231231-4','12312312312','null','null');
 /*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -80,4 +81,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-02 19:08:09
+-- Dump completed on 2018-04-03 21:58:49

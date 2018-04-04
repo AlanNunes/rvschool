@@ -39,6 +39,22 @@ class Funcionarios {
 	    $this->conn = $conn;
 	}
 
+	//get all employees
+	public function listFuncionario(){
+	    $query = "SELECT * FROM funcionarios";
+	    $result = $this->conn->query($query);
+
+	    if($result->num_rows > 0) {
+	        while($row = $result->fetch_assoc()){
+	            $response[] = $row;
+	        }
+	    }
+	    else {
+	        return array("erro" => true);
+	    }
+	    return array("erro" => false, "response" => $response);
+	}
+
 	//function to register employee
 	public function createFuncionario($data){
 	    $this->nome = $data["nome"];
@@ -63,7 +79,7 @@ class Funcionarios {
 	    $this->inss = $data["inss"];
 	    $this->percentualInss = $data["percentualInss"];
 	    $this->dataAdmissao = $data["dataAdmissao"];
-	    $this->cmm = $data["cmm"];
+	    $this->ccm = $data["ccm"];
 	    $this->percentualIss = $data["percentualIss"];
 	    $this->dataDemissao = $data["dataDemissao"];
 	    $this->aulaInterna = $data["aulaInterna"];
@@ -76,23 +92,25 @@ class Funcionarios {
 	    $this->observacoes = $data["observacoes"];
 	    $this->anexo = $data["anexo"];
 
+	    $dataDemissaoString = $this->dataDemissao === "null" ? "null" : "'" . $this->dataDemissao . "'";
+
 	    $query = "INSERT INTO funcionarios (nome, rg, cpf, dataNascimento, estadoCivil, sexo, cargo, cidadeNatal, cep,
 	     logradouro, numero, complemento, cidade, bairro, email, telefone, celular, tipoPagamento, carteiraProfissional,
-	     inss, percentualInss, dataAdmissao, cmm, percentualIss, dataDemissao, aulaInterna, aulaExterna, salarioMensal,
-	     banco, agencia, conta, codigoBanco, observacoes, anexo) VALUES ('{$this->nome}', '{$this->rg}', '{$this->cpf}',
-	     '{$this->dataNascimento}', '{$this->estadoCivil}', '{$this->sexo}', '{$this->cargo}', '{$this->cidadeNatal}',
-	     '{$this->cep}', '{$this->logradouro}', '{$this->numero}', '{$this->complemento}', '{$this->cidade}',
-	     '{$this->bairro}', '{$this->email}', '{$this->telefone}', '{$this->celular}', '{$this->tipoPagamento}',
-	     '{$this->carteiraProfissional}', '{$this->inss}', '{$this->percentualInss}', '{$this->dataAdmissao}',
-	     '{$this->cmm}', '{$this->percentualIss}', '{$this->dataDemissao}', '{$this->aulaInterna}',
-	     '{$this->aulaExterna}', '{$this->salarioMensal}', '{$this->banco}', '{$this->agencia}', '{$this->conta}',
-	     '{$this->codigoBanco}', '{$this->observacoes}', '{$this->anexo}')";
+	     inss, percentualInss, dataAdmissao, ccm, percentualIss, dataDemissao, aulaInterna, aulaExterna, salarioMensal,
+	     banco, agencia, conta, codigoBanco, observacoes, anexo) VALUES ('". $this->nome ."', '". $this->rg ."', '". $this->cpf ."',
+	     '". $this->dataNascimento ."', '". $this->estadoCivil ."', '". $this->sexo ."', '". $this->cargo ."', '". $this->cidadeNatal ."',
+	     '". $this->cep ."', '". $this->logradouro ."', ". $this->numero .", '". $this->complemento ."', '". $this->cidade ."',
+	     '". $this->bairro ."', '". $this->email ."', '". $this->telefone ."', '". $this->celular ."', '". $this->tipoPagamento ."',
+	     '". $this->carteiraProfissional ."', '". $this->inss ."', ". $this->percentualInss .", '". $this->dataAdmissao ."',
+	     '". $this->ccm ."', ". $this->percentualIss .", ". $dataDemissaoString .", ". $this->aulaInterna .",
+	     ". $this->aulaExterna .", ". $this->salarioMensal .", '". $this->banco ."', '". $this->agencia ."', '". $this->conta ."',
+	     '". $this->codigoBanco ."', '" . $this->observacoes . "', '". $this->anexo ."')";
 
 	     $response = $this->conn->query($query);
 	     if($response){
 	        return array("erro" => false, "Description" => "Funcionário registrado com sucesso.");
 	     }
-	     return array("erro" => true, "Description" => "Falha ao registrar funcionário.");
+	     return array("erro" => true, "Description" => "Falha ao registrar funcionário.", "response" => $response);
 	}
 }
 ?>
