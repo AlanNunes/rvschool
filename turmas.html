@@ -60,16 +60,16 @@
     <table class="table table-hover table-sm">
       <thead class="thead-dark">
       <tr style="text-align: center;">
-        <th scope="col">Nome</th>
-        <th scope="col">Professor</th>
-        <th scope="col">Estágio</th>
-        <th scope="col">Curso</th>
-        <th scope="col">Máx. Alunos</th>
-        <th scope="col">Sala</th>
-        <th scope="col">Última Palavra</th>
-        <th scope="col">Última Lição</th>
-        <th scope="col">Último Sitato</th>
-        <th scope="col">Situação</th>
+        <th scope="col">NOME</th>
+        <th scope="col">PROFESSOR</th>
+        <th scope="col">ESTÁGIO</th>
+        <th scope="col">CURSO</th>
+        <th scope="col">MÍN. ALUNOS</th>
+        <th scope="col">SALA</th>
+        <th scope="col">DURAÇÂO DA AULA</th>
+        <th scope="col">DATA DE INÍCIO</th>
+        <th scope="col">DATA DE TÉRMINO</th>
+        <th scope="col">SITUAÇÂO</th>
         <th scope="col"></th>
       </tr>
       </thead>
@@ -121,14 +121,21 @@
                 <div class="col-md-6">
                   <label for="nome">Nome:*</label>
                   <input type="text" class="form-control" id="nome" placeholder="Ex.: Turma A">
+                  <div class="invalid-feedback">
+                    Por favor, digite o nome da turma.
+                  </div>
                 </div>
 
                 <div class="col-md-4 offset-md-2">
                   <label for="situacao">Situação:*</label>
                   <select id="situacao" class="form-control">
-                    <option value="1">Ativa</option>
+                    <option value="2">Ativa</option>
+                    <option value="1">Em formação</option>
                     <option value="0">Inativa</option>
                   </select>
+                  <div class="invalid-feedback">
+                    Por favor, selecione a situação da turma.
+                  </div>
                 </div>
 
                 <div class="col-md-6">
@@ -139,13 +146,19 @@
                     <option value="Australia">Australia</option>
                     <option value="England">England</option>
                   </select>
+                  <div class="invalid-feedback">
+                    Por favor, selecione a sala da turma.
+                  </div>
                 </div>
 
                 <div class="col-md-4 offset-2">
-                  <label for="duracao">Duração da aula:*</label>
-                  <select id="duracao" class="form-control">
+                  <label for="duracaoAula">Duração da aula:*</label>
+                  <select id="duracaoAula" class="form-control">
                     <option value="50">50</option>
                   </select>
+                  <div class="invalid-feedback">
+                    Por favor, a duração da aula da turma.
+                  </div>
                 </div>
 
                 <div class="col-md-8">
@@ -156,26 +169,38 @@
                     <option value="Sab-Dom-(12:00/12:50)">Sab-Dom-(12:00/12:50)</option>
                     <option value="Sab-Dom-(18:00/18:50)">Sab-Dom-(18:00/18:50)</option>
                   </select>
+                  <div class="invalid-feedback">
+                    Por favor, o horário de aula da turma.
+                  </div>
                 </div>
 
                 <div class="col-md-4">
-                  <label for="max-alunos">Máximo de Alunos:*</label>
+                  <label for="minimoAlunos">Mínimo de Alunos:*</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" id="max-alunos" min="0" required>
+                    <input type="number" class="form-control" id="minimoAlunos" min="0" required>
+                    <div class="invalid-feedback">
+                      Por favor, digite o mínimo de alunos da turma.
+                    </div>
                   </div>
                 </div>
 
                 <div class="form-group col-md-6">
-                  <label for="initDate">Data de início da Turma</label>
+                  <label for="dataInicio">Data de início da Turma</label>
                   <div class="input-group">
-                    <input type="date" class="form-control" id="initDate">
+                    <input type="date" class="form-control" id="dataInicio">
+                    <div class="invalid-feedback">
+                      Por favor, digite a data de início da turma.
+                    </div>
                   </div>
                 </div>
 
                 <div class="form-group col-md-6">
-                  <label for="endDate">Data de Término da Turma</label>
+                  <label for="dataTermino">Data de Término da Turma</label>
                   <div class="input-group">
-                    <input type="date" class="form-control" id="endDate">
+                    <input type="date" class="form-control" id="dataTermino">
+                    <div class="invalid-feedback">
+                      Por favor, digite a data de término da turma.
+                    </div>
                   </div>
                 </div>
 
@@ -198,33 +223,20 @@
                     <option value="Expert">Expert</option>
                     <option value="fluente">Fluente</option>
                   </select>
+                  <div class="invalid-feedback">
+                    Por favor, selecione o estágio da turma.
+                  </div>
                 </div>
 
                 <div class="col-md-4">
                   <label for="curso">Curso:*</label>
                   <select id="curso" class="form-control">
-                    <option value="That's the way">That's the way</option>
+                    <option value="That''s the way">That's the way</option>
                     <option value="Kids">kids</option>
                     <option value="Teens">Teens</option>
                   </select>
-                </div>
-
-                <div class="col-md-4">
-                  <label for="palavra">Última Palavra:*</label>
-                  <input type="text" class="form-control" id="palavra" placeholder="ex: Keep">
-                </div>
-
-                <div class="col-md-4">
-                  <label for="licao">Última Lição:*</label>
-                  <div class="input-group">
-                    <input type="number" class="form-control" id="licao" min="0" required>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <label for="sitato">Último Sitato:*</label>
-                  <div class="input-group">
-                    <input type="number" class="form-control" id="sitato" min="0" required>
+                  <div class="invalid-feedback">
+                    Por favor, selecione o curso da turma.
                   </div>
                 </div>
               </div>
@@ -340,22 +352,23 @@
                 var estagio = new DOM_Element("td", false, false, false, turma.estagio);
                 var curso = new DOM_Element("td", false, false, false, turma.curso);
                 var horario = new DOM_Element("td", false, false, false, turma.horario);
-                var maxAlunos = new DOM_Element("td", false, false, false, turma.maximoDeAlunos);
+                var minAlunos = new DOM_Element("td", false, false, false, turma.minimoAlunos);
                 var sala = new DOM_Element("td", false, false, false, turma.sala);
-                var duracaoAula = new DOM_Element("td", false, false, false, turma.duracaoDaAula + " min.");
+                var duracaoAula = new DOM_Element("td", false, false, false, turma.duracaoAula + " min.");
                 var dataInicio = new DOM_Element("td", false, false, false, turma.dataInicio);
                 var dataTermino = new DOM_Element("td", false, false, false, turma.dataTermino);
-                var ultimaPalavra = new DOM_Element("td", false, false, false, turma.ultimaPalavra);
-                var ultimaLicao = new DOM_Element("td", false, false, false, turma.ultimaLicao);
-                var ultimoSitato = new DOM_Element("td", false, false, false, turma.ultimoSitato);
                 var situacao = new DOM_Element("td");
                 var edit = new DOM_Element("td");
 
                 if(!turma.professor) professor.changeContent("Sem Professor");
 
-                if(Number(turma.situacao)) {
+                if(Number(turma.situacao) === 2) {
                     situacao.changeContent("Ativa");
                     situacao.changeClass("itemActive");
+                }
+                else if(Number(turma.situacao) === 1) {
+                    situacao.changeContent("Em formação");
+                    situacao.changeClass("itemWaiting");
                 }
                 else {
                     situacao.changeContent("Inativa");
@@ -400,14 +413,11 @@
                     $("#estagio").val(currentTurma.estagio);
                     $("#curso").val(currentTurma.curso);
                     $("#horario").val(currentTurma.horario);
-                    $("#max-alunos").val(currentTurma.maximoDeAlunos);
+                    $("#minimoAlunos").val(currentTurma.minimoAlunos);
                     $("#sala").val(currentTurma.sala);
-                    $("#duracao").val(currentTurma.duracaoDaAula);
-                    $("#initDate").val(currentTurma.dataInicio);
-                    $("#endDate").val(currentTurma.dataTermino);
-                    $("#palavra").val(currentTurma.ultimaPalavra);
-                    $("#licao").val(currentTurma.ultimaLicao);
-                    $("#sitato").val(currentTurma.ultimoSitato);
+                    $("#duracao").val(currentTurma.duracaoAula);
+                    $("#dataInicio").val(currentTurma.dataInicio);
+                    $("#dataTermino").val(currentTurma.dataTermino);
 
                     $("#registrarTurma").modal("show");
                 });
@@ -419,11 +429,11 @@
                 tr.appendChild(professor);
                 tr.appendChild(estagio);
                 tr.appendChild(curso);
-                tr.appendChild(maxAlunos);
+                tr.appendChild(minAlunos);
                 tr.appendChild(sala);
-                tr.appendChild(ultimaPalavra);
-                tr.appendChild(ultimaLicao);
-                tr.appendChild(ultimoSitato);
+                tr.appendChild(duracaoAula);
+                tr.appendChild(dataInicio);
+                tr.appendChild(dataTermino);
                 tr.appendChild(situacao);
                 tr.appendChild(edit);
                 tr.addToDOM(tBody);
@@ -443,14 +453,27 @@
 
         var data = getFormsVal();
         data.acao = "createTurma";
+        console.log(data);
         $.ajax({
             type: "POST",
             dataType: "json",
             url: "php/turmas/controle.php",
             data: data,
             success: function(data) {
-                alert(data.responseText);
-                listTurmas();
+                if(data.erro) {
+                    if(data.Description) {
+                        alert(data.Description);
+                    }
+                    else {
+                        alert("Arrume os campos em vermelho.");
+                        setInvalidFields(data.invalidFields);
+                    }
+                }
+                else {
+                    setInvalidFields([]);
+                    alert(data.Description);
+                    listTurmas();
+                }
             },
             error: function(data) {
                 alert(data.responseText);
@@ -495,14 +518,46 @@
             url: "php/turmas/controle.php",
             data: data,
             success: function(data) {
-                alert(data.responseText);
-                listTurmas();
+                if(data.erro) {
+                    if(data.Description) {
+                        alert(data.Description);
+                    }
+                    else {
+                        alert("Arrume os campos em vermelho.");
+                        setInvalidFields(data.invalidFields);
+                    }
+                }
+                else {
+                    setInvalidFields([]);
+                    alert(data.Description);
+                    listTurmas();
+                }
             },
             error: function(data) {
                 alert(data.responseText);
                 listTurmas();
             }
         });
+    }
+
+    function setInvalidFields(invalidFields) {
+        var requiredFields = getRequiredFields();
+        for(var i = 0;i < requiredFields.length;i++) {
+            var requiredField = requiredFields[i];
+            if(invalidFields.indexOf(requiredField) === -1) {
+                $("#" + requiredField).removeClass("is-invalid");
+            }
+        }
+
+        for(i = 0;i < invalidFields.length;i++) {
+            var invalidField = invalidFields[i];
+            $("#" + invalidField).removeClass("is-valid").addClass("is-invalid");
+        }
+    }
+
+    function getRequiredFields() {
+        return ["nome", "situacao", "estagio", "curso", "horario", "minimoAlunos", "sala", "duracaoAula", "dataInicio",
+        "dataTermino"];
     }
 
     function getFormsVal() {
@@ -512,14 +567,11 @@
         var estagio = $("#estagio").val();
         var curso = $("#curso").val();
         var horario = $("#horario").val();
-        var maxAlunos = $("#max-alunos").val();
+        var minAlunos = $("#minimoAlunos").val();
         var sala = $("#sala").val();
-        var duracao = $("#duracao").val();
-        var initDate = $("#initDate").val();
-        var endDate =  $("#endDate").val();
-        var palavra =  $("#palavra").val();
-        var licao =  $("#licao").val();
-        var sitato =  $("#sitato").val();
+        var duracao = $("#duracaoAula").val();
+        var initDate = $("#dataInicio").val();
+        var endDate =  $("#dataTermino").val();
 
         return {
             nome: nome,
@@ -528,14 +580,11 @@
             estagio: estagio,
             curso: curso,
             horario: horario,
-            maximoDeAlunos: maxAlunos,
+            minimoAlunos: minAlunos,
             sala: sala,
-            duracaoDaAula: duracao,
+            duracaoAula: duracao,
             dataInicio: initDate,
-            dataTermino: endDate,
-            ultimaPalavra: palavra,
-            ultimaLicao: licao,
-            ultimoSitato: sitato
+            dataTermino: endDate
         };
     }
 </script>

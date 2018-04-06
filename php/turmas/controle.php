@@ -11,6 +11,7 @@
  */
 header('Content-Type: application/json');
 require_once('../database/DataBase.php');
+include_once('../validation/Validation.php');
 require_once('Turmas.php');
 // echo var_dump($_POST);
 if(!empty($_POST["acao"]) && isset($_POST["acao"])){
@@ -101,17 +102,52 @@ function getTurma() {
 }
 
 function createTurma(){
-    $db = new DataBase();
-    $conn = $db->getConnection();
-    $turmas = new Turmas($conn);
-    $response = $turmas->createTurma($_POST["nome"], $_POST["situacao"], $_POST["professor"], $_POST["estagio"],
-     $_POST["curso"], $_POST["horario"], $_POST["maximoDeAlunos"], $_POST["sala"], $_POST["duracaoDaAula"],
-      $_POST["dataInicio"], $_POST["dataTermino"], $_POST["ultimaPalavra"], $_POST["ultimaLicao"], $_POST["ultimoSitato"]);
+    $data = getTurmasData();
+    $dataSize = sizeof($data);
+    $requiredFields = array(
+        "nome",
+        "sala",
+        "duracaoAula",
+        "horario",
+        "minimoAlunos",
+        "dataInicio",
+        "dataTermino",
+        "estagio",
+        "curso"
+    );
+    /*$timeZone = new DateTimeZone("America/Sao_Paulo");
+    $now = new DateTime("now", $timeZone);
+    $dateTimeInicio = new DateTime($dataInicio, $timeZone);
+    $dateTimeTermino = new DateTime($dataTermino, $timeZone);*/
 
-    if($response["erro"]){
-        echo $response["responseText"];
-    }else{
-        echo $response["responseText"];
+    $requiredAmount = sizeof($requiredFields);
+    $i = 0;
+    $invalidFields = array();
+
+    for($i;$i < $requiredAmount;$i++) {
+        $index = $requiredFields[$i];
+        if(empty($data[$index]) || !isset($data[$index])) {
+            array_push($invalidFields, $index);
+        }
+    }
+
+    if(!isset($data["situacao"]) && is_nan((int)$data["situacao"])) {
+        array_push($invalidFields, "situacao");
+    }
+
+    $erro = (empty($invalidFields)) ? false : true;
+
+    if($erro) {
+        $response = array("erro" => $erro, "invalidFields" => $invalidFields);
+        echo json_encode($response);
+    }
+    else {
+        $db = new DataBase();
+        $conn = $db->getConnection();
+        $turmas = new Turmas($conn);
+        $response = $turmas->createTurma($data);
+
+        echo json_encode($response);
     }
 }
 
@@ -128,17 +164,69 @@ function deleteTurma(){
 }
 
 function updateTurma(){
-    $db = new DataBase();
+    $data = getTurmasData();
+    $data["id"] = safe_data($_POST["id"]);
+    $dataSize = sizeof($data);
+    $requiredFields = array(
+        "nome",
+        "sala",
+        "duracaoAula",
+        "horario",
+        "minimoAlunos",
+        "dataInicio",
+        "dataTermino",
+        "estagio",
+        "curso"
+    );
+    /*$timeZone = new DateTimeZone("America/Sao_Paulo");
+    $now = new DateTime("now", $timeZone);
+    $dateTimeInicio = new DateTime($dataInicio, $timeZone);
+    $dateTimeTermino = new DateTime($dataTermino, $timeZone);*/
+
+    $requiredAmount = sizeof($requiredFields);
+    $i = 0;
+    $invalidFields = array();
+
+    for($i;$i < $requiredAmount;$i++) {
+        $index = $requiredFields[$i];
+        if(empty($data[$index]) || !isset($data[$index])) {
+            array_push($invalidFields, $index);
+        }
+    }
+
+    if(!isset($data["situacao"]) && is_nan((int)$data["situacao"])) {
+        array_push($invalidFields, "situacao");
+    }
+
+    $erro = (empty($invalidFields)) ? false : true;
+
+    if($erro) {
+        $response = array("erro" => $erro, "invalidFields" => $invalidFields);
+        echo json_encode($response);
+    }
+    else {
+        $db = new DataBase();
         $conn = $db->getConnection();
         $turmas = new Turmas($conn);
-        $response = $turmas->updateTurma($_POST["id"], $_POST["nome"], $_POST["situacao"], $_POST["professor"], $_POST["estagio"],
-         $_POST["curso"], $_POST["horario"], $_POST["maximoDeAlunos"], $_POST["sala"], $_POST["duracaoDaAula"],
-          $_POST["dataInicio"], $_POST["dataTermino"], $_POST["ultimaPalavra"], $_POST["ultimaLicao"], $_POST["ultimoSitato"]);
+        $response = $turmas->updateTurma($data);
 
-        if($response["erro"]){
-            echo $response["responseText"];
-        }else{
-            echo $response["responseText"];
-        }
+        echo json_encode($response);
+    }
+}
+
+function getTurmasData(){
+    return array(
+        "nome" => safe_data($_POST["nome"]),
+        "situacao" => safe_data($_POST["situacao"]),
+        "professor" => safe_data($_POST["professor"]),
+        "estagio" => safe_data($_POST["estagio"]),
+        "curso" => safe_data($_POST["curso"]),
+        "horario" => safe_data($_POST["horario"]),
+        "minimoAlunos" => safe_data($_POST["minimoAlunos"]),
+        "sala" => safe_data($_POST["sala"]),
+        "duracaoAula" => safe_data($_POST["duracaoAula"]),
+        "dataInicio" => safe_data($_POST["dataInicio"]),
+        "dataTermino" => safe_data($_POST["dataTermino"])
+    );
 }
 ?>

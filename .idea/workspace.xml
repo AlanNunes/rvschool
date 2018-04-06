@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52e2bfd8-4502-4395-8128-2a4ec438e179" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sql/rvschool_funcionarios.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/funcionarios.html" afterPath="$PROJECT_DIR$/funcionarios.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/funcionarios/controle.php" afterPath="$PROJECT_DIR$/php/funcionarios/controle.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/turmas/controle.php" afterPath="$PROJECT_DIR$/php/turmas/controle.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/turmas/turmas.php" afterPath="$PROJECT_DIR$/php/turmas/turmas.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/turmas.html" afterPath="$PROJECT_DIR$/turmas.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,11 +25,21 @@
       <file leaf-file-name="turmas.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/turmas.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8211">
-              <caret line="483" column="5" lean-forward="false" selection-start-line="483" selection-start-column="5" selection-end-line="483" selection-end-column="5" />
+            <state relative-caret-position="376">
+              <caret line="369" column="58" lean-forward="true" selection-start-line="369" selection-start-column="58" selection-end-line="369" selection-end-column="58" />
               <folding>
-                <marker date="1522860676592" expanded="true" signature="17564:17834" ph="{...}" />
+                <marker date="1523040101563" expanded="true" signature="17935:18201" ph="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="671">
+              <caret line="47" column="23" lean-forward="false" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -33,7 +47,7 @@
       <file leaf-file-name="alunos.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/alunos.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11543">
+            <state relative-caret-position="127">
               <caret line="679" column="0" lean-forward="false" selection-start-line="679" selection-start-column="0" selection-end-line="679" selection-end-column="0" />
               <folding />
             </state>
@@ -43,7 +57,7 @@
       <file leaf-file-name="Alunos.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/php/alunos/Alunos.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1564">
+            <state relative-caret-position="17">
               <caret line="92" column="135" lean-forward="false" selection-start-line="92" selection-start-column="135" selection-end-line="92" selection-end-column="135" />
               <folding />
             </state>
@@ -53,7 +67,7 @@
       <file leaf-file-name="controle.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/php/alunos/controle.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="17">
               <caret line="14" column="41" lean-forward="false" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
               <folding />
             </state>
@@ -63,11 +77,11 @@
       <file leaf-file-name="funcionarios.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/funcionarios.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="741" column="82" lean-forward="false" selection-start-line="741" selection-start-column="82" selection-end-line="741" selection-end-column="82" />
+            <state relative-caret-position="368">
+              <caret line="144" column="52" lean-forward="false" selection-start-line="144" selection-start-column="52" selection-end-line="144" selection-end-column="52" />
               <folding>
                 <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#8297#8304#1" expanded="true" />
+                <element signature="e#3941#3948#1" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#li#2;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -79,21 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rvschool_funcionarios.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sql/rvschool_funcionarios.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="controle.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/php/turmas/controle.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2108">
-              <caret line="124" column="10" lean-forward="false" selection-start-line="124" selection-start-column="10" selection-end-line="124" selection-end-column="10" />
+            <state relative-caret-position="289">
+              <caret line="167" column="42" lean-forward="true" selection-start-line="167" selection-start-column="42" selection-end-line="167" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -102,18 +106,18 @@
       <file leaf-file-name="turmas.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/php/turmas/turmas.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3706">
-              <caret line="218" column="4" lean-forward="false" selection-start-line="218" selection-start-column="4" selection-end-line="226" selection-end-column="5" />
+            <state relative-caret-position="245">
+              <caret line="75" column="26" lean-forward="false" selection-start-line="75" selection-start-column="26" selection-end-line="75" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controle.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="controle.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/php/funcionarios/controle.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2584">
-              <caret line="152" column="0" lean-forward="true" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+            <state relative-caret-position="-986">
+              <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,7 +126,7 @@
       <file leaf-file-name="Funcionarios.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/php/funcionarios/Funcionarios.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2907">
+            <state relative-caret-position="755">
               <caret line="171" column="88" lean-forward="false" selection-start-line="171" selection-start-column="88" selection-end-line="171" selection-end-column="88" />
               <folding />
             </state>
@@ -171,16 +175,16 @@
         <option value="$PROJECT_DIR$/php/alunos/Alunos.php" />
         <option value="$PROJECT_DIR$/php/bolsas/Bolsas.php" />
         <option value="$PROJECT_DIR$/php/bolsas/controle.php" />
-        <option value="$PROJECT_DIR$/php/turmas/turmas.php" />
         <option value="$PROJECT_DIR$/bolsas.html" />
         <option value="$PROJECT_DIR$/alunos.html" />
         <option value="$PROJECT_DIR$/php/validation/Validation.php" />
         <option value="$PROJECT_DIR$/php/anexo/upload.php" />
-        <option value="$PROJECT_DIR$/turmas.html" />
-        <option value="$PROJECT_DIR$/php/turmas/controle.php" />
         <option value="$PROJECT_DIR$/php/funcionarios/Funcionarios.php" />
         <option value="$PROJECT_DIR$/php/funcionarios/controle.php" />
         <option value="$PROJECT_DIR$/funcionarios.html" />
+        <option value="$PROJECT_DIR$/turmas.html" />
+        <option value="$PROJECT_DIR$/php/turmas/turmas.php" />
+        <option value="$PROJECT_DIR$/php/turmas/controle.php" />
       </list>
     </option>
   </component>
@@ -211,6 +215,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -443,8 +449,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -569,15 +573,16 @@
       <workItem from="1522685804602" duration="13241000" />
       <workItem from="1522770199998" duration="29534000" />
       <workItem from="1522855901263" duration="14065000" />
-      <workItem from="1522942943138" duration="80000" />
+      <workItem from="1522942943138" duration="798000" />
+      <workItem from="1523031333111" duration="8982000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206744000" />
+    <option name="totallyTimeSpent" value="216444000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24791667" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -657,7 +662,7 @@
           <caret line="49" column="61" lean-forward="true" selection-start-line="49" selection-start-column="61" selection-end-line="49" selection-end-column="61" />
           <folding>
             <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#8297#8304#1" expanded="true" />
+            <element signature="e#3941#3948#1" expanded="true" />
             <element signature="n#style#0;n#a#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#li#2;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -724,13 +729,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
-          <caret line="47" column="23" lean-forward="false" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -852,52 +850,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alunos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11543">
-          <caret line="679" column="0" lean-forward="false" selection-start-line="679" selection-start-column="0" selection-end-line="679" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/alunos/Alunos.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="92" column="135" lean-forward="false" selection-start-line="92" selection-start-column="135" selection-end-line="92" selection-end-column="135" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/php/validation/Validation.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/turmas.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8211">
-          <caret line="483" column="5" lean-forward="false" selection-start-line="483" selection-start-column="5" selection-end-line="483" selection-end-column="5" />
-          <folding>
-            <marker date="1522860676592" expanded="true" signature="17564:17834" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/turmas/turmas.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3706">
-          <caret line="218" column="4" lean-forward="false" selection-start-line="218" selection-start-column="4" selection-end-line="226" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/funcionarios/Funcionarios.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2907">
-          <caret line="171" column="88" lean-forward="false" selection-start-line="171" selection-start-column="88" selection-end-line="171" selection-end-column="88" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -915,37 +871,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sql/rvschool_funcionarios.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="671">
+          <caret line="47" column="23" lean-forward="false" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/alunos/Alunos.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="92" column="135" lean-forward="false" selection-start-line="92" selection-start-column="135" selection-end-line="92" selection-end-column="135" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alunos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="679" column="0" lean-forward="false" selection-start-line="679" selection-start-column="0" selection-end-line="679" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/php/alunos/controle.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="17">
           <caret line="14" column="41" lean-forward="false" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/funcionarios/controle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2584">
-          <caret line="152" column="0" lean-forward="true" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/turmas/controle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2108">
-          <caret line="124" column="10" lean-forward="false" selection-start-line="124" selection-start-column="10" selection-end-line="124" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/funcionarios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="741" column="82" lean-forward="false" selection-start-line="741" selection-start-column="82" selection-end-line="741" selection-end-column="82" />
+        <state relative-caret-position="368">
+          <caret line="144" column="52" lean-forward="false" selection-start-line="144" selection-start-column="52" selection-end-line="144" selection-end-column="52" />
           <folding>
             <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#8297#8304#1" expanded="true" />
+            <element signature="e#3941#3948#1" expanded="true" />
             <element signature="n#style#0;n#a#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#li#2;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -956,10 +927,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql/rvschool_funcionarios.sql">
+    <entry file="file://$PROJECT_DIR$/turmas.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="376">
+          <caret line="369" column="58" lean-forward="true" selection-start-line="369" selection-start-column="58" selection-end-line="369" selection-end-column="58" />
+          <folding>
+            <marker date="1523040101563" expanded="true" signature="17935:18201" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/turmas/turmas.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="75" column="26" lean-forward="false" selection-start-line="75" selection-start-column="26" selection-end-line="75" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/turmas/controle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="167" column="42" lean-forward="true" selection-start-line="167" selection-start-column="42" selection-end-line="167" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/funcionarios/Funcionarios.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="755">
+          <caret line="171" column="88" lean-forward="false" selection-start-line="171" selection-start-column="88" selection-end-line="171" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/funcionarios/controle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-986">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
           <folding />
         </state>
       </provider>

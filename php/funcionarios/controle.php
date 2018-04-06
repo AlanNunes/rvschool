@@ -53,115 +53,115 @@ function listFuncionarios(){
 function createFuncionario(){
     $data = getFuncionariosData();
 
-$dataSize = sizeof($data);
-$requiredFields = array(
-    "nome",
-    "rg",
-    "cpf",
-    "dataNascimento",
-    "estadoCivil",
-    "sexo",
-    "cargo",
-    "cidadeNatal",
-    "cep",
-    "logradouro",
-    "numero",
-    "cidade",
-    "bairro",
-    "email",
-    "tipoPagamento",
-    "carteiraProfissional",
-    "inss",
-    "percentualInss",
-    "dataAdmissao",
-    "ccm",
-    "percentualIss",
-    "banco",
-    "agencia",
-    "conta",
-    "codigoBanco"
-);
-$canBeNullFields = array(
-    "dataDemissao",
-    "aulaInterna",
-    "aulaExterna",
-    "salarioMensal",
-);
+    $dataSize = sizeof($data);
+    $requiredFields = array(
+        "nome",
+        "rg",
+        "cpf",
+        "dataNascimento",
+        "estadoCivil",
+        "sexo",
+        "cargo",
+        "cidadeNatal",
+        "cep",
+        "logradouro",
+        "numero",
+        "cidade",
+        "bairro",
+        "email",
+        "tipoPagamento",
+        "carteiraProfissional",
+        "inss",
+        "percentualInss",
+        "dataAdmissao",
+        "ccm",
+        "percentualIss",
+        "banco",
+        "agencia",
+        "conta",
+        "codigoBanco"
+    );
+    $canBeNullFields = array(
+        "dataDemissao",
+        "aulaInterna",
+        "aulaExterna",
+        "salarioMensal",
+    );
 
-if(!empty($data["celular"]) && isset($data["celular"])) {
-    array_push($requiredFields, "celular");
-}
-else {
-    array_push($requiredFields, "telefone");
-}
-
-if($data["tipoPagamento"] == "horista") {
-    array_push($requiredFields, "aulaInterna");
-    array_push($requiredFields, "aulaExterna");
-    $data["salarioMensal"] = "null";
-}
-else if($data["tipoPagamento"]){
-    array_push($requiredFields, "salarioMensal");
-    $data["aulaInterna"] = "null";
-    $data["aulaExterna"] = "null";
-}
-
-$requiredAmount = sizeof($requiredFields);
-$i = 0;
-$invalidFields = array();
-for($i;$i < $requiredAmount;$i++){
-    $index = $requiredFields[$i];
-    if(empty($data[$index])|| !isset($data[$index])){
-        array_push($invalidFields, $index);
+    if(!empty($data["celular"]) && isset($data["celular"])) {
+        array_push($requiredFields, "celular");
     }
-}
-
-if(validate_cpf($data["cpf"])){
-    array_push($invalidFields, "cpf");
-}
-//if(validate_data($data["dataNascimento"])){
-//    array_push($invalidFields, "dataNascimento");
-//}
-if(validate_cep($data["cep"])){
-    array_push($invalidFields, "cep");
-}
-if(validate_email($data["email"])){
-    array_push($invalidFields, "email");
-}
-if(validate_telefone($data["telefone"]) && $data['telefone'] != ""){
-    array_push($invalidFields, "telefone");
-}
-if(validate_celular($data["celular"]) && $data['celular'] != ""){
-    array_push($invalidFields, "celular");
-}
-//if(validate_data($data["dataAdmissao"])){
-//    array_push($invalidFields, "dataAdmissao");
-//}
-//if(validate_data($data["dataDemissao"]) && $data["dataDemissao"] != ""){
-//    array_push($invalidFields, "dataDemissao");
-//}
-
-$i = 0;
-for($i;$i < sizeof($canBeNullFields);$i++){
-    $index = $canBeNullFields[$i];
-    if(empty($data[$index]) || !isset($data[$index])) {
-        $data[$index] = "null";
+    else {
+        array_push($requiredFields, "telefone");
     }
-}
 
-$erro = (empty($invalidFields)) ? false : true;
+    if($data["tipoPagamento"] == "horista") {
+        array_push($requiredFields, "aulaInterna");
+        array_push($requiredFields, "aulaExterna");
+        $data["salarioMensal"] = "null";
+    }
+    else if($data["tipoPagamento"]){
+        array_push($requiredFields, "salarioMensal");
+        $data["aulaInterna"] = "null";
+        $data["aulaExterna"] = "null";
+    }
 
-if($erro){
-    $response = array("erro" => $erro, "invalidFields" => $invalidFields);
-    echo json_encode($response);
-}
-else {
-    $db = new DataBase();
-    $conn = $db->getConnection();
-    $funcionario = new Funcionarios($conn);
-    $response = $funcionario->createFuncionario($data);
-    echo json_encode($response);
-}
+    $requiredAmount = sizeof($requiredFields);
+    $i = 0;
+    $invalidFields = array();
+    for($i;$i < $requiredAmount;$i++){
+        $index = $requiredFields[$i];
+        if(empty($data[$index])|| !isset($data[$index])){
+            array_push($invalidFields, $index);
+        }
+    }
+
+    if(validate_cpf($data["cpf"])){
+        array_push($invalidFields, "cpf");
+    }
+    //if(validate_data($data["dataNascimento"])){
+    //    array_push($invalidFields, "dataNascimento");
+    //}
+    if(validate_cep($data["cep"])){
+        array_push($invalidFields, "cep");
+    }
+    if(validate_email($data["email"])){
+        array_push($invalidFields, "email");
+    }
+    if(validate_telefone($data["telefone"]) && $data['telefone'] != ""){
+        array_push($invalidFields, "telefone");
+    }
+    if(validate_celular($data["celular"]) && $data['celular'] != ""){
+        array_push($invalidFields, "celular");
+    }
+    //if(validate_data($data["dataAdmissao"])){
+    //    array_push($invalidFields, "dataAdmissao");
+    //}
+    //if(validate_data($data["dataDemissao"]) && $data["dataDemissao"] != ""){
+    //    array_push($invalidFields, "dataDemissao");
+    //}
+
+    $i = 0;
+    for($i;$i < sizeof($canBeNullFields);$i++){
+        $index = $canBeNullFields[$i];
+        if(empty($data[$index]) || !isset($data[$index])) {
+            $data[$index] = "null";
+        }
+    }
+
+    $erro = (empty($invalidFields)) ? false : true;
+
+    if($erro){
+        $response = array("erro" => $erro, "invalidFields" => $invalidFields);
+        echo json_encode($response);
+    }
+    else {
+        $db = new DataBase();
+        $conn = $db->getConnection();
+        $funcionario = new Funcionarios($conn);
+        $response = $funcionario->createFuncionario($data);
+        echo json_encode($response);
+    }
 }
 
 function updateFuncionario(){
