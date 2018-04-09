@@ -15,9 +15,9 @@ Class Alunos {
   private $dataNasc;
   private $estadoCivil;
   private $sexo;
-  private $escola;
+  private $profissao;
   private $escolaridade;
-  private $serie;
+  private $midia;
   private $cep;
   private $logradouro;
   private $numeroCasa;
@@ -41,6 +41,7 @@ Class Alunos {
   private $celularResponsavelDois;
   private $observacoes;
   private $avatar;
+  private $matricula;
   private $conn;
 
   public function __construct($conn){
@@ -56,9 +57,9 @@ Class Alunos {
     $this->dataNasc = $data["dataNasc"];
     $this->estadoCivil = $data["estadoCivil"];
     $this->sexo = $data["sexo"];
-    $this->escola = $data["escola"];
+    $this->profissao = $data["profissao"];
     $this->escolaridade = $data["escolaridade"];
-    $this->serie = $data["serie"];
+    $this->midia = $data["midia"];
     $this->cep = $data["cep"];
     $this->logradouro = $data["logradouro"];
     $this->numeroCasa = $data["numeroCasa"];
@@ -84,11 +85,11 @@ Class Alunos {
     $this->avatar = $data["avatar"];
 
     $sql = "INSERT INTO `alunos` (`nome`, `rg`, `cpf`, `dataNasc`, `estadoCivil`,
-      `sexo`, `escola`, `escolaridade`, `serie`, `cep`, `logradouro`, `numeroCasa`, `complemento`, `cidade`, `bairro`,
+      `sexo`, `profissao`, `escolaridade`, `midia`, `cep`, `logradouro`, `numeroCasa`, `complemento`, `cidade`, `bairro`,
       `email`, `telefone`, `celular`, `banco`, `agencia`, `conta`, `codigoClienteBanco`, `bolsa`, `inadimplencia`,
       `nomeResponsavelUm`, `telefoneResponsavelUm`, `celularResponsavelUm`, `nomeResponsavelDois`, `telefoneResponsavelDois`,
       `celularResponsavelDois`, `observacoes`, `avatar`) VALUES ('{$this->nome}', '{$this->rg}', '{$this->cpf}', '{$this->dataNasc}',
-        '{$this->estadoCivil}', '{$this->sexo}', '{$this->escola}', '{$this->escolaridade}', '{$this->serie}', '{$this->cep}',
+        '{$this->estadoCivil}', '{$this->sexo}', '{$this->profissao}', '{$this->escolaridade}', '{$this->midia}', '{$this->cep}',
         '{$this->logradouro}', {$this->numeroCasa}, '{$this->complemento}', '{$this->cidade}', '{$this->bairro}', '{$this->email}',
         '{$this->telefone}', '{$this->celular}', '{$this->banco}', '{$this->agencia}', '{$this->conta}', '{$this->codigoClienteBanco}',
         {$this->bolsa}, {$this->inadimplencia}, '{$this->nomeResponsavelUm}', '{$this->telefoneResponsavelUm}', '{$this->celularResponsavelUm}',
@@ -111,6 +112,63 @@ Class Alunos {
     }else{
       $this->conn->close();
       return array('erro' => true, 'Description' => 'Aluno não registrado.');
+    }
+  }
+
+  // This function has the only responsability to edit a student
+  public function editStudent($data){
+    $this->nome = $data["nome"];
+    $this->rg = $data["rg"];
+    $this->cpf = $data["cpf"];
+    $this->dataNasc = $data["dataNasc"];
+    $this->estadoCivil = $data["estadoCivil"];
+    $this->sexo = $data["sexo"];
+    $this->profissao = $data["profissao"];
+    $this->escolaridade = $data["escolaridade"];
+    $this->midia = $data["midia"];
+    $this->cep = $data["cep"];
+    $this->logradouro = $data["logradouro"];
+    $this->numeroCasa = $data["numeroCasa"];
+    $this->complemento = $data["complemento"];
+    $this->cidade = $data["cidade"];
+    $this->bairro = $data["bairro"];
+    $this->email = $data["email"];
+    $this->telefone = $data["telefone"];
+    $this->celular = $data["celular"];
+    $this->banco = $data["banco"];
+    $this->agencia = $data["agencia"];
+    $this->conta = $data["conta"];
+    $this->codigoClienteBanco = $data["codigoClienteBanco"];
+    $this->bolsa = $data["bolsa"];
+    $this->inadimplencia = $data["inadimplencia"];
+    $this->nomeResponsavelUm = $data["nomeResponsavelUm"];
+    $this->telefoneResponsavelUm = $data["telefoneResponsavelUm"];
+    $this->celularResponsavelUm = $data["celularResponsavelUm"];
+    $this->nomeResponsavelDois = $data["nomeResponsavelDois"];
+    $this->telefoneResponsavelDois = $data["telefoneResponsavelDois"];
+    $this->celularResponsavelDois = $data["celularResponsavelDois"];
+    $this->observacoes = $data["observacoes"];
+    $this->avatar = $data["avatar"];
+    $this->matricula = $data["matricula"];
+
+    $sql = "UPDATE alunos SET nome='{$this->nome}', rg='{$this->rg}', cpf='{$this->cpf}', dataNasc='{$this->dataNasc}',
+        estadoCivil='{$this->estadoCivil}', sexo='{$this->sexo}', profissao='{$this->profissao}',
+        escolaridade='{$this->escolaridade}', midia='{$this->midia}', cep='{$this->cep}',
+        logradouro='{$this->logradouro}', numeroCasa={$this->numeroCasa}, complemento='{$this->complemento}',
+        cidade='{$this->cidade}', bairro='{$this->bairro}', email='{$this->email}',
+        telefone='{$this->telefone}', celular='{$this->celular}', banco='{$this->banco}', agencia='{$this->agencia}',
+        conta='{$this->conta}', codigoClienteBanco='{$this->codigoClienteBanco}',
+        bolsa={$this->bolsa}, inadimplencia={$this->inadimplencia}, nomeResponsavelUm='{$this->nomeResponsavelUm}',
+        telefoneResponsavelUm='{$this->telefoneResponsavelUm}', celularResponsavelDois='{$this->celularResponsavelUm}',
+        nomeResponsavelDois='{$this->nomeResponsavelDois}', telefoneResponsavelDois='{$this->telefoneResponsavelDois}',
+        celularResponsavelDois='{$this->celularResponsavelDois}', observacoes='{$this->observacoes}', avatar='{$this->avatar}'
+        WHERE matricula='{$this->matricula}'";
+    // Register the student
+    if($this->conn->query($sql)){
+      return array('erro' => false, 'Description' => 'Aluno editado com sucesso.');
+    }else{
+      $this->conn->close();
+      return array('erro' => true, 'Description' => $sql);
     }
   }
 

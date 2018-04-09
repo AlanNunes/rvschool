@@ -107,7 +107,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="registrarAluno">Registro de Aluno</h5>
+            <h5 class="modal-title" id="registrarAlunoHeader">Registro de Aluno</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -173,34 +173,36 @@
                 <hr>
                 <form>
                   <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                       <label for="dataNasc">Data de Nasc.:</label>
                       <input type="date" class="form-control" id="dataNasc" required>
                       <div class="invalid-feedback" id="invalid-feedback-dataNasc">
                         Este campo não pode estar vazio.
                       </div>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                       <label for="estadoCivil">Estado Civil:</label>
                       <select class="custom-select" id="estadoCivil">
                         <option value="solteiro">Solteiro</option>
                         <option value="casado">Casado</option>
                       </select>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                       <label for="sexo">Sexo:</label>
                       <select class="custom-select" id="sexo" required>
                         <option value="masculino">Masculino</option>
                         <option value="feminino">Feminino</option>
                       </select>
                     </div>
+                    <div class="form-group col-md-3">
+                      <label for="matricula">Matrícula:</label>
+                      <input type="text" class="form-control" id="matricula" value="Automático">
+                    </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="escolaAluno">Escola do Aluno:</label>
-                      <select class="custom-select" id="escolaAluno">
-
-                      </select>
+                      <label for="profissao">Profissão:</label>
+                      <input type="text" class="form-control" id="profissao">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="escolaridade">Escolaridade:</label>
@@ -208,18 +210,20 @@
                         <option value="" selected>Selecione</option>
                         <option value="Ensino Superior">Ensino Superior</option>
                         <option value="Ensino Médio">Ensino Médio</option>
-                        <option value="Ensino Fundamental">Ensino Médio</option>
-                        <option value="Analfabeto">Ensino Médio</option>
+                        <option value="Ensino Fundamental">Ensino Fundamental</option>
+                        <option value="Analfabeto">Analfabeto</option>
                       </select>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="serie">Série:</label>
-                      <select class="custom-select" id="serie">
+                      <label for="midia">Mídia:</label>
+                      <select class="custom-select" id="midia">
                         <option value="" selected>Selecione</option>
-                        <option value="Ensino Superior">1ª série</option>
-                        <option value="Ensino Médio">2ª série</option>
-                        <option value="Ensino Fundamental">3ª séria</option>
-                        <option value="Analfabeto">4ª série</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Amigos">Amigos</option>
+                        <option value="Panfletos">Panfletos</option>
+                        <option value="Internet">Internet</option>
+                        <option value="Outros">Outros</option>
                       </select>
                     </div>
                   </div>
@@ -384,6 +388,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" id="btn-registrarAluno">Registrar</button>
+            <button type="button" class="btn btn-primary" id="btn-editarAluno">Editar</button>
           </div>
         </div>
       </div>
@@ -449,6 +454,7 @@
         $("#rg").mask("99.999.999-9");
         $("#cpf").mask("999.999.999-99");
         $("#cep").mask("99999-999");
+        $("#matricula").prop('disabled', true);
       });
 
       $("#buttonHumburguer").click(function(){
@@ -485,6 +491,12 @@
       }
 
       function prepareRegistroAluno(){
+        $("#btn-editarAluno").hide();
+        $("#btn-registrarAluno").show();
+        $("#imagePreview").css("background-image", "url('')");
+        $("#imagePreview").removeClass("avatar-preview");
+        $("#imagePreview").removeClass("avatar-previewSuccess");
+        $("#imagePreview").removeClass("avatar-previewFailure");
         listBolsas();
       }
 
@@ -547,48 +559,20 @@
         });
       }));
 
+      $("#btn-editarAluno").click(function(e) {
+        e.preventDefault();
+        editarAluno(e.target.matricula);
+      });
+
       $("#btn-registrarAluno").click(function(){
-        $("#loading").show();
+        // $("#loading").show();
         if ($('#inadimplencia').is(':checked')) {
           var inadimplencia = true;
         }else{
           var inadimplencia = false;
         }
-        var dataAluno = {
-          "acao": "registrarAluno",
-          "nome": $("#nome").val(),
-          "rg": $("#rg").val(),
-          "cpf": $("#cpf").val(),
-          "dataNasc": $("#dataNasc").val(),
-          "estadoCivil": $("#estadoCivil").val(),
-          "escola": $("#escolaAluno").val(),
-          "escolaridade": $("#escolaridade").val(),
-          "serie": $("#serie").val(),
-          "sexo": $("#sexo").val(),
-          "cep": $("#cep").val(),
-          "logradouro": $("#logradouro").val(),
-          "numeroCasa": $("#numeroCasa").val(),
-          "complemento": $("#complemento").val(),
-          "cidade": $("#cidade").val(),
-          "bairro": $("#bairro").val(),
-          "email": $("#email").val(),
-          "telefone": $("#telefone").val(),
-          "celular": $("#celular").val(),
-          "banco": $("#banco").val(),
-          "agencia": $("#agencia").val(),
-          "conta": $("#conta").val(),
-          "codigoClienteBanco": $("#codigoClienteBanco").val(),
-          "bolsa": $("#bolsas").val(),
-          "inadimplencia": inadimplencia,
-          "nomeResponsavelUm": $("#nomeResponsavelUm").val(),
-          "telefoneResponsavelUm": $("#telefoneResponsavelUm").val(),
-          "celularResponsavelUm": $("#celularResponsavelUm").val(),
-          "nomeResponsavelDois": $("#nomeResponsavelDois").val(),
-          "telefoneResponsavelDois": $("#telefoneResponsavelDois").val(),
-          "celularResponsavelDois": $("#celularResponsavelDois").val(),
-          "observacoes": $("#observacaoText").val(),
-          "avatar": avatar
-        };
+        var dataAluno = getFormValues();
+        dataAluno['acao'] = "registrarAluno";
         // dataAluno = $(this).serialize() + "&" + $.param(dataAluno);
         $.ajax({
           type: "POST",
@@ -599,6 +583,7 @@
             alert('worked');
             if(data.erro){
               var i = 0;
+              console.log(data);
               var sizeInvalidFields = data.invalidFields.length;
               var invalidFields = data.invalidFields;
               $('input').addClass('is-valid');
@@ -659,13 +644,52 @@
                 var deleteIcon = new DOM_Element("img", false, false, [{name: 'src', value: 'assets/icons/open-iconic-master/png/trash-2x.png'}]);
                 var editIcon = new DOM_Element("img", false, false, [{name: 'src', value: 'assets/icons/open-iconic-master/png/cog-2x.png'}]);
 
-                editButton.element.matricula = student.matricula;
+                editButton.element.data = student;
                 deleteButton.element.matricula = student.matricula;
 
                 editButton.click(function(e) {
                     e.preventDefault();
                     console.log(e);
-                    alert(e.currentTarget.matricula);
+                    alert(e.currentTarget.data);
+                    document.getElementById("btn-editarAluno").matricula = e.currentTarget.matricula;
+                    data = e.currentTarget.data;
+                    $("#btn-registrarAluno").hide();
+                    $("#btn-editarAluno").show();
+                    $("#nome").val(data.nome);
+                    $("#rg").val(data.rg);
+                    $("#cpf").val(data.cpf);
+                    $("#dataNasc").val(data.dataNasc);
+                    $("#estadoCivil").val(data.estadoCivil);
+                    $("#sexo").val(data.sexo);
+                    $("#profissao").val(data.profissao);
+                    $("#escolaridade").val(data.escolaridade);
+                    $("#midia").val(data.midia);
+                    $("#cep").val(data.cep);
+                    $("#logradouro").val(data.logradouro);
+                    $("#numeroCasa").val(data.numeroCasa);
+                    $("#complemento").val(data.complemento);
+                    $("#cidade").val(data.cidade);
+                    $("#bairro").val(data.bairro);
+                    $("#email").val(data.email);
+                    $("#telefone").val(data.telefone);
+                    $("#celular").val(data.celular);
+                    $("#banco").val(data.banco);
+                    $("#agencia").val(data.agencia);
+                    $("#conta").val(data.conta);
+                    $("#codigoClienteBanco").val(data.codigoClienteBanco);
+                    $("#bolsa").val(data.bolsa);
+                    $("#inadimplencia").val(data.inadimplencia);
+                    $("#nomeResponsavelUm").val(data.nomeResponsavelUm);
+                    $("#telefoneResponsavelUm").val(data.telefoneResponsavelUm);
+                    $("#celularResponsavelUm").val(data.celularResponsavelUm);
+                    $("#nomeResponsavelDois").val(data.nomeResponsavelDois);
+                    $("#telefoneResponsavelDois").val(data.telefoneResponsavelDois);
+                    $("#celularResponsavelDois").val(data.celularResponsavelDois);
+                    $("#observacoes").val(data.observacoes);
+                    $("#matricula").val(data.matricula);
+                    $("#imagePreview").css("background-image", "url('avatars/"+data.avatar+"')");
+                    $("#registrarAlunoHeader").html("Editar Aluno - Matrícula <b>"+data.matricula+"</b>");
+                    $("#registrarAluno").modal('show');
                 });
                 deleteButton.click(function(e) {
                     e.preventDefault();
@@ -713,6 +737,89 @@
             alert('deu erro');
           }
         });
+      }
+
+      function editarAluno(matricula){
+        var dataAluno = getFormValues();
+        dataAluno['acao'] = 'editarAluno';
+        dataAluno['matricula'] = $("#matricula").val();
+
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/alunos/controle.php",
+          data: dataAluno,
+          success: function(data) {
+            alert('worked');
+            if(data.erro){
+              var i = 0;
+              console.log(data);
+              var sizeInvalidFields = data.invalidFields.length;
+              var invalidFields = data.invalidFields;
+              $('input').addClass('is-valid');
+              $('select').addClass('is-valid');
+              $('textarea').addClass('is-valid');
+              $('input').removeClass('is-invalid');
+              for(i; i < sizeInvalidFields; i++){
+                console.log(invalidFields[i]);
+                $("#"+invalidFields[i]).removeClass("is-valid");
+                $("#"+invalidFields[i]).addClass("is-invalid");
+                $("#invalid-feedback-"+invalidFields[i]).show();
+              }
+            }else{
+
+              $("#registrarAluno").modal('hide');
+              $("#sucessoRegistro").modal('show');
+              // Update the table
+              listStudents();
+            }
+            console.log(data);
+          },
+          error: function(data) {
+            console.log(data);
+            alert('deu erro');
+          }
+        });
+      }
+
+      function getFormValues(){
+        var data = {
+          "acao": "",
+          "nome": $("#nome").val(),
+          "rg": $("#rg").val(),
+          "cpf": $("#cpf").val(),
+          "dataNasc": $("#dataNasc").val(),
+          "estadoCivil": $("#estadoCivil").val(),
+          "profissao": $("#profissao").val(),
+          "escolaridade": $("#escolaridade").val(),
+          "midia": $("#midia").val(),
+          "sexo": $("#sexo").val(),
+          "cep": $("#cep").val(),
+          "logradouro": $("#logradouro").val(),
+          "numeroCasa": $("#numeroCasa").val(),
+          "complemento": $("#complemento").val(),
+          "cidade": $("#cidade").val(),
+          "bairro": $("#bairro").val(),
+          "email": $("#email").val(),
+          "telefone": $("#telefone").val(),
+          "celular": $("#celular").val(),
+          "banco": $("#banco").val(),
+          "agencia": $("#agencia").val(),
+          "conta": $("#conta").val(),
+          "codigoClienteBanco": $("#codigoClienteBanco").val(),
+          "bolsa": $("#bolsas").val(),
+          "inadimplencia": inadimplencia.checked,
+          "nomeResponsavelUm": $("#nomeResponsavelUm").val(),
+          "telefoneResponsavelUm": $("#telefoneResponsavelUm").val(),
+          "celularResponsavelUm": $("#celularResponsavelUm").val(),
+          "nomeResponsavelDois": $("#nomeResponsavelDois").val(),
+          "telefoneResponsavelDois": $("#telefoneResponsavelDois").val(),
+          "celularResponsavelDois": $("#celularResponsavelDois").val(),
+          "observacoes": $("#observacaoText").val(),
+          "avatar": avatar,
+          "matricula": ""
+        };
+        return data;
       }
     </script>
 </html>

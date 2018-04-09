@@ -28,13 +28,16 @@ switch ($process) {
     deleteStudent();
     break;
 
+  case 'editarAluno':
+    editarAluno();
+    break;
+
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
     break;
 }
 
-// This function add a new student
-function registrarAluno(){
+function validateData(){
   // This array has all the datas sent from the View alunos
   // The datas is put in the dictionary after passing by
   // the function safe_data() to make it safer and prevent SQL Injections
@@ -45,9 +48,9 @@ function registrarAluno(){
     "dataNasc" => safe_data($_POST["dataNasc"]),
     "estadoCivil" => safe_data($_POST["estadoCivil"]),
     "sexo" => safe_data($_POST["sexo"]),
-    "escola" => safe_data($_POST["escola"]),
+    "profissao" => safe_data($_POST["profissao"]),
     "escolaridade" => safe_data($_POST["escolaridade"]),
-    "serie" => safe_data($_POST["serie"]),
+    "midia" => safe_data($_POST["midia"]),
     "cep" => safe_data($_POST["cep"]),
     "logradouro" => safe_data($_POST["logradouro"]),
     "numeroCasa" => safe_data($_POST["numeroCasa"]),
@@ -70,7 +73,8 @@ function registrarAluno(){
     "telefoneResponsavelDois" => safe_data($_POST["telefoneResponsavelDois"]),
     "celularResponsavelDois" => safe_data($_POST["celularResponsavelDois"]),
     "observacoes" => safe_data($_POST["observacoes"]),
-    "avatar" => safe_data($_POST["avatar"])
+    "avatar" => safe_data($_POST["avatar"]),
+    "matricula" => safe_data($_POST["matricula"])
   );
   $dataSize = sizeof($data);
   $requiredFields = array(
@@ -82,6 +86,9 @@ function registrarAluno(){
     "celular",
     "numeroCasa"
   );
+  if($_POST['acao'] == 'editarAluno'){
+    array_push($requiredFields, "matricula");
+  }
   $requiredAmount = sizeof($requiredFields);
   $i = 0;
   $invalidFields = array();
@@ -124,8 +131,18 @@ function registrarAluno(){
 
   // return false if there is no empty field
   $erro = (empty($invalidFields))? false:true;
-  if($erro){
-    $response = array('erro' => $erro, 'invalidFields' => $invalidFields);
+
+  return array('erro' => $erro, 'invalidFields' => $invalidFields, 'data' => $data);
+}
+
+// This function add a new student
+function registrarAluno(){
+  $validateData = validateData();
+  $invalidFields = $validateData['invalidFields'];
+  $data = $validateData['data'];
+  // Check for an error
+  if($validateData['erro']){
+    $response = array('erro' => true, 'invalidFields' => $invalidFields);
     echo json_encode($response);
   }else{
     $db = new DataBase();
@@ -159,6 +176,24 @@ function deleteStudent(){
     echo json_encode($response);
   }else{
     echo json_encode(array('erro' => true, 'description' => 'Dados insuficientes.'));
+  }
+}
+
+// This functions has the role to edit a student
+function editarAluno(){
+  $validateData = validateData();
+  $invalidFields = $validateData['invalidFields'];
+  $data = $validateData['data'];
+  // Check for an error
+  if($validateData['erro']){
+    $response = array('erro' => true, 'invalidFields' => $invalidFields);
+    echo json_encode($response);
+  }else{
+    $db = new DataBase();
+    $conn = $db->getConnection();
+    $aluno = new Alunos($conn);
+    $response = $aluno->editStudent($data);
+    echo json_encode($response);
   }
 }
  ?>
