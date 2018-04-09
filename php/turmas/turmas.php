@@ -1,6 +1,6 @@
 <?php
 /**
- * It's the Class Turmas where all the datas relationed to the turmas
+ * It's the Class Turmas where all the datas relationed to the class
  * are manipulated.
  *
  * @category   CategoryName
@@ -106,7 +106,7 @@ class Turmas {
 	    if($result){
 	        return array("erro" =>false, "responseText" => "Turma excluida com sucesso.");
 	    }
-	    return array("erro" => true, "responseText" => "Falha ao exluir turma");
+	    return array("erro" => true, "responseText" => "Falha ao exluír turma.");
 	}
 }
 ?>
