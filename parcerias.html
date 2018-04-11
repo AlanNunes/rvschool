@@ -126,7 +126,7 @@
                       <label for="nome">Nome:</label>
                       <input type="text" class="form-control" id="nome" placeholder="Ex.: Parceria loja do João">
                       <div class="invalid-feedback">
-                        Por favor, digite o nome da Parceria.
+                        Por favor, digite o nome da parceria.
                       </div>
                     </div>
                     <div class="form-group col-md-12">
@@ -491,7 +491,6 @@
                   console.log(data);
               },
               error: function(data) {
-                  alert(data.Description);
                   listParcerias();
                   console.log(data);
               }
@@ -515,7 +514,7 @@
                   $("#confirm-delete").modal("hide");
               },
               error: function(data) {
-                  alert(data.responseText);
+                  console.log(data);
                   listParcerias();
                   $("#confirm-delete").modal("hide");
               }

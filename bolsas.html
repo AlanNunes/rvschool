@@ -118,6 +118,9 @@
                     <div class="col-md-6">
                       <label for="nome">Nome:</label>
                       <input type="text" class="form-control" id="nome" placeholder="Ex.: Bolsa Gold">
+                      <div class="invalid-feedback">
+                        Por favor, digite o nome da bolsa.
+                      </div>
                     </div>
                     <div class="col-md-4 offset-md-2">
                       <label for="desconto">Desconto:</label>
@@ -125,6 +128,9 @@
                         <input type="number" class="form-control" id="desconto" min="0" max="100" required>
                         <div class="input-group-prepend">
                           <span class="input-group-text">%</span>
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, digite o desconto da bolsa.
                         </div>
                       </div>
                     </div>
@@ -138,20 +144,29 @@
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="dateRadio" id="tempDateRadio" value="0">
                     <label class="form-check-label" for="tempDateRadio">Temporária</label>
+                    <div class="invalid-feedback">
+                      Por favor, selecione pelo menos uma opção.
+                    </div>
                   </div>
 
                   <div class="form-row" id="dateSection" style="display: none">
                     <div class="form-group col-md-6">
-                      <label for="initDate">Data de início da Bolsa</label>
+                      <label for="dataInicio">Data de início da Bolsa</label>
                       <div class="input-group">
-                        <input type="date" class="form-control" id="initDate">
+                        <input type="date" class="form-control" id="dataInicio">
+                      </div>
+                      <div class="invalid-feedback">
+                        Por favor, digite uma data de início para a bolsa.
                       </div>
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label for="endDate">Data de Término da Bolsa</label>
+                      <label for="dataTermino">Data de Término da Bolsa</label>
                       <div class="input-group">
-                        <input type="date" class="form-control" id="endDate">
+                        <input type="date" class="form-control" id="dataTermino">
+                      </div>
+                      <div class="invalid-feedback">
+                        Por favor, digite uma data de término para a bolsa.
                       </div>
                     </div>
                   </div>
@@ -159,6 +174,9 @@
                   <div class="form-group col-md-12">
                     <label for="descricao">Descrição:</label>
                     <textarea class="form-control" id="descricao" rows="5" placeholder="Ex.: Bolsa de 50% para o curso de inglês"></textarea>
+                    <div class="invalid-feedback">
+                      Por favor, digite a descrição da bolsa.
+                    </div>
                   </div>
                 </div>
                 </form>
@@ -326,8 +344,8 @@
 
                     $("#nome").val(currentBolsa.nome);
                     $("#desconto").val(currentBolsa.desconto);
-                    $("#initDate").val(currentBolsa.dataInicio);
-                    $("#endDate").val(currentBolsa.dataTermino);
+                    $("#dataInicio").val(currentBolsa.dataInicio);
+                    $("#dataTermino").val(currentBolsa.dataTermino);
                     $("#descricao").val(currentBolsa.descricao);
 
                     if(Number(currentBolsa.fixa)) {
@@ -382,12 +400,24 @@
             url: "php/bolsas/controle.php",
             data: data,
             success: function(data) {
-                alert(data.responseText);
-                listBolsas();
+                if(data.erro) {
+                    if(data.Description) {
+                        alert(data.Description);
+                    }
+                    else {
+                        alert("Arrume os campos em vermelho.");
+                        setInvalidFields(data.invalidFields);
+                    }
+                }
+                else {
+                    alert(data.Description);
+                    setInvalidFields([]);
+                    listBolsas();
+                }
             },
             error: function(data) {
-                alert(data.responseText);
                 listBolsas();
+                console.log(data);
             }
         });
       });
@@ -404,12 +434,24 @@
               url: "php/bolsas/controle.php",
               data: data,
               success: function(data) {
-                  alert(data.responseText);
-                  listBolsas();
+                  if(data.erro) {
+                      if(data.Description) {
+                          alert(data.Description);
+                      }
+                      else {
+                          alert("Arrume os campos em vermelho.");
+                          setInvalidFields(data.invalidFields);
+                      }
+                  }
+                  else {
+                      alert(data.Description);
+                      setInvalidFields([]);
+                      listBolsas();
+                  }
               },
               error: function(data) {
-                  alert(data.responseText);
                   listBolsas();
+                  console.log(data);
               }
           });
       }
@@ -426,24 +468,44 @@
               url: "php/bolsas/controle.php",
               data: data,
               success: function(data) {
-                  alert(data.responseText);
+                  alert(data.Description);
                   listBolsas();
                   $("#confirm-delete").modal("hide");
               },
               error: function(data) {
-                  alert(data.responseText);
+                  console.log(data);
                   listBolsas();
                   $("#confirm-delete").modal("hide");
               }
           });
       }
 
+      function setInvalidFields(invalidFields) {
+          var requiredFields = getRequiredFields();
+          for(var i = 0;i < requiredFields.length;i++){
+              var requiredField = requiredFields[i];
+              if(invalidFields.indexOf(requiredField) === -1) {
+                  $("#" + requiredField).removeClass("is-invalid");
+              }
+          }
+          for(i = 0;i < invalidFields.length;i++) {
+              var invalidField = invalidFields[i];
+              $("#" + invalidField).removeClass("is-valid").addClass("is-invalid");
+          }
+      }
+
+      function getRequiredFields() {
+          return [
+              "nome", "descricao", "desconto", "fixa", "dataInicio", "dataTermino"
+          ];
+      }
+
       function getFormsVal() {
           var nome = $("#nome").val();
           var desconto = $("#desconto").val();
           var descricao = $("#descricao").val();
-          var initDate = $("#initDate").val();
-          var endDate =  $("#endDate").val();
+          var initDate = $("#dataInicio").val();
+          var endDate =  $("#dataTermino").val();
           var fixed = 1;
           var dateForms = document.getElementsByName("dateRadio");
           for(var i = 0;i < dateForms.length;i++) {

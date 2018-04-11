@@ -88,9 +88,9 @@ class Parcerias {
 	    $result = $this->conn->query($query);
 
 	    if($result){
-	        return array("erro" =>false, "responseText" => "Parceria excluida com sucesso.");
+	        return array("erro" =>false, "Description" => "Parceria excluida com sucesso.");
 	    }
-	    return array("erro" => true, "responseText" => "Falha ao exluír parceria.");
+	    return array("erro" => true, "Description" => "Falha ao exluír parceria.");
 	}
 }
 ?>

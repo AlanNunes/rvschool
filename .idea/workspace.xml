@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52e2bfd8-4502-4395-8128-2a4ec438e179" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/parcerias.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/php/parcerias/controle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/php/parcerias/parcerias.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alunos.html" afterPath="$PROJECT_DIR$/alunos.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bolsas.html" afterPath="$PROJECT_DIR$/bolsas.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/funcionarios.html" afterPath="$PROJECT_DIR$/funcionarios.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/parcerias.html" afterPath="$PROJECT_DIR$/parcerias.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/bolsas/Bolsas.php" afterPath="$PROJECT_DIR$/php/bolsas/Bolsas.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/bolsas/controle.php" afterPath="$PROJECT_DIR$/php/bolsas/controle.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/parcerias/controle.php" afterPath="$PROJECT_DIR$/php/parcerias/controle.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/parcerias/parcerias.php" afterPath="$PROJECT_DIR$/php/parcerias/parcerias.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/turmas/controle.php" afterPath="$PROJECT_DIR$/php/turmas/controle.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/turmas/turmas.php" afterPath="$PROJECT_DIR$/php/turmas/turmas.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/turmas.html" afterPath="$PROJECT_DIR$/turmas.html" />
     </list>
@@ -29,21 +30,11 @@
       <file leaf-file-name="turmas.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/turmas.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+            <state relative-caret-position="461">
+              <caret line="498" column="37" lean-forward="false" selection-start-line="498" selection-start-column="37" selection-end-line="498" selection-end-column="37" />
               <folding>
-                <marker date="1523276841167" expanded="true" signature="18045:18311" ph="{...}" />
+                <marker date="1523469858328" expanded="true" signature="18045:18311" ph="{...}" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="parcerias.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/parcerias.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="371" column="80" lean-forward="false" selection-start-line="371" selection-start-column="80" selection-end-line="371" selection-end-column="80" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -51,68 +42,28 @@
       <file leaf-file-name="bolsas.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bolsas.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="127" column="30" lean-forward="true" selection-start-line="127" selection-start-column="30" selection-end-line="127" selection-end-column="30" />
+            <state relative-caret-position="-47">
+              <caret line="437" column="25" lean-forward="false" selection-start-line="437" selection-start-column="25" selection-end-line="437" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="controle.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/php/parcerias/controle.php">
+        <entry file="file://$PROJECT_DIR$/php/bolsas/controle.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="58" column="34" lean-forward="true" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
+            <state relative-caret-position="568">
+              <caret line="197" column="32" lean-forward="false" selection-start-line="197" selection-start-column="32" selection-end-line="197" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="parcerias.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/php/parcerias/parcerias.php">
+      <file leaf-file-name="Bolsas.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/php/bolsas/Bolsas.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="813">
-              <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controle.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/php/turmas/controle.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2839">
-              <caret line="167" column="42" lean-forward="false" selection-start-line="167" selection-start-column="42" selection-end-line="167" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="turmas.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/php/turmas/turmas.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1836">
-              <caret line="108" column="78" lean-forward="false" selection-start-line="108" selection-start-column="78" selection-end-line="108" selection-end-column="78" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controle.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/php/funcionarios/controle.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Funcionarios.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/php/funcionarios/Funcionarios.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="789">
-              <caret line="173" column="0" lean-forward="true" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+            <state relative-caret-position="738">
+              <caret line="113" column="49" lean-forward="false" selection-start-line="113" selection-start-column="49" selection-end-line="113" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -157,22 +108,22 @@
         <option value="$PROJECT_DIR$/js/dynamical-dom.js" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/php/alunos/Alunos.php" />
-        <option value="$PROJECT_DIR$/php/bolsas/Bolsas.php" />
-        <option value="$PROJECT_DIR$/php/bolsas/controle.php" />
         <option value="$PROJECT_DIR$/php/validation/Validation.php" />
         <option value="$PROJECT_DIR$/php/anexo/upload.php" />
         <option value="$PROJECT_DIR$/php/funcionarios/Funcionarios.php" />
         <option value="$PROJECT_DIR$/php/funcionarios/controle.php" />
-        <option value="$PROJECT_DIR$/php/turmas/controle.php" />
         <option value="$PROJECT_DIR$/alunos.html" />
-        <option value="$PROJECT_DIR$/bolsas.html" />
-        <option value="$PROJECT_DIR$/funcionarios.html" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/turmas.html" />
-        <option value="$PROJECT_DIR$/php/turmas/turmas.php" />
-        <option value="$PROJECT_DIR$/php/parcerias/controle.php" />
-        <option value="$PROJECT_DIR$/php/parcerias/parcerias.php" />
+        <option value="$PROJECT_DIR$/php/bolsas/Bolsas.php" />
         <option value="$PROJECT_DIR$/parcerias.html" />
+        <option value="$PROJECT_DIR$/php/parcerias/parcerias.php" />
+        <option value="$PROJECT_DIR$/bolsas.html" />
+        <option value="$PROJECT_DIR$/php/bolsas/controle.php" />
+        <option value="$PROJECT_DIR$/php/parcerias/controle.php" />
+        <option value="$PROJECT_DIR$/php/turmas/turmas.php" />
+        <option value="$PROJECT_DIR$/php/turmas/controle.php" />
+        <option value="$PROJECT_DIR$/turmas.html" />
+        <option value="$PROJECT_DIR$/funcionarios.html" />
       </list>
     </option>
   </component>
@@ -204,7 +155,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -455,6 +405,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -581,12 +532,13 @@
       <workItem from="1522855901263" duration="14065000" />
       <workItem from="1522942943138" duration="798000" />
       <workItem from="1523031333111" duration="9500000" />
-      <workItem from="1523272787076" duration="14463000" />
+      <workItem from="1523272787076" duration="15061000" />
+      <workItem from="1523459449176" duration="7144000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231425000" />
+    <option name="totallyTimeSpent" value="239167000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -711,13 +663,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/php/bolsas/Bolsas.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="69" lean-forward="false" selection-start-line="2" selection-start-column="69" selection-end-line="2" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery.mask.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -829,13 +774,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/php/bolsas/controle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="76" column="49" lean-forward="true" selection-start-line="76" selection-start-column="49" selection-end-line="76" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/php/database/DataBase.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -854,15 +792,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
           <caret line="47" column="23" lean-forward="false" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/funcionarios/Funcionarios.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="789">
-          <caret line="173" column="0" lean-forward="true" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -870,14 +799,116 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
           <caret line="55" column="17" lean-forward="true" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="831">
+          <caret line="50" column="21" lean-forward="false" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/alunos/Alunos.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="93" column="135" lean-forward="false" selection-start-line="93" selection-start-column="135" selection-end-line="93" selection-end-column="135" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/alunos/controle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="14" column="41" lean-forward="false" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parcerias.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="688">
+          <caret line="516" column="36" lean-forward="false" selection-start-line="516" selection-start-column="36" selection-end-line="516" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/turmas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="498" column="37" lean-forward="false" selection-start-line="498" selection-start-column="37" selection-end-line="498" selection-end-column="37" />
+          <folding>
+            <marker date="1523469858328" expanded="true" signature="18045:18311" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/turmas/turmas.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="106" column="53" lean-forward="false" selection-start-line="106" selection-start-column="42" selection-end-line="106" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/bolsas/controle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="568">
+          <caret line="197" column="32" lean-forward="false" selection-start-line="197" selection-start-column="32" selection-end-line="197" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/turmas/controle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="568">
+          <caret line="158" column="32" lean-forward="false" selection-start-line="158" selection-start-column="32" selection-end-line="158" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/parcerias/parcerias.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="92" column="49" lean-forward="false" selection-start-line="92" selection-start-column="49" selection-end-line="92" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/parcerias/controle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="125" column="32" lean-forward="false" selection-start-line="125" selection-start-column="32" selection-end-line="125" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bolsas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-47">
+          <caret line="437" column="25" lean-forward="false" selection-start-line="437" selection-start-column="25" selection-end-line="437" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/funcionarios/Funcionarios.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/funcionarios/controle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4045">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/funcionarios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="53" column="15" lean-forward="false" selection-start-line="53" selection-start-column="15" selection-end-line="53" selection-end-column="15" />
+        <state relative-caret-position="735">
+          <caret line="862" column="36" lean-forward="false" selection-start-line="862" selection-start-column="36" selection-end-line="862" selection-end-column="36" />
           <folding>
             <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#4057#4064#1" expanded="true" />
@@ -891,92 +922,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/php/bolsas/Bolsas.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="831">
-          <caret line="50" column="21" lean-forward="false" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/alunos/Alunos.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="93" column="135" lean-forward="false" selection-start-line="93" selection-start-column="135" selection-end-line="93" selection-end-column="135" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/alunos/controle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="14" column="41" lean-forward="false" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/funcionarios/controle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/turmas.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-          <folding>
-            <marker date="1523276841167" expanded="true" signature="18045:18311" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/turmas/controle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2839">
-          <caret line="167" column="42" lean-forward="false" selection-start-line="167" selection-start-column="42" selection-end-line="167" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/turmas/turmas.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="108" column="78" lean-forward="false" selection-start-line="108" selection-start-column="78" selection-end-line="108" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/parcerias/parcerias.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="813">
-          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/parcerias/controle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="58" column="34" lean-forward="true" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bolsas.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="127" column="30" lean-forward="true" selection-start-line="127" selection-start-column="30" selection-end-line="127" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parcerias.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="371" column="80" lean-forward="false" selection-start-line="371" selection-start-column="80" selection-end-line="371" selection-end-column="80" />
+        <state relative-caret-position="738">
+          <caret line="113" column="49" lean-forward="false" selection-start-line="113" selection-start-column="49" selection-end-line="113" selection-end-column="49" />
           <folding />
         </state>
       </provider>

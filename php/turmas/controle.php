@@ -156,11 +156,7 @@ function deleteTurma(){
     $conn = $db->getConnection();
     $turmas = new Turmas($conn);
     $response = $turmas->deleteTurma($_POST["id"]);
-    if($response["erro"]){
-        echo $response["responseText"];
-    }else{
-        echo $response["responseText"];
-    }
+    echo json_encode($response);
 }
 
 function updateTurma(){

@@ -11,6 +11,7 @@
  */
 header('Content-Type: application/json');
 require_once('../database/DataBase.php');
+include_once('../validation/Validation.php');
 require_once('Bolsas.php');
 // echo var_dump($_POST);
 if(!empty($_POST["acao"]) && isset($_POST["acao"])){
@@ -101,31 +102,92 @@ function getBolsa() {
 }
 
 function createBolsa(){
-    $db = new DataBase();
-    $conn = $db->getConnection();
-    $bolsas = new Bolsas($conn);
-    $response = $bolsas->createBolsa($_POST["nome"], $_POST["desconto"], $_POST["descricao"], $_POST["fixa"], $_POST["dataInicio"], $_POST["dataTermino"]);
+    $data = getBolsaData();
+    $dataSize = sizeof($data);
+    $requiredFields = array(
+        "nome",
+        "descricao",
+        "desconto"
+    );
 
-    if($response["erro"]){
-        echo $response["responseText"];
-    }else{
-        echo $response["responseText"];
+    $requiredAmount = sizeof($requiredFields);
+    $i = 0;
+    $invalidFields = array();
+
+    for($i;$i < $requiredAmount;$i++) {
+        $index = $requiredFields[$i];
+        if(empty($data[$index]) || !isset($data[$index])) {
+            array_push($invalidFields, $index);
+        }
+    }
+
+    if(!(int)$data["fixa"] && (empty($data["dataInicio"]) || !isset($data["dataInicio"]))){
+        array_push($invalidFields, "dataInicio");
+    }
+
+    if(!(int)$data["fixa"] && (empty($data["dataTermino"]) || !isset($data["dataTermino"]))){
+            array_push($invalidFields, "dataTermino");
+        }
+
+    $erro = (empty($invalidFields)) ? false : true;
+
+    if($erro) {
+        $response = array("erro" => $erro, "invalidFields" => $invalidFields);
+        echo json_encode($response);
+    }
+    else {
+        $db = new DataBase();
+        $conn = $db->getConnection();
+        $bolsa = new Bolsas($conn);
+        $response = $bolsa->createBolsa($data);
+
+        echo json_encode($response);
     }
 }
 
 function updateBolsa(){
-    $db = new DataBase();
-        $conn = $db->getConnection();
-        $bolsas = new Bolsas($conn);
-        $bolsa = $bolsas->getBolsa($_POST["id"]);
-        $response = $bolsas->updateBolsa($_POST["id"], $_POST["nome"], $_POST["desconto"], $_POST["descricao"],
-         $_POST["fixa"], $_POST["dataInicio"], $_POST["dataTermino"], $bolsa["response"]);
+    $data = getBolsaData();
+    $data["id"] = safe_data($_POST["id"]);
+    $dataSize = sizeof($data);
+    $requiredFields = array(
+        "nome",
+        "descricao",
+        "desconto"
+    );
 
-        if($response["erro"]){
-            echo $response["responseText"];
-        }else{
-            echo $response["responseText"];
+    $requiredAmount = sizeof($requiredFields);
+    $i = 0;
+    $invalidFields = array();
+
+    for($i;$i < $requiredAmount;$i++) {
+        $index = $requiredFields[$i];
+        if(empty($data[$index]) || !isset($data[$index])) {
+            array_push($invalidFields, $index);
         }
+    }
+
+    if(!(int)$data["fixa"] && (empty($data["dataInicio"]) || !isset($data["dataInicio"]))){
+        array_push($invalidFields, "dataInicio");
+    }
+
+    if(!(int)$data["fixa"] && (empty($data["dataTermino"]) || !isset($data["dataTermino"]))){
+        array_push($invalidFields, "dataTermino");
+    }
+
+    $erro = (empty($invalidFields)) ? false : true;
+
+    if($erro) {
+        $response = array("erro" => $erro, "invalidFields" => $invalidFields);
+        echo json_encode($response);
+    }
+    else {
+        $db = new DataBase();
+        $conn = $db->getConnection();
+        $bolsa = new Bolsas($conn);
+        $response = $bolsa->updateBolsa($data);
+
+        echo json_encode($response);
+    }
 }
 
 function deleteBolsa(){
@@ -133,10 +195,17 @@ function deleteBolsa(){
     $conn = $db->getConnection();
     $bolsas = new Bolsas($conn);
     $response = $bolsas->deleteBolsa($_POST["id"]);
-    if($response["erro"]){
-        echo $reponse["responseText"];
-    }else{
-        echo $response["responseText"];
-    }
+    echo json_encode($response);
+}
+
+function getBolsaData(){
+    return array(
+        "nome" => safe_data($_POST["nome"]),
+        "descricao" => safe_data($_POST["descricao"]),
+        "desconto" => safe_data($_POST["desconto"]),
+        "fixa" => safe_data($_POST["fixa"]),
+        "dataInicio" => safe_data($_POST["dataInicio"]),
+        "dataTermino" => safe_data($_POST["dataTermino"])
+    );
 }
 ?>

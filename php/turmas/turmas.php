@@ -104,9 +104,9 @@ class Turmas {
 	    $result = $this->conn->query($query);
 
 	    if($result){
-	        return array("erro" =>false, "responseText" => "Turma excluida com sucesso.");
+	        return array("erro" =>false, "Description" => "Turma excluida com sucesso.");
 	    }
-	    return array("erro" => true, "responseText" => "Falha ao exluír turma.");
+	    return array("erro" => true, "Description" => "Falha ao exluír turma.");
 	}
 }
 ?>

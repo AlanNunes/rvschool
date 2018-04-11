@@ -497,12 +497,12 @@
             url: "php/turmas/controle.php",
             data: data,
             success: function(data) {
-                alert(data.responseText);
+                alert(data.Description);
                 listTurmas();
                 $("#confirm-delete").modal("hide");
             },
             error: function(data) {
-                alert(data.responseText);
+                console.log(data);
                 listTurmas();
                 $("#confirm-delete").modal("hide");
             }

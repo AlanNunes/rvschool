@@ -860,7 +860,7 @@
                   $("#confirm-delete").modal("hide");
               },
               error: function(data) {
-                  alert(data.responseText);
+                  console.log(data);
                   listFuncionarios();
                   $("#confirm-delete").modal("hide");
               }

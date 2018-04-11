@@ -123,11 +123,7 @@ function deleteParceria(){
     $conn = $db->getConnection();
     $parceria = new Parcerias($conn);
     $response = $parceria->deleteParceria($_POST["id"]);
-    if($response["erro"]){
-        echo $response["responseText"];
-    }else{
-        echo $response["responseText"];
-    }
+    echo json_encode($response);
 }
 
 function updateParceria(){
