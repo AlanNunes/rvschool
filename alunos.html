@@ -448,7 +448,7 @@
     <script src="js/dynamical-dom.js"></script>
     <script>
       // Starts a Global Variable that's going to contain the path of the image's student
-      var avatar =  "";
+      var avatarPath =  "";
       $( document ).ready(function() {
         // Collapse the vertical menu
         $("#vertical-nav-bar").toggleClass("collapsed");
@@ -556,7 +556,7 @@
             $("#imagePreview").removeClass("avatar-preview");
             $("#imagePreview").removeClass("avatar-previewFailure");
             $("#imagePreview").addClass("avatar-previewSuccess");
-            avatar = data.imageName;
+            avatarPath = data.imageName;
           }
         }
         });
@@ -656,6 +656,8 @@
                     alert(e.currentTarget.data);
                     document.getElementById("btn-editarAluno").matricula = e.currentTarget.matricula;
                     data = e.currentTarget.data;
+                    avatarPath = data.avatar;
+                    console.log(avatarPath);
                     $("#btn-registrarAluno").hide();
                     $("#btn-editarAluno").show();
                     $("#nome").val(data.nome);
@@ -819,7 +821,7 @@
           "telefoneResponsavelDois": $("#telefoneResponsavelDois").val(),
           "celularResponsavelDois": $("#celularResponsavelDois").val(),
           "observacoes": $("#observacaoText").val(),
-          "avatar": avatar,
+          "avatar": avatarPath,
           "matricula": ""
         };
         return data;
