@@ -6,36 +6,26 @@
 			  </button>
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="index.php">HOME</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">PROFESSORES</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="alunos.php">ALUNOS</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="turmas.php">TURMAS</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">AULAS</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="funcionarios.php">FUNCIONÁRIOS</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">MENSALIDADES</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">ESTOQUE</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="bolsas.php">BOLSAS</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="parcerias.php">PARCERIAS</a>
-				</li>
+
+				<li class="dropdown">
+        <a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">CADASTROS
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li onclick="window.location='alunos.php'" id="dpdi" class="im">ALUNOS</li>
+					<li onclick="window.location='funcionarios.php'" id="dpdi" class="im">FUNCIONÁRIOS</li>
+					<li onclick="window.location='turmas.php'" id="dpdi" class="im">TURMAS</li>
+        </ul>
+      </li>
+
+				<li><a id="dpd" href="#">AULAS</a></li>
+
+				<li><a id="dpd" href="#">MENSALIDADES</a></li>
+
+				<li><a id="dpd" href="#">ESTOQUE</a></li>
+
+				<li><a id="dpd" href="bolsas.php">MÍDIAS</a></li>
+
+				<li><a id="dpd" href="parcerias.php">PARCERIAS</a></li>
 		    </ul>
 		  </div>
 		</nav>

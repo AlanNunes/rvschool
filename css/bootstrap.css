@@ -185,6 +185,22 @@ a {
   text-align: center;
 }
 
+.im{
+  color: #F3E1B9;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+  font-family: impact;
+  text-align: left;
+  margin-left: 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.im:hover{
+  text-decoration: underline;
+}
+
 a:hover {
   color: #0056b3;
   text-decoration: underline;
@@ -2603,6 +2619,20 @@ fieldset:disabled a.btn {
   border-color: #4e555b;
 }
 
+#dpd{
+  font-family: impact;
+  font-size: 20px;
+  color: #F3E1B9;
+  margin-top: 50px;
+  padding: 15px;
+}
+
+#dpdi{
+  font-family: impact;
+  font-size: 18px;
+  color: #F3E1B9;
+}
+
 .btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-secondary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
@@ -3192,8 +3222,8 @@ tbody.collapse.show {
 
 .dropdown-menu {
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: 140%;
+  left: -1;
   z-index: 1000;
   display: none;
   float: left;
@@ -3201,7 +3231,7 @@ tbody.collapse.show {
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 1rem;
-  color: #212529;
+  color: red;
   text-align: left;
   list-style: none;
   background-color: #6D2E33;

@@ -14,48 +14,7 @@
     <link rel="stylesheet" href="assets/icons/open-iconic-master/font/css/open-iconic-bootstrap.css">
 </head>
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html"><img src="assets/imgs/logo/logo.png"></a>
-        <button class="navbar-toggler" type="button" id="buttonHumburguer" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">HOME</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">PROFESSORES</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="alunos.html">ALUNOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="turmas.html">TURMAS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">AULAS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="funcionarios.html">FUNCIONÁRIOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">MENSALIDADES</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">ESTOQUE</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">BOLSAS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="parcerias.html">PARCERIAS</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+  <?php include('header.php') ?>
 
   <br>
   <div class="container-fluid" id="content">
@@ -213,9 +172,7 @@
 
 
 
-<footer>
-  <a>© Revolution School.</a>
-</footer>
+<?php include('footer.php') ?>
 </body>
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
