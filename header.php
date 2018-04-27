@@ -21,7 +21,7 @@
 				<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">DIDÁTICO
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li onclick="window.location='alunos.php'" id="dpdi" class="im">AULAS</li>
+						<li onclick="window.location='#'" id="dpdi" class="im">AULAS</li>
 					</ul>
 				</li>
 
@@ -29,7 +29,7 @@
 			<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">FINANCEIRO
 			<span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li onclick="window.location='alunos.php'" id="dpdi" class="im">MENSALIDADES</li>
+				<li onclick="window.location='#'" id="dpdi" class="im">MENSALIDADES</li>
 			</ul>
 		</li>
 
@@ -38,8 +38,8 @@
 	<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">GERENCIAL
 	<span class="caret"></span></a>
 	<ul class="dropdown-menu">
-		<li onclick="window.location='alunos.php'" id="dpdi" class="im">ESTOQUE</li>
-		<li onclick="window.location='turmas.php'" id="dpdi" class="im">PARCERIAS</li>
+		<li onclick="window.location='#'" id="dpdi" class="im">ESTOQUE</li>
+		<li onclick="window.location='parcerias.php'" id="dpdi" class="im">PARCERIAS</li>
 	</ul>
 	</li>
 
