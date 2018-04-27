@@ -17,15 +17,34 @@
         </ul>
       </li>
 
-				<li><a id="dpd" href="#">AULAS</a></li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">DIDÁTICO
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li onclick="window.location='alunos.php'" id="dpdi" class="im">AULAS</li>
+					</ul>
+				</li>
 
-				<li><a id="dpd" href="#">MENSALIDADES</a></li>
+			<li class="dropdown">
+			<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">FINANCEIRO
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li onclick="window.location='alunos.php'" id="dpdi" class="im">MENSALIDADES</li>
+			</ul>
+		</li>
 
-				<li><a id="dpd" href="#">ESTOQUE</a></li>
+
+	<li class="dropdown">
+	<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">GERENCIAL
+	<span class="caret"></span></a>
+	<ul class="dropdown-menu">
+		<li onclick="window.location='alunos.php'" id="dpdi" class="im">ESTOQUE</li>
+		<li onclick="window.location='turmas.php'" id="dpdi" class="im">PARCERIAS</li>
+	</ul>
+	</li>
 
 				<li><a id="dpd" href="bolsas.php">MÍDIAS</a></li>
 
-				<li><a id="dpd" href="parcerias.php">PARCERIAS</a></li>
 		    </ul>
 		  </div>
 		</nav>
