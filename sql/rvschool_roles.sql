@@ -16,30 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `parcerias`
+-- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `parcerias`;
+DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `parcerias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `descricao` varchar(255) DEFAULT NULL,
-  `descontoMensalidade` int(11) DEFAULT '0',
-  `descontoMatricula` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+CREATE TABLE `roles` (
+  `roleId` int(11) NOT NULL AUTO_INCREMENT,
+  `roleNome` varchar(50) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`roleId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `parcerias`
+-- Dumping data for table `roles`
 --
 
-LOCK TABLES `parcerias` WRITE;
-/*!40000 ALTER TABLE `parcerias` DISABLE KEYS */;
-INSERT INTO `parcerias` VALUES (5,'Loja Qualquer','',0,0),(6,'Loja Zezinho','parceria com a Loja Zezinho.',45,35);
-/*!40000 ALTER TABLE `parcerias` ENABLE KEYS */;
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'Administrador'),(2,'Funcionário'),(3,'Professor'),(4,'Aluno');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-01 15:19:56
+-- Dump completed on 2018-05-01 15:19:55

@@ -19,7 +19,7 @@ Class Turmas {
 	}
 
 	public function listTurmas() {
-		$query = "SELECT * FROM turmas";
+		$query = "SELECT t.id, t.nome, t.situacao, t.professor, t.estagio, t.curso, t.horario, t.maximoDeAlunos, t.sala, t.dataInicio, t.dataTermino, t.ultimaPalavra, t.ultimaLicao, t.UltimoDitado, t.minimoAlunos, t.duracaoAula, c.id as cursoId, c.nome as cursoNome, f.nome as professorNome FROM turmas t INNER JOIN cursos c ON c.id = t.curso INNER JOIN funcionarios f ON f.id = t.professor";
 		$result = $this->conn->query($query);
 
 		if($result->num_rows > 0) {
@@ -61,7 +61,7 @@ Class Turmas {
 
         $query = "INSERT INTO turmas(nome, situacao, professor, estagio, curso, horario, minimoAlunos, sala,
          duracaoAula, dataInicio, dataTermino) VALUES ('{$nome}',
-          {$situacao}, '{$professor}', '{$estagio}', '{$curso}', '{$horario}', {$minimoAlunos}, '{$sala}',
+          {$situacao}, {$professor}, '{$estagio}', '{$curso}', '{$horario}', {$minimoAlunos}, '{$sala}',
            {$duracaoAula}, '{$dataInicio}', '{$dataTermino}');";
         $result = $this->conn->query($query);
 
@@ -85,8 +85,9 @@ Class Turmas {
         $duracaoAula = $data["duracaoAula"];
         $dataInicio = $data["dataInicio"];
         $dataTermino = $data["dataTermino"];
+				$professor = ($professor == null ? "NULL" : "'$professor'");
 
-        $query = "UPDATE turmas SET nome = '{$nome}', situacao = {$situacao}, professor = '{$professor}',
+        $query = "UPDATE turmas SET nome = '{$nome}', situacao = {$situacao}, professor = {$professor},
          estagio = '{$estagio}', curso = '{$curso}', horario = '{$horario}', minimoAlunos = {$minimoAlunos},
           sala = '{$sala}', duracaoAula = {$duracaoAula}, dataInicio = '{$dataInicio}', dataTermino = '{$dataTermino}'
            WHERE id = {$id}";
@@ -95,7 +96,7 @@ Class Turmas {
         if($result){
             return array("erro" => false, "Description" => "Turma atualizada com sucesso.");
         }
-        return array("erro" => true, "Description" => "Falha ao atualizar turma.");
+        return array("erro" => true, "Description" => $query);
     }
 
 	public function deleteTurma($id){

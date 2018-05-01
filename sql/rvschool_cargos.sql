@@ -16,30 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `parcerias`
+-- Table structure for table `cargos`
 --
 
-DROP TABLE IF EXISTS `parcerias`;
+DROP TABLE IF EXISTS `cargos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `parcerias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `descricao` varchar(255) DEFAULT NULL,
-  `descontoMensalidade` int(11) DEFAULT '0',
-  `descontoMatricula` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+CREATE TABLE `cargos` (
+  `cargoId` int(11) NOT NULL AUTO_INCREMENT,
+  `cargoNome` varchar(100) NOT NULL,
+  `roleId` int(11) NOT NULL,
+  PRIMARY KEY (`cargoId`),
+  KEY `roleId` (`roleId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `parcerias`
+-- Dumping data for table `cargos`
 --
 
-LOCK TABLES `parcerias` WRITE;
-/*!40000 ALTER TABLE `parcerias` DISABLE KEYS */;
-INSERT INTO `parcerias` VALUES (5,'Loja Qualquer','',0,0),(6,'Loja Zezinho','parceria com a Loja Zezinho.',45,35);
-/*!40000 ALTER TABLE `parcerias` ENABLE KEYS */;
+LOCK TABLES `cargos` WRITE;
+/*!40000 ALTER TABLE `cargos` DISABLE KEYS */;
+INSERT INTO `cargos` VALUES (1,'Administrador',1),(2,'Funcionário',2),(3,'Professor',3),(4,'Aluno',4);
+/*!40000 ALTER TABLE `cargos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

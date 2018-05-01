@@ -16,46 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `turmas`
+-- Table structure for table `cursos`
 --
 
-DROP TABLE IF EXISTS `turmas`;
+DROP TABLE IF EXISTS `cursos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `turmas` (
+CREATE TABLE `cursos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
-  `situacao` tinyint(4) NOT NULL,
-  `professor` int(11) DEFAULT NULL,
-  `estagio` varchar(45) NOT NULL,
-  `curso` int(11) NOT NULL,
-  `horario` varchar(45) NOT NULL,
-  `maximoDeAlunos` int(11) DEFAULT NULL,
-  `sala` varchar(45) NOT NULL,
-  `dataInicio` date NOT NULL,
-  `dataTermino` date NOT NULL,
-  `ultimaPalavra` varchar(45) DEFAULT NULL,
-  `ultimaLicao` int(11) DEFAULT NULL,
-  `ultimoDitado` int(11) DEFAULT NULL,
-  `minimoAlunos` int(11) NOT NULL,
-  `duracaoAula` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nome` (`nome`),
-  KEY `professor` (`professor`),
-  KEY `curso` (`curso`),
-  CONSTRAINT `turmas_ibfk_1` FOREIGN KEY (`professor`) REFERENCES `funcionarios` (`id`),
-  CONSTRAINT `turmas_ibfk_2` FOREIGN KEY (`curso`) REFERENCES `cursos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `turmas`
+-- Dumping data for table `cursos`
 --
 
-LOCK TABLES `turmas` WRITE;
-/*!40000 ALTER TABLE `turmas` DISABLE KEYS */;
-INSERT INTO `turmas` VALUES (2,'Alan',2,22,'Iniciante',1,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(3,'Eunice',0,21,'fluente',4,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(4,'Pretinha',1,22,'fluente',3,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2020-02-01',NULL,NULL,NULL,10,50);
-/*!40000 ALTER TABLE `turmas` ENABLE KEYS */;
+LOCK TABLES `cursos` WRITE;
+/*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
+INSERT INTO `cursos` VALUES (1,'That\'s the way'),(2,'Revolution Kids'),(3,'Revolution VIP'),(4,'Advanced Journey');
+/*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

@@ -4,9 +4,8 @@
  *
  * @category   CategoryName
  * @author     Alan Nunes da Silva <alann.625@gmail.com>
- * @copyright  2018 Dual Dev
  */
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 class Cargos {
 	private $id;
 	private $nome;

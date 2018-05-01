@@ -16,30 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `parcerias`
+-- Table structure for table `matriculas`
 --
 
-DROP TABLE IF EXISTS `parcerias`;
+DROP TABLE IF EXISTS `matriculas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `parcerias` (
+CREATE TABLE `matriculas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `descricao` varchar(255) DEFAULT NULL,
-  `descontoMensalidade` int(11) DEFAULT '0',
-  `descontoMatricula` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  `aluno` int(11) NOT NULL,
+  `turma` int(11) NOT NULL,
+  `dataMatricula` date NOT NULL,
+  `dataInicioAtividades` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `aluno` (`aluno`),
+  KEY `turma` (`turma`),
+  CONSTRAINT `matriculas_ibfk_1` FOREIGN KEY (`aluno`) REFERENCES `alunos` (`id`),
+  CONSTRAINT `matriculas_ibfk_2` FOREIGN KEY (`turma`) REFERENCES `turmas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `parcerias`
+-- Dumping data for table `matriculas`
 --
 
-LOCK TABLES `parcerias` WRITE;
-/*!40000 ALTER TABLE `parcerias` DISABLE KEYS */;
-INSERT INTO `parcerias` VALUES (5,'Loja Qualquer','',0,0),(6,'Loja Zezinho','parceria com a Loja Zezinho.',45,35);
-/*!40000 ALTER TABLE `parcerias` ENABLE KEYS */;
+LOCK TABLES `matriculas` WRITE;
+/*!40000 ALTER TABLE `matriculas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `matriculas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

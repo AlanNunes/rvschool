@@ -31,7 +31,7 @@ if(!empty($_POST["acao"]) && isset($_POST["acao"])){
         case 'updateTurma':
             updateTurma();
             break;
-		
+
 		default:
 			# code...
 			break;
@@ -79,6 +79,27 @@ function listTurmas(){
         echo json_encode($output);
 	}
 }
+// There was an error in this method
+// function getTurma() {
+//     $db = new DataBase();
+//     $conn = $db->getConnection();
+//     $turmas = new Turmas($conn);
+//     $response = $turmas->getTurma($_POST["id"]);
+//
+//     if($response["erro"]) {
+//         echo "404 Turma não encontrada.";
+//     }
+//     else {
+//         header('Content-Type: application/json');
+//         foreach($response["response"] as $row) {
+//             $output = array();
+//             foreach($row as $key => $value){
+//                 $output[$key] = $value;
+//             }
+//             echo json_encode($output);
+//         }
+//     }
+// }
 
 function getTurma() {
     $db = new DataBase();
@@ -90,14 +111,8 @@ function getTurma() {
         echo "404 Turma não encontrada.";
     }
     else {
-        header('Content-Type: application/json');
-        foreach($response["response"] as $row) {
-            $output = array();
-            foreach($row as $key => $value){
-                $output[$key] = $value;
-            }
-            echo json_encode($output);
-        }
+        // header('Content-Type: application/json');
+				echo json_encode($response["response"]);
     }
 }
 

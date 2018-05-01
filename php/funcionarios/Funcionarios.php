@@ -181,5 +181,11 @@ class Funcionarios {
         }
         return array("erro" => true, "Description" => "Falha ao exluir funcionário.");
     }
+
+		public function getProfessores(){
+			$sql = "SELECT f.id as id, f.nome as nome FROM funcionarios f INNER JOIN cargos c ON c.cargoId = f.cargo AND c.cargoNome = 'Professor'";
+			$result = $this->conn->query($sql);
+			return $result;
+		}
 }
 ?>

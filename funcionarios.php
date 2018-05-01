@@ -1,3 +1,11 @@
+<?php
+require_once('php/database/DataBase.php');
+require_once('php/cargos/Cargos.php');
+$db = new DataBase();
+$conn = $db->getConnection();
+
+$cargos = new Cargos($conn);
+ ?>
 <html lang="pt">
 <head>
   <!-- Required meta tags -->
@@ -153,9 +161,16 @@
                     <div class="form-group col-md-4">
                       <label for="cargo">Cargo:</label>
                       <select class="custom-select" id="cargo">
-                        <option value="professor">Professor</option>
-                        <option value="recepcionista">Recepcionista</option>
-                        <option value="secretária">Secretária</option>
+                        <option value="null">(Selecione)</option>
+                        <?php
+                          $row = $cargos->listCargos();
+                          foreach($row["response"] as $cargo){
+                            $id = $cargo["cargoId"];
+                            $nome = $cargo["cargoNome"];
+                            echo "<option value='{$id}'>{$nome}</option>";
+                          }
+                          var_dump($row);
+                        ?>
                       </select>
                       <div class="invalid-feedback">
                         Por favor, selecione o cargo do funcionário.

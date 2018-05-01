@@ -164,7 +164,7 @@ $turmas = new Turmas($conn);
         <div class="form-row">
           <div class="form-group col-md-2">
             <label for="turma">Turma:</label>
-            <select id="turma" class="form-control">
+            <select id="turma" class="form-control" onchange="updateCamposDeTurmas()">
               <option value='0' selected>(Selecione)</option>
               <?php
                 $turmasResponse = $turmas->listTurmas();
@@ -173,20 +173,8 @@ $turmas = new Turmas($conn);
                   foreach($turmasArray as $row){
                     $id = $row["id"];
                     $nome = $row["nome"];
-                    $horario = $row["horario"];
-                    $curso = $row["curso"];
-                    $estagio = $row["estagio"];
-                    $data_inicio = $row["dataInicio"];
-                    $turmaInfo = json_encode(array($id, $nome, $horario, $curso, $estagio, $data_inicio));
-                    echo "<script>
-                            var option = new DOM_Element('option', false, false, [{name: 'value', value: '{$id}'}], {$nome});
-                            option.element = {$turmaInfo};
-                            option.click(function(e){
-                              e.preventDefault();
-                              console.log(e);
-                            });
-                            document.getElementById('turma').appendChild(option);
-                          </script>";
+                    $teste = json_encode($turmasArray);
+                    echo "<option value='{$id}'>{$nome}</option>";
                   }
                 }
                ?>
@@ -258,7 +246,26 @@ $turmas = new Turmas($conn);
         // End process set date
       });
       function updateCamposDeTurmas(){
-        alert('birl');
+        e = document.getElementById("turma");
+        id = e.options[e.selectedIndex].value;
+
+        var data = {
+        "acao": "getTurma",
+        "id": id
+        };
+        console.log(data);
+        data = $(this).serialize() + "&" + $.param(data);
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/turmas/controle.php",
+          data: data,
+          success: function(data) {
+            $("#inicio-das-atividades").val(data.dataInicio);
+            $("#curso").val(data.curso);
+            $("#horario").val(data.horario);
+          }
+        });
       }
     </script>
 </html>

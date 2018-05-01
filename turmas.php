@@ -1,3 +1,14 @@
+<?php
+require_once('php/database/DataBase.php');
+require_once('php/funcionarios/Funcionarios.php');
+require_once('php/cursos/Cursos.php');
+$db = new DataBase();
+$conn = $db->getConnection();
+
+$funcionarios = new Funcionarios($conn);
+
+$cursos = new Cursos($conn);
+ ?>
 <html lang="pt">
 <head>
   <!-- Required meta tags -->
@@ -170,11 +181,15 @@
                 <div class="col-md-4">
                   <label for="professor">Professor:</label>
                   <select id="professor" class="form-control">
-                    <option value="">Nenhum</option>
-                    <option value="Marcos Junior">Marcos Junior</option>
-                    <option value="Elias Silva">Elias Silva</option>
-                    <option value="José Gustavo">José Gustavo</option>
-                    <option value="Adriana Nunes">Adriana Nunes</option>
+                    <option value="null">(Selecione)</option>
+                    <?php
+                      $result = $funcionarios->getProfessores();
+                      while($row = $result->fetch_assoc()){
+                        $id = $row["id"];
+                        $nome = $row["nome"];
+                        echo "<option value='{$id}'>{$nome}</option>";
+                      }
+                    ?>
                   </select>
                 </div>
 
@@ -194,9 +209,15 @@
                 <div class="col-md-4">
                   <label for="curso">Curso:*</label>
                   <select id="curso" class="form-control">
-                    <option value="That''s the way">That's the way</option>
-                    <option value="Kids">kids</option>
-                    <option value="Teens">Teens</option>
+                    <option value="null">(Selecione)</option>
+                    <?php
+                      $result = $cursos->getCursos();
+                      while($row = $result->fetch_assoc()){
+                        $id = $row["id"];
+                        $nome = $row["nome"];
+                        echo "<option value='{$id}'>{$nome}</option>";
+                      }
+                    ?>
                   </select>
                   <div class="invalid-feedback">
                     Por favor, selecione o curso da turma.
@@ -308,9 +329,9 @@
                 var turma = data[i];
                 var tr = new DOM_Element("tr");
                 var name = new DOM_Element("th", false, false, false, turma.nome);
-                var professor = new DOM_Element("td", false, false, false, turma.professor);
+                var professor = new DOM_Element("td", false, false, false, turma.professorNome);
                 var estagio = new DOM_Element("td", false, false, false, turma.estagio);
-                var curso = new DOM_Element("td", false, false, false, turma.curso);
+                var curso = new DOM_Element("td", false, false, false, turma.cursoNome);
                 var horario = new DOM_Element("td", false, false, false, turma.horario);
                 var minAlunos = new DOM_Element("td", false, false, false, turma.minimoAlunos);
                 var sala = new DOM_Element("td", false, false, false, turma.sala);
@@ -471,7 +492,7 @@
         var data = getFormsVal();
         data.acao = "updateTurma";
         data.id = turmaId;
-
+        console.log("id: "+turmaId);
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -480,7 +501,7 @@
             success: function(data) {
                 if(data.erro) {
                     if(data.Description) {
-                        alert(data.Description);
+                        console.log(data.Description);
                     }
                     else {
                         alert("Arrume os campos em vermelho.");
