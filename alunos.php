@@ -349,6 +349,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <a href="matriculas.html" class="btn disabled btn btn-success" id="btn-matricularAluno">Matricular</a>
             <button type="button" class="btn btn-primary" id="btn-registrarAluno">Registrar</button>
             <button type="button" class="btn btn-primary" id="btn-editarAluno">Editar</button>
           </div>
@@ -395,7 +396,9 @@
   </div>
 
 <!-- END EXCLUIR ALUNO CLOSE MODAL -->
-<?php include('footer.php') ?>
+<footer>
+  <a>© Revolution School.</a>
+</footer>
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -451,6 +454,8 @@
       }
 
       function prepareRegistroAluno(){
+        cleanForm();
+        $("#btn-matricularAluno").addClass("disabled");
         $("#btn-editarAluno").hide();
         $("#btn-registrarAluno").show();
         $("#imagePreview").css("background-image", "url('')");
@@ -557,7 +562,7 @@
                 $("#invalid-feedback-"+invalidFields[i]).show();
               }
             }else{
-
+              $("#btn-matricularAluno").removeClass("btn disabled");
               $("#registrarAluno").modal('hide');
               $("#sucessoRegistro").modal('show');
               // Update the table
@@ -651,6 +656,7 @@
                     $("#matricula").val(data.matricula);
                     $("#imagePreview").css("background-image", "url('avatars/"+data.avatar+"')");
                     $("#registrarAlunoHeader").html("Editar Aluno - Matrícula <b>"+data.matricula+"</b>");
+                    $("#btn-matricularAluno").removeClass("disabled");
                     $("#registrarAluno").modal('show');
                 });
                 deleteButton.click(function(e) {
@@ -782,6 +788,43 @@
           "matricula": ""
         };
         return data;
+      }
+
+      function cleanForm(){
+        $("#nome").val("");
+        $("#rg").val("");
+        $("#cpf").val("");
+        $("#dataNasc").val("");
+        $("#estadoCivil").val("");
+        $("#sexo").val("");
+        $("#profissao").val("");
+        $("#escolaridade").val("");
+        $("#midia").val("");
+        $("#cep").val("");
+        $("#logradouro").val("");
+        $("#numeroCasa").val("");
+        $("#complemento").val("");
+        $("#cidade").val("");
+        $("#bairro").val("");
+        $("#email").val("");
+        $("#telefone").val("");
+        $("#celular").val("");
+        $("#banco").val("");
+        $("#agencia").val("");
+        $("#conta").val("");
+        $("#codigoClienteBanco").val("");
+        $("#bolsa").val("");
+        $("#inadimplencia").val("");
+        $("#nomeResponsavelUm").val("");
+        $("#telefoneResponsavelUm").val("");
+        $("#celularResponsavelUm").val("");
+        $("#nomeResponsavelDois").val("");
+        $("#telefoneResponsavelDois").val("");
+        $("#celularResponsavelDois").val("");
+        $("#observacoes").val("");
+        $("#matricula").val("");
+        $("#imagePreview").css("background-image", "url('')");
+        $("#registrarAlunoHeader").html("Registrar Aluno - RevolutionSchool - That's the Way !");
       }
     </script>
 </html>

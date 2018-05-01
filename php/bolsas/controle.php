@@ -31,7 +31,7 @@ if(!empty($_POST["acao"]) && isset($_POST["acao"])){
         case 'deleteBolsa':
             deleteBolsa();
             break;
-		
+
 		default:
 			# code...
 			break;

@@ -55,3 +55,16 @@ table .inativo {
 table .inativo:hover {
   background: #f24230!important;
 }
+
+/* CONTRATOS' CSS */
+.contratos {
+  padding: 10px;
+  border-radius: 5px;
+
+}
+
+.contratos .tab-pane {
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #fff8e7;
+}

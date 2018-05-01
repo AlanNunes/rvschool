@@ -3,12 +3,11 @@
  * It's the Class Turmas where all the datas relationed to the class
  * are manipulated.
  *
- * @category   CategoryName
+ * @category   Turmas
  * @author     Luan Nunes da Silva <lunanunesrpg@gmail.com>
- * @copyright  2018 Dual Dev
  */
-header('Content-Type: application/json');
-class Turmas {
+
+Class Turmas {
 	private $id;
 	private $nome;
 	private $descricao;
