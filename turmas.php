@@ -2,12 +2,15 @@
 require_once('php/database/DataBase.php');
 require_once('php/funcionarios/Funcionarios.php');
 require_once('php/cursos/Cursos.php');
+require_once('php/estagios/Estagios.php');
 $db = new DataBase();
 $conn = $db->getConnection();
-
+// Create an instance for workers(funcionários)
 $funcionarios = new Funcionarios($conn);
-
+// Create an instance for courses(cursos)
 $cursos = new Cursos($conn);
+// Create an instance for stages(estágios)
+$estagios = new Estagios($conn);
  ?>
 <html lang="pt">
 <head>
@@ -196,10 +199,15 @@ $cursos = new Cursos($conn);
                 <div class="col-md-4">
                   <label for="estagio">Estágio:*</label>
                   <select id="estagio" class="form-control">
-                    <option value="Iniciante">Iniciante</option>
-                    <option value="Médio">Médio</option>
-                    <option value="Expert">Expert</option>
-                    <option value="fluente">Fluente</option>
+                    <option value="0" selected>(Selecione)</option>
+                    <?php
+                      $result = $estagios->getEstagios();
+                      while($row = $result->fetch_assoc()){
+                        $id = $row["id"];
+                        $nome = $row["nome"];
+                        echo "<option value='{$id}'>{$nome}</option>";
+                      }
+                    ?>
                   </select>
                   <div class="invalid-feedback">
                     Por favor, selecione o estágio da turma.

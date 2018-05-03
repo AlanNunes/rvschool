@@ -46,6 +46,9 @@ $turmas = new Turmas($conn);
 
   <?php include('header.php') ?>
 
+<div id="page-cover">
+  <img src="assets/gifs/loading-icon6.gif" id="loading-gif" />
+</div>
 <!-- TELA DE CADASTRO DE CONTRATOS -->
 <div class="contratos">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -73,7 +76,9 @@ $turmas = new Turmas($conn);
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="nomeAluno">Nome do Aluno:</label>
-            <input type="text" class="form-control" id="nomeAluno" placeholder="Ex.: Joaquin Teixeira">
+            <input list="suggestions-alunos" class="form-control" id="nomeAluno" placeholder="Ex.: Eunice Maria" onkeyup="getAlunos(this.value)" oninput="atualizaCamposContratos()">
+            <datalist id="suggestions-alunos">
+            </datalist>
             <div class="invalid-feedback">
               Por favor, digite o nome do aluno.
             </div>
@@ -260,12 +265,90 @@ $turmas = new Turmas($conn);
           dataType: "json",
           url: "php/turmas/controle.php",
           data: data,
+          beforeSend: function () {
+            showLoadingGif();
+          },
           success: function(data) {
             $("#inicio-das-atividades").val(data.dataInicio);
-            $("#curso").val(data.curso);
+            $("#curso").html("<option value='"+data.curso+"'>"+data.cursoNome+"</option>");
+            $("#estagio").html("<option value='"+data.estagio+"'>"+data.estagioNome+"</option>");
             $("#horario").val(data.horario);
+            closeLoadingGif();
+          },
+          error: function(e)  {
+            closeLoadingGif();
           }
         });
       }
+
+      function getAlunos(text){
+        // Only fetch students(alunos) if the information given is up to 4
+        if(text.length >= 4){
+          var data = {
+            "acao":"getAlunosByName",
+            "nome": text
+          }
+          data = $(this).serialize() + "&" + $.param(data);
+          $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "php/alunos/controle.php",
+            data: data,
+            beforeSend: function () {
+              console.log('BIRL sending');
+              showLoadingGif();
+            },
+            success: function(data) {
+              console.log(data);
+              size = data.length;
+              i = 0;
+              document.getElementById("suggestions-alunos").innerHTML = '';
+              for(i; i < size; i++){
+                $("#suggestions-alunos").append("<option oninput='test()' data-id='"+data[i].id+"' value='"+data[i].nome+"'>"+data[i].id+"</option>");
+              }
+              closeLoadingGif();
+            },
+            error: function(e)  {
+              console.log(e);
+              closeLoadingGif();
+            }
+          });
+        }
+      }
+
+      function atualizaCamposContratos(){
+        var val = document.getElementById("nomeAluno").value;
+        var opts = document.getElementById('suggestions-alunos').childNodes;
+        for (var i = 0; i < opts.length; i++) {
+          if (opts[i].value === val) {
+            // An item was selected from the list!
+            // yourCallbackHere()
+            console.log(opts[i].innerHTML);
+            // alert(opts[i].value);
+            break;
+          }
+        }
+      }
+
+      function showLoadingGif(){
+        if(document.getElementById("page-cover").style.display == "none"){
+          $("#page-cover").css("opacity",0.6).fadeIn(10, function () {
+            $('#loading-gif').css({'position':'absolute','z-index':9999, "display":"block"});
+          });
+        }
+      }
+      function closeLoadingGif(){
+        $("#page-cover").css("display","none");
+        $("#loading-gif").css("display","none");
+      }
+
+      function test(){
+        alert('birl');
+      }
+
+      $("#nomeAluno").click(function(e) {
+        e.preventDefault();
+        console.log(e);
+      });
     </script>
 </html>

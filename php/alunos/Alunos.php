@@ -4,9 +4,8 @@
  * are manipulated.
  * Created on 31/03/2018
  *
- * @category   CategoryName
+ * @category   Alunos
  * @author     Alan Nunes da Silva <alann.625@gmail.com>
- * @copyright  2018 Dual Dev
  */
 Class Alunos {
   private $nome;
@@ -194,6 +193,19 @@ Class Alunos {
       return array("erro" => false, "description" => 'Aluno excluído com sucesso');
     }
     return array("erro" => true, "description" => 'O Aluno não foi excluído.');
+  }
+
+  // Return all the students(alunos) with the name like the one reported
+  public function getAlunosByName($nome){
+    $sql = "SELECT id, nome FROM alunos WHERE nome LIKE '%{$nome}%'";
+    $result = $this->conn->query($sql);
+    if($result->num_rows > 0){
+      while($row = $result->fetch_assoc()){
+        $alunos[] = $row;
+      }
+      return $alunos;
+    }
+    return "Nenhum aluno encontrado";
   }
 }
  ?>

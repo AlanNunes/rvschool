@@ -32,6 +32,10 @@ switch ($process) {
     editarAluno();
     break;
 
+  case 'getAlunosByName':
+    getAlunosByName();
+    break;
+
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
     break;
@@ -193,6 +197,19 @@ function editarAluno(){
     $conn = $db->getConnection();
     $aluno = new Alunos($conn);
     $response = $aluno->editStudent($data);
+    echo json_encode($response);
+  }
+}
+
+// Gets all the students(alunos) with the name like the one reported
+function getAlunosByName(){
+  if(isset($_POST["nome"]) && !empty($_POST["nome"])){
+    $nome = $_POST["nome"];
+    $db = new DataBase();
+    $conn = $db->getConnection();
+
+    $aluno = new Alunos($conn);
+    $response = $aluno->getAlunosByName($nome);
     echo json_encode($response);
   }
 }
