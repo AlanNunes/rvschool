@@ -59,7 +59,7 @@ $turmas = new Turmas($conn);
       <a class="nav-link" id="matricula-tab" data-toggle="tab" href="#matricula-section" role="tab" aria-controls="matricula" aria-selected="false" style="color: #F3E1B9;">Matrícula</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="dadosProfissionais-tab" data-toggle="tab" href="#dadosProfissionais" role="tab" aria-controls="dadosProfissionais" aria-selected="false" style="color: #F3E1B9;">Dados Profissionais</a>
+      <a class="nav-link" id="outros-tab" data-toggle="tab" href="#outros-section" role="tab" aria-controls="outros" aria-selected="false" style="color: #F3E1B9;">Outros</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="financeiro-tab" data-toggle="tab" href="#financeiro" role="tab" aria-controls="financeiro" aria-selected="false" style="color: #F3E1B9;">Financeiro</a>
@@ -76,7 +76,7 @@ $turmas = new Turmas($conn);
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="nomeAluno">Nome do Aluno:</label>
-            <input list="suggestions-alunos" class="form-control" id="nomeAluno" placeholder="Ex.: Eunice Maria" onkeyup="getAlunos(this.value)" oninput="atualizaCamposContratos()">
+            <input list="suggestions-alunos" class="form-control" id="nomeAluno" placeholder="Ex.: Eunice Maria" onkeyup="getAlunos(this.value)" oninput="verificarNome()">
             <datalist id="suggestions-alunos">
             </datalist>
             <div class="invalid-feedback">
@@ -148,11 +148,26 @@ $turmas = new Turmas($conn);
                     <th scope="col">Data de Contrato</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="contratosList">
                   <br />
                   <?php
                     if(isset($_GET["user"]) && !empty($_GET["user"])){
-                        $contratos->getContratosByUserId($_GET["user"]);
+                        $result = $contratos->getContratosByUserId($_GET["user"]);
+                        $quantidade = 0;
+                        while($row = $result->fetch_assoc()){
+                          $dataInicio = $row["dataInicio"];
+                          $numero = $row["numero"];
+                          $nome = $row["nome"];
+                          $quantidade++;
+                          echo "<tr>
+                                  <td scope='row'><a href='mostrarContratos.php?numero={$numero}'>{$numero}</a></td>
+                                  <td>{$nome}</td>
+                                  <td>{$dataInicio}</td>
+                                </tr>";
+                        }
+                        echo "<tr>
+                                <td class='text-center' colspan='3'>{$quantidade} contrato(s)</td>
+                              </tr>";
                     }
                   ?>
                 </tbody>
@@ -228,6 +243,37 @@ $turmas = new Turmas($conn);
       </form>
     </div>
     <!-- FIM MATRÍCULA SECTION -->
+
+    <!-- OUTROS-SECTION -->
+    <div class="tab-pane fade" id="outros-section" role="tabpanel" aria-labelledby="outros">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="atendente1">Atendente 1:</label>
+            <select id="atendente1" class="form-control">
+              <option value="0">(Selecione)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="atendente2">Atendente 2:</label>
+            <select id="atendente2" class="form-control">
+              <option value="0">(Selecione)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="atendente3">Atendente 3:</label>
+            <select id="atendente3" class="form-control">
+              <option value="0">(Selecione)</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- FIM DE OUTROS-SECTION -->
   </div>
 </div>
 <!-- FIM TELA DE CADASTRO DE CONTRATOS -->
@@ -242,12 +288,14 @@ $turmas = new Turmas($conn);
     <script>
       $(document).ready(function(){
         // Set the date of 'data início' as the current date
-        var fullDate = new Date()
+        var fullDate = new Date();
         var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : '0' + (fullDate.getMonth()+1);
-        var currentDate = fullDate.getFullYear() + "-" + twoDigitMonth + "-" + fullDate.getDate() ;
-        console.log(currentDate);
+        day = (fullDate.getDate().length > 1)? fullDate.getDate() : "0"+fullDate.getDate();
+        var currentDate = fullDate.getFullYear() + "-" + twoDigitMonth + "-" + day;
+        var oneYearForwardDate = fullDate.getFullYear()+1 + "-" + twoDigitMonth + "-" + day;
         $("#data-inicio").val( currentDate );
-        $("#inicio-das-atividades").val( currentDate );
+        $("#data-termino").val( oneYearForwardDate );
+        $("#data-matricula").val( currentDate );
         // End process set date
       });
       function updateCamposDeTurmas(){
@@ -304,7 +352,7 @@ $turmas = new Turmas($conn);
               i = 0;
               document.getElementById("suggestions-alunos").innerHTML = '';
               for(i; i < size; i++){
-                $("#suggestions-alunos").append("<option oninput='test()' data-id='"+data[i].id+"' value='"+data[i].nome+"'>"+data[i].id+"</option>");
+                $("#suggestions-alunos").append("<option data-id='"+data[i].id+"' value='"+data[i].nome+"'>"+data[i].id+"</option>");
               }
               closeLoadingGif();
             },
@@ -316,18 +364,43 @@ $turmas = new Turmas($conn);
         }
       }
 
-      function atualizaCamposContratos(){
+      function verificarNome(){
         var val = document.getElementById("nomeAluno").value;
         var opts = document.getElementById('suggestions-alunos').childNodes;
         for (var i = 0; i < opts.length; i++) {
           if (opts[i].value === val) {
-            // An item was selected from the list!
-            // yourCallbackHere()
             console.log(opts[i].innerHTML);
-            // alert(opts[i].value);
+            getContratosByUserId(opts[i].innerHTML);
             break;
           }
         }
+      }
+
+      function getContratosByUserId(id){
+        var data = {
+          "acao":"getContratosByUserId",
+          "id": id
+        }
+        data = $(this).serialize() + "&" + $.param(data);
+        $.ajax({
+          type: "POST",
+          dataType: "html",
+          url: "php/contratos/controle.php",
+          data: data,
+          beforeSend: function () {
+            console.log('BIRL sending');
+            showLoadingGif();
+          },
+          success: function(data) {
+            console.log(data);
+            $("#contratosList").html(data);
+            closeLoadingGif();
+          },
+          error: function(e)  {
+            console.log(e);
+            closeLoadingGif();
+          }
+        });
       }
 
       function showLoadingGif(){
@@ -340,10 +413,6 @@ $turmas = new Turmas($conn);
       function closeLoadingGif(){
         $("#page-cover").css("display","none");
         $("#loading-gif").css("display","none");
-      }
-
-      function test(){
-        alert('birl');
       }
 
       $("#nomeAluno").click(function(e) {
