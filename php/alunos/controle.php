@@ -36,6 +36,10 @@ switch ($process) {
     getAlunosByName();
     break;
 
+  case 'getResponsaveis':
+    getResponsaveis();
+    break;
+
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
     break;
@@ -108,9 +112,9 @@ function validateData(){
   if(validate_cpf($data["cpf"])){
     array_push($invalidFields, "cpf");
   }
-  if(validate_telefone($data["telefone"]) && $data["telefone"] != ""){
-    array_push($invalidFields, "telefone");
-  }
+  // if(validate_telefone($data["telefone"]) && $data["telefone"] != ""){
+  //   array_push($invalidFields, "telefone");
+  // }
   if(validate_celular($data["celular"]) && $data["celular"] != ""){
     array_push($invalidFields, "celular");
   }
@@ -210,6 +214,18 @@ function getAlunosByName(){
 
     $aluno = new Alunos($conn);
     $response = $aluno->getAlunosByName($nome);
+    echo json_encode($response);
+  }
+}
+
+function getResponsaveis(){
+  if(isset($_POST["alunoId"]) && !empty($_POST["alunoId"])){
+    $alunoId = $_POST["alunoId"];
+    $db = new DataBase();
+    $conn = $db->getConnection();
+
+    $aluno = new Alunos($conn);
+    $response = $aluno->getResponsaveis($alunoId);
     echo json_encode($response);
   }
 }

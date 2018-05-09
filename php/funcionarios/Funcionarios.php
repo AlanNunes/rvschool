@@ -187,5 +187,11 @@ class Funcionarios {
 			$result = $this->conn->query($sql);
 			return $result;
 		}
+
+		public function getFuncionarios(){
+			$sql = "SELECT id, nome FROM funcionarios";
+			$result = $this->conn->query($sql);
+			return $result;
+		}
 }
 ?>

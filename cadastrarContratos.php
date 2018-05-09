@@ -1,6 +1,7 @@
 <?php
 // Include
 require_once('php/situacoes_de_contratos/SituacoesContrato.php');
+require_once('php/funcionarios/Funcionarios.php');
 require_once('php/tipos_de_contratos/TiposContrato.php');
 require_once('php/contratos/Contratos.php');
 require_once('php/turmas/turmas.php');
@@ -26,6 +27,10 @@ $contratos = new Contratos($conn);
 // Create an instance for 'Turmas'
 $turmas = new Turmas($conn);
 // End Creation of contrato
+
+// Create an instance for 'Funcionários'
+$funcionarios = new Funcionarios($conn);
+// End Creation of Funcionários' Instance
  ?>
 <html lang="pt">
 <head>
@@ -252,6 +257,14 @@ $turmas = new Turmas($conn);
             <label for="atendente1">Atendente 1:</label>
             <select id="atendente1" class="form-control">
               <option value="0">(Selecione)</option>
+              <?php
+                  $atendentes= $funcionarios->getFuncionarios();
+                  foreach($atendentes as $atendente){
+                    $id = $atendente["id"];
+                    $nome = $atendente["nome"];
+                    echo "<option value='{$id}'>{$nome}</option>";
+                  }
+               ?>
             </select>
           </div>
         </div>
@@ -260,6 +273,13 @@ $turmas = new Turmas($conn);
             <label for="atendente2">Atendente 2:</label>
             <select id="atendente2" class="form-control">
               <option value="0">(Selecione)</option>
+              <?php
+                  foreach($atendentes as $atendente){
+                    $id = $atendente["id"];
+                    $nome = $atendente["nome"];
+                    echo "<option value='{$id}'>{$nome}</option>";
+                  }
+               ?>
             </select>
           </div>
         </div>
@@ -268,6 +288,21 @@ $turmas = new Turmas($conn);
             <label for="atendente3">Atendente 3:</label>
             <select id="atendente3" class="form-control">
               <option value="0">(Selecione)</option>
+              <?php
+                  foreach($atendentes as $atendente){
+                    $id = $atendente["id"];
+                    $nome = $atendente["nome"];
+                    echo "<option value='{$id}'>{$nome}</option>";
+                  }
+               ?>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="responsavel">Responsável:</label>
+            <select id="responsavel" class="form-control">
+              <option value="0">(Aluno)</option>
             </select>
           </div>
         </div>
@@ -371,6 +406,7 @@ $turmas = new Turmas($conn);
           if (opts[i].value === val) {
             console.log(opts[i].innerHTML);
             getContratosByUserId(opts[i].innerHTML);
+            getResponsaveisByAlunoId(opts[i].innerHTML);
             break;
           }
         }
@@ -394,6 +430,40 @@ $turmas = new Turmas($conn);
           success: function(data) {
             console.log(data);
             $("#contratosList").html(data);
+            closeLoadingGif();
+          },
+          error: function(e)  {
+            console.log(e);
+            closeLoadingGif();
+          }
+        });
+      }
+
+      function getResponsaveisByAlunoId(id){
+        var data = {
+          "acao":"getResponsaveisByAlunoId",
+          "idAluno": id
+        }
+        data = $(this).serialize() + "&" + $.param(data);
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/responsaveis/controle.php",
+          data: data,
+          beforeSend: function () {
+            showLoadingGif();
+          },
+          success: function(data) {
+            $("#responsavel").html("");
+            $("#responsavel").append("<option value='0'>(Aluno)</option>");
+            if(data.responsaveis != null){
+              responsaveis = data.responsaveis;
+              size = responsaveis.length;
+              i = 0;
+              for(i; i < size; i++){
+                $("#responsavel").append("<option value='"+responsaveis[i].id+"'>"+responsaveis[i].nome+"</option>");
+              }
+            }
             closeLoadingGif();
           },
           error: function(e)  {

@@ -83,16 +83,17 @@ Class Alunos {
     $this->observacoes = $data["observacoes"];
     $this->avatar = $data["avatar"];
 
+    $responsaveis[0] = array("nome" => $this->nomeResponsavelUm, "telefone" => $this->telefoneResponsavelUm, "celular" => $this->celularResponsavelUm);
+    $responsaveis[1] = array("nome" => $this->nomeResponsavelDois, "telefone" => $this->telefoneResponsavelDois, "celular" => $this->celularResponsavelDois);
+
     $sql = "INSERT INTO `alunos` (`nome`, `rg`, `cpf`, `dataNasc`, `estadoCivil`,
       `sexo`, `profissao`, `escolaridade`, `midia`, `cep`, `logradouro`, `numeroCasa`, `complemento`, `cidade`, `bairro`,
       `email`, `telefone`, `celular`, `banco`, `agencia`, `conta`, `codigoClienteBanco`, `bolsa`, `inadimplencia`,
-      `nomeResponsavelUm`, `telefoneResponsavelUm`, `celularResponsavelUm`, `nomeResponsavelDois`, `telefoneResponsavelDois`,
-      `celularResponsavelDois`, `observacoes`, `avatar`) VALUES ('{$this->nome}', '{$this->rg}', '{$this->cpf}', '{$this->dataNasc}',
+      `observacoes`, `avatar`) VALUES ('{$this->nome}', '{$this->rg}', '{$this->cpf}', '{$this->dataNasc}',
         '{$this->estadoCivil}', '{$this->sexo}', '{$this->profissao}', '{$this->escolaridade}', '{$this->midia}', '{$this->cep}',
         '{$this->logradouro}', {$this->numeroCasa}, '{$this->complemento}', '{$this->cidade}', '{$this->bairro}', '{$this->email}',
         '{$this->telefone}', '{$this->celular}', '{$this->banco}', '{$this->agencia}', '{$this->conta}', '{$this->codigoClienteBanco}',
-        {$this->bolsa}, {$this->inadimplencia}, '{$this->nomeResponsavelUm}', '{$this->telefoneResponsavelUm}', '{$this->celularResponsavelUm}',
-        '{$this->nomeResponsavelDois}', '{$this->telefoneResponsavelDois}', '{$this->celularResponsavelDois}', '{$this->observacoes}', '{$this->avatar}')";
+        {$this->bolsa}, {$this->inadimplencia}, '{$this->observacoes}', '{$this->avatar}')";
     // Register the student
     if($this->conn->query($sql)){
       // Generate a enrol number for the student
@@ -103,15 +104,33 @@ Class Alunos {
       $enrolSQL = "UPDATE alunos SET matricula = '{$enrol}' WHERE id = {$last_id} LIMIT 1";
       // Set a enrol number to the student
       if($this->conn->query($enrolSQL)){
+        $responseResponsaveis = $this->registerResponsavelAluno($last_id, $responsaveis);
+        if(!$responseResponsaveis){
           $this->conn->close();
           return array('erro' => false, 'Description' => 'Aluno registrado com sucesso.');
+        }
       }
       $this->conn->close();
       return array('erro' => false, 'Description' => 'Aluno registrado porém a matrícula não foi gerada com sucesso.');
     }else{
       $this->conn->close();
-      return array('erro' => true, 'Description' => 'Aluno não registrado.');
+      return array('erro' => true, 'Description' => $sql);
     }
+  }
+
+  // Register the guardian of the student - registra o responsável do aluno
+  public function registerResponsavelAluno($aluno, $responsaveis){
+    $erro = false;
+    foreach($responsaveis as $responsavel){
+      $nome = $responsavel["nome"];
+      $telefone = $responsavel["telefone"];
+      $celular = $responsavel["celular"];
+      $sql = "INSERT INTO responsaveis (nome, telefone, celular, aluno) VALUES ('{$nome}', '{$telefone}', '{$celular}', {$aluno})";
+      if(!$this->conn->query($sql)){
+        $erro = true;
+      }
+    }
+    return $erro;
   }
 
   // This function has the only responsability to edit a student
@@ -157,10 +176,7 @@ Class Alunos {
         cidade='{$this->cidade}', bairro='{$this->bairro}', email='{$this->email}',
         telefone='{$this->telefone}', celular='{$this->celular}', banco='{$this->banco}', agencia='{$this->agencia}',
         conta='{$this->conta}', codigoClienteBanco='{$this->codigoClienteBanco}',
-        bolsa={$this->bolsa}, inadimplencia={$this->inadimplencia}, nomeResponsavelUm='{$this->nomeResponsavelUm}',
-        telefoneResponsavelUm='{$this->telefoneResponsavelUm}', celularResponsavelDois='{$this->celularResponsavelUm}',
-        nomeResponsavelDois='{$this->nomeResponsavelDois}', telefoneResponsavelDois='{$this->telefoneResponsavelDois}',
-        celularResponsavelDois='{$this->celularResponsavelDois}', observacoes='{$this->observacoes}', avatar='{$this->avatar}'
+        bolsa={$this->bolsa}, inadimplencia={$this->inadimplencia}, observacoes='{$this->observacoes}', avatar='{$this->avatar}'
         WHERE matricula='{$this->matricula}'";
     // Register the student
     if($this->conn->query($sql)){
@@ -206,6 +222,20 @@ Class Alunos {
       return $alunos;
     }
     return "Nenhum aluno encontrado";
+  }
+
+  // Return all the guardians of the student
+  public function getResponsaveis($id){
+    $sql = "SELECT * FROM responsaveis WHERE aluno = {$id}";
+    $result = $this->conn->query($sql);
+    if($result->num_rows > 0){
+      while($row = $result->fetch_assoc()){
+        $responsaveis[] = $row;
+      }
+      return $responsaveis;
+    }else{
+      return array();
+    }
   }
 }
  ?>

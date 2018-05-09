@@ -619,6 +619,7 @@
                     document.getElementById("btn-editarAluno").matricula = e.currentTarget.matricula;
                     data = e.currentTarget.data;
                     avatarPath = data.avatar;
+                    atualizaCampoResponsaveis(data.id);
                     console.log(avatarPath);
                     $("#btn-registrarAluno").hide();
                     $("#btn-editarAluno").show();
@@ -746,6 +747,32 @@
           error: function(data) {
             console.log(data);
             alert('deu erro');
+          }
+        });
+      }
+
+      function atualizaCampoResponsaveis(id){
+        data = {
+          "acao":"getResponsaveis",
+          "alunoId":id
+        }
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/alunos/controle.php",
+          data: data,
+          success: function(data) {
+            if(data.length > 0){
+              $("#nomeResponsavelUm").val(data[0].nome);
+              $("#telefoneResponsavelUm").val(data[0].telefone);
+              $("#celularResponsavelUm").val(data[0].celular);
+              $("#nomeResponsavelDois").val(data[1].nome);
+              $("#telefoneResponsavelDois").val(data[1].telefone);
+              $("#celularResponsavelDois").val(data[1].celular);
+            }    
+          },
+          error: function(data) {
+            console.log(data);
           }
         });
       }
