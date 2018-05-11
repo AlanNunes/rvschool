@@ -39,7 +39,7 @@ $cargos = new Cargos($conn);
       <th scope="col">CARGO</th>
       <th scope="col">CPF</th>
       <th scope="col">RG</th>
-      <th scope="col">sexo</th>
+      <th scope="col">SEXO</th>
       <th scope="col" id="telefoneColumn">TELEFONE</th>
       <th scope="col">EDITAR</th>
       <!--<th scope="col" id="celularColumn" hidden>CELULAR</th>-->
