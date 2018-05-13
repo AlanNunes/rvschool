@@ -52,23 +52,30 @@ Class Contratos {
     $turma = $data["turma"];
     $dataMatricula = $data["dataMatricula"];
     $dataInicioAtividades = $data["dataInicioAtividades"];
-    $numeroContrato = $data["numeroContrato"];
-    $situacao = $data["situacao"];
-    $tipo = $data["tipo"];
+    if(empty($data["numeroContrato"])){
+      $numeroContrato = date("Y") . "-" . $matriculaId;
+    }
+    $situacao = $data["situacaoContrato"];
+    $tipo = $data["tipoContrato"];
     $dataInicio = $data["dataInicio"];
     $dataTermino = $data["dataTermino"];
     $contratoTurmas = $data["contratoTurmas"];
     $contratoAulasLivres = $data["contratoAulasLivres"];
-    $atendente1 = $data["atendente1"];
-    $atendente2 = $data["atendente2"];
-    $atendente3 = $data["atendente3"];
+    $atendente1 = ($data["atendente1"] == -1)? "null": $data["atendente1"];
+    $atendente2 = ($data["atendente2"] == -1)? "null": $data["atendente2"];
+    $atendente3 = ($data["atendente3"] == -1)? "null": $data["atendente3"];
     $dataContrato = $data["dataContrato"];
-    $contratante = $data["contratante"];
+    $contratante = ($data["contratante"] == -1)? "null": $data["contratante"];
 
     $sql = "INSERT INTO contratos (numero, aluno, situacao, tipo, dataInicio, dataTermino, contratoTurmas, contratoAulasLivres,
             atendente1, atendente2, atendente3, dataContrato, contratante, matricula) VALUES ('{$numeroContrato}', {$aluno},
-            {$situacao}, {$dataInicio}, {$dataTermino}, {$contratoTurmas}, {$contratoAulasLivres}, {$atendente1},
+            {$situacao}, {$tipo}, '{$dataInicio}', '{$dataTermino}', {$contratoTurmas}, {$contratoAulasLivres}, {$atendente1},
             {$atendente2}, {$atendente3}, '{$dataContrato}', {$contratante}, {$matriculaId})";
+    if($this->conn->query($sql)){
+      return array("erro" => false, "description" => "Contrato gerado com sucesso.");
+    }else{
+      return array("erro" => true, "description" => "Contrato não gerado.", "sql" => $sql);
+    }
   }
 }
  ?>

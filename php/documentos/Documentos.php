@@ -8,29 +8,14 @@
  */
 
 interface iDocumentos {
-  
+  public function write();
 }
-Class Documentos {
+Class DocumentosMatricula implements iDocumentos {
   protected $id;
-  protected $nome;
-  protected $telefone;
-  protected $celular;
   protected $conn;
 
   public function __construct($conn){
     $this->conn = $conn;
-  }
-
-  public function getResponsaveisByAlunoId($idAluno){
-    $sql = "SELECT * FROM responsaveis WHERE aluno = {$idAluno}";
-    $result = $this->conn->query($sql);
-    $responsaveis = null;
-    if($result->num_rows > 0){
-      while($row = $result->fetch_assoc()){
-        $responsaveis[] = $row;
-      }
-    }
-    return $responsaveis;
   }
 }
  ?>

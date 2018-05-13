@@ -25,7 +25,7 @@ Class SituacoesContrato {
     while($row = $result->fetch_assoc()){
       $id = $row["id"];
       $nome = $row["nome"];
-      echo "<option id='{$id}'>{$nome}</option>";
+      echo "<option value='{$id}'>{$nome}</option>";
     }
   }
 }

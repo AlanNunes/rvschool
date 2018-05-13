@@ -67,10 +67,7 @@ $funcionarios = new Funcionarios($conn);
       <a class="nav-link" id="outros-tab" data-toggle="tab" href="#outros-section" role="tab" aria-controls="outros" aria-selected="false" style="color: #F3E1B9;">Outros</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="financeiro-tab" data-toggle="tab" href="#financeiro" role="tab" aria-controls="financeiro" aria-selected="false" style="color: #F3E1B9;">Financeiro</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="anexos-tab" data-toggle="tab" href="#anexos" role="tab" aria-controls="anexos" aria-selected="false" style="color: #F3E1B9;">Anexos</a>
+      <a class="nav-link" id="impressao-documentos-tab" data-toggle="tab" href="#impressao-documentos" role="tab" aria-controls="impressao-documentos" aria-selected="false" style="color: #F3E1B9;">Impressão de Documentos</a>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
@@ -96,8 +93,8 @@ $funcionarios = new Funcionarios($conn);
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="situacao-contrato">Situação do Contrato:</label>
-            <select id="situacao-contrato" class="form-control">
+            <label for="situacaoContrato">Situação do Contrato:</label>
+            <select id="situacaoContrato" class="form-control">
               <?php $situacoesContrato->listSituacoesDeContrato(); ?>
             </select>
             <div class="invalid-feedback">
@@ -105,8 +102,8 @@ $funcionarios = new Funcionarios($conn);
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="tipos-de-contrato">Tipos de Contrato:</label>
-            <select id="tipos-de-contrato" class="form-control">
+            <label for="tipoContrato">Tipos de Contrato:</label>
+            <select id="tipoContrato" class="form-control">
               <?php $tiposContrato->listTiposDeContrato(); ?>
             </select>
             <div class="invalid-feedback">
@@ -116,15 +113,15 @@ $funcionarios = new Funcionarios($conn);
         </div>
         <div class="form-row">
           <div class="form-group col-md-2">
-            <label for="data-inicio">Início:</label>
-            <input type="date" id="data-inicio" class="form-control" />
+            <label for="dataInicio">Início:</label>
+            <input type="date" id="dataInicio" class="form-control" />
             <div class="invalid-feedback">
               Por favor, escolha uma data
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="data-termino">Término:</label>
-            <input type="date" id="data-termino" class="form-control" />
+            <label for="dataTermino">Término:</label>
+            <input type="date" id="dataTermino" class="form-control" />
             <div class="invalid-feedback">
               Por favor, escolha uma data
             </div>
@@ -132,11 +129,11 @@ $funcionarios = new Funcionarios($conn);
           <div class="form-group col-md-3">
             <br />
             <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" id="contrato-turmas" name="contrato-modalidade" class="custom-control-input" value="0" checked>
+              <input type="radio" id="contrato-turmas" name="contrato-modalidade" class="custom-control-input" checked>
               <label class="custom-control-label" for="contrato-turmas">Contrato de Turmas</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" id="contrato-aulas-livres" name="contrato-modalidade" class="custom-control-input" value="1">
+              <input type="radio" id="contrato-aulas-livres" name="contrato-modalidade" class="custom-control-input">
               <label class="custom-control-label" for="contrato-aulas-livres">Contrato de Aulas Livres</label>
             </div>
           </div>
@@ -256,7 +253,7 @@ $funcionarios = new Funcionarios($conn);
           <div class="form-group col-md-4">
             <label for="atendente1">Atendente 1:</label>
             <select id="atendente1" class="form-control">
-              <option value="0">(Selecione)</option>
+              <option value="-1">(Selecione)</option>
               <?php
                   $atendentes= $funcionarios->getFuncionarios();
                   foreach($atendentes as $atendente){
@@ -272,7 +269,7 @@ $funcionarios = new Funcionarios($conn);
           <div class="form-group col-md-4">
             <label for="atendente2">Atendente 2:</label>
             <select id="atendente2" class="form-control">
-              <option value="0">(Selecione)</option>
+              <option value="-1">(Selecione)</option>
               <?php
                   foreach($atendentes as $atendente){
                     $id = $atendente["id"];
@@ -287,7 +284,7 @@ $funcionarios = new Funcionarios($conn);
           <div class="form-group col-md-4">
             <label for="atendente3">Atendente 3:</label>
             <select id="atendente3" class="form-control">
-              <option value="0">(Selecione)</option>
+              <option value="-1">(Selecione)</option>
               <?php
                   foreach($atendentes as $atendente){
                     $id = $atendente["id"];
@@ -302,7 +299,8 @@ $funcionarios = new Funcionarios($conn);
           <div class="form-group col-md-4">
             <label for="responsavel">Responsável:</label>
             <select id="responsavel" class="form-control">
-              <option value="0">(Aluno)</option>
+              <option value="-1" selected>(Aluno)</option>
+              <div id="responsavel-options"></div>
             </select>
           </div>
         </div>
@@ -311,7 +309,34 @@ $funcionarios = new Funcionarios($conn);
     <!-- FIM DE OUTROS-SECTION -->
   </div>
 </div>
+<div class="btns-panel-acoes">
+  <button type="button" class="btn btn-primary" onclick="cadastrarContrato()">Pronto !</button>
+  <button type="button" class="btn btn-danger">Cancelar</button>
+</div>
 <!-- FIM TELA DE CADASTRO DE CONTRATOS -->
+
+<!-- MODALS de Feedback -->
+
+<!-- MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
+<div class="modal fade" id="modal-feedback" tabindex="-1" role="dialog" aria-labelledby="modal-feedbackLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title-modal-feedback">RevolutionSchool</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="content-modal-feedback">
+      </div>
+      <div class="modal-footer" id="footer-modal-feedback">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- FIM MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
+
+<!-- FIM MODALS de Feedback -->
 
   <?php include('footer.php') ?>
 <!-- Scripts -->
@@ -325,13 +350,16 @@ $funcionarios = new Funcionarios($conn);
         // Set the date of 'data início' as the current date
         var fullDate = new Date();
         var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : '0' + (fullDate.getMonth()+1);
-        day = (fullDate.getDate().length > 1)? fullDate.getDate() : "0"+fullDate.getDate();
+        day = (fullDate.getDate() > 9)? fullDate.getDate() : "0"+fullDate.getDate();
+
         var currentDate = fullDate.getFullYear() + "-" + twoDigitMonth + "-" + day;
         var oneYearForwardDate = fullDate.getFullYear()+1 + "-" + twoDigitMonth + "-" + day;
-        $("#data-inicio").val( currentDate );
-        $("#data-termino").val( oneYearForwardDate );
+        $("#dataInicio").val( currentDate );
+        $("#dataTermino").val( oneYearForwardDate );
         $("#data-matricula").val( currentDate );
         // End process set date
+
+        alunoId = ""; // variável global
       });
       function updateCamposDeTurmas(){
         e = document.getElementById("turma");
@@ -378,11 +406,9 @@ $funcionarios = new Funcionarios($conn);
             url: "php/alunos/controle.php",
             data: data,
             beforeSend: function () {
-              console.log('BIRL sending');
               showLoadingGif();
             },
             success: function(data) {
-              console.log(data);
               size = data.length;
               i = 0;
               document.getElementById("suggestions-alunos").innerHTML = '';
@@ -404,9 +430,9 @@ $funcionarios = new Funcionarios($conn);
         var opts = document.getElementById('suggestions-alunos').childNodes;
         for (var i = 0; i < opts.length; i++) {
           if (opts[i].value === val) {
-            console.log(opts[i].innerHTML);
-            getContratosByUserId(opts[i].innerHTML);
-            getResponsaveisByAlunoId(opts[i].innerHTML);
+            alunoId = opts[i].dataset.id;
+            getContratosByUserId(opts[i].dataset.id);
+            getResponsaveisByAlunoId(opts[i].dataset.id);
             break;
           }
         }
@@ -424,11 +450,9 @@ $funcionarios = new Funcionarios($conn);
           url: "php/contratos/controle.php",
           data: data,
           beforeSend: function () {
-            console.log('BIRL sending');
             showLoadingGif();
           },
           success: function(data) {
-            console.log(data);
             $("#contratosList").html(data);
             closeLoadingGif();
           },
@@ -454,14 +478,13 @@ $funcionarios = new Funcionarios($conn);
             showLoadingGif();
           },
           success: function(data) {
-            $("#responsavel").html("");
-            $("#responsavel").append("<option value='0'>(Aluno)</option>");
+            $("#responsavel-options").html("");
             if(data.responsaveis != null){
               responsaveis = data.responsaveis;
               size = responsaveis.length;
               i = 0;
               for(i; i < size; i++){
-                $("#responsavel").append("<option value='"+responsaveis[i].id+"'>"+responsaveis[i].nome+"</option>");
+                $("#responsavel-options").append("<option value='"+responsaveis[i].id+"'>"+responsaveis[i].nome+"</option>");
               }
             }
             closeLoadingGif();
@@ -472,6 +495,86 @@ $funcionarios = new Funcionarios($conn);
           }
         });
       }
+
+      // Cadastra um novo contrato
+      function cadastrarContrato(){
+        data = getFormValues();
+        console.log(data);
+        // data = $(this).serialize() + "&" + $.param(data);
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/contratos/controle.php",
+          data: {"acao":"cadastrarContrato", "data":data},
+          beforeSend: function () {
+            showLoadingGif();
+          },
+          success: function(data) {
+            console.log(data);
+            $("input").removeClass("is-invalid");
+            $("input").addClass("is-valid");
+            $("select").removeClass("is-invalid");
+            $("select").addClass("is-valid");
+            if(data.invalidFields != undefined){
+              size = data.invalidFields.length;
+              for(i = 0; i < size; i++){
+                $("#"+data.invalidFields[i]).removeClass("is-valid");
+                $("#"+data.invalidFields[i]).addClass("is-invalid");
+              }
+            }
+            closeLoadingGif();
+            showFeedbackModal("Cadastro de Contratos", data.description+"😎", "Beleza !", "btn btn-primary", [{name: "data-dismiss", value: "modal"}]);
+          },
+          error: function(e)  {
+            console.log(e);
+            closeLoadingGif();
+          }
+        });
+      }
+      // Fim de função para cadastrar um novo contrato
+
+      // Function que mostra Modal com resposta de sucesso no cadastro de Contratos
+      function showFeedbackModal(titulo, conteudo, botaoConteudo, botaoClass, botaoAtributos){
+        $("#title-modal-feedback").html(titulo);
+        $("#content-modal-feedback").html(conteudo);
+        btn = document.createElement("button");
+        btn.innerHTML = botaoConteudo;
+        if(botaoClass) btn.className = botaoClass;
+        for(i = 0; i < botaoAtributos.length; i++){
+          botaoAtributos = botaoAtributos || [];
+          console.log(botaoAtributos[i].name);
+          btn.setAttribute(botaoAtributos[i].name, botaoAtributos[i].value);
+        }
+        $("#footer-modal-feedback").html(btn);
+        $("#modal-feedback").modal('show');
+      }
+      // Fim Function
+
+      // Retorna todos os dados dos campos do forms
+      function getFormValues(){
+        var data = {
+          "aluno":alunoId,
+          "numeroContrato":$("#numeroContrato").val(),
+          "situacaoContrato":$("#situacaoContrato").val(),
+          "tipoContrato":$("#tipoContrato").val(),
+          "dataInicio":$("#dataInicio").val(),
+          "dataTermino":$("#dataTermino").val(),
+          "contratoTurmas":$("#contrato-turmas").is(":checked"),
+          "contratoAulasLivres":$("#contrato-aulas-livres").is(":checked"),
+          "turma":$("#turma").val(),
+          "dataMatricula":$("#data-matricula").val(),
+          "dataInicioAtividades":$("#inicio-das-atividades").val(),
+          "curso":$("#curso").val(),
+          "estagio":$("#estagio").val(),
+          "horario":$("#horario").val(),
+          "atendente1":$("#atendente1").val(),
+          "atendente2":$("#atendente2").val(),
+          "atendente3":$("#atendente3").val(),
+          "contratante":$("#responsavel").val()
+        }
+        return data;
+      }
+      // Fim do método
 
       function showLoadingGif(){
         if(document.getElementById("page-cover").style.display == "none"){

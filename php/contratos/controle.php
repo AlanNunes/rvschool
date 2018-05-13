@@ -2,11 +2,12 @@
 /**
  * Created on 23/04/2018
  *
- * @category   CategoryName
+ * @category   Controle de Contratos
  * @author     Alan Nunes da Silva <alann.625@gmail.com>
  */
 include_once('../validation/Validation.php');
 include_once('../database/DataBase.php');
+include_once('../matriculas/Matriculas.php');
 include_once('Contratos.php');
 
 $process = $_POST["acao"];
@@ -25,18 +26,33 @@ switch ($process) {
     break;
 }
 
+// Esta função cadastra Contratos, porém antes de cadastrar o contrato ele matricula o aluno
 function cadastrarContrato(){
-  $data = validateData();
-  if(!$data["erro"]){
+  $data = validateData(); // Valida dados
+  if(!$data["erro"]){ // Verifica se há campos inválidos
+    // Pega os dados dos campos
+    $data = $data["data"];
     $db = new DataBase();
     $conn = $db->getConnection();
 
-    $contrato = new Contratos($conn);
-    $matriculaId = $contrato->matriculaAluno($data["aluno"], $data["turma"], $data["dataMatricula"], $data["dataInicioAtividades"]);
-    $responseContrato = $contrato->cadastraContrato($data, $matriculaId);
-    return json_encode($responseContrato);
+    $matricula = new Matriculas($conn);
+    // Matricula aluno
+    $matriculaResponse = $matricula->matriculaAluno($data["aluno"], $data["turma"], $data["dataMatricula"], $data["dataInicioAtividades"]);
+
+    // Verifica se ocorreu tudo certo no ato da matrícula
+    if(!$matriculaResponse["erro"]){
+      $contrato = new Contratos($conn);
+      $contratoResponse = $contrato->cadastraContrato($data, $matriculaResponse["matriculaId"]);
+      // Retorna a resposta do processo de contrato
+      // A resposta pode ser um erro ou não
+      echo json_encode($contratoResponse);
+    }else{
+      // Retorna a resposta de erro da matrícula
+      echo json_encode($matriculaResponse);
+    }
   }else{
-    return json_encode($data);
+    // Retorna a resposta de erro dos campos inválidos
+    echo json_encode($data);
   }
 }
 
@@ -71,38 +87,46 @@ function validateData(){
   // This array has all the datas sent from the View alunos
   // The datas is put in the dictionary after passing by
   // the function safe_data() to make it safer and prevent SQL Injections
+  $dataPOST = $_POST["data"];
+  // echo json_encode($dataPOST);
   $data = array(
-    "aluno" => safe_data($_POST["aluno"]),
-    "turma" => safe_data($_POST["turma"]),
-    "dataMatricula" => safe_data($_POST["dataMatricula"]),
-    "dataInicioAtividades" => safe_data($_POST["dataInicioAtividades"]),
-    "numeroContrato" => safe_data($_POST["numeroContrato"]),
-    "situacao" => safe_data($_POST["situacao"]),
-    "tipo" => safe_data($_POST["tipo"]),
-    "dataInicio" => safe_data($_POST["dataInicio"]),
-    "dataTermino" => safe_data($_POST["dataTermino"]),
-    "contratoTurmas" => safe_data($_POST["contratoTurmas"]),
-    "contratoAulasLivres" => safe_data($_POST["contratoAulasLivres"]),
-    "atendente1" => safe_data($_POST["atendente1"]),
-    "atendente2" => safe_data($_POST["atendente2"]),
-    "atendente3" => safe_data($_POST["atendente3"]),
-    "dataContrato" => safe_data($_POST["dataContrato"]),
-    "contratante" => safe_data($_POST["contratante"]),
+    "aluno" => safe_data($dataPOST["aluno"]),
+    "turma" => safe_data($dataPOST["turma"]),
+    "dataMatricula" => safe_data($dataPOST["dataMatricula"]),
+    "dataInicioAtividades" => safe_data($dataPOST["dataInicioAtividades"]),
+    "numeroContrato" => safe_data($dataPOST["numeroContrato"]),
+    "situacaoContrato" => safe_data($dataPOST["situacaoContrato"]),
+    "tipoContrato" => safe_data($dataPOST["tipoContrato"]),
+    "dataInicio" => safe_data($dataPOST["dataInicio"]),
+    "dataTermino" => safe_data($dataPOST["dataTermino"]),
+    "contratoTurmas" => safe_data($dataPOST["contratoTurmas"]),
+    "contratoAulasLivres" => safe_data($dataPOST["contratoAulasLivres"]),
+    "atendente1" => safe_data($dataPOST["atendente1"]),
+    "atendente2" => safe_data($dataPOST["atendente2"]),
+    "atendente3" => safe_data($dataPOST["atendente3"]),
+    "dataContrato" => date("Y-m-d"),
+    "contratante" => safe_data($dataPOST["contratante"]),
+    "curso" => safe_data($dataPOST["curso"]),
+    "estagio" => safe_data($dataPOST["estagio"]),
+    "horario" => safe_data($dataPOST["horario"]),
   );
   $dataSize = sizeof($data);
   $requiredFields = array(
-    "aluno",
+    "nomeAluno",
     "turma",
     "dataMatricula",
     "dataInicioAtividades",
-    "situacao",
-    "tipo",
+    "situacaoContrato",
+    "tipoContrato",
     "dataInicio",
     "dataTermino",
     "contratoTurmas",
     "contratoAulasLivres",
     "dataContrato",
-    "contratante"
+    "curso",
+    "estagio",
+    "horario"
+    // "contratante"
   );
   $requiredAmount = sizeof($requiredFields);
   $i = 0;
@@ -111,7 +135,7 @@ function validateData(){
   for($i; $i < $requiredAmount; $i++){
     $index = $requiredFields[$i];
     if(empty($data[$index]) OR !isset($data[$index])){
-      // add the index of the field that is empty into invalidFields
+      // add the index of the field that is empty or null into invalidFields
       array_push($invalidFields, $index);
     }
   }
@@ -119,7 +143,7 @@ function validateData(){
   // return false if there is no empty field
   $erro = (empty($invalidFields))? false:true;
 
-  return array('erro' => $erro, 'invalidFields' => $invalidFields, 'data' => $data);
+  return array('erro' => $erro, 'description' => 'Oops !<br/> Dê uma olhadinha nos campos, parece que você esqueceu de preencher algo !', 'invalidFields' => $invalidFields, 'data' => $data);
 }
 
  ?>
