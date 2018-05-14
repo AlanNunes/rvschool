@@ -4,8 +4,9 @@
  * are manipulated.
  * Created on 31/03/2018
  *
- * @category   Alunos
- * @author     Alan Nunes da Silva <alann.625@gmail.com>
+ * @category   Interessados
+ * @author     Gustavo Brandão <sm70plus2gmail.com>
+ * @copyright  2018 Dual Dev
  */
 Class Interessados {
   private $id;

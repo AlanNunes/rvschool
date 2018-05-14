@@ -6,8 +6,8 @@
  * The data is sent to the Class Interessados and then catch the response of the request and return it to the view.
  * Created on 31/03/2018
  *
- * @category   CategoryName
- * @author     Alan Nunes da Silva <alann.625@gmail.com>
+ * @category   Interessados
+ * @author     Gustavo Brandão <sm70plus2gmail.com>
  * @copyright  2018 Dual Dev
  */
 include_once('../validation/Validation.php');
@@ -100,7 +100,7 @@ function validateData(){
   if(validate_email($data["email"]) && $data["email"] != ""){
     array_push($invalidFields, "email");
   }
-  
+
 
   // return false if there is no empty field
   $erro = (empty($invalidFields))? false:true;
@@ -140,11 +140,11 @@ function listStudents(){
 // This function calls a method to delete a student in the Class ALunos
 // and return a json with the response
 function deleteStudent(){
-  if(isset($_POST["matricula"]) && !empty($_POST["matricula"])){
+  if(isset($_POST["id"]) && !empty($_POST["id"])){
     $db = new DataBase();
     $conn = $db->getConnection();
     $aluno = new Interessados($conn);
-    $response = $aluno->deleteStudent($_POST["matricula"]);
+    $response = $aluno->deleteStudent($_POST["id"]);
     // It return if there is any error or not and the data if there is
     echo json_encode($response);
   }else{

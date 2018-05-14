@@ -31,6 +31,7 @@
       <th scope="col">NOME</th>
       <th scope="col">CELULAR</th>
       <th scope="col">EMAIL</th>
+      <th scope="col">INTERESSE</th>
       <th scope="col">AÇÕES</th>
     </tr>
   </thead>
@@ -173,9 +174,9 @@
 
 
                   <!-- <form> -->
-                  <label>Escreva observações:</label>
+                  <label>Interesses:</label>
                   <textarea class="form-control" id="observacaoText" rows="6"></textarea>
-                  <small id="observacaoHelp" class="form-text text-muted">Escreva coisas importantes sobre o aluno neste campo.</small>
+                  <small id="observacaoHelp" class="form-text text-muted">Escreva o horário disponível do interessado e qual curso deseja.</small>
 
               <!-- END DADOS OBSERVAÇÕES -->
             </div>
@@ -299,7 +300,7 @@
       // Delete a student having a enrol code as identification
       function deleteStudent(matricula){
         console.log("Deleting the user "+ matricula);
-        $.post("php/alunos/controle.php", {'acao': 'deleteStudent', 'matricula': matricula}, function(data){
+        $.post("php/interessados/controle.php", {'acao': 'deleteStudent'}, function(data){
           if(data.erro){
             console.log(data);
             alert('Erro inesperado.');
@@ -423,13 +424,10 @@
               for(i; i < amountStudents; i++){
                 var student = data.students[i];
                 var tr = new DOM_Element("tr");
-                var avatar = new DOM_Element("td");
                 var nome = new DOM_Element("td", false, false, false, student.nome);
-                var matricula = new DOM_Element("td", false, false, false, student.matricula);
-                var dataNasc = new DOM_Element("td", false, false, false, student.dataNasc);
-                var ativo = new DOM_Element("td", false, false, false, student.ativo);
                 var celular = new DOM_Element("td", false, false, false, student.celular);
                 var email = new DOM_Element("td", false, false, false, student.email);
+                var observacoes = new DOM_Element("td", false, false, false, student.observacoes);
                 var edit = new DOM_Element("td");
                 var editButton = new DOM_Element("button", "btn transparent-button");
                 var deleteButton = new DOM_Element("button", "btn transparent-button");
@@ -504,6 +502,7 @@
                 tr.appendChild(nome);
                 tr.appendChild(celular);
                 tr.appendChild(email);
+                tr.appendChild(observacoes);
                 tr.appendChild(edit);
                 tr.addToDOM(tBody);
               }

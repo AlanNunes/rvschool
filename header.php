@@ -1,3 +1,10 @@
+<!--
+* @category   Layout Design
+* @author     Gustavo Brandão <sm70plus2gmail.com>
+* @copyright  2018 Dual Dev
+-->
+
+
 <header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
   			<a class="navbar-brand" href="index.php"><img src="assets/imgs/logo/logo.png"></a>
