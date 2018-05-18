@@ -112,7 +112,7 @@ function validateData(){
   );
   $dataSize = sizeof($data);
   $requiredFields = array(
-    "nomeAluno",
+    "aluno",
     "turma",
     "dataMatricula",
     "dataInicioAtividades",

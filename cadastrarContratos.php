@@ -77,12 +77,12 @@ $funcionarios = new Funcionarios($conn);
       <form>
         <div class="form-row">
           <div class="form-group col-md-4">
-            <label for="nomeAluno">Nome do Aluno:</label>
-            <input list="suggestions-alunos" class="form-control" id="nomeAluno" placeholder="Ex.: Eunice Maria" onkeyup="getAlunos(this.value)" oninput="verificarNome()">
+            <label for="aluno">Nome do Aluno:</label>
+            <input list="suggestions-alunos" data-id="" class="form-control" id="aluno" placeholder="Ex.: Eunice Maria" onkeyup="getAlunos(this.value)" oninput="verificarNome()">
             <datalist id="suggestions-alunos">
             </datalist>
             <div class="invalid-feedback">
-              Por favor, digite o nome do aluno.
+              Por favor, selecione um aluno da lista.
             </div>
           </div>
           <div class="form-group col-md-2">
@@ -358,12 +358,17 @@ $funcionarios = new Funcionarios($conn);
         $("#dataTermino").val( oneYearForwardDate );
         $("#data-matricula").val( currentDate );
         // End process set date
-
-        alunoId = ""; // variável global
+        document.getElementById("aluno").value = getUrlParameter("nome");
+        alunoId = getUrlParameter("aluno"); // variável global
+        getContratosByUserId(alunoId);
+        getResponsaveisByAlunoId(alunoId);
+        updateCamposDeTurmas(getUrlParameter("turma"));
       });
-      function updateCamposDeTurmas(){
-        e = document.getElementById("turma");
-        id = e.options[e.selectedIndex].value;
+      function updateCamposDeTurmas(id){
+        if(id != ''){
+          e = document.getElementById("turma");
+          id = e.options[e.selectedIndex].value;
+        }
 
         var data = {
         "acao": "getTurma",
@@ -393,6 +398,9 @@ $funcionarios = new Funcionarios($conn);
       }
 
       function getAlunos(text){
+        indexSlice = text.indexOf('(');
+        text = (indexSlice >= 0)? text.slice(0, indexSlice-1): text;
+        console.log("bla: "+text);
         // Only fetch students(alunos) if the information given is up to 4
         if(text.length >= 4){
           var data = {
@@ -412,8 +420,9 @@ $funcionarios = new Funcionarios($conn);
               size = data.length;
               i = 0;
               document.getElementById("suggestions-alunos").innerHTML = '';
+              console.log(size);
               for(i; i < size; i++){
-                $("#suggestions-alunos").append("<option data-id='"+data[i].id+"' value='"+data[i].nome+"'>"+data[i].id+"</option>");
+                $("#suggestions-alunos").append("<option data-id='"+data[i].id+"' value='"+data[i].nome+" ("+data[i].id+")' />");
               }
               closeLoadingGif();
             },
@@ -426,14 +435,21 @@ $funcionarios = new Funcionarios($conn);
       }
 
       function verificarNome(){
-        var val = document.getElementById("nomeAluno").value;
-        var opts = document.getElementById('suggestions-alunos').childNodes;
-        for (var i = 0; i < opts.length; i++) {
-          if (opts[i].value === val) {
-            alunoId = opts[i].dataset.id;
-            getContratosByUserId(opts[i].dataset.id);
-            getResponsaveisByAlunoId(opts[i].dataset.id);
-            break;
+        var val = document.getElementById("aluno").value;
+        if(val.length >= 4){
+          indexSlice = val.indexOf('(');
+          var id = val.slice(indexSlice+1, (val.length)-1);
+          var opts = document.getElementById('suggestions-alunos').childNodes;
+          for (var i = 0; i < opts.length; i++) {
+            console.log(opts[i].dataset.id);
+            console.log("id: "+id);
+            if (opts[i].dataset.id === id) {
+              alunoId = opts[i].dataset.id;
+              // document.getElementById("aluno").value = val.slice(0, indexSlice-1);
+              getContratosByUserId(opts[i].dataset.id);
+              getResponsaveisByAlunoId(opts[i].dataset.id);
+              break;
+            }
           }
         }
       }
@@ -506,7 +522,7 @@ $funcionarios = new Funcionarios($conn);
           dataType: "json",
           url: "php/contratos/controle.php",
           data: {"acao":"cadastrarContrato", "data":data},
-          beforeSend: function () {
+          beforeSend: function () {;
             showLoadingGif();
           },
           success: function(data) {
@@ -576,6 +592,22 @@ $funcionarios = new Funcionarios($conn);
       }
       // Fim do método
 
+      // Method to get Url Parameters
+      function getUrlParameter(sParam) {
+          var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+              sURLVariables = sPageURL.split('&'),
+              sParameterName,
+              i;
+          for (i = 0; i < sURLVariables.length; i++) {
+              sParameterName = sURLVariables[i].split('=');
+              if (sParameterName[0] === sParam) {
+                  return sParameterName[1] === undefined ? true : sParameterName[1];
+              }
+          }
+          return '';
+      }
+      // Fim do Método
+
       function showLoadingGif(){
         if(document.getElementById("page-cover").style.display == "none"){
           $("#page-cover").css("opacity",0.6).fadeIn(10, function () {
@@ -588,7 +620,7 @@ $funcionarios = new Funcionarios($conn);
         $("#loading-gif").css("display","none");
       }
 
-      $("#nomeAluno").click(function(e) {
+      $("#aluno").click(function(e) {
         e.preventDefault();
         console.log(e);
       });

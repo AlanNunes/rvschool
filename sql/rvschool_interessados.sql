@@ -24,15 +24,8 @@ DROP TABLE IF EXISTS `interessados`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `interessados` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `matricula` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
   `nome` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `rg` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
-  `cpf` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `dataNasc` date NOT NULL,
-  `estadoCivil` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `sexo` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `profissao` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `escolaridade` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `midia` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `cep` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `logradouro` varchar(100) CHARACTER SET utf8 NOT NULL,
@@ -43,30 +36,11 @@ CREATE TABLE `interessados` (
   `email` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `telefone` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `celular` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `banco` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `agencia` varchar(150) CHARACTER SET utf8 DEFAULT NULL,
-  `conta` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `codigoClienteBanco` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `bolsa` int(11) DEFAULT NULL,
-  `inadimplencia` tinyint(1) DEFAULT NULL,
-  `nomeResponsavelUm` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `telefoneResponsavelUm` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `celularResponsavelUm` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `nomeResponsavelDois` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `telefoneResponsavelDois` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `celularResponsavelDois` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `observacoes` text,
-  `avatar` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
-  `ativo` tinyint(1) DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `matricula` (`matricula`),
-  KEY `bolsa` (`bolsa`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-
-
-LOCK TABLES `alunos` WRITE;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -76,4 +50,4 @@ LOCK TABLES `alunos` WRITE;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-01 15:19:55
+-- Dump completed on 2018-05-17 23:04:23

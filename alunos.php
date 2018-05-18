@@ -615,12 +615,13 @@
                 editButton.click(function(e) {
                     e.preventDefault();
                     console.log(e);
-                    alert(e.currentTarget.data);
                     document.getElementById("btn-editarAluno").matricula = e.currentTarget.matricula;
                     data = e.currentTarget.data;
                     avatarPath = data.avatar;
                     atualizaCampoResponsaveis(data.id);
                     console.log(avatarPath);
+                    // Adiciona a matrícula do aluno como parâmetro no link
+                    document.getElementById("btn-matricularAluno").href = "cadastrarContratos.php?aluno="+e.currentTarget.data.id+"&nome="+e.currentTarget.data.nome;
                     $("#btn-registrarAluno").hide();
                     $("#btn-editarAluno").show();
                     $("#nome").val(data.nome);
@@ -769,7 +770,7 @@
               $("#nomeResponsavelDois").val(data[1].nome);
               $("#telefoneResponsavelDois").val(data[1].telefone);
               $("#celularResponsavelDois").val(data[1].celular);
-            }    
+            }
           },
           error: function(data) {
             console.log(data);
