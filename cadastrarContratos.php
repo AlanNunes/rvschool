@@ -67,7 +67,7 @@ $funcionarios = new Funcionarios($conn);
       <a class="nav-link" id="outros-tab" data-toggle="tab" href="#outros-section" role="tab" aria-controls="outros" aria-selected="false" style="color: #F3E1B9;">Outros</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="impressao-documentos-tab" data-toggle="tab" href="#impressao-documentos" role="tab" aria-controls="impressao-documentos" aria-selected="false" style="color: #F3E1B9;">Impressão de Documentos</a>
+      <a class="nav-link" id="impressao-documentos-tab" data-toggle="tab" href="#impressao-section" role="tab" aria-controls="impressao-documentos" aria-selected="false" style="color: #F3E1B9;">Impressão de Documentos</a>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
@@ -307,6 +307,26 @@ $funcionarios = new Funcionarios($conn);
       </form>
     </div>
     <!-- FIM DE OUTROS-SECTION -->
+
+    <!-- IMPRESSÃO DE DOCUMENTOS -->
+    <div class="tab-pane fade" id="impressao-section" role="tabpanel" aria-labelledby="outros">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="tipo-documento">Selecione o Documento:</label>
+            <select id="tipo-documento" class="form-control">
+              <option value="-1">(Selecione)</option>
+              <option value='1'>Documento de Matrícula</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="btn-imprimir">Imprimir:</label>
+            <button type="button" id="btn-imprimir" class="form-control btn btn-primary" onclick="imprimirDocumento()">Imprimir Documento</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- FIM DE IMPRESSÃO DE DOCUMENTOS -->
   </div>
 </div>
 <div class="btns-panel-acoes">
@@ -322,7 +342,7 @@ $funcionarios = new Funcionarios($conn);
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="title-modal-feedback">RevolutionSchool</h5>
+        <h5 class="modal-title" id="title-modal-feedback">Revolution School</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -335,6 +355,27 @@ $funcionarios = new Funcionarios($conn);
   </div>
 </div>
 <!-- FIM MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
+
+<!-- MODAL PARA MOSTRAR DOCUMENTO -->
+<div class="modal fade modal fade bd-example-modal-lg" id="modal-documento" tabindex="-1" role="dialog" aria-labelledby="modal-documentoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title-modal-documento">Revolution School</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="content-modal-documento">
+      </div>
+      <div class="modal-footer" id="footer-modal-documento">
+        <button type="button" id="btn-imprimir-documento" class="form-control btn btn-primary" onclick="printDiv('content-modal-documento')">Imprimir</button>
+        <button type="button" class="form-control btn btn-danger" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- FIM DO MODAL PARA MOSTRAR DOCUMENTO -->
 
 <!-- FIM MODALS de Feedback -->
 
@@ -549,6 +590,43 @@ $funcionarios = new Funcionarios($conn);
       }
       // Fim de função para cadastrar um novo contrato
 
+
+      // Função chamada para impressão de documentos
+      function imprimirDocumento(){
+        responsavelId = document.getElementById('responsavel').value;
+        tipoDocumento = document.getElementById('tipo-documento').value;
+        var data = {
+          'tipoDocumento':tipoDocumento,
+          'alunoId':alunoId,
+          'responsavelId':responsavelId
+        };
+        console.log(data);
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/documentos/Controle.php",
+          data: {acao:'imprimirDocumento', data},
+          beforeSend: function () {;
+            showLoadingGif();
+          },
+          success: function(data) {
+            closeLoadingGif();
+            console.log(data);
+            if(!data.erro){
+              $("#content-modal-documento").html(data.documento);
+              $("#modal-documento").modal('show');
+            }else{
+              showFeedbackModal("Cadastro de Contratos", data.description, "Beleza !", "btn btn-primary", [{name: "data-dismiss", value: "modal"}]);
+            }
+          },
+          error: function(e)  {
+            console.log(e);
+            closeLoadingGif();
+          }
+        });
+      }
+      // Fim de função para impressão de documentos
+
       // Function que mostra Modal com resposta de sucesso no cadastro de Contratos
       function showFeedbackModal(titulo, conteudo, botaoConteudo, botaoClass, botaoAtributos){
         $("#title-modal-feedback").html(titulo);
@@ -618,6 +696,16 @@ $funcionarios = new Funcionarios($conn);
       function closeLoadingGif(){
         $("#page-cover").css("display","none");
         $("#loading-gif").css("display","none");
+      }
+
+      function printDiv(divName) {
+        $("#modal-documento").modal('hide');
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        $("#modal-documento").modal('hide');
       }
 
       $("#aluno").click(function(e) {

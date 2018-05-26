@@ -237,5 +237,17 @@ Class Alunos {
       return array();
     }
   }
+
+  // Pega o aluno pelo id
+  public function getAlunoById($id){
+    $sql = "SELECT * FROM alunos WHERE id = {$id}";
+    $result = $this->conn->query($sql);
+    if($result->num_rows > 0){
+      $aluno = $result->fetch_assoc();
+      return $aluno;
+    }else{
+      return 0;
+    }
+  }
 }
  ?>

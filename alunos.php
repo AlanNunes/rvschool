@@ -18,7 +18,9 @@
 <body>
   <?php include('header.php') ?>
 
-
+  <div id="page-cover">
+    <img src="assets/gifs/loading-icon6.gif" id="loading-gif" />
+  </div>
   <!--TABLE FUNCIONÁRIOS-->
 
 
@@ -580,6 +582,7 @@
 
       // list all the students inner the Table
       function listStudents(){
+        showLoadingGif();
         $.ajax({
           type: "POST",
           dataType: "json",
@@ -700,6 +703,7 @@
                 tr.addToDOM(tBody);
               }
             }
+            closeLoadingGif();
             console.log(data);
           },
           error: function(data) {
@@ -853,6 +857,18 @@
         $("#matricula").val("");
         $("#imagePreview").css("background-image", "url('')");
         $("#registrarAlunoHeader").html("Registrar Aluno - RevolutionSchool - That's the Way !");
+      }
+
+      function showLoadingGif(){
+        // if(document.getElementById("page-cover").style.display == "none"){
+          $("#page-cover").css("opacity",0.6).fadeIn(10, function () {
+            $('#loading-gif').css({'position':'absolute','z-index':9999, "display":"block"});
+          });
+        // }
+      }
+      function closeLoadingGif(){
+        $("#page-cover").css("display","none");
+        $("#loading-gif").css("display","none");
       }
     </script>
 </html>

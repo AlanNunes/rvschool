@@ -46,6 +46,7 @@
 	<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">GERENCIAL
 	<span class="caret"></span></a>
 	<ul class="dropdown-menu">
+		<li onclick="window.location='cadastrarContratos.php'" id="dpdi" class="im">CONTRATOS</li>
 		<li onclick="window.location='#'" id="dpdi" class="im">ESTOQUE</li>
 		<li onclick="window.location='parcerias.php'" id="dpdi" class="im">PARCERIAS</li>
 	</ul>

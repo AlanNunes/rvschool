@@ -264,7 +264,7 @@
       $("#delete-student").click(function(e) {
         e.preventDefault();
         console.log(e);
-        deleteStudent(e.target.matricula);
+        deleteStudent(e.target.id);
       });
 
       $("#cep").mask("00000-000");
@@ -298,9 +298,9 @@
       }
 
       // Delete a student having a enrol code as identification
-      function deleteStudent(matricula){
-        console.log("Deleting the user "+ matricula);
-        $.post("php/interessados/controle.php", {'acao': 'deleteStudent'}, function(data){
+      function deleteStudent(id){
+        console.log("Deleting the user "+ id);
+        $.post("php/interessados/controle.php", {'acao': 'deleteStudent', 'id':id}, function(data){
           if(data.erro){
             console.log(data);
             alert('Erro inesperado.');
@@ -435,7 +435,7 @@
                 var editIcon = new DOM_Element("img", false, false, [{name: 'src', value: 'assets/icons/open-iconic-master/png/cog-2x.png'}]);
 
                 editButton.element.data = student;
-                deleteButton.element.matricula = student.matricula;
+                deleteButton.element.id = student.id;
 
                 editButton.click(function(e) {
                     e.preventDefault();
@@ -487,12 +487,11 @@
                 });
                 deleteButton.click(function(e) {
                     e.preventDefault();
-                    console.log(e);
-                    alert(e.currentTarget.matricula);
+                    alert("id:"+e.currentTarget.id);
                     // Show the modal for the user confirm the process of deleting
                     // If the user click in the button 'delete-student' it calls
                     // the function deleteStudent() passing the enrol as parameter
-                    document.getElementById("delete-student").matricula = e.currentTarget.matricula;
+                    document.getElementById("delete-student").id = e.currentTarget.id;
                     $("#confirm-delete").modal('show');
                 });
                 editButton.appendChild(editIcon);

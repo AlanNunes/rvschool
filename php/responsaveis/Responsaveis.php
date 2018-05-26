@@ -17,6 +17,7 @@ Class Responsaveis {
     $this->conn = $conn;
   }
 
+  // Pega todos os responsáveis de um aluno
   public function getResponsaveisByAlunoId($idAluno){
     $sql = "SELECT * FROM responsaveis WHERE aluno = {$idAluno}";
     $result = $this->conn->query($sql);
@@ -27,6 +28,17 @@ Class Responsaveis {
       }
     }
     return $responsaveis;
+  }
+
+  // Pega um responsável referente ao id
+  public function getResponsavelById($id){
+    $sql = "SELECT * FROM responsaveis WHERE id = {$id}";
+    $result = $this->conn->query($sql);
+    if($result->num_rows > 0){
+      $responsavel = $result->fetch_assoc();
+    }else{
+      return 0;
+    }
   }
 }
  ?>
