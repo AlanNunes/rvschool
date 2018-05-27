@@ -45,7 +45,7 @@ CREATE TABLE `turmas` (
   KEY `curso` (`curso`),
   CONSTRAINT `turmas_ibfk_1` FOREIGN KEY (`professor`) REFERENCES `funcionarios` (`id`),
   CONSTRAINT `turmas_ibfk_2` FOREIGN KEY (`curso`) REFERENCES `cursos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,7 @@ CREATE TABLE `turmas` (
 
 LOCK TABLES `turmas` WRITE;
 /*!40000 ALTER TABLE `turmas` DISABLE KEYS */;
-INSERT INTO `turmas` VALUES (2,'Alan',2,22,'Iniciante',1,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(3,'Eunice',0,21,'fluente',4,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(4,'Pretinha',1,22,'fluente',3,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2020-02-01',NULL,NULL,NULL,10,50);
+INSERT INTO `turmas` VALUES (2,'Alan',2,10,'4',1,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(3,'Eunice',0,21,'5',4,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(4,'Pretinha',1,20,'2',1,'Seg-Ter-Qua-Qui-Sex(15:00/15:50)',NULL,'United States','2018-05-01','2020-02-01',NULL,NULL,NULL,10,50);
 /*!40000 ALTER TABLE `turmas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -67,4 +67,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-01 15:19:56
+-- Dump completed on 2018-05-26 15:21:52

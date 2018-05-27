@@ -49,19 +49,13 @@ CREATE TABLE `alunos` (
   `codigoClienteBanco` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `bolsa` int(11) DEFAULT NULL,
   `inadimplencia` tinyint(1) DEFAULT NULL,
-  `nomeResponsavelUm` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `telefoneResponsavelUm` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `celularResponsavelUm` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `nomeResponsavelDois` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `telefoneResponsavelDois` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `celularResponsavelDois` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `observacoes` text,
   `avatar` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `matricula` (`matricula`),
   KEY `bolsa` (`bolsa`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +64,7 @@ CREATE TABLE `alunos` (
 
 LOCK TABLES `alunos` WRITE;
 /*!40000 ALTER TABLE `alunos` DISABLE KEYS */;
-INSERT INTO `alunos` VALUES (1,'2018-1','Alan Nunes da Silva','132.123.124-8','651.897.403-66','2000-04-29','solteiro','masculino','','Ensino Superior','','27259-290','Rua Vinte e Sete',28,'','Volta Redonda','Jardim Vila Rica - Tiradentes','alann.625@gmail.com','','(24) 998844351','Bradesco','','','',0,0,'Eunice Maria Ferreira Nunes','','','Anderson Mariano da Cruz Silva','','','','1522602945.jpg',1),(2,'2018-2','Steven Paul Jobs','123.321.123-3','123.321.123-12','1955-02-24','solteiro','masculino','','Ensino Superior','','','Street 17',17,'','San Francisco','Palo Alto','stevejobs@apple.com','','(24) 998844351','','','','',0,0,'','','','','','','','1522612719.jpg',0),(3,'2018-3','William Henry Gates III','321.123.321-3','321.123.321-32','1955-10-28','casado','masculino','','Ensino Superior','','','Street 17',17,'','Lake Washington in Medina, Washington','Medina','billgates@microsoft.com','','(24) 998844351','','','','',0,0,'','','','','','','','1522613743.jpg',1),(9,'2018-9','Yeah Thats Me','77.777.777-7','777.777.777-77','2000-04-29','casado','masculino','','Ensino Superior','Internet','27259-290','Rua Vinte e Sete',77,'','Volta Redonda','Jardim Vila Rica - Tiradentes','thatsmes@me.com.br','','(24) 999999999','Banco do Brasil','7777777','777777777','77777777',0,0,'','','','','','','','1523309805.jpg',1),(10,'2018-10','Teste Som 777','77.777.777-7','777.777.777-77','2000-04-29','solteiro','masculino','Estagiário de TI','Ensino Superior','Amigos','27259-290','Rua Vinte e Sete',28,'','Volta Redonda','Jardim Vila Rica - Tiradentes','alannunes@ugb.edu.br','','(24) 998844351','Santander','','','',0,0,'','','','','','','','1523451520.jpg',1),(12,'2018-12','hlhlhlkh','','777.777.777-77','1997-12-12','solteiro','masculino','','Ensino Superior','Outros','27259-290','Rua Vinte e Sete',77,'','Volta Redonda','Jardim Vila Rica - Tiradentes','','','(24) 998844351','','','','',0,0,'','','','','','','','1523309805.jpg',1),(13,'2018-13','Alan Nunes da Silva','132.123.124-8','651.897.403-66','2000-04-29','solteiro','masculino','','Ensino Superior','','27259-290','Rua Vinte e Sete',28,'','Volta Redonda','Jardim Vila Rica - Tiradentes','alann.625@gmail.com','','(24) 998844351','Bradesco','','','',0,0,'Eunice Maria Ferreira Nunes','','','Anderson Mariano da Cruz Silva','','','','1522602945.jpg',1),(14,'2018-14','Alan Nunes da Silva','132.123.124-8','651.897.403-66','2000-04-29','solteiro','masculino','','Ensino Superior','','27259-290','Rua Vinte e Sete',28,'','Volta Redonda','Jardim Vila Rica - Tiradentes','alann.625@gmail.com','','(24) 998844351','Bradesco','','','',0,0,'Eunice Maria Ferreira Nunes','','','Anderson Mariano da Cruz Silva','','','','1522602945.jpg',1),(15,'2018-15','William Henry Gates III','321.123.321-3','321.123.321-32','1955-10-28','casado','masculino','','Ensino Superior','','','Street 17',17,'','Lake Washington in Medina, Washington','Medina','billgates@microsoft.com','','(24) 998844351','','','','',0,0,'','','','','','','','1522613743.jpg',1),(16,'2018-16','hlhlhlkh','','777.777.777-77','1997-12-12','solteiro','masculino','','Ensino Superior','Outros','27259-290','Rua Vinte e Sete',77,'','Volta Redonda','Jardim Vila Rica - Tiradentes','','','(24) 998844351','','','','',0,0,'','','','','','','','1523309805.jpg',1);
+INSERT INTO `alunos` VALUES (1,'2018-1','Alan Nunes da Silva','132.123.124-8','651.897.403-66','2000-04-29','solteiro','masculino','','Ensino Superior','','27259-290','Rua Vinte e Sete',28,'','Volta Redonda','Jardim Vila Rica - Tiradentes','alann.625@gmail.com','','(24) 998844351','Bradesco','','','',0,0,'','1522602945.jpg',1),(2,'2018-2','Steven Paul Jobs','123.321.123-3','123.321.123-12','1955-02-24','solteiro','masculino','','Ensino Superior','','','Street 17',17,'','San Francisco','Palo Alto','stevejobs@apple.com','','(24) 998844351','','','','',0,0,'','1522612719.jpg',0),(3,'2018-3','William Henry Gates III','321.123.321-3','321.123.321-32','1955-10-28','casado','masculino','','Ensino Superior','','','Street 17',17,'','Lake Washington in Medina, Washington','Medina','billgates@microsoft.com','','(24) 998844351','','','','',0,0,'','1522613743.jpg',1),(9,'2018-9','Yeah Thats Me','77.777.777-7','777.777.777-77','2000-04-29','casado','masculino','','Ensino Superior','Internet','27259-290','Rua Vinte e Sete',77,'','Volta Redonda','Jardim Vila Rica - Tiradentes','thatsmes@me.com.br','','(24) 999999999','Banco do Brasil','7777777','777777777','77777777',0,0,'','1523309805.jpg',1),(10,'2018-10','Teste Som 777','77.777.777-7','777.777.777-77','2000-04-29','solteiro','masculino','Estagiário de TI','Ensino Superior','Amigos','27259-290','Rua Vinte e Sete',28,'','Volta Redonda','Jardim Vila Rica - Tiradentes','alannunes@ugb.edu.br','','(24) 998844351','Santander','','','',0,0,'','1523451520.jpg',1),(12,'2018-12','Alan Nunes da Silva','','777.777.777-77','1997-12-12','solteiro','masculino','','Ensino Superior','Outros','27259-290','Rua Vinte e Sete',77,'','Volta Redonda','Jardim Vila Rica - Tiradentes','hk@hk.com','','(24) 998844351','','','','',0,0,'','1523309805.jpg',1),(22,'2018-22','Gustavo','77.777.777-7','777.777.777-77','2000-01-01','solteiro','masculino','','','','27259-290','Rua Vinte e Sete',28,'','Volta Redonda','Jardim Vila Rica - Tiradentes','gustavo@gustavo.com','2433333333','(24) 998844351','','','','',0,0,'','1525396693.png',1);
 /*!40000 ALTER TABLE `alunos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -83,4 +77,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-01 15:19:55
+-- Dump completed on 2018-05-26 15:21:51
