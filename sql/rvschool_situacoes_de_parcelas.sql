@@ -16,38 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `interessados`
+-- Table structure for table `situacoes_de_parcelas`
 --
 
-DROP TABLE IF EXISTS `interessados`;
+DROP TABLE IF EXISTS `situacoes_de_parcelas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `interessados` (
+CREATE TABLE `situacoes_de_parcelas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `sexo` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `midia` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `cep` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `logradouro` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `numeroCasa` int(5) NOT NULL,
-  `complemento` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `cidade` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `bairro` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `telefone` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `celular` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `observacoes` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nome` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome_UNIQUE` (`nome`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `interessados`
+-- Dumping data for table `situacoes_de_parcelas`
 --
 
-LOCK TABLES `interessados` WRITE;
-/*!40000 ALTER TABLE `interessados` DISABLE KEYS */;
-/*!40000 ALTER TABLE `interessados` ENABLE KEYS */;
+LOCK TABLES `situacoes_de_parcelas` WRITE;
+/*!40000 ALTER TABLE `situacoes_de_parcelas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `situacoes_de_parcelas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -59,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-30  3:03:09
+-- Dump completed on 2018-05-30  3:03:07

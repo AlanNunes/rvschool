@@ -16,38 +16,26 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `interessados`
+-- Table structure for table `operadoras_de_cartao`
 --
 
-DROP TABLE IF EXISTS `interessados`;
+DROP TABLE IF EXISTS `operadoras_de_cartao`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `interessados` (
+CREATE TABLE `operadoras_de_cartao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `sexo` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `midia` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `cep` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `logradouro` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `numeroCasa` int(5) NOT NULL,
-  `complemento` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `cidade` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `bairro` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `telefone` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `celular` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `observacoes` text,
+  `nome` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `interessados`
+-- Dumping data for table `operadoras_de_cartao`
 --
 
-LOCK TABLES `interessados` WRITE;
-/*!40000 ALTER TABLE `interessados` DISABLE KEYS */;
-/*!40000 ALTER TABLE `interessados` ENABLE KEYS */;
+LOCK TABLES `operadoras_de_cartao` WRITE;
+/*!40000 ALTER TABLE `operadoras_de_cartao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `operadoras_de_cartao` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -59,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-30  3:03:09
+-- Dump completed on 2018-05-30  3:03:08
