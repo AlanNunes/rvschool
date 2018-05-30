@@ -65,7 +65,7 @@ Class Contratos {
     $atendente2 = ($data["atendente2"] == -1)? "null": $data["atendente2"];
     $atendente3 = ($data["atendente3"] == -1)? "null": $data["atendente3"];
     $dataContrato = $data["dataContrato"];
-    $contratante = ($data["contratante"] == -1)? "null": $data["contratante"];
+    $contratante = ($data["contratante"])? $data["contratante"]:"null";
 
     $sql = "INSERT INTO contratos (numero, aluno, situacao, tipo, dataInicio, dataTermino, contratoTurmas, contratoAulasLivres,
             atendente1, atendente2, atendente3, dataContrato, contratante, matricula) VALUES ('{$numeroContrato}', {$aluno},

@@ -24,27 +24,59 @@ switch ($process) {
 
 function imprimirDocumento(){
   $data = $_POST['data'];
-  if(!empty($data['alunoId']) && isset($data['alunoId']) && !empty($data['responsavelId']) && isset($data['responsavelId'])){
+  if(!empty($data['alunoId']) && isset($data['alunoId']) && isset($data['responsavelId']) && isset($data['tipoDocumento']) && !empty($data['tipoDocumento'])){
     $alunoId = $data['alunoId'];
     $responsavelId = $data['responsavelId'];
+    $tipoDocumento = $data['tipoDocumento'];
 
     $db = new DataBase();
     $conn = $db->getConnection();
     $alunos = new Alunos($conn);
     $responsaveis = new Responsaveis($conn);
-    $documentos = new DocumentosMatricula($conn);
+
+    switch ($tipoDocumento) {
+      case '1':
+        // Documento de Matrícula
+        include_once('Documentos_Matricula.php');
+        $documentos = new Documentos_Matricula($conn);
+        break;
+
+      case '2':
+        // Contrato That's The Way
+        include_once('Documentos_Contrato_Thats_The_Way.php');
+        $documentos = new Documentos_Contrato_Thats_The_Way($conn);
+        break;
+
+      case '3':
+        // Contrato Kids
+        include_once('Documentos_Contrato_Kids.php');
+        $documentos = new Documentos_Contrato_Kids($conn);
+        break;
+
+      case '4':
+        // Contrato Promocao
+        include_once('Documentos_Contrato_Promocao.php');
+        $documentos = new Documentos_Contrato_Promocao($conn);
+        break;
+
+      default:
+        // Erro
+        echo json_encode(array('erro' => true, 'description' => 'Este tipo de contrato não foi encontrado.'));
+        break;
+    }
 
     $documentos->vencimento = '26/05/2018';
     $documentos->parcelas = 12;
-    $documentos->valor = 9000.56;
-    $documentos->titulo = "DOCUMENTO DE MATRÍCULA";
+    $documentos->parcelaValor = 295.00;
+    $documentos->valorTotal = 295.00*12;
+    // $documentos->titulo = "DOCUMENTO DE MATRÍCULA";
     $aluno = $alunos->getAlunoById($alunoId);
     if($responsavelId > 0){
       $responsavel = $responsaveis->getResponsavelById($responsavelId);
       $documentos->setAlunosDados($aluno);
       $documentos->setResponsavelDados($responsavel);
       $documentos->buildDocumento();
-      echo json_encode(array('erro' => false, 'documento' => $documentos->getDocumento()));
+      echo json_encode(array('erro' => false, 'description' => 'O documento foi gerado com sucesso.', 'documento' => $documentos->getDocumento()));
     }else{
       $documentos->setAlunosDados($aluno);
       $documentos->setResponsavelDados($aluno);
@@ -52,7 +84,7 @@ function imprimirDocumento(){
       echo json_encode(array('erro' => false, 'description' => 'O documento foi gerado com sucesso.', 'documento' => $documentos->getDocumento()));
     }
   }else{
-    return array('erro' => true, 'description' => 'Dados Insuficientes !');
+    echo json_encode(array('erro' => true, 'description' => 'Dados Insuficientes !'));
   }
 }
 

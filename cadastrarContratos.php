@@ -299,7 +299,7 @@ $funcionarios = new Funcionarios($conn);
           <div class="form-group col-md-4">
             <label for="responsavel">Responsável:</label>
             <select id="responsavel" class="form-control">
-              <option value="-1" selected>(Aluno)</option>
+              <option value="0" selected>(Aluno)</option>
               <div id="responsavel-options"></div>
             </select>
           </div>
@@ -315,8 +315,11 @@ $funcionarios = new Funcionarios($conn);
           <div class="form-group col-md-4">
             <label for="tipo-documento">Selecione o Documento:</label>
             <select id="tipo-documento" class="form-control">
-              <option value="-1">(Selecione)</option>
+              <option value="0">(Selecione)</option>
               <option value='1'>Documento de Matrícula</option>
+              <option value='2'>Contrato That's The Way</option>
+              <option value='3'>Contrato Kids</option>
+              <option value='4'>Contrato Promoção</option>
             </select>
           </div>
           <div class="form-group col-md-3">
@@ -597,7 +600,7 @@ $funcionarios = new Funcionarios($conn);
         tipoDocumento = document.getElementById('tipo-documento').value;
         var data = {
           'tipoDocumento':tipoDocumento,
-          'alunoId':alunoId,
+          'alunoId':(alunoId)?alunoId:0,
           'responsavelId':responsavelId
         };
         console.log(data);
@@ -698,14 +701,12 @@ $funcionarios = new Funcionarios($conn);
         $("#loading-gif").css("display","none");
       }
 
-      function printDiv(divName) {
-        $("#modal-documento").modal('hide');
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-        $("#modal-documento").modal('hide');
+      function printDiv(id) {
+        var divToPrint=document.getElementById(id);
+      	newWin= window.open("");
+      	newWin.document.write(divToPrint.outerHTML);
+      	newWin.print();
+      	newWin.close();
       }
 
       $("#aluno").click(function(e) {
