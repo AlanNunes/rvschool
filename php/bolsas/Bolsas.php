@@ -7,7 +7,7 @@
  * @author     Luan Nunes da Silva <lunanunesrpg@gmail.com>
  * @copyright  2018 Dual Dev
  */
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 class Bolsas {
 	private $id;
 	private $nome;
@@ -20,7 +20,7 @@ class Bolsas {
 	}
 
 	public function listBolsas() {
-		$query = "SELECT id, nome, desconto, descricao, fixa, dataInicio, dataTermino FROM bolsas";
+		$query = "SELECT id, nome, desconto, descricao, fixa, dataInicio, dataTermino FROM bolsas ORDER BY  desconto, nome ASC";
 		$result = $this->conn->query($query);
 
 		if($result->num_rows > 0) {

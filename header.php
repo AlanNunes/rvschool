@@ -37,7 +37,7 @@
 			<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">FINANCEIRO
 			<span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li onclick="window.location='#'" id="dpdi" class="im">MENSALIDADES</li>
+				<li onclick="window.location='mensalidades.php'" id="dpdi" class="im">MENSALIDADES</li>
 			</ul>
 		</li>
 
