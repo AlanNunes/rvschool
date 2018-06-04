@@ -96,7 +96,7 @@ $estagios = new Estagios($conn);
             <form>
               <div class="form-row">
                 <div class="col-md-6">
-                  <label for="nome">Nome:*</label>
+                  <label for="nome"> <span style="color:red">*</span> Nome:</label>
                   <input type="text" class="form-control" id="nome" placeholder="Ex.: Turma A">
                   <div class="invalid-feedback">
                     Por favor, digite o nome da turma.
@@ -104,7 +104,7 @@ $estagios = new Estagios($conn);
                 </div>
 
                 <div class="col-md-4 offset-md-2">
-                  <label for="situacao">Situação:*</label>
+                  <label for="situacao"> <span style="color:red">*</span> Situação:</label>
                   <select id="situacao" class="form-control">
                     <option value="2">Ativa</option>
                     <option value="1">Em formação</option>
@@ -116,7 +116,7 @@ $estagios = new Estagios($conn);
                 </div>
 
                 <div class="col-md-6">
-                  <label for="sala">Sala:*</label>
+                  <label for="sala"> <span style="color:red">*</span> Sala:</label>
                   <select id="sala" class="form-control">
                     <option value="United States">United States</option>
                     <option value="Canada">Canada</option>
@@ -129,7 +129,7 @@ $estagios = new Estagios($conn);
                 </div>
 
                 <div class="col-md-4 offset-2">
-                  <label for="duracaoAula">Duração da aula:*</label>
+                  <label for="duracaoAula"> <span style="color:red">*</span> Duração da aula:</label>
                   <select id="duracaoAula" class="form-control">
                     <option value="50">50</option>
                   </select>
@@ -139,7 +139,7 @@ $estagios = new Estagios($conn);
                 </div>
 
                 <div class="col-md-8">
-                  <label for="horario">horário:*</label>
+                  <label for="horario"> <span style="color:red">*</span> Horário:</label>
                   <select id="horario" class="form-control">
                     <option value="Seg-Ter-Qua-Qui-Sex(18:00/18:50)">Seg-Ter-Qua-Qui-Sex(18:00/18:50)</option>
                     <option value="Seg-Ter-Qua-Qui-Sex(15:00/15:50)">Seg-Ter-Qua-Qui-Sex(15:00/15:50)</option>
@@ -152,7 +152,7 @@ $estagios = new Estagios($conn);
                 </div>
 
                 <div class="col-md-4">
-                  <label for="minimoAlunos">Mínimo de Alunos:*</label>
+                  <label for="minimoAlunos"> <span style="color:red">*</span> Mínimo de Alunos:</label>
                   <div class="input-group">
                     <input type="number" class="form-control" id="minimoAlunos" min="0" required>
                     <div class="invalid-feedback">
@@ -197,7 +197,7 @@ $estagios = new Estagios($conn);
                 </div>
 
                 <div class="col-md-4">
-                  <label for="estagio">Estágio:*</label>
+                  <label for="estagio"> <span style="color:red">*</span> Estágio:</label>
                   <select id="estagio" class="form-control">
                     <option value="0" selected>(Selecione)</option>
                     <?php
@@ -215,7 +215,7 @@ $estagios = new Estagios($conn);
                 </div>
 
                 <div class="col-md-4">
-                  <label for="curso">Curso:*</label>
+                  <label for="curso"> <span style="color:red">*</span> Curso:</label>
                   <select id="curso" class="form-control">
                     <option value="null">(Selecione)</option>
                     <?php

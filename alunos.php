@@ -116,7 +116,7 @@
                     </div>
                   </form>
                     <div class="form-group col-md-3" style="margin-top: 40px;">
-                      <label for="nome">Nome:</label>
+                      <label for="nome"> <span style="color:red">*</span> Nome:</label>
                       <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira" required>
                       <div class="invalid-feedback" id="invalid-feedback-nome">
                         Preencha o nome do aluno.
@@ -138,7 +138,7 @@
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-3">
-                      <label for="dataNasc">Data de Nasc.:</label>
+                      <label for="dataNasc"> <span style="color:red">*</span> Data de Nasc.:</label>
                       <input type="date" class="form-control" id="dataNasc" required>
                       <div class="invalid-feedback" id="invalid-feedback-dataNasc">
                         Este campo não pode estar vazio.
@@ -152,7 +152,7 @@
                       </select>
                     </div>
                     <div class="form-group col-md-3">
-                      <label for="sexo">Sexo:</label>
+                      <label for="sexo"> <span style="color:red">*</span> Sexo:</label>
                       <select class="custom-select" id="sexo" required>
                         <option value="masculino">Masculino</option>
                         <option value="feminino">Feminino</option>
@@ -191,6 +191,9 @@
                       </select>
                     </div>
                   </div>
+                  <div class="form-row">
+                    <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+                  </div>
                 <!-- </form> -->
               </div>
               <div class="tab-pane fade" id="endereco" role="tabpanel" aria-labelledby="endereco-tab">
@@ -201,7 +204,7 @@
                       <input type="text" class="form-control" id="cep" oninput="buscaCEP(this.value)" placeholder="">
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="logradouro">Logradouro:</label>
+                      <label for="logradouro"> <span style="color:red">*</span> Logradouro:</label>
                       <input type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida 1" required>
                       <div class="invalid-feedback" id="invalid-feedback-logradouro">
                         Informe o logradouro.
@@ -218,14 +221,14 @@
                       <input type="text" class="form-control" id="complemento">
                     </div>
                     <div class="form-group col-md-3">
-                      <label for="cidade">Cidade:</label>
+                      <label for="cidade"> <span style="color:red">*</span> Cidade:</label>
                       <input type="text" class="form-control" id="cidade" required>
                       <div class="invalid-feedback" id="invalid-feedback-cidade">
                         Informe a cidade.
                       </div>
                     </div>
                     <div class="form-group col-md-3">
-                      <label for="bairro">Bairro:</label>
+                      <label for="bairro"> <span style="color:red">*</span> Bairro:</label>
                       <input type="text" class="form-control" id="bairro" required>
                       <div class="invalid-feedback" id="invalid-feedback-bairro">
                         Informe o bairro.
@@ -234,7 +237,7 @@
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="email">E-mail:</label>
+                      <label for="email"> <span style="color:red">*</span> E-mail:</label>
                       <input type="email" class="form-control" id="email" required>
                       <div class="invalid-feedback" id="invalid-feedback-email">
                         Informe um e-mail válido
@@ -245,12 +248,16 @@
                       <input type="text" class="form-control" id="telefone">
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="celular">Celular:</label>
+                      <label for="celular"> <span style="color:red">*</span> Celular:</label>
                       <input type="text" class="form-control" id="celular" required>
                       <div class="invalid-feedback" id="invalid-feedback-celular">
                         Número de celular inválido.
                       </div>
                     </div>
+                  </div>
+
+                  <div class="form-row">
+                    <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
                   </div>
                 <!-- </form> -->
               </div>
@@ -438,7 +445,12 @@
       });
 
       $("#cep").mask("00000-000");
-      $("#celular").mask("(00) 000000000");
+      $("#celular").mask("(00) 00000-0000");
+      $("#telefone").mask("(00) 0000-0000");
+      $("#telefoneResponsavelUm").mask("(00) 0000-0000");
+      $("#telefoneResponsavelDois").mask("(00) 0000-0000");
+      $("#celularResponsavelUm").mask("(00) 00000-0000");
+      $("#celularResponsavelDois").mask("(00) 00000-0000");
 
       function buscaCEP(cep){
         if(cep.length == 9){

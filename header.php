@@ -52,8 +52,15 @@
 	</ul>
 	</li>
 
-				<li><a id="dpd" href="bolsas.php">MÍDIAS</a></li>
-				<li><a id="dpd" href="interessados.php">INTERESSADOS</a></li>
+
+	<li class="dropdown">
+	<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">MÍDIAS
+	<span class="caret"></span></a>
+	<ul class="dropdown-menu">
+		<li onclick="window.location='bolsas.php'" id="dpdi" class="im">BOLSAS</li>
+		<li onclick="window.location='interessados.php'" id="dpdi" class="im">INTERESSADOS</li>
+	</ul>
+	</li>
 
 		    </ul>
 		  </div>

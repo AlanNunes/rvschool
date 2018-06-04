@@ -107,21 +107,21 @@ $cargos = new Cargos($conn);
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="nome">Nome:</label>
+                      <label for="nome"> <span style="color:red">*</span> Nome:</label>
                       <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira">
                       <div class="invalid-feedback">
                         Por favor, digite o nome do funcionário.
                       </div>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="rg">RG:</label>
+                      <label for="rg"> <span style="color:red">*</span> RG:</label>
                       <input type="text" class="form-control" id="rg" placeholder="Ex.: 171.251.54-26">
                       <div class="invalid-feedback">
                         Por favor, digite um rg válido.
                       </div>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="cpf">CPF:</label>
+                      <label for="cpf"> <span style="color:red">*</span> CPF:</label>
                       <input type="text" class="form-control" id="cpf" placeholder="Ex.: 171.251.54-26">
                       <div class="invalid-feedback">
                         Por favor, digite um cpf válido.
@@ -130,7 +130,7 @@ $cargos = new Cargos($conn);
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="dataNascimento">Data de Nasc.:</label>
+                      <label for="dataNascimento"> <span style="color:red">*</span> Data de Nasc.:</label>
                       <input type="date" class="form-control" id="dataNascimento">
                       <div class="invalid-feedback">
                         Por favor, digite uma data de nascimento válida.
@@ -177,13 +177,18 @@ $cargos = new Cargos($conn);
                       </div>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="cidadeNatal">Cidade Natal:</label>
+                      <label for="cidadeNatal"> <span style="color:red">*</span> Cidade Natal:</label>
                       <input type="text" class="form-control" id="cidadeNatal">
                       <div class="invalid-feedback">
                         Por favor, digite a cidade natal do funcionário.
                       </div>
                     </div>
                   </div>
+
+                  <div class="form-row">
+                    <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+                  </div>
+
                 </form>
               </div>
               <!--END DADOS DO FUNCIONÁRIO-->
@@ -193,21 +198,21 @@ $cargos = new Cargos($conn);
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="cep">CEP:</label>
+                      <label for="cep"> <span style="color:red">*</span> CEP:</label>
                       <input type="text" class="form-control" id="cep" oninput="buscaCEP(this.value)" placeholder="">
                       <div class="invalid-feedback">
                         Por favor, digite o cep do funcionário.
                       </div>
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="logradouro">Logradouro:</label>
+                      <label for="logradouro"> <span style="color:red">*</span> Logradouro:</label>
                       <input type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida 1">
                       <div class="invalid-feedback">
                         Por favor, digite o logradouro onde mora o funcionário.
                       </div>
                     </div>
                     <div class="form-group col-md-2">
-                      <label for="numero">Número:</label>
+                      <label for="numero"> <span style="color:red">*</span> Número:</label>
                       <input type="number" class="form-control" id="numero" placeholder="Ex.: 77">
                       <div class="invalid-feedback">
                         Por favor, digite o numero da residência do funcionário.
@@ -220,14 +225,14 @@ $cargos = new Cargos($conn);
                       <input type="text" class="form-control" id="complemento">
                     </div>
                     <div class="form-group col-md-3">
-                      <label for="cidade">Cidade:</label>
+                      <label for="cidade"> <span style="color:red">*</span> Cidade:</label>
                       <input type="text" class="form-control" id="cidade">
                       <div class="invalid-feedback">
                         Por favor, digite a cidade onde mora o funcionário.
                       </div>
                     </div>
                     <div class="form-group col-md-3">
-                      <label for="bairro">Bairro:</label>
+                      <label for="bairro"> <span style="color:red">*</span> Bairro:</label>
                       <input type="text" class="form-control" id="bairro">
                       <div class="invalid-feedback">
                         Por favor, digite o bairro onde mora o funcionário.
@@ -236,14 +241,14 @@ $cargos = new Cargos($conn);
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                      <label for="email">Email:</label>
+                      <label for="email"> <span style="color:red">*</span> Email:</label>
                       <input type="email" class="form-control" id="email">
                       <div class="invalid-feedback">
                         Por favor, digite um email válido.
                       </div>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="telefone">Telefone:</label>
+                      <label for="telefone"> <span style="color:red">*</span> Telefone:</label>
                       <input type="text" class="form-control" id="telefone">
                       <div class="invalid-feedback">
                         Por favor, digite um telefone válido.
@@ -257,6 +262,11 @@ $cargos = new Cargos($conn);
                       </div>
                     </div>
                   </div>
+
+                  <div class="form-row">
+                    <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+                  </div>
+
                 </form>
               </div>
               <!--END ENDEREÇO/COMUNICAÇÃO-->
@@ -279,7 +289,7 @@ $cargos = new Cargos($conn);
                       </div>
                     </div>
                     <div class="form-group col-md-4 offset-md-4">
-                      <label for="carteiraProfissional">Carteira Profissional:</label>
+                      <label for="carteiraProfissional"> <span style="color:red">*</span> Carteira Profissional:</label>
                       <input type="text" class="form-control" id="carteiraProfissional">
                       <div class="invalid-feedback">
                         Por favor, digite a carteira profissional do funcionário.
@@ -292,14 +302,14 @@ $cargos = new Cargos($conn);
                       <input type="text" class="form-control" id="carteiraProfissional">
                     </div> -->
                     <div class="form-group col-md-2">
-                      <label for="inss">INSS:</label>
+                      <label for="inss"> <span style="color:red">*</span> INSS:</label>
                       <input type="text" class="form-control" id="inss">
                       <div class="invalid-feedback">
                         Por favor, digite o inss do funcionário.
                       </div>
                     </div>
                     <div class="form-group col-md-2">
-                      <label for="percentualInss">Percentual INSS:</label>
+                      <label for="percentualInss"> <span style="color:red">*</span> Percentual INSS:</label>
                       <div class="input-group">
                         <input type="number" class="form-control" id="percentualInss" aria-describedby="inputGroupInssPercentual" min="0" max="100" required>
                         <div class="input-group-prepend">
@@ -312,7 +322,7 @@ $cargos = new Cargos($conn);
                     </div>
 
                     <div class="form-group col-md-4 offset-md-4">
-                      <label for="dataAdmissao">Data de Admissão:</label>
+                      <label for="dataAdmissao"> <span style="color:red">*</span> Data de Admissão:</label>
                       <input type="date" class="form-control" id="dataAdmissao">
                       <div class="invalid-feedback">
                         Por favor, digite uma data de admissão válida.
@@ -321,14 +331,14 @@ $cargos = new Cargos($conn);
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-2">
-                      <label for="ccm">CCM:</label>
+                      <label for="ccm"> <span style="color:red">*</span> CCM:</label>
                       <input type="text" class="form-control" id="ccm">
                       <div class="invalid-feedback">
                         Por favor, digite o ccm do funcionário.
                       </div>
                     </div>
                     <div class="form-group col-md-2">
-                      <label for="percentualIss">Percentual ISS:</label>
+                      <label for="percentualIss"> <span style="color:red">*</span> Percentual ISS:</label>
                       <div class="input-group">
                         <input type="number" class="form-control" id="percentualIss" aria-describedby="inputGroupInssPercentual" min="0" max="100" required>
                         <div class="input-group-prepend">
@@ -361,7 +371,7 @@ $cargos = new Cargos($conn);
                             </thead>
                             <tbody>
                               <tr>
-                                <td>Aula Interna</td>
+                                <td> <span style="color:red">*</span> Aula Interna</td>
                                 <td>
                                   <div class="form-group col-md-4">
                                     <div class="input-group">
@@ -377,7 +387,7 @@ $cargos = new Cargos($conn);
                                 </td>
                               </tr>
                               <tr>
-                                <td>Aula Externa</td>
+                                <td> <span style="color:red">*</span> Aula Externa</td>
                                 <td>
                                   <div class="form-group col-md-4">
                                     <div class="input-group">
@@ -433,6 +443,11 @@ $cargos = new Cargos($conn);
                       </fieldset>
                     </div>
                   </div>
+
+                  <div class="form-row">
+                    <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+                  </div>
+
                 </form>
               </div>
               <!--END DADOS PROFISSIONAIS-->
@@ -454,14 +469,14 @@ $cargos = new Cargos($conn);
                       </div>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="agencia">Agência:</label>
+                      <label for="agencia"> <span style="color:red">*</span> Agência:</label>
                       <input type="text" class="form-control" id="agencia" placeholder="Ex.: 0012-3">
                       <div class="invalid-feedback">
                         Por favor, digite a agência do banco do funcionário.
                       </div>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="conta">Conta:</label>
+                      <label for="conta"> <span style="color:red">*</span> Conta:</label>
                       <input type="text" class="form-control" id="conta" placeholder="Ex.: 0123456-7">
                       <div class="invalid-feedback">
                         Por favor, digite a conta do funcionário.
@@ -470,13 +485,18 @@ $cargos = new Cargos($conn);
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="codigoBanco">Código do Cliente no Banco:</label>
+                      <label for="codigoBanco"> <span style="color:red">*</span> Código do Cliente no Banco:</label>
                       <input type="text" class="form-control" id="codigoBanco">
                       <div class="invalid-feedback">
                         Por favor, digite o código do cliente no banco do funcionário.
                       </div>
                     </div>
                   </div>
+
+                  <div class="form-row">
+                    <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+                  </div>
+
                 </form>
               </div>
               <!--END FINANCEIRO-->
