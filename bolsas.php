@@ -75,14 +75,14 @@
                 <form>
                   <div class="form-row">
                     <div class="col-md-6">
-                      <label for="nome">Nome:</label>
+                      <label for="nome"> <span style="color:red">*</span> Nome:</label>
                       <input type="text" class="form-control" id="nome" placeholder="Ex.: Bolsa Gold">
                       <div class="invalid-feedback">
                         Por favor, digite o nome da bolsa.
                       </div>
                     </div>
                     <div class="col-md-4 offset-md-2">
-                      <label for="desconto">Desconto:</label>
+                      <label for="desconto"> <span style="color:red">*</span> Desconto:</label>
                       <div class="input-group">
                         <input type="number" class="form-control" id="desconto" min="0" max="100" required>
                         <div class="input-group-prepend">
@@ -110,7 +110,7 @@
 
                   <div class="form-row" id="dateSection" style="display: none">
                     <div class="form-group col-md-6">
-                      <label for="dataInicio">Data de início da Bolsa</label>
+                      <label for="dataInicio"> <span style="color:red">*</span> Data de início da Bolsa</label>
                       <div class="input-group">
                         <input type="date" class="form-control" id="dataInicio">
                       </div>
@@ -120,7 +120,7 @@
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label for="dataTermino">Data de Término da Bolsa</label>
+                      <label for="dataTermino"> <span style="color:red">*</span> Data de Término da Bolsa</label>
                       <div class="input-group">
                         <input type="date" class="form-control" id="dataTermino">
                       </div>
@@ -131,13 +131,17 @@
                   </div>
                   <div class="form-row">
                   <div class="form-group col-md-12">
-                    <label for="descricao">Descrição:</label>
+                    <label for="descricao"> <span style="color:red">*</span> Descrição:</label>
                     <textarea class="form-control" id="descricao" rows="5" placeholder="Ex.: Bolsa de 50% para o curso de inglês"></textarea>
                     <div class="invalid-feedback">
                       Por favor, digite a descrição da bolsa.
                     </div>
                   </div>
                 </div>
+                <div class="form-row">
+                  <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+                </div>
+                
                 </form>
               </div>
             </div>
