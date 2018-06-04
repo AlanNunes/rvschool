@@ -82,7 +82,7 @@
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-12">
-                      <label for="nome">Nome:</label>
+                      <label for="nome"> <span style="color:red">*</span> Nome:</label>
                       <input type="text" class="form-control" id="nome" placeholder="Ex.: Parceria loja do João">
                       <div class="invalid-feedback">
                         Por favor, digite o nome da parceria.
@@ -133,6 +133,10 @@
                       <textarea class="form-control" rows="5" id="descricao"></textarea>
                     </div>
                   </div>
+                  <div class="form-row">
+                    <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+                  </div>
+                  
                 </form>
               </div>
               <!--END DADOS DO FUNCIONÁRIO-->

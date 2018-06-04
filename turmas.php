@@ -232,6 +232,12 @@ $estagios = new Estagios($conn);
                   </div>
                 </div>
               </div>
+              
+              <div class="form-row">
+                <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+              </div>
+
+
             </form>
           </div>
         </div>

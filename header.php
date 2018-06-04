@@ -21,7 +21,7 @@
           <li onclick="window.location='alunos.php'" id="dpdi" class="im">ALUNOS</li>
 					<li onclick="window.location='funcionarios.php'" id="dpdi" class="im">FUNCIONÁRIOS</li>
 					<li onclick="window.location='turmas.php'" id="dpdi" class="im">TURMAS</li>
-					<li onclick="window.location='cursos.php'" id="dpdi" class="im">CURSOS</li>
+					<li onclick="window.location='#'" id="dpdi" class="im">CURSOS</li>
         </ul>
       </li>
 

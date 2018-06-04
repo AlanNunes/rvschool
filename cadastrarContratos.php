@@ -77,7 +77,7 @@ $funcionarios = new Funcionarios($conn);
       <form>
         <div class="form-row">
           <div class="form-group col-md-4">
-            <label for="aluno">Nome do Aluno:</label>
+            <label for="aluno"> <span style="color:red">*</span> Nome do Aluno:</label>
             <input list="suggestions-alunos" data-id="" class="form-control" id="aluno" placeholder="Ex.: Eunice Maria" onkeyup="getAlunos(this.value)" oninput="verificarNome()">
             <datalist id="suggestions-alunos">
             </datalist>
@@ -93,7 +93,7 @@ $funcionarios = new Funcionarios($conn);
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="situacaoContrato">Situação do Contrato:</label>
+            <label for="situacaoContrato"> <span style="color:red">*</span> Situação do Contrato:</label>
             <select id="situacaoContrato" class="form-control">
               <?php $situacoesContrato->listSituacoesDeContrato(); ?>
             </select>
@@ -102,7 +102,7 @@ $funcionarios = new Funcionarios($conn);
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="tipoContrato">Tipos de Contrato:</label>
+            <label for="tipoContrato"> <span style="color:red">*</span> Tipos de Contrato:</label>
             <select id="tipoContrato" class="form-control">
               <?php $tiposContrato->listTiposDeContrato(); ?>
             </select>
@@ -113,14 +113,14 @@ $funcionarios = new Funcionarios($conn);
         </div>
         <div class="form-row">
           <div class="form-group col-md-2">
-            <label for="dataInicio">Início:</label>
+            <label for="dataInicio"> <span style="color:red">*</span> Início:</label>
             <input type="date" id="dataInicio" class="form-control" />
             <div class="invalid-feedback">
               Por favor, escolha uma data
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="dataTermino">Término:</label>
+            <label for="dataTermino"> <span style="color:red">*</span> Término:</label>
             <input type="date" id="dataTermino" class="form-control" />
             <div class="invalid-feedback">
               Por favor, escolha uma data
@@ -177,6 +177,10 @@ $funcionarios = new Funcionarios($conn);
             </div>
           </div>
         </div>
+        <div class="form-row">
+          <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+        </div>
+
       </form>
     </div>
     <!-- FIM DADOS DO CONTRATO -->
@@ -185,7 +189,7 @@ $funcionarios = new Funcionarios($conn);
       <form>
         <div class="form-row">
           <div class="form-group col-md-2">
-            <label for="turma">Turma:</label>
+            <label for="turma"> <span style="color:red">*</span> Turma:</label>
             <select id="turma" class="form-control" onchange="updateCamposDeTurmas()">
               <option value='0' selected>(Selecione)</option>
               <?php
@@ -206,21 +210,21 @@ $funcionarios = new Funcionarios($conn);
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="data-matricula">Data da Matrícula:</label>
+            <label for="data-matricula"> <span style="color:red">*</span> Data da Matrícula:</label>
             <input type="date" id="data-matricula" class="form-control" />
             <div class="invalid-feedback">
               Por favor, escolha uma data
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="inicio-das-atividades">Início das Atividades:</label>
+            <label for="inicio-das-atividades"> <span style="color:red">*</span> Início das Atividades:</label>
             <input type="date" id="inicio-das-atividades" class="form-control" />
             <div class="invalid-feedback">
               Por favor, escolha uma data
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="curso">Curso:</label>
+            <label for="curso"> <span style="color:red">*</span> Curso:</label>
             <select id="curso" class="form-control">
             </select>
             <div class="invalid-feedback">
@@ -228,7 +232,7 @@ $funcionarios = new Funcionarios($conn);
             </div>
           </div>
           <div class="form-group col-md-2">
-            <label for="estagio">Estágio:</label>
+            <label for="estagio"> <span style="color:red">*</span> Estágio:</label>
             <select id="estagio" class="form-control">
             </select>
             <div class="invalid-feedback">
@@ -238,10 +242,14 @@ $funcionarios = new Funcionarios($conn);
         </div>
         <div class="form-row">
           <div class="form-group col-md-4">
-            <label for="horario">Horário:</label>
+            <label for="horario"> <span style="color:red">*</span> Horário:</label>
             <input type="text" id="horario" class="form-control" />
           </div>
         </div>
+        <div class="form-row">
+          <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+        </div>
+
       </form>
     </div>
     <!-- FIM MATRÍCULA SECTION -->
@@ -297,13 +305,17 @@ $funcionarios = new Funcionarios($conn);
         </div>
         <div class="form-row">
           <div class="form-group col-md-4">
-            <label for="responsavel">Responsável:</label>
+            <label for="responsavel"> <span style="color:red">*</span> Responsável:</label>
             <select id="responsavel" class="form-control">
               <option value="0" selected>(Aluno)</option>
               <div id="responsavel-options"></div>
             </select>
           </div>
         </div>
+        <div class="form-row">
+          <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+        </div>
+        
       </form>
     </div>
     <!-- FIM DE OUTROS-SECTION -->
