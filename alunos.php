@@ -21,32 +21,32 @@
   <div id="page-cover">
     <img src="assets/gifs/loading-icon6.gif" id="loading-gif" />
   </div>
-  <!--TABLE FUNCIONÁRIOS-->
+  <!--TABLE ALUNOS-->
 
 
   <br>
   <div class="container-fluid">
-  <div class="table-responsive">
-  <table class="table table-hover" style="text-align: center;">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">AVATAR</th>
-      <th scope="col">NOME</th>
-      <th scope="col">MATRÍCULA</th>
-      <th scope="col">ATIVO</th>
-      <th scope="col">DATA NASC.</th>
-      <th scope="col">CELULAR</th>
-      <th scope="col">EMAIL</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody id="tableContent">
+    <div class="table-responsive">
+      <table class="table table-hover" style="text-align: center;">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">AVATAR</th>
+            <th scope="col">NOME</th>
+            <th scope="col">MATRÍCULA</th>
+            <th scope="col">ATIVO</th>
+            <th scope="col">DATA NASC.</th>
+            <th scope="col">CELULAR</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="tableContent">
 
-  </tbody>
-</table>
+        </tbody>
+      </table>
 
-</div>
-</div>
+    </div>
+  </div>
 <!--END TABLE-->
 
 

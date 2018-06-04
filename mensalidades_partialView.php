@@ -35,7 +35,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
 </head>
 <body>
 
-<?php include('header.php'); ?>
+<?php //include('header.php'); ?>
 
 <!-- TELA DE MENSALIDADES -->
 <div class="contratos">
@@ -56,7 +56,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
     <div class="tab-pane fade show active" id="dados-plano-section" role="tabpanel" aria-labelledby="dados-plano">
       <form id="form-dados-contrato">
         <div class="form-row">
-          <div class="form-group col-md-4">
+          <div class="form-group col-6">
             <fieldset>
               <legend class="md-4">Sacado</legend>
               <label for="aluno">Nome do Aluno:</label>
@@ -68,11 +68,12 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
               </div>
             </fieldset>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-6">
             <fieldset>
               <legend class="md-3">Bolsa/Desconto</legend>
               <!-- <label for="bolsa">Bolsa</label> -->
               <select class="form-control" id="bolsa">
+                <option value="0">(Selecione)</option>
                 <?php
                   $response = $bolsas->listBolsas();
                   if(!$response['erro']){
@@ -96,14 +97,14 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-8">
             <fieldset>
               <legend class="md-4">Valores</legend>
-              <div class="form-group col-md-2" style="float: left; width: 50%">
+              <div class="form-group col-3" style="float: left; width: 50%">
                 <label for="parcelas-quantidade" class="control-label">Parcelas</label>
                 <input type="number" id="parcelas-quantidade" class="form-control" min="0" />
               </div>
-                <div class="input-group col-md-4" style="float: left; width: 50%">
+                <div class="input-group col-4" style="float: left; width: 50%">
                   <label for="valor-parcela" class="control-label">Valor Parcela</label>
                   <div class="input-group">
                     <input type="text" id="valor-parcela" class="form-control" placeholder="246,00" />
@@ -112,7 +113,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                     </div>
                   </div>
                 </div>
-                <div class="input-group col-md-4" style="float: left; width: 50%">
+                <div class="input-group col-4" style="float: left; width: 50%">
                   <label for="valor-total" class="control-label">Valor Total</label>
                   <div class="input-group">
                     <input type="text" id="valor-total" class="form-control" />
@@ -123,7 +124,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                 </div>
             </fieldset>
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-4">
             <fieldset>
               <legend class="md-2">Data de Vencimento</legend>
                 <label for="data-vencimento" class="control-label">Data de Vencimento</label>
@@ -132,10 +133,10 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-8">
+          <div class="form-group col-md-12">
             <fieldset>
               <legend class="md-4">Plano de Contas</legend>
-              <div class="form-group col-md-4" style="float: left; width: 50%">
+              <div class="form-group col-md-6" style="float: left; width: 50%">
                 <label for="categoria">Categoria</label>
                 <select id="categoria" class="form-control">
                   <?php
@@ -154,7 +155,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                 <label for="complemento">Complemento</label>
                 <input type="text" id="complemento" class="form-control" />
               </div>
-              <div class="form-group col-md-4" style="float: left; width: 50%">
+              <div class="form-group col-md-2" style="float: left; width: 50%">
                 <label for="documento">Documento</label>
                 <input type="text" id="documento" class="form-control" />
               </div>
@@ -162,7 +163,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-8">
+          <div class="form-group col-md-12">
             <fieldset>
               <legend class="md-4">Cobrança</legend>
               <div class="form-group col-md-4" style="float: left; width: 50%">
@@ -225,7 +226,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
         </div>
         <div class="btns-panel-acoes">
           <button type="button" class="btn btn-primary" onclick="cadastrarContrato()">Lanças Parcelas !</button>
-          <button type="button" class="btn btn-danger">Cancelar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
       </form>
     </div>
@@ -235,7 +236,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
 </div>
 <!-- FIM TELA DE MENSALIDADES -->
 
-<?php include('footer.php') ?>
+<?php //include('footer.php') ?>
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -277,8 +278,35 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
     }
 
     function registraPlano(data = getDadosPlanoForm()){
-      data.push({'acao':'registraPlano'});
-      
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "php/parcelas/controle.php",
+        data: {'acao':'registrarPlano',data},
+        success: function(data) {
+          $('input').addClass('is-valid');
+          $('select').addClass('is-valid');
+          $('select').removeClass('is-invalid');
+          $('input').removeClass('is-invalid');
+          if(data.erro){
+            try {
+              if(data.invalidFields){
+                size = data.invalidFields.length;
+                for(i = 0; i < size; i++){
+                  $("#"+data.invalidFields[i]).addClass('is-invalid');
+                }
+              }
+            }
+            catch (error){
+              console.error(error);
+            }
+          }
+          console.log(data);
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
     }
     </script>
 </html>
