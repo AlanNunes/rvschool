@@ -1,3 +1,5 @@
+<?php $page_name = "Alunos" ?>
+
 <html lang="pt">
 <head>
   <!-- Required meta tags -->

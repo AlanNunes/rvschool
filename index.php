@@ -1,3 +1,5 @@
+<?php $page_name = "Home"; ?>
+
 <html lang="pt">
 <head>
 	<!-- Required meta tags -->
@@ -9,6 +11,7 @@
 
 	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 

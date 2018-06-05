@@ -5,6 +5,8 @@ $db = new DataBase();
 $conn = $db->getConnection();
 
 $cargos = new Cargos($conn);
+
+$page_name = "Funcionários";
  ?>
 <html lang="pt">
 <head>

@@ -3,7 +3,13 @@
 * @author     Gustavo Brandão <sm70plus2gmail.com>
 * @copyright  2018 Dual Dev
 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<script>
+			$(document).ready(function(){
+        $(".identifier").slideDown("slow");
+			});
+</script>
 
 <header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -63,6 +69,11 @@
 	</li>
 
 		    </ul>
+
 		  </div>
 		</nav>
 	</header>
+
+	<div class="identifier">
+		<h1 style="font-size: 25px;"><?php echo $page_name ?></h1>
+	</div>

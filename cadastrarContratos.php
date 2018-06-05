@@ -31,6 +31,9 @@ $turmas = new Turmas($conn);
 // Create an instance for 'Funcionários'
 $funcionarios = new Funcionarios($conn);
 // End Creation of Funcionários' Instance
+
+
+$page_name = "Contratos";
  ?>
 <html lang="pt">
 <head>
@@ -315,7 +318,7 @@ $funcionarios = new Funcionarios($conn);
         <div class="form-row">
           <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
         </div>
-        
+
       </form>
     </div>
     <!-- FIM DE OUTROS-SECTION -->

@@ -1,3 +1,5 @@
+<?php $page_name = "Parcerias"; ?>
+
 <html lang="pt">
 <head>
   <!-- Required meta tags -->
@@ -136,7 +138,7 @@
                   <div class="form-row">
                     <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
                   </div>
-                  
+
                 </form>
               </div>
               <!--END DADOS DO FUNCIONÁRIO-->

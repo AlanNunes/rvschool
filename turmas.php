@@ -11,6 +11,9 @@ $funcionarios = new Funcionarios($conn);
 $cursos = new Cursos($conn);
 // Create an instance for stages(estágios)
 $estagios = new Estagios($conn);
+
+
+$page_name = "Turmas";
  ?>
 <html lang="pt">
 <head>
@@ -232,7 +235,7 @@ $estagios = new Estagios($conn);
                   </div>
                 </div>
               </div>
-              
+
               <div class="form-row">
                 <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
               </div>
