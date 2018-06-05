@@ -33,6 +33,8 @@ Class Parcelas {
     }
   }
 
-  public function quitarParcela($parcelaId)
+  public function quitarParcela($parcelaId, $dinheiro, $troco){
+    
+  }
 }
 ?>

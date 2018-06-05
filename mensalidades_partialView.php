@@ -284,6 +284,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
         url: "php/parcelas/controle.php",
         data: {'acao':'registrarPlano',data},
         success: function(data) {
+          console.log(data);
           $('input').addClass('is-valid');
           $('select').addClass('is-valid');
           $('select').removeClass('is-invalid');

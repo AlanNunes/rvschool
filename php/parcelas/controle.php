@@ -28,11 +28,15 @@ switch ($process) {
 function registrarPlano(){
   $data = $_POST["data"];
   $validation = validateData($data);
-  // Cria uma instância para o Banco de Dados
-  $db = new DataBase();
-  $conn = $db->getConnection();
-  // Cria uma instância de Parcelas
-  
+  if($validation['erro']){
+    echo json_encode($validation);
+  }else{
+    // Cria uma instância para o Banco de Dados
+    $db = new DataBase();
+    $conn = $db->getConnection();
+    // Cria uma instância de Parcelas
+  }
+
 }
 
 function validateData($data){

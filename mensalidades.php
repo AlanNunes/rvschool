@@ -71,7 +71,7 @@
       </div>
       <!-- <div class="modal-body" id="content-modal-parcelas"> -->
         <!-- <iframe src="" id="iframe-modal-parcelas" width="100%" height="100%"></iframe> -->
-        <?php //include('mensalidades_partialView.php') ?>
+        <?php include('mensalidades_partialView.php') ?>
       <!-- </div> -->
       <!-- <div class="modal-footer" id="footer-modal-parcelas">
         <button type="button" id="btn-imprimir-parcelas" class="form-control btn btn-primary">Imprimir</button>
