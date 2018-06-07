@@ -24,9 +24,10 @@ DROP TABLE IF EXISTS `operadoras_de_cartao`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `operadoras_de_cartao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `nome` varchar(145) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome_UNIQUE` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,6 +36,7 @@ CREATE TABLE `operadoras_de_cartao` (
 
 LOCK TABLES `operadoras_de_cartao` WRITE;
 /*!40000 ALTER TABLE `operadoras_de_cartao` DISABLE KEYS */;
+INSERT INTO `operadoras_de_cartao` VALUES (3,'CARTÃO AMEX'),(5,'CARTÃO ELO'),(2,'CARTÃO HIPERCARD'),(4,'CARTÃO MASTERCARD'),(1,'VISA');
 /*!40000 ALTER TABLE `operadoras_de_cartao` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -47,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-30  3:03:08
+-- Dump completed on 2018-06-07  0:35:54

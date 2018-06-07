@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `parcelas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `parcelas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `valor` float NOT NULL,
   `dataVencimento` datetime NOT NULL,
   `categoria` int(11) NOT NULL,
@@ -33,11 +33,15 @@ CREATE TABLE `parcelas` (
   `situacao_parcela` int(11) NOT NULL,
   `observacoes` text,
   `conta_bancaria` int(11) NOT NULL,
+  `numero` int(3) NOT NULL,
+  `aluno` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `_idx` (`categoria`),
   KEY `forma_de_cobranca_idx` (`forma_de_cobranca`),
   KEY `conta_bancaria_idx` (`conta_bancaria`),
   KEY `situacao_parcela_idx` (`situacao_parcela`),
+  KEY `aluno_idx` (`aluno`),
+  CONSTRAINT `aluno` FOREIGN KEY (`aluno`) REFERENCES `alunos` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `categoria` FOREIGN KEY (`categoria`) REFERENCES `parcelas_categorias` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `conta_bancaria` FOREIGN KEY (`conta_bancaria`) REFERENCES `contas_bancarias` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `forma_de_cobranca` FOREIGN KEY (`forma_de_cobranca`) REFERENCES `formas_de_cobrancas` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -63,4 +67,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-30  3:03:08
+-- Dump completed on 2018-06-07  0:35:54

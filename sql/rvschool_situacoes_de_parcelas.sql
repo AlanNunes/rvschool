@@ -27,7 +27,7 @@ CREATE TABLE `situacoes_de_parcelas` (
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `situacoes_de_parcelas` (
 
 LOCK TABLES `situacoes_de_parcelas` WRITE;
 /*!40000 ALTER TABLE `situacoes_de_parcelas` DISABLE KEYS */;
+INSERT INTO `situacoes_de_parcelas` VALUES (3,'Cancelada'),(1,'Pendente'),(2,'Quitada');
 /*!40000 ALTER TABLE `situacoes_de_parcelas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-30  3:03:07
+-- Dump completed on 2018-06-07  0:35:54

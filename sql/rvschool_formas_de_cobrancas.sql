@@ -29,7 +29,7 @@ CREATE TABLE `formas_de_cobrancas` (
   `operadoracartao` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +38,7 @@ CREATE TABLE `formas_de_cobrancas` (
 
 LOCK TABLES `formas_de_cobrancas` WRITE;
 /*!40000 ALTER TABLE `formas_de_cobrancas` DISABLE KEYS */;
+INSERT INTO `formas_de_cobrancas` VALUES (1,'Dinheiro',1,0),(2,'Depósito Bancário',1,0),(3,'Cartão de Crédito',0,1),(4,'Cartão de Débito',0,1),(5,'Cobrança Bancária',1,0),(6,'Débito Automático',1,0),(7,'Permuta',1,0),(8,'Transferência Bancária',1,0),(9,'Cheque',1,0),(10,'Cheque Pré-Datado',1,0);
 /*!40000 ALTER TABLE `formas_de_cobrancas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-30  3:03:08
+-- Dump completed on 2018-06-07  0:35:54

@@ -27,7 +27,7 @@ CREATE TABLE `parcelas_categorias` (
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `parcelas_categorias` (
 
 LOCK TABLES `parcelas_categorias` WRITE;
 /*!40000 ALTER TABLE `parcelas_categorias` DISABLE KEYS */;
+INSERT INTO `parcelas_categorias` VALUES (14,'Acordo'),(13,'Aula VIP'),(12,'Book'),(11,'Devolução de Cheques'),(10,'Estorno de Parcelas'),(9,'Juros'),(1,'Mensalidade'),(8,'Mensalidade Retroativa'),(7,'Misto'),(6,'Recisão'),(2,'Taxa de Matrícula'),(3,'Tranca'),(4,'Transferência'),(5,'Troco');
 /*!40000 ALTER TABLE `parcelas_categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-30  3:03:10
+-- Dump completed on 2018-06-07  0:35:56
