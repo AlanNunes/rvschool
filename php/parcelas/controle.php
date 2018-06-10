@@ -10,6 +10,7 @@
  * @author     Gustavo Brandão <sm70plus2gmail.com>
  * @copyright  2018 Dual Dev
  */
+include_once('Parcelas.php');
 include_once('Parcelas_Categorias.php');
 include_once('../database/DataBase.php');
 
@@ -31,10 +32,22 @@ function registrarPlano(){
   if($validation['erro']){
     echo json_encode($validation);
   }else{
+    $params = $validation['data']; // Pega os parâmetros que passaram pela validação
     // Cria uma instância para o Banco de Dados
     $db = new DataBase();
     $conn = $db->getConnection();
     // Cria uma instância de Parcelas
+    $parcelas = new Parcelas($conn);
+    $parcelas->aluno = $params['aluno'];
+    $parcelas->valor = $params['valor-parcela'];
+    $parcelas->dataVencimento = $params['data-vencimento'];
+    $parcelas->categoria = $params['categoria'];
+    $parcelas->setDesconto($params['desconto-manual']);
+    $parcelas->setBolsa($params['bolsa']);
+    $parcelas->situacao_parcela = 'Pendente'; // Se refere à tabela situações de parcelas
+    $parcelas->observacoes = $params['observacoes'];
+    $response = $parcelas->registrarParcelas($params['parcelas-quantidade'], $params['quitar-primeira-parcela']);
+    echo json_encode($response);
   }
 
 }
@@ -49,7 +62,6 @@ function validateData($data){
     "valor-total",
     "data-vencimento",
     "categoria",
-    "forma-cobranca"
   );
   $requiredAmount = sizeof($requiredFields);
   $i = 0;

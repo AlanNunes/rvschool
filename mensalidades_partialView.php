@@ -37,6 +37,10 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
 
 <?php //include('header.php'); ?>
 
+<div id="page-cover">
+  <img src="assets/gifs/loading-icon6.gif" id="loading-gif" />
+</div>
+
 <!-- TELA DE MENSALIDADES -->
 <div class="contratos">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -59,7 +63,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           <div class="form-group col-6">
             <fieldset>
               <legend class="md-4">Sacado</legend>
-              <label for="aluno">Nome do Aluno:</label>
+              <label for="aluno">Nome:</label>
               <input list="suggestions-alunos" data-id="" class="form-control" id="aluno" placeholder="Ex.: Eunice Maria" onkeyup="getAlunos(this.value)" oninput="verificarNome()">
               <datalist id="suggestions-alunos">
               </datalist>
@@ -102,12 +106,12 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
               <legend class="md-4">Valores</legend>
               <div class="form-group col-3" style="float: left; width: 50%">
                 <label for="parcelas-quantidade" class="control-label">Parcelas</label>
-                <input type="number" id="parcelas-quantidade" class="form-control" min="0" />
+                <input type="number" id="parcelas-quantidade" class="form-control" min="0" onchange="calculaValorTotal()" />
               </div>
                 <div class="input-group col-4" style="float: left; width: 50%">
                   <label for="valor-parcela" class="control-label">Valor Parcela</label>
                   <div class="input-group">
-                    <input type="text" id="valor-parcela" class="form-control" placeholder="246,00" />
+                    <input type="text" id="valor-parcela" class="form-control" placeholder="246,00" onchange="calculaValorTotal()" />
                     <div class="input-group-append">
                       <span class="input-group-text">R$</span>
                     </div>
@@ -116,7 +120,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                 <div class="input-group col-4" style="float: left; width: 50%">
                   <label for="valor-total" class="control-label">Valor Total</label>
                   <div class="input-group">
-                    <input type="text" id="valor-total" class="form-control" />
+                    <input type="text" id="valor-total" class="form-control" disabled />
                     <div class="input-group-append">
                       <span class="input-group-text">R$</span>
                     </div>
@@ -139,6 +143,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
               <div class="form-group col-md-6" style="float: left; width: 50%">
                 <label for="categoria">Categoria</label>
                 <select id="categoria" class="form-control">
+                  <option value="0">(Selecione)</option>
                   <?php
                     $response = $categorias->getCategorias();
                     if($response){
@@ -163,69 +168,13 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-12">
-            <fieldset>
-              <legend class="md-4">Cobrança</legend>
-              <div class="form-group col-md-4" style="float: left; width: 50%">
-                <label for="forma-cobranca">Forma de Cobrança</label>
-                <select id="forma-cobranca" class="form-control" onchange="show_operadoras_cartao(this)">
-                  <option value="0" data-cartao="1">(Selecione)</option>
-                  <?php
-                    $response = $formasCobrancas->getFormasCobranca();
-                    if($response){
-                      foreach($response as $formaCobranca){
-                        $id = $formaCobranca['id'];
-                        $nome = $formaCobranca['nome'];
-                        $operadoracartao = $formaCobranca['operadoracartao'];
-                        echo "<option value='{$id}' data-cartao='{$operadoracartao}'>{$nome}</option>";
-                      }
-                    }
-                  ?>
-                </select>
-              </div>
-              <div class="form-group col-md-4" style="float: left; width: 50%">
-                <label for="conta-bancaria">Conta Bancária</label>
-                <select id="conta-bancaria" class="form-control">
-                  <!-- <option value="0">(Selecione)</option> -->
-                  <?php
-                    $response = $contasBancarias->getContasBancarias();
-                    if($response){
-                      foreach($response as $contaBancaria){
-                        $id = $contaBancaria['id'];
-                        $nome = $contaBancaria['nome'];
-                        echo "<option value='{$id}'>{$nome}</option>";
-                      }
-                    }
-                  ?>
-                </select>
-              </div>
-              <div class="form-group col-md-4" style="float: left; width: 50%">
-                <label for="operadora-de-cartao">Operadora de Cartão</label>
-                <select id="operadora-de-cartao" class="form-control" disabled>
-                  <option value="0" selected>(Selecione)</option>
-                  <?php
-                    $response = $operadorasCartao->getOperadoras();
-                    if($response){
-                      foreach($response as $operadora){
-                        $id = $operadora['id'];
-                        $nome = $operadora['nome'];
-                        echo "<option value='{$id}'>{$nome}</option>";
-                      }
-                    }
-                  ?>
-                </select>
-              </div>
-            </fieldset>
-          </div>
-        </div>
-        <div class="form-row">
           <div class="custom-control custom-checkbox" style="margin-left: 5px">
             <input type="checkbox" class="custom-control-input" id="quitar-primeira-parcela">
             <label class="custom-control-label" for="quitar-primeira-parcela">Quitar a 1ª parcela</label>
           </div>
         </div>
         <div class="btns-panel-acoes">
-          <button type="button" class="btn btn-primary" onclick="cadastrarContrato()">Lanças Parcelas !</button>
+          <button type="button" class="btn btn-primary" onclick="registraPlano()">Criar Plano</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
       </form>
@@ -237,6 +186,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
 <!-- FIM TELA DE MENSALIDADES -->
 
 <?php //include('footer.php') ?>
+</body>
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -256,10 +206,21 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
       }
     }
 
+    // Calcula o valor total a ser pago, exemplo: parcelas*valor
+    function calculaValorTotal(){
+      parcelas = document.getElementById("parcelas-quantidade").value;
+      valor = document.getElementById("valor-parcela").value;
+      valor = valor.replace(',', '.');
+      total = parcelas*valor;
+      total = parseFloat(Math.round(total * 100) / 100).toFixed(2);
+      total = total.replace('.', ',');
+      document.getElementById("valor-total").value = total;
+    }
+
     // Pega todos os dados de Dados do Contrato
     function getDadosPlanoForm(){
       data = [{
-        'aluno':$("#aluno").val(),
+        'aluno':$("#aluno").data('id'),
         'bolsa':$("#bolsa").val(),
         'desconto-manual':$("#desconto-manual").val(),
         'parcelas-quantidade':$("#parcelas-quantidade").val(),
@@ -269,10 +230,8 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
         'categoria':$("#categoria").val(),
         'complemento':$("#complemento").val(),
         'documento':$("#documento").val(),
-        'forma-cobranca':$("#forma-cobranca").val(),
-        'conta-bancaria':$("#conta-bancaria").val(),
-        'operadora-de-cartao':$("#operadora-de-cartao").val(),
-        'quitar-primeira-parcela':$("#quitar-primeira-parcela").is(":checked")
+        'quitar-primeira-parcela':$("#quitar-primeira-parcela").is(":checked"),
+        'observacoes':''
       }];
       return data;
     }
@@ -302,12 +261,82 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
               console.error(error);
             }
           }
-          console.log(data);
         },
         error: function(error) {
           console.log(error);
         }
       });
+    }
+
+    // Função responsável por pegar o id do aluno
+    function verificarNome(){
+      var aluno = document.getElementById("aluno");
+      var val = aluno.value;
+      if(val.length >= 4){
+        indexSlice = val.indexOf('(');
+        var id = val.slice(indexSlice+1, (val.length)-1);
+        var opts = document.getElementById('suggestions-alunos').childNodes;
+        for (var i = 0; i < opts.length; i++) {
+          console.log(opts[i].dataset.id);
+          console.log("id: "+id);
+          if (opts[i].dataset.id === id) {
+            alunoId = opts[i].dataset.id;
+            aluno.dataset.id = alunoId;
+            // document.getElementById("aluno").value = val.slice(0, indexSlice-1);
+            break;
+          }
+        }
+      }
+    }
+
+    // Função responsável por buscar os alunos e responsáveis, de acordo com o que foi digitado no campo input
+    function getAlunos(text){
+      indexSlice = text.indexOf('(');
+      text = (indexSlice >= 0)? text.slice(0, indexSlice-1): text;
+      console.log("bla: "+text);
+      // Only fetch students(alunos) if the information given is up to 4
+      if(text.length >= 4){
+        var data = {
+          "acao":"getAlunosByName",
+          "nome": text
+        }
+        data = $(this).serialize() + "&" + $.param(data);
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/alunos/controle.php",
+          data: data,
+          beforeSend: function () {
+            showLoadingGif();
+          },
+          success: function(data) {
+            size = data.length;
+            i = 0;
+            document.getElementById("suggestions-alunos").innerHTML = '';
+            console.log(size);
+            for(i; i < size; i++){
+              $("#suggestions-alunos").append("<option data-id='"+data[i].id+"' value='"+data[i].nome+" ("+data[i].id+")' />");
+            }
+            closeLoadingGif();
+          },
+          error: function(e)  {
+            console.log(e);
+            closeLoadingGif();
+          }
+        });
+      }
+    }
+
+    function showLoadingGif(){
+      if(document.getElementById("page-cover").style.display == "none"){
+        $("#page-cover").css("opacity",0.6).fadeIn(10, function () {
+          $('#loading-gif').css({'position':'absolute','z-index':9999, "display":"block"});
+        });
+      }
+    }
+    function closeLoadingGif(){
+      $("#page-cover").css("display","none");
+      $("#loading-gif").css("display","none");
     }
     </script>
 </html>

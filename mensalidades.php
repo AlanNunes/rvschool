@@ -96,11 +96,5 @@
       e.preventDefault();
       $("#vertical-nav-bar").toggleClass("collapsed");
     });
-    $("#menu-incluir").click(function(e){
-      iframe = document.getElementById("iframe-modal-parcelas");
-      if(iframe.src != ''){
-        iframe.src = "mensalidades_partialView.php";
-      }
-    });
     </script>
 </html>
