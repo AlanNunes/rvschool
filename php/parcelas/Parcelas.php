@@ -1,5 +1,7 @@
 <?php
 /**
+ * Controle de Parcelas
+ *
  * It's the Class Parcelas where all the datas relationed to parcelas
  * are manipulated.
  *
@@ -7,15 +9,50 @@
  * @author     Alan Nunes da Silva <alann.625@gmail.com>
  */
 Class Parcelas {
+	/**
+	* @var integer
+	*/
 	private $id;
+	/**
+	* @var integer
+	*/
 	public $aluno;
+	/**
+	* @var float
+	*/
 	public $valor;
+	/**
+	* @var string
+	*/
   public $dataVencimento;
+	/**
+	* @var integer
+	*/
   public $categoria;
+	/**
+	* @var float
+	*/
   public $desconto;
+	/**
+	* @var integer
+	*/
   public $bolsa;
+	/**
+	* @var string
+	*/
   public $situacao_parcela;
+	/**
+	* @var string
+	*/
   public $observacoes;
+	/**
+	* @var float
+	*/
+	public $valor_recebido;
+	/**
+	* @var float
+	*/
+	public $troco;
 	private $conn;
 
 	/**
@@ -69,6 +106,36 @@ Class Parcelas {
 		}else{
 			$desconto = str_replace(',', '.', $desconto);
 			$this->desconto = floatval($desconto);
+		}
+	}
+
+	/**
+	* Define o valor recebido
+	*
+	* @access public
+	* @param string $valor Valor recebido
+	*/
+	public function setValor_Recebido($valor){
+		if(!$valor){
+			$this->valor_recebido = 'DEFAULT';
+		}else{
+			$valor = str_replace(',', '.', $valor);
+			$this->valor_recebido = floatval($valor);
+		}
+	}
+
+	/**
+	* Define o troco
+	*
+	* @access public
+	* @param string $troco Troco a ser recebido
+	*/
+	public function setTroco($troco){
+		if(!$troco){
+			$this->troco = 'DEFAULT';
+		}else{
+			$troco = str_replace(',', '.', $troco);
+			$this->troco = floatval($troco);
 		}
 	}
 
@@ -141,12 +208,38 @@ Class Parcelas {
 	* Esta função é responsável por quitar parcelas
 	*
 	* @access public
-	* @param integer id da parcela a ser paga
-	* @param float o valor em dinheiro recebido
-	* @param float o valor em troco dado ao sacado
+	* @param integer $id Id da parcela a ser paga
+	* @param float $dinheiro O valor em dinheiro recebido
+	* @param float $troco O valor em troco dado ao sacado
+	* @return array Retorna um conjunto de informações sobre o procedimento
 	*/
-  public function quitarParcela($parcela, $dinheiro, $troco){
-
+  public function quitarParcela($id){
+		$now = time();
+		$sql = "UPDATE parcelas SET situacao_parcela = 'Quitada',
+					valor_recebido = {$this->valor_recebido}, troco = {$this->troco},
+					momento_pagamento = {$now} WHERE id = {$id}";
+		if($this->conn->query($sql)){
+			return array('erro' => false, 'description' => 'A parcela foi quitada com sucesso.');
+		}else{
+			return array('erro' => true, 'description' => 'A parcela não foi quitada.', 'more' => $this->conn->error);
+		}
   }
+
+	/**
+	* Coleta Parcelas
+	*
+	* Esta função é responsável por coletar parcelas do banco de dados através de
+	* filtros.
+	*
+	* @access public
+	* @param integer $time Timestamp
+	* @param integer $aluno Id do aluno
+	* @param integer $mes Número do mês
+	* @param array $situacao Situação das Parcelas
+	* @return array Retorna um conjunto de informações sobre o procedimento
+	*/
+	public function getParcelasByFilter($time, $aluno, $mes, $situacao, $situacao){
+
+	}
 }
 ?>
