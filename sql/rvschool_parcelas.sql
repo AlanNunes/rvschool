@@ -23,29 +23,23 @@ DROP TABLE IF EXISTS `parcelas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `parcelas` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `valor` float NOT NULL,
-  `dataVencimento` datetime NOT NULL,
+  `dataVencimento` date NOT NULL,
   `categoria` int(11) NOT NULL,
   `desconto` float NOT NULL DEFAULT '0',
-  `bolsa` int(11) NOT NULL,
-  `forma_de_cobranca` int(11) NOT NULL,
-  `situacao_parcela` int(11) NOT NULL,
+  `bolsa` int(11) DEFAULT NULL,
+  `situacao_parcela` varchar(45) NOT NULL,
   `observacoes` text,
-  `conta_bancaria` int(11) NOT NULL,
   `numero` int(3) NOT NULL,
   `aluno` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `_idx` (`categoria`),
-  KEY `forma_de_cobranca_idx` (`forma_de_cobranca`),
-  KEY `conta_bancaria_idx` (`conta_bancaria`),
   KEY `situacao_parcela_idx` (`situacao_parcela`),
   KEY `aluno_idx` (`aluno`),
   CONSTRAINT `aluno` FOREIGN KEY (`aluno`) REFERENCES `alunos` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `categoria` FOREIGN KEY (`categoria`) REFERENCES `parcelas_categorias` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `conta_bancaria` FOREIGN KEY (`conta_bancaria`) REFERENCES `contas_bancarias` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `forma_de_cobranca` FOREIGN KEY (`forma_de_cobranca`) REFERENCES `formas_de_cobrancas` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `situacao_parcela` FOREIGN KEY (`situacao_parcela`) REFERENCES `situacoes_de_parcelas` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT `situacao_parcela` FOREIGN KEY (`situacao_parcela`) REFERENCES `situacoes_de_parcelas` (`nome`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -67,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-07  0:35:54
+-- Dump completed on 2018-06-11  0:22:53

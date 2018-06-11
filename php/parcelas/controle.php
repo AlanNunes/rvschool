@@ -39,14 +39,14 @@ function registrarPlano(){
     // Cria uma instância de Parcelas
     $parcelas = new Parcelas($conn);
     $parcelas->aluno = $params['aluno'];
-    $parcelas->valor = $params['valor-parcela'];
+    $parcelas->setValor($params['valor-parcela']);
     $parcelas->dataVencimento = $params['data-vencimento'];
     $parcelas->categoria = $params['categoria'];
     $parcelas->setDesconto($params['desconto-manual']);
     $parcelas->setBolsa($params['bolsa']);
     $parcelas->situacao_parcela = 'Pendente'; // Se refere à tabela situações de parcelas
-    $parcelas->observacoes = $params['observacoes'];
-    $response = $parcelas->registrarParcelas($params['parcelas-quantidade'], $params['quitar-primeira-parcela']);
+    $parcelas->setObservacoes($params['observacoes']);
+    $response = $parcelas->registrarParcelas($params['parcelas-quantidade'], filter_var($params['quitar-primeira-parcela'], FILTER_VALIDATE_BOOLEAN));
     echo json_encode($response);
   }
 
