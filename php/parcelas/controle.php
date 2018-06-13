@@ -21,9 +21,28 @@ switch ($process) {
     registrarPlano();
     break;
 
+  case 'filtrarParcelas':
+    filtrarParcelas();
+    break;
+
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
     break;
+}
+
+/**
+* Filtra as Parcelas
+*
+* Filtra as parcelas de acordo com o número do mês, a situação da parcela e o
+* nome do aluno
+*/
+function filtrarParcelas(){
+  // Cria uma instância para o Banco de Dados
+  $db = new DataBase();
+  $conn = $db->getConnection();
+  // Cria uma instância de Parcelas
+  $parcelas = new Parcelas($conn);
+  print_r($parcelas->getParcelasByFilter('Alan Nun', 6, ['Pendente', 'Quitada', 'Cancelada']));
 }
 
 function registrarPlano(){
