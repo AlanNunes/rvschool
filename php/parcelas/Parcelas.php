@@ -12,7 +12,7 @@ Class Parcelas {
 	/**
 	* @var integer
 	*/
-	private $id;
+	public $id;
 	/**
 	* @var integer
 	*/
@@ -53,6 +53,23 @@ Class Parcelas {
 	* @var float
 	*/
 	public $troco;
+	/**
+	* @var string
+	*/
+	public $dataRecebimento;
+	/**
+	* @var integer
+	*/
+	public $formaCobranca;
+	/**
+	* @var integer
+	*/
+	public $operadoraCartao;
+	/**
+	* @var integer
+	*/
+	public $contaBancaria;
+
 	private $conn;
 
 	/**
@@ -208,20 +225,18 @@ Class Parcelas {
 	* Esta função é responsável por quitar parcelas
 	*
 	* @access public
-	* @param integer $id Id da parcela a ser paga
-	* @param float $dinheiro O valor em dinheiro recebido
-	* @param float $troco O valor em troco dado ao sacado
 	* @return array Retorna um conjunto de informações sobre o procedimento
 	*/
-  public function quitarParcela($id){
-		$now = time();
+  public function quitar(){
 		$sql = "UPDATE parcelas SET situacao_parcela = 'Quitada',
-					valor_recebido = {$this->valor_recebido}, troco = {$this->troco},
-					momento_pagamento = {$now} WHERE id = {$id}";
+		valor_recebido = {$this->valor_recebido}, troco = {$this->troco},
+		operadora_de_cartao = {$this->operadoraCartao},
+		forma_de_cobranca = {$this->formaCobranca}, data_recebimento = '{$this->dataRecebimento}',
+		desconto_momento_recebimento = {$this->desconto} WHERE id = {$this->id}";
 		if($this->conn->query($sql)){
-			return array('erro' => false, 'description' => 'A parcela foi quitada com sucesso.');
+			return true;
 		}else{
-			return array('erro' => true, 'description' => 'A parcela não foi quitada.', 'more' => $this->conn->error);
+			return false;
 		}
   }
 

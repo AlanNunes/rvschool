@@ -21,6 +21,10 @@ switch ($process) {
     registrarPlano();
     break;
 
+  case 'quitarParcela':
+    quitarParcela();
+    break;
+
   case 'filtrarParcelas':
     filtrarParcelas();
     break;
@@ -30,13 +34,72 @@ switch ($process) {
     break;
 }
 
+
+/**
+* Quita uma Parcela
+*/
+function quitarParcela()
+{
+  $data = $_POST['data'];
+  $invalidFields = [];
+  if (!isset($data['conta_bancaria']) OR empty($data['conta_bancaria']))
+  {
+    array_push($invalidFields, 'conta_bancaria');
+  }
+  if (!isset($data['data_recebimento']) OR empty($data['data_recebimento']))
+  {
+    array_push($invalidFields, 'data_recebimento');
+  }
+  if (!isset($data['forma_de_cobranca']) OR empty($data['forma_de_cobranca']))
+  {
+    array_push($invalidFields, 'forma_de_cobranca');
+  }
+  if (!isset($data['troco']) OR empty($data['troco']))
+  {
+    array_push($invalidFields, 'troco');
+  }
+  if (!isset($data['valor_recebido']) OR empty($data['valor_recebido']))
+  {
+    array_push($invalidFields, 'valor_recebido');
+  }
+  if ($data['cartao'])
+  {
+    if (!isset($data['operadora_cartao']) OR empty($data['operadora_cartao']))
+    {
+      array_push($invalidFields, 'operadora_cartao');
+    }
+  }
+  if ($invalidFields)
+  {
+    echo json_encode(array('erro' => true, 'invalidFields' => $invalidFields));
+  }
+  else
+  {
+    // Todos os dados estão válidos, vamos quitar a parcela agora
+    $db = new DataBase();
+    $conn = $db->getConnection();
+    $parcela = new Parcelas($conn);
+    $parcela->id = $data['id'];
+    $parcela->desconto = ($data['desconto'])?"{$data['desconto']}":'null';
+    $parcela->valor_recebido = $data['valor_recebido'];
+    $parcela->troco = $data['troco'];
+    $parcela->dataRecebimento = $data['data_recebimento'];
+    $parcela->formaCobranca = $data['forma_de_cobranca'];
+    $parcela->operadoraCartao = ($data['operadora_cartao'])?"{$data['operadora_cartao']}":'null';
+    $parcela->contaBancaria = $data['conta_bancaria'];
+    $response = $parcela->quitar();
+    echo json_encode(array('erro' => !$response));
+  }
+}
+
 /**
 * Filtra as Parcelas
 *
 * Filtra as parcelas de acordo com o número do mês, a situação da parcela e o
 * nome do aluno
 */
-function filtrarParcelas(){
+function filtrarParcelas()
+{
   // Cria uma instância para o Banco de Dados
   $db = new DataBase();
   $conn = $db->getConnection();
@@ -45,7 +108,8 @@ function filtrarParcelas(){
   print_r($parcelas->getParcelasByFilter('Alan Nun', 6, ['Pendente', 'Quitada', 'Cancelada']));
 }
 
-function registrarPlano(){
+function registrarPlano()
+{
   $data = $_POST["data"];
   $validation = validateData($data);
   if($validation['erro']){

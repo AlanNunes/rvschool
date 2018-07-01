@@ -44,7 +44,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           <div class="form-group col-md">
             <label for="forma_de_cobranca">Forma de Cobrança:</label>
             <select id="forma_de_cobranca" class="form-control" onchange="show_operadoras_cartao(this);">
-              <option value='null'>(Selecione)</option>
+              <option value='' data-cartao=''>(Selecione)</option>
               <?php
                 $response = $formasCobrancas->getFormasCobranca();
                 foreach ($response as $item)
@@ -58,11 +58,14 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                 }
                ?>
             </select>
+            <div class="invalid-feedback">
+              Você esqueceu de selecionar aqui ;)
+            </div>
           </div>
           <div class="form-group col-md">
             <label for="operadoras_cartao">Bandeira:</label>
             <select id="operadora_cartao" class="form-control" disabled>
-              <option value='null'>(Selecione)</option>
+              <option value=''>(Selecione)</option>
               <?php
                 $response = $operadorasCartao->getOperadoras();
                 foreach ($response as $item)
@@ -73,11 +76,14 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                 }
                ?>
             </select>
+            <div class="invalid-feedback">
+              Qual a bandeira ?
+            </div>
           </div>
           <div class="form-group col-md">
             <label for="conta_bancaria">Conta Bancária:</label>
             <select id="conta_bancaria" class="form-control">
-              <option value='null'>(Selecione)</option>
+              <option value=''>(Selecione)</option>
               <?php
                 $response = $contasBancarias->getContasBancarias();
                 foreach ($response as $item)
@@ -88,6 +94,9 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                 }
                ?>
             </select>
+            <div class="invalid-feedback">
+              Não se esqueça de escolher a conta bancária .-.
+            </div>
           </div>
         </div>
         <div class="form-row">
@@ -99,6 +108,9 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                 </div>
                 <input type="text" id="valor_a_receber" class="form-control" disabled />
               </div>
+              <div class="invalid-feedback">
+                Este campo está faltando informações
+              </div>
           </div>
           <div class="form-group col-md">
             <label for="valor_recebido">Valor Recebido:</label>
@@ -107,6 +119,9 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                 <span class="input-group-text">R$</span>
               </div>
               <input type="text" id="valor_recebido" class="form-control" onchange="validateValorRecebido(this.value)" />
+              <div class="invalid-feedback">
+                Tens certeza que a quantia está certa ? :o
+              </div>
             </div>
           </div>
           <div class="form-group col-md">
@@ -116,6 +131,9 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
                 <span class="input-group-text">R$</span>
               </div>
               <input type="text" id="troco" class="form-control" />
+              <div class="invalid-feedback">
+                Confira se o troco está certinho antes de quitar a parcela ;)
+              </div>
             </div>
           </div>
         </div>
@@ -141,14 +159,15 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           <div class="form-group col-md">
             <label for="data_recebimento">Data de Recebimento:</label>
             <input type="date" id="data_recebimento" class="form-control" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col md">
-            <button class="btn btn-primary" onclick="quitar()">Quitar</button>
+            <div class="invalid-feedback">
+              Pleasee, diga-me quando a parcela foi quitada
+            </div>
           </div>
         </div>
       </form>
+      <div class="form-row">
+        <button class="btn btn-primary" onclick="quitar()">Quitar</button>
+      </div>
   </div>
 </body>
 <!-- Scripts -->
@@ -191,12 +210,44 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
     // Quita a parcela
     function quitar()
     {
-
+      data = getFormData();
+      console.log(data);
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "php/parcelas/controle.php",
+        data: {'acao':'quitarParcela', 'data':data},
+        success: function(data) {
+          console.log(data);
+          $('input').addClass('is-valid');
+          $('select').addClass('is-valid');
+          $('select').removeClass('is-invalid');
+          $('input').removeClass('is-invalid');
+          if(data.erro){
+            try {
+              if(data.invalidFields){
+                size = data.invalidFields.length;
+                for(i = 0; i < size; i++){
+                  $("#"+data.invalidFields[i]).addClass('is-invalid');
+                }
+              }
+            }
+            catch (error){
+              console.error(error);
+            }
+          }
+        },
+        error: function(error) {
+          console.warn(error);
+        }
+      });
     }
 
     // Pega todos os dados dos fields do form
     function getFormData()
     {
+      forma_cobranca = document.getElementById("forma_de_cobranca");
+      i = forma_cobranca.selectedIndex;
       data = {
         'forma_de_cobranca' : $("#forma_de_cobranca").val(),
         'operadora_cartao' : $("#operadora_cartao").val(),
@@ -207,6 +258,9 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
         'desconto' : $("#desconto").val(),
         'desconto_percentual' : $("#desconto_percentual").val(),
         'data_recebimento' : $("#data_recebimento").val(),
+        // Para saber se a forma de cobrança é em cartão ou não
+        'cartao' : forma_cobranca[i].dataset.cartao,
+        'id' : getUrlParameter('id')
       };
 
       return data;
