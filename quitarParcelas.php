@@ -1,0 +1,305 @@
+<?php
+require_once('php/database/DataBase.php');
+require_once('php/bolsas/Bolsas.php');
+require_once('php/parcelas/Parcelas_Categorias.php');
+require_once('php/formas_de_cobrancas/Formas_de_Cobrancas.php');
+require_once('php/contas_bancarias/Contas_Bancarias.php');
+require_once('php/operadoras_de_cartao/operadoras_de_cartao.php');
+// Cria uma instância do Banco de Dados e pega a conexão do mesmo
+$db = new DataBase();
+$conn = $db->getConnection();
+// Cria uma instância de Bolsas
+$bolsas = new Bolsas($conn);
+// Cria uma instância de Formas de Cobranças
+$formasCobrancas = new Formas_de_Cobrancas($conn);
+// Cria uma instância de Formas de Cobranças
+$contasBancarias = new Contas_Bancarias($conn);
+// Cria uma instância de Operadoras de Cartões
+$operadorasCartao = new Operadoras_de_Cartao($conn);
+?>
+<!-- This view is rendered in another view -->
+<html lang="pt">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+ 	<link rel="shortcut icon" type="image/x-icon" href="assets/imgs/logo/fav.ico">
+	<title> Mensalidades - Revolution School </title>
+
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<?php //include('header.php'); ?>
+
+<div id="page-cover">
+  <img src="assets/gifs/loading-icon6.gif" id="loading-gif" />
+</div>
+<div class="painel">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md">
+            <label for="forma_de_cobranca">Forma de Cobrança:</label>
+            <select id="forma_de_cobranca" class="form-control" onchange="show_operadoras_cartao(this);">
+              <option value='null'>(Selecione)</option>
+              <?php
+                $response = $formasCobrancas->getFormasCobranca();
+                foreach ($response as $item)
+                {
+                  $id = $item['id'];
+                  // Nome do tipo de cobrança
+                  $nome = $item['nome'];
+                  // boolean
+                  $cartao = $item['operadoracartao'];
+                  echo "<option value='{$id}' data-cartao='{$cartao}'>{$nome}</option>";
+                }
+               ?>
+            </select>
+          </div>
+          <div class="form-group col-md">
+            <label for="operadoras_cartao">Bandeira:</label>
+            <select id="operadora_cartao" class="form-control" disabled>
+              <option value='null'>(Selecione)</option>
+              <?php
+                $response = $operadorasCartao->getOperadoras();
+                foreach ($response as $item)
+                {
+                  $id = $item['id'];
+                  $nome = $item['nome'];
+                  echo "<option value='{$id}'>{$nome}</option>";
+                }
+               ?>
+            </select>
+          </div>
+          <div class="form-group col-md">
+            <label for="conta_bancaria">Conta Bancária:</label>
+            <select id="conta_bancaria" class="form-control">
+              <option value='null'>(Selecione)</option>
+              <?php
+                $response = $contasBancarias->getContasBancarias();
+                foreach ($response as $item)
+                {
+                  $id = $item['id'];
+                  $nome = $item['nome'];
+                  echo "<option value='{$id}'>{$nome}</option>";
+                }
+               ?>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md">
+              <label for="valor_a_receber">Valor a Receber:</label>
+              <div class="input-group">
+                <div class="input-group-append">
+                  <span class="input-group-text">R$</span>
+                </div>
+                <input type="text" id="valor_a_receber" class="form-control" disabled />
+              </div>
+          </div>
+          <div class="form-group col-md">
+            <label for="valor_recebido">Valor Recebido:</label>
+            <div class="input-group">
+              <div class="input-group-append">
+                <span class="input-group-text">R$</span>
+              </div>
+              <input type="text" id="valor_recebido" class="form-control" onchange="validateValorRecebido(this.value)" />
+            </div>
+          </div>
+          <div class="form-group col-md">
+            <label for="troco">Troco:</label>
+            <div class="input-group">
+              <div class="input-group-append">
+                <span class="input-group-text">R$</span>
+              </div>
+              <input type="text" id="troco" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md">
+            <label for="desconto">Desconto:</label>
+            <div class="input-group">
+              <div class="input-group-append">
+                <span class="input-group-text">R$</span>
+              </div>
+              <input type="text" id="desconto" class="form-control" onchange="calculaDesconto(this.value)" />
+            </div>
+          </div>
+          <div class="form-group col-md">
+            <label for="desconto_percentual">Desconto %:</label>
+            <div class="input-group">
+              <div class="input-group-append">
+                <span class="input-group-text">R$</span>
+              </div>
+              <input type="text" id="desconto_percentual" class="form-control" onchange="calculaDescontoPercentual(this.value)" />
+            </div>
+          </div>
+          <div class="form-group col-md">
+            <label for="data_recebimento">Data de Recebimento:</label>
+            <input type="date" id="data_recebimento" class="form-control" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col md">
+            <button class="btn btn-primary" onclick="quitar()">Quitar</button>
+          </div>
+        </div>
+      </form>
+  </div>
+</body>
+<!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+       var today = new Date();
+       var dd = today.getDate();
+       var mm = today.getMonth()+1; //January is 0!
+       var yyyy = today.getFullYear();
+       if(dd<10){dd='0'+dd}
+       if(mm<10){mm='0'+mm}
+       var today = yyyy + '-' + mm + '-' + dd;
+       document.getElementById("data_recebimento").value = today;
+
+       // Seta o valor a ser pago
+       window.valor_original = getUrlParameter('valor').replace(',', '.');
+       $("#valor_a_receber").val(window.valor_original);
+    });
+    // Verifica se a forma de cobrança selecionada é relacionada à cartões
+    // Se for relacionada à cartões, ele abilita o select de operadoras e seleciona a primeira operadora de cartão, caso contrário ele desabilita o mesmo
+    function show_operadoras_cartao(forma_cobranca)
+    {
+      operadora = document.getElementById("operadora_cartao");
+      i = forma_cobranca.selectedIndex;
+      if (parseInt(forma_cobranca[i].dataset.cartao))
+      {
+        operadora.disabled = false;
+        operadora.selectedIndex = 0;
+      }
+      else
+      {
+        operadora.disabled = true;
+        operadora.selectedIndex = 0;
+      }
+    }
+
+    // Quita a parcela
+    function quitar()
+    {
+
+    }
+
+    // Pega todos os dados dos fields do form
+    function getFormData()
+    {
+      data = {
+        'forma_de_cobranca' : $("#forma_de_cobranca").val(),
+        'operadora_cartao' : $("#operadora_cartao").val(),
+        'conta_bancaria' : $("#conta_bancaria").val(),
+        'valor_a_receber' : $("#valor_a_receber").val(),
+        'valor_recebido' : $("#valor_recebido").val(),
+        'troco' : $("#troco").val(),
+        'desconto' : $("#desconto").val(),
+        'desconto_percentual' : $("#desconto_percentual").val(),
+        'data_recebimento' : $("#data_recebimento").val(),
+      };
+
+      return data;
+    }
+
+    // Pega parâmetros da Url
+    // Exemplo: getUrlParameter('id');
+    function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+        return '';
+    }
+
+    // Valida o troco e o valor recebido
+    // Muda os inputs de cor de acordo com a situação do cálculo
+    function validateValorRecebido(valor)
+    {
+      valor_a_receber = $("#valor_a_receber").val();
+      valor_a_receber = valor_a_receber.replace(',', '.');
+      if (Number(valor) < Number(valor_a_receber))
+      {
+        $("#valor_recebido").removeClass('is-valid');
+        $("#valor_recebido").removeClass('is-invalid');
+        $("#valor_recebido").addClass('is-invalid');
+        console.log('invalid');
+      }
+      else
+      {
+        $("#valor_recebido").removeClass('is-valid');
+        $("#valor_recebido").removeClass('is-invalid');
+        $("#valor_recebido").addClass('is-valid');
+        console.log('valid');
+      }
+      calculaTroco();
+    }
+
+    // Calcula desconto
+    function calculaDesconto(desconto)
+    {
+      desconto = desconto.replace(',', '.');
+      $("#valor_a_receber").val(Number(valor_original) - Number(desconto));
+
+      // Calcula o desconto em percentual para mostrar no input de desc. percent.
+      descontoPercentual = ((Number(desconto)*100) / window.valor_original).toFixed(2);
+
+      $("#desconto_percentual").val(descontoPercentual);
+    }
+
+    // Calcula desconto em percentual
+    function calculaDescontoPercentual(desconto)
+    {
+      desconto = desconto.replace(',', '.');
+      desconto = (valor_original * desconto) / 100;
+      $("#valor_a_receber").val(Number(valor_original) - Number(desconto));
+
+      // Calcula o desconto sem ser percentual para mostrar no input de desc.
+      $("#desconto").val(Number(desconto));
+    }
+
+    // Calcula o troco a ser recebido
+    function calculaTroco()
+    {
+      // Valor a receber
+      valor_a_receber = $("#valor_a_receber").val();
+      valor_a_receber = valor_a_receber.replace(',', '.');
+      // Valor recebido
+      valor_recebido = $("#valor_recebido").val();
+      valor_recebido = valor_recebido.replace(',', '.');
+      // Troco
+      troco = Number(valor_recebido) - Number(valor_a_receber);
+
+      // Seta o troco no input
+      $("#troco").val(troco.toFixed(2));
+    }
+
+    function showLoadingGif(){
+      if(document.getElementById("page-cover").style.display == "none"){
+        $("#page-cover").css("opacity",0.6).fadeIn(10, function () {
+          $('#loading-gif').css({'position':'absolute','z-index':9999, "display":"block"});
+        });
+      }
+    }
+    function closeLoadingGif(){
+      $("#page-cover").css("display","none");
+      $("#loading-gif").css("display","none");
+    }
+    </script>
+</html>

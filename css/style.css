@@ -69,6 +69,12 @@ table .inativo:hover {
   background-color: #fff8e7;
 }
 
+.painel {
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #fff8e7;
+}
+
 #page-cover {
     display: none;
     position: fixed;
@@ -163,4 +169,20 @@ legend.md-4
   margin-left: 40%;
   height: 5%;
   display: none;
+}
+
+input.warning {
+  border-color: #ffb95e!important;
+}
+
+select.warning {
+  border-color: #ffb95e!important;
+}
+
+input.alert {
+  border-color: #fff65e!important;
+}
+
+select.alert {
+  border-color: #fff65e!important;
 }
