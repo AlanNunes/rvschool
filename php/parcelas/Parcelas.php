@@ -157,6 +157,93 @@ Class Parcelas {
 	}
 
 	/**
+	*
+	*
+	* @access public
+	* @param integer id da parcela
+	*/
+	public function applyDescontoBolsaByParcelaId($id){
+		$sql = "SELECT p.valor, p.desconto, p.bolsa, b.desconto,
+						b.fixa, b.dataInicio, b.dataTermino FROM parcelas p
+						INNER JOIN bolsas b ON b.id = p.bolsa
+						WHERE p.id = {$this}";
+    $result = $this->conn->query($sql);
+		if ($result->num_rows > 0)
+		{
+			// Esta parcela tem bolsa atribuida
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	* Pega o valor da parcela somente
+	*
+	* @access public
+	* @param integer id da parcela
+	*/
+	public function getParcelaValorById($id){
+		$sql = "SELECT valor FROM parcelas WHERE id = {$id}";
+		$result = $this->conn->query($sql);
+		if ($result->num_rows > 0)
+		{
+			// Retorna o valor da parcela, sem desconto nenhum
+			$row = $result->fetch_assoc();
+			return $row['valor'];
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	* Pega o valor da parcela somente
+	*
+	* @access public
+	* @param integer id da parcela
+	*/
+	public function getDescontoByParcelaId($id){
+		$sql = "SELECT desconto FROM parcelas WHERE id = {$id}";
+		$result = $this->conn->query($sql);
+		if ($result->num_rows > 0)
+		{
+			// Retorna o valor da parcela, sem desconto nenhum
+			$row = $result->fetch_assoc();
+			return $row['desconto'];
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	* Retorna desconto, data de início e término da bolsa, e se ela é fixa ou não.
+	*
+	* @access public
+	* @param integer id da parcela
+	*/
+	public function getBolsaByParcelaId($id){
+		$sql = "SELECT b.desconto, b.fixa, b.dataInicio, b.dataTermino
+						FROM bolsas b INNER JOIN parcelas p ON p.bolsa = b.id
+						WHERE p.id = {$id}";
+		$result = $this->conn->query($sql);
+		if ($result->num_rows > 0)
+		{
+			// Retorna o valor da parcela, sem desconto nenhum
+			$row = $result->fetch_assoc();
+			return $row;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
 	* Registrador de Parcelas
 	* Esta função registra parcelas, todas como 'Pendentes'
 	*

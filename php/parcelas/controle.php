@@ -14,6 +14,9 @@ include_once('Parcelas.php');
 include_once('Parcelas_Categorias.php');
 include_once('../database/DataBase.php');
 
+// Define o time zone para São Paulo
+date_default_timezone_set('America/Sao_Paulo');
+
 $process = $_POST["acao"];
 
 switch ($process) {
@@ -25,6 +28,10 @@ switch ($process) {
     quitarParcela();
     break;
 
+  case 'getParcelaByIdAplicandoDescontos':
+    getParcelaByIdAplicandoDescontos();
+    break;
+
   case 'filtrarParcelas':
     filtrarParcelas();
     break;
@@ -34,6 +41,56 @@ switch ($process) {
     break;
 }
 
+
+/**
+* Pega a parcela de acordo com o ID
+* Retorna a parcela já com os descontos aplicados
+*/
+function getParcelaByIdAplicandoDescontos()
+{
+  if (isset($_POST['id']) OR !empty($_POST['id']))
+  {
+    $id = $_POST['id'];
+    $db = new DataBase();
+    $conn = $db->getConnection();
+    $parcela = new Parcelas($conn);
+    $valor_original = $parcela->getParcelaValorById($id);
+    // Retorna o desconto da parcela ( number )
+    $desconto = $parcela->getDescontoByParcelaId($id);
+    $bolsa = $parcela->getBolsaByParcelaId($id);
+    $percentualBolsa = 0;
+    if ($bolsa)
+    {
+      // Entrou na condição, então significa que esta parcela possui bolsa
+      if($bolsa['fixa'])
+      {
+        $percentualBolsa = $bolsa['desconto'];
+      }
+      else
+      {
+        $dataAgora = date('d-m-Y');
+        if (strtotime($dataAgora) >= strtotime($bolsa['dataInicio'])
+            && strtotime($dataAgora) <= strtotime($bolsa['dataTermino']))
+        {
+          $percentualBolsa = $bolsa['desconto'];
+        }
+      }
+    }
+    // Valor que o aluno deve pagar
+    $mensalidade = $valor_original - $desconto;
+    if($percentualBolsa)
+    {
+      $mensalidade = ($mensalidade * $percentualBolsa) / 100;
+    }
+    echo json_encode(array('mensalidade' => $mensalidade, 'valor_original' =>
+                          $valor_original, 'desconto' => $desconto,
+                          'percentualBolsa' => $percentualBolsa));
+  }
+  else
+  {
+    echo false;
+  }
+}
 
 /**
 * Quita uma Parcela
@@ -80,9 +137,9 @@ function quitarParcela()
     $conn = $db->getConnection();
     $parcela = new Parcelas($conn);
     $parcela->id = $data['id'];
-    $parcela->desconto = ($data['desconto'])?"{$data['desconto']}":'null';
-    $parcela->valor_recebido = $data['valor_recebido'];
-    $parcela->troco = $data['troco'];
+    $parcela->setDesconto($data['desconto']);
+    $parcela->setValor_Recebido($data['valor_recebido']);
+    $parcela->setTroco($data['troco']);
     $parcela->dataRecebimento = $data['data_recebimento'];
     $parcela->formaCobranca = $data['forma_de_cobranca'];
     $parcela->operadoraCartao = ($data['operadora_cartao'])?"{$data['operadora_cartao']}":'null';

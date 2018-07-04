@@ -185,10 +185,33 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
        var today = yyyy + '-' + mm + '-' + dd;
        document.getElementById("data_recebimento").value = today;
 
-       // Seta o valor a ser pago
-       window.valor_original = getUrlParameter('valor').replace(',', '.');
-       $("#valor_a_receber").val(window.valor_original);
+       getParcela();
     });
+
+    // Busca a parcela de acordo com o id passado na url e retorna a mesma
+    // já com os descontos aplicados
+    function getParcela()
+    {
+      console.log(getUrlParameter('id'));
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "php/parcelas/controle.php",
+        data: {'acao':'getParcelaByIdAplicandoDescontos', 'id':getUrlParameter('id')},
+        success: function(data) {
+          if(data)
+          {
+            console.log(data);
+            window.valor_original = data.mensalidade;
+            $("#valor_a_receber").val(data.mensalidade);
+          }
+        },
+        error: function(error) {
+          console.warn(error);
+        }
+      });
+    }
+
     // Verifica se a forma de cobrança selecionada é relacionada à cartões
     // Se for relacionada à cartões, ele abilita o select de operadoras e seleciona a primeira operadora de cartão, caso contrário ele desabilita o mesmo
     function show_operadoras_cartao(forma_cobranca)
@@ -288,6 +311,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
     {
       valor_a_receber = $("#valor_a_receber").val();
       valor_a_receber = valor_a_receber.replace(',', '.');
+      valor = valor.replace(',', '.');
       if (Number(valor) < Number(valor_a_receber))
       {
         $("#valor_recebido").removeClass('is-valid');
