@@ -27,7 +27,7 @@ CREATE TABLE `contas_bancarias` (
   `nome` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `contas_bancarias` (
 
 LOCK TABLES `contas_bancarias` WRITE;
 /*!40000 ALTER TABLE `contas_bancarias` DISABLE KEYS */;
-INSERT INTO `contas_bancarias` VALUES (1,'ITAÚ'),(2,'SANTANDER');
+INSERT INTO `contas_bancarias` VALUES (3,'CAIXA'),(1,'ITAÚ'),(2,'SANTANDER');
 /*!40000 ALTER TABLE `contas_bancarias` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-11  3:31:52
+-- Dump completed on 2018-07-04  2:21:47
