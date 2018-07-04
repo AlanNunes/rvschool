@@ -19,23 +19,19 @@ $contasBancarias = new Contas_Bancarias($conn);
 // Cria uma instância de Operadoras de Cartões
 $operadorasCartao = new Operadoras_de_Cartao($conn);
 ?>
-<!-- This view is rendered in another view -->
-<html lang="pt">
-<head>
-	<!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
- 	<link rel="shortcut icon" type="image/x-icon" href="assets/imgs/logo/fav.ico">
-	<title> Mensalidades - Revolution School </title>
-
-	<!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<?php //include('header.php'); ?>
+<style>
+#modal-quitar {
+    position: relative;
+}
+iframe {
+    position: relative;
+    left: 0;
+    right: 0;
+    height: 350px;
+    width: 100%;
+}
+</style>
 
 <div id="page-cover">
   <img src="assets/gifs/loading-icon6.gif" id="loading-gif" />
@@ -180,18 +176,33 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
       </form>
     </div>
     <!-- FIM DADOS DO PLANO -->
-
   </div>
 </div>
 <!-- FIM TELA DE MENSALIDADES -->
 
-<?php //include('footer.php') ?>
-</body>
-<!-- Scripts -->
-    <script src="js/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
+<!-- MODAL DE QUITAR PARCELAS -->
+<div class="modal fade modal fade bd-example-modal-lg" id="modal-quitar" tabindex="-1" role="dialog" aria-labelledby="modal-documentoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title-modal-quitar">Revolution School</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <iframe src="" id="iframe_quitar" width="800px" style="border: 2px solid black"></iframe>
+    </div>
+  </div>
+</div>
+<!--  FIM MODAL DE QUITAR PARCELAS -->
     <script>
+    $(document).on('show.bs.modal', '.modal', function () {
+    var zIndex = 1040 + (10 * $('.modal:visible').length);
+    $(this).css('z-index', zIndex);
+    setTimeout(function() {
+        $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+    }, 0);
+});
     // Verifica se a forma de cobrança selecionada é relacionada à cartões
     // Se for relacionada à cartões, ele abilita o select de operadoras e seleciona a primeira operadora de cartão, caso contrário ele desabilita o mesmo
     function show_operadoras_cartao(forma_cobranca){
@@ -248,17 +259,34 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           $('select').addClass('is-valid');
           $('select').removeClass('is-invalid');
           $('input').removeClass('is-invalid');
-          if(data.erro){
-            try {
-              if(data.invalidFields){
+          if (data.erro)
+          {
+            try
+            {
+              if(data.invalidFields)
+              {
                 size = data.invalidFields.length;
-                for(i = 0; i < size; i++){
+                for(i = 0; i < size; i++)
+                {
                   $("#"+data.invalidFields[i]).addClass('is-invalid');
                 }
               }
             }
-            catch (error){
+            catch (error)
+            {
               console.error(error);
+            }
+          }
+          else
+          {
+            // O usuário escolheu quitar a primeira parcela
+            if (data.quitar)
+            {
+              // Abre o modal com o iframe de quitar parcelas
+              document.getElementById('iframe_quitar').src =
+                                        'quitarParcelas.php?id='+data.insert_id;
+              $('#modal-quitar').modal('show');
+              $('#modal-parcelas').addClass('modal-backdrop');
             }
           }
         },

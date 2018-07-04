@@ -61,7 +61,6 @@
 <!-- FIM DE MENU VERTICAL -->
 
 <!-- MODAL DE PARCELAS -->
-<style></style>
 <div class="modal fade modal fade bd-example-modal-lg" id="modal-parcelas" tabindex="-1" role="dialog" aria-labelledby="modal-documentoLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" style="margin-left:15%; margin-right:15%">
     <div class="modal-content" style="width:110%!important;">
@@ -73,7 +72,7 @@
       </div>
       <!-- <div class="modal-body" id="content-modal-parcelas"> -->
         <!-- <iframe src="" id="iframe-modal-parcelas" width="100%" height="100%"></iframe> -->
-        <?php include('mensalidades_partialView.php') ?>
+        <?php include('mensalidades_partialView.php'); ?>
       <!-- </div> -->
       <!-- <div class="modal-footer" id="footer-modal-parcelas">
         <button type="button" id="btn-imprimir-parcelas" class="form-control btn btn-primary">Imprimir</button>
@@ -83,7 +82,7 @@
   </div>
 </div>
 <!--  FIM MODAL DE PARCELAS -->
-<?php include('footer.php') ?>
+<?php include('footer.php'); ?>
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -18,22 +18,10 @@ $contasBancarias = new Contas_Bancarias($conn);
 $operadorasCartao = new Operadoras_de_Cartao($conn);
 ?>
 <!-- This view is rendered in another view -->
-<html lang="pt">
-<head>
-	<!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
- 	<link rel="shortcut icon" type="image/x-icon" href="assets/imgs/logo/fav.ico">
-	<title> Mensalidades - Revolution School </title>
 
 	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<?php //include('header.php'); ?>
 
 <div id="page-cover">
   <img src="assets/gifs/loading-icon6.gif" id="loading-gif" />
@@ -169,7 +157,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
         <button class="btn btn-primary" onclick="quitar()">Quitar</button>
       </div>
   </div>
-</body>
+
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -233,6 +221,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
     // Quita a parcela
     function quitar()
     {
+      showLoadingGif();
       data = getFormData();
       console.log(data);
       $.ajax({
@@ -264,6 +253,7 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           console.warn(error);
         }
       });
+      closeLoadingGif();
     }
 
     // Pega todos os dados dos fields do form
@@ -380,4 +370,3 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
       $("#loading-gif").css("display","none");
     }
     </script>
-</html>
