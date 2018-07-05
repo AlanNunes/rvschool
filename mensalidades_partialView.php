@@ -59,7 +59,7 @@ iframe {
           <div class="form-group col-6">
             <fieldset>
               <legend class="md-4">Sacado</legend>
-              <label for="aluno">Nome:</label>
+              <label for="aluno"><span style="color:red">*</span> Nome:</label>
               <input list="suggestions-alunos" data-id="" class="form-control" id="aluno" placeholder="Ex.: Eunice Maria" onkeyup="getAlunos(this.value)" oninput="verificarNome()">
               <datalist id="suggestions-alunos">
               </datalist>
@@ -101,11 +101,15 @@ iframe {
             <fieldset>
               <legend class="md-4">Valores</legend>
               <div class="form-group col-3" style="float: left; width: 50%">
-                <label for="parcelas-quantidade" class="control-label">Parcelas</label>
+                <label for="parcelas-quantidade" class="control-label">
+                  <span style="color:red">*</span> Parcelas
+                </label>
                 <input type="number" id="parcelas-quantidade" class="form-control" min="0" onchange="calculaValorTotal()" />
               </div>
                 <div class="input-group col-4" style="float: left; width: 50%">
-                  <label for="valor-parcela" class="control-label">Valor Parcela</label>
+                  <label for="valor-parcela" class="control-label">
+                    <span style="color:red">*</span> Valor Parcela
+                  </label>
                   <div class="input-group">
                     <input type="text" id="valor-parcela" class="form-control" placeholder="246,00" onchange="calculaValorTotal()" />
                     <div class="input-group-append">
@@ -127,7 +131,9 @@ iframe {
           <div class="form-group col-4">
             <fieldset>
               <legend class="md-2">Data de Vencimento</legend>
-                <label for="data-vencimento" class="control-label">Data de Vencimento</label>
+                <label for="data-vencimento" class="control-label">
+                  <span style="color:red">*</span> Data de Vencimento
+                </label>
                 <input type="date" id="data-vencimento" class="form-control" />
             </fieldset>
           </div>
@@ -137,7 +143,9 @@ iframe {
             <fieldset>
               <legend class="md-4">Plano de Contas</legend>
               <div class="form-group col-md-6" style="float: left; width: 50%">
-                <label for="categoria">Categoria</label>
+                <label for="categoria">
+                  <span style="color:red">*</span> Categoria
+                </label>
                 <select id="categoria" class="form-control">
                   <option value="0">(Selecione)</option>
                   <?php
@@ -168,6 +176,9 @@ iframe {
             <input type="checkbox" class="custom-control-input" id="quitar-primeira-parcela">
             <label class="custom-control-label" for="quitar-primeira-parcela">Quitar a 1ª parcela</label>
           </div>
+        </div>
+        <div class="form-row">
+          <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
         </div>
         <div class="btns-panel-acoes">
           <button type="button" class="btn btn-primary" onclick="registraPlano()">Criar Plano</button>
@@ -286,7 +297,7 @@ iframe {
               document.getElementById('iframe_quitar').src =
                                         'quitarParcelas.php?id='+data.insert_id;
               $('#modal-quitar').modal('show');
-              $('#modal-parcelas').addClass('modal-backdrop');
+              // $('#modal-parcelas').addClass('modal-backdrop');
             }
           }
         },

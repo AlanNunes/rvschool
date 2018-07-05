@@ -248,6 +248,11 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
               console.error(error);
             }
           }
+          else
+          {
+            alert('foi');
+            $('').modal('hide');
+          }
         },
         error: function(error) {
           console.warn(error);
