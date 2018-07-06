@@ -296,13 +296,13 @@ Class Parcelas {
       $sql .= "INSERT INTO parcelas (aluno, valor, dataVencimento, categoria, desconto, bolsa, situacao_parcela, observacoes, numero)
                 VALUES ({$this->aluno}, {$this->valor}, '{$this->dataVencimento}', {$this->categoria}, {$this->desconto}, {$this->bolsa}, '{$this->situacao_parcela}', {$this->observacoes}, {$i});";
     }
-		if($this->conn->multi_query($sql)){
+		if($this->conn->multi_query($sql) OR $insert_id){
 			/**
 			* Caso o '$quitar_primeira_parcela' seja falso o '$insert_id' é retornado como false(0)
 			*/
 			return array('erro' => false, 'quitar' => $quitar_primeira_parcela, 'description' => 'O plano foi criado com sucesso.', 'insert_id' => $insert_id);
 		}else{
-			return array('erro' => true, 'description' => 'O plano não foi criado, ocorreu algum erro.', 'more' => $this->conn->error);
+			return array('erro' => true, 'description' => 'O plano não foi criado, ocorreu algum erro.', 'more' => $quantidade);
 		}
   }
 

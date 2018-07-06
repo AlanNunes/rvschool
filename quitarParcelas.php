@@ -158,6 +158,25 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
       </div>
   </div>
 
+  <!-- MODAL DE FEEDBACK -->
+  <div class="modal fade" id="modal-feedback" tabindex="-1" role="dialog" aria-labelledby="modal-feedbackLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="title-modal-feedback">Revolution School</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="content-modal-feedback">
+        </div>
+        <div class="modal-footer" id="footer-modal-feedback">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIM MODAL DE FEEDBACK -->
+
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -218,6 +237,24 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
       }
     }
 
+    // Function que mostra Modal com resposta
+    function showFeedbackModal(titulo, conteudo, botaoConteudo, botaoClass, botaoAtributos)
+    {
+      alert('birl');
+      $("#title-modal-feedback").html(titulo);
+      $("#content-modal-feedback").html(conteudo);
+      btn = document.createElement("button");
+      btn.innerHTML = botaoConteudo;
+      if(botaoClass) btn.className = botaoClass;
+      for(i = 0; i < botaoAtributos.length; i++){
+        botaoAtributos = botaoAtributos || [];
+        console.log(botaoAtributos[i].name);
+        btn.setAttribute(botaoAtributos[i].name, botaoAtributos[i].value);
+      }
+      $("#footer-modal-feedback").html(btn);
+      $("#modal-feedback").modal('show');
+    }
+
     // Quita a parcela
     function quitar()
     {
@@ -250,8 +287,8 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
           }
           else
           {
-            alert('foi');
-            $('').modal('hide');
+            showFeedbackModal('Sucesso', 'A parcela foi quitada com sucesso!', 'Beleza!', 'btn btn-primary', [{name: 'data-dismiss', value: 'modal'}]);
+            $('#modal-quitar').modal('hide');
           }
         },
         error: function(error) {

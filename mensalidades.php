@@ -82,6 +82,22 @@
   </div>
 </div>
 <!--  FIM MODAL DE PARCELAS -->
+
+<!-- MODAL DE QUITAR PARCELAS -->
+<div class="modal fade modal fade bd-example-modal-lg" id="modal-quitar" tabindex="-1" role="dialog" aria-labelledby="modal-documentoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="margin-left:15%; margin-right:15%">
+    <div class="modal-content" style="width:110%!important;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title-modal-quitar">Revolution School</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <iframe src="" id="iframe_quitar" width="800px" height="350px" style="border: 0px"></iframe>
+    </div>
+  </div>
+</div>
+<!--  FIM MODAL DE QUITAR PARCELAS -->
 <?php include('footer.php'); ?>
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
@@ -95,5 +111,13 @@
       e.preventDefault();
       $("#vertical-nav-bar").toggleClass("collapsed");
     });
+
+    // Abre o modal de quitar parcelas
+    function showQuitarParcela(id)
+    {
+      document.getElementById('iframe_quitar').src = 'quitarParcelas.php?id='+id;
+      $('#modal-parcelas').modal('hide');
+      $('#modal-quitar').modal('show');
+    }
     </script>
 </html>

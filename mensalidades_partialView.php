@@ -20,19 +20,6 @@ $contasBancarias = new Contas_Bancarias($conn);
 $operadorasCartao = new Operadoras_de_Cartao($conn);
 ?>
 
-<style>
-#modal-quitar {
-    position: relative;
-}
-iframe {
-    position: relative;
-    left: 0;
-    right: 0;
-    height: 350px;
-    width: 100%;
-}
-</style>
-
 <div id="page-cover">
   <img src="assets/gifs/loading-icon6.gif" id="loading-gif" />
 </div>
@@ -42,12 +29,6 @@ iframe {
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="dados-plano-tab" data-toggle="tab" href="#dados-plano-section" role="tab" aria-controls="dados-plano-section" aria-selected="true" style="color: #F3E1B9;" >Dados do Plano</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="matricula-tab" data-toggle="tab" href="#matricula-section" role="tab" aria-controls="matricula" aria-selected="false" style="color: #F3E1B9;">Matrícula</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="outros-tab" data-toggle="tab" href="#outros-section" role="tab" aria-controls="outros" aria-selected="false" style="color: #F3E1B9;">Outros</a>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
@@ -190,22 +171,6 @@ iframe {
   </div>
 </div>
 <!-- FIM TELA DE MENSALIDADES -->
-
-<!-- MODAL DE QUITAR PARCELAS -->
-<div class="modal fade modal fade bd-example-modal-lg" id="modal-quitar" tabindex="-1" role="dialog" aria-labelledby="modal-documentoLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="title-modal-quitar">Revolution School</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <iframe src="" id="iframe_quitar" width="800px" style="border: 2px solid black"></iframe>
-    </div>
-  </div>
-</div>
-<!--  FIM MODAL DE QUITAR PARCELAS -->
     <script>
     $(document).on('show.bs.modal', '.modal', function () {
     var zIndex = 1040 + (10 * $('.modal:visible').length);
@@ -242,7 +207,7 @@ iframe {
     // Pega todos os dados de Dados do Contrato
     function getDadosPlanoForm(){
       data = [{
-        'aluno':$("#aluno").data('id'),
+        'aluno':document.getElementById('aluno').dataset.id,
         'bolsa':$("#bolsa").val(),
         'desconto-manual':$("#desconto-manual").val(),
         'parcelas-quantidade':$("#parcelas-quantidade").val(),
@@ -293,11 +258,8 @@ iframe {
             // O usuário escolheu quitar a primeira parcela
             if (data.quitar)
             {
-              // Abre o modal com o iframe de quitar parcelas
-              document.getElementById('iframe_quitar').src =
-                                        'quitarParcelas.php?id='+data.insert_id;
-              $('#modal-quitar').modal('show');
-              // $('#modal-parcelas').addClass('modal-backdrop');
+              // Abre o modal de quitar parcelas
+              showQuitarParcela(data.insert_id);
             }
           }
         },
@@ -306,7 +268,6 @@ iframe {
         }
       });
     }
-
     // Função responsável por pegar o id do aluno
     function verificarNome(){
       var aluno = document.getElementById("aluno");

@@ -660,7 +660,6 @@ $page_name = "Contratos";
         $("#footer-modal-feedback").html(btn);
         $("#modal-feedback").modal('show');
       }
-      // Fim Function
 
       // Retorna todos os dados dos campos do forms
       function getFormValues(){
