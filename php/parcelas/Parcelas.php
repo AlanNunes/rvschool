@@ -339,56 +339,30 @@ Class Parcelas {
 	* @param array $situacoes Situação das Parcelas
 	* @return array Retorna um conjunto de informações sobre o procedimento
 	*/
-	public function getParcelasByFilter($aluno, $mes, $situacoes){
-		/**
-		* Forma a estrutura da query para o filtro
-		*/
-		$condicao = "WHERE";
-		$countCondicoes = 0;
-		if($mes){
-			$condicao .= " MONTH(FROM_UNIXTIME(momento_pagamento)) = {$mes} ";
-			$countCondicoes++;
-		}
-		if($aluno){
-			if($countCondicoes == 0){
-				$and = '';
-			}else{
-				$and = 'AND';
-			}
-			$condicao .= "{$and} nome LIKE '%{$aluno}%' ";
-			$countCondicoes++;
-		}
-		if($situacoes){
-			if($countCondicoes == 0){
-				$and = '';
-			}else{
-				$and = 'AND';
-			}
-			$pendente = $situacoes[0]; // 'Pendente' ou ''
-			$cancelada = $situacoes[1]; // 'Cancelada' ou ''
-			$quitada = $situacoes[2]; // 'Quitada' ou ''
-			$condicao .= " {$and} (situacao_parcela = '{$pendente}' OR
-				situacao_parcela = '{$cancelada}' OR situacao_parcela = '{$quitada}') ";
-			$countCondicoes++;
-		}
-		$sql = "SELECT p.*, a.* FROM parcelas p INNER JOIN alunos a ON p.aluno = a.id
-		 				{$condicao}";
-		/**
-		* Termina de formar a estrutura do sql
-		*/
+	public function getParcelasByFilter($aluno, $mes, $situacoes, $from, $max)
+	{
+		$quitada = $situacoes[0];
+		$pendente = $situacoes[1];
+		$sql = "SELECT p.numero, a.nome, p.dataVencimento, p.valor, p.desconto,
+		 				b.desconto as descPercentual, pc.nome as categoria FROM parcelas p
+						INNER JOIN alunos a ON a.id = p.aluno
+						INNER JOIN parcelas_categorias pc ON pc.id = p.categoria
+						INNER JOIN bolsas b ON b.id = p.bolsa
+						WHERE a.nome LIKE '%{$aluno}%'
+						AND (p.situacao_parcela LIKE '%{$quitada}%'
+						OR p.situacao_parcela LIKE '%{$pendente}%')
+						LIMIT {$from}, {$max}";
 		/**
 		* Executa a query para buscar os alunos e retorna o resultado do processo
 		*/
 		$result = $this->conn->query($sql);
 		if($result->num_rows > 0){
 			while($row = $result->fetch_assoc()){
-				$alunos[] = $row;
+				$parcelas[] = $row;
 			}
-			return array('erro' => false, 'description' => 'As parcelas foram
-										filtradas com sucesso', 'alunos' => $alunos);
+			return $parcelas;
 		}else{
-			return array('erro' => false, 'description' => 'Nenhuma parcela foi
-										encontrada', 'alunos' => null);
+			return 0;
 		}
 	}
 }

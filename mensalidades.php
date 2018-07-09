@@ -21,9 +21,17 @@
 
 <!--TABLE DE PARCELAS-->
 <br>
+  <!-- <form>
+  <div class="form-row">
+    <div class="form-group col-md3">
+      <label for="data_recebimento">Data de Recebimento:</label>
+      <input type="date" id="data_recebimento" class="form-control" />
+    </div>
+  </div>
+  </form> -->
 <div class="container-fluid">
   <div class="table-responsive">
-    <table class="table table-hover" style="text-align: center; max-width: 90%">
+    <table class="table table-hover" id="tabela_parcelas" style="text-align: center; max-width: 90%">
       <thead class="thead-dark">
         <tr>
           <th scope="col">N° PARCELA</th>
@@ -70,14 +78,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <!-- <div class="modal-body" id="content-modal-parcelas"> -->
-        <!-- <iframe src="" id="iframe-modal-parcelas" width="100%" height="100%"></iframe> -->
         <?php include('mensalidades_partialView.php'); ?>
-      <!-- </div> -->
-      <!-- <div class="modal-footer" id="footer-modal-parcelas">
-        <button type="button" id="btn-imprimir-parcelas" class="form-control btn btn-primary">Imprimir</button>
-        <button type="button" class="form-control btn btn-danger" data-dismiss="modal">Cancelar</button>
-      </div> -->
     </div>
   </div>
 </div>
@@ -118,6 +119,75 @@
       document.getElementById('iframe_quitar').src = 'quitarParcelas.php?id='+id;
       $('#modal-parcelas').modal('hide');
       $('#modal-quitar').modal('show');
+    }
+
+    /**
+    * Lista as parcelas
+    * @paremeters
+    * @var from int Ponto inicial a começar a listar as parcelas
+    * @var max int Máximo de itens a serem selecionados
+    */
+    function listParcelas(from, max)
+    {
+      var data = {
+        'from':from,
+        'max':max,
+        'aluno':'Alan',
+        'mes':7,
+        'situacoes':['Pendente', '', '']
+      };
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "php/parcelas/controle.php",
+        data: {'acao':'listParcelas', 'data':data},
+        beforeSend: function () {
+          showLoadingGif();
+        },
+        success: function(data) {
+          var table = document.getElementById('tableContent');
+          table.innerHTML = '';
+          for(i = 0; i < data.length; i++)
+          {
+            var tr = document.createElement('tr');
+            var numero = document.createElement('td');
+            var nome = document.createElement('td');
+            var dataVencimento = document.createElement('td');
+            var valor = document.createElement('td');
+            var valorLiquido = document.createElement('td');
+            var categoria = document.createElement('td');
+            numero.innerHTML = data[i].numero;
+            nome.innerHTML = data[i].nome;
+            dataVencimento.innerHTML = data[i].dataVencimento;
+            valor.innerHTML = data[i].valor;
+            valorLiquido.innerHTML = data[i].valor;
+            categoria.innerHTML = data[i].categoria;
+            tr.appendChild(numero);
+            tr.appendChild(nome);
+            tr.appendChild(dataVencimento);
+            tr.appendChild(valor);
+            tr.appendChild(valorLiquido);
+            tr.appendChild(categoria);
+            table.appendChild(tr);
+          }
+        },
+        error: function(e)  {
+          console.error(e);
+        }
+      });
+      closeLoadingGif();
+    }
+
+    function showLoadingGif(){
+      if(document.getElementById("page-cover").style.display == "none"){
+        $("#page-cover").css("opacity",0.6).fadeIn(10, function () {
+          $('#loading-gif').css({'position':'absolute','z-index':9999, "display":"block"});
+        });
+      }
+    }
+    function closeLoadingGif(){
+      $("#page-cover").css("display","none");
+      $("#loading-gif").css("display","none");
     }
     </script>
 </html>

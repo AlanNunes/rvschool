@@ -32,8 +32,8 @@ switch ($process) {
     getParcelaByIdAplicandoDescontos();
     break;
 
-  case 'filtrarParcelas':
-    filtrarParcelas();
+  case 'listParcelas':
+    listParcelas();
     break;
 
   default:
@@ -155,14 +155,32 @@ function quitarParcela()
 * Filtra as parcelas de acordo com o número do mês, a situação da parcela e o
 * nome do aluno
 */
-function filtrarParcelas()
+function listParcelas()
 {
-  // Cria uma instância para o Banco de Dados
-  $db = new DataBase();
-  $conn = $db->getConnection();
-  // Cria uma instância de Parcelas
-  $parcelas = new Parcelas($conn);
-  print_r($parcelas->getParcelasByFilter('Alan Nun', 6, ['Pendente', 'Quitada', 'Cancelada']));
+  $data = $_POST['data'];
+  if (isset($data['aluno']) && !empty($data['aluno']) && isset($data['mes'])
+  && !empty($data['mes']) && isset($data['situacoes'])
+  && !empty($data['situacoes']))
+  {
+    // Cria uma instância para o Banco de Dados
+    $db = new DataBase();
+    $conn = $db->getConnection();
+    // Cria uma instância de Parcelas
+    $parcelas = new Parcelas($conn);
+    $aluno = $data['aluno'];
+    $mes = $data['mes'];
+    $situacoes = $data['situacoes'];
+    // Para paginação
+    $from = $data['from'];
+    // Para paginação
+    $max = $data['max'];
+    echo json_encode($parcelas->getParcelasByFilter($aluno, $mes, $situacoes,
+                                                    $from, $max));
+  }
+  else
+  {
+    echo 0;
+  }
 }
 
 function registrarPlano()
