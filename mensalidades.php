@@ -1,4 +1,9 @@
-<?php $page_name = "Mensalidades"; ?>
+<?php
+$page_name = "Mensalidades";
+
+include('php/database/database.php');
+include('php/situacoes_parcelas/SituacoesParcelas.php');
+?>
 
 <html lang="pt">
 <head>
@@ -21,17 +26,9 @@
 
 <!--TABLE DE PARCELAS-->
 <br>
-  <!-- <form>
-  <div class="form-row">
-    <div class="form-group col-md3">
-      <label for="data_recebimento">Data de Recebimento:</label>
-      <input type="date" id="data_recebimento" class="form-control" />
-    </div>
-  </div>
-  </form> -->
 <div class="container-fluid">
   <div class="table-responsive">
-    <table class="table table-hover" id="tabela_parcelas" style="text-align: center; max-width: 90%">
+    <table class="table table-sm table-hover" id="tabela_parcelas" style="text-align: center; max-width: 80%">
       <thead class="thead-dark">
         <tr>
           <th scope="col">N° PARCELA</th>
@@ -64,6 +61,56 @@
       <a href="#" data-toggle="modal" data-target="#modal-parcelas" id="menu-incluir"><span class="oi oi-plus"></span></span><span class="nav-label">   Incluir</span></a>
       <a href="#"><span class="oi oi-print"></span><span class="nav-label">   Relatório</span></a>
     </li>
+    <form style="padding: 5px;">
+      <li><a href="#"><h5>Filtros:</h5></a></li>
+      <div class="form-row">
+        <div class="form-group col-sm">
+          <label for="data_recebimento">Sacado:</label>
+          <input type="text" id="sacado_filtro" class="form-control form-control-sm" />
+        </div>
+      </div>
+    <div class="form-row">
+      <div class="form-group col-sm">
+        <label for="data_recebimento">Vencimento:</label>
+        <select id="vencimento_filtro" class="form-control form-control-sm">
+          <option value='1'>Janeiro</option>
+          <option value='2'>Fevereiro</option>
+          <option value='3'>Março</option>
+          <option value='4'>Abril</option>
+          <option value='5'>Maio</option>
+          <option value='6'>Junho</option>
+          <option value='7'>Julho</option>
+          <option value='8'>Agosto</option>
+          <option value='9'>Setembro</option>
+          <option value='10'>Outubro</option>
+          <option value='11'>Novembro</option>
+          <option value='12'>Dezembro</option>
+        </select>
+      </div>
+      <div class="form-group col-sm">
+        <label for="situacoes">Situação:</label>
+          <div id="situacoes">
+            <?php
+              $db = new DataBase();
+              $conn = $db->getConnection();
+              $situacao = new SituacoesParcelas($conn);
+              $response = $situacao->getSituacoes();
+              foreach ($response as $sit)
+              {
+                $id = $sit['id'];
+                $nome = $sit['nome'];
+                echo "<div class='form-group col-sm'>";
+                echo  "<div class='custom-control custom-checkbox'>";
+                echo    "<input type='checkbox' class='custom-control-input' id='{$nome}' />";
+                echo    "<label class='custom-control-label' for='{$nome}'>{$nome}</label>";
+                echo  "</div>";
+                echo "</div>";
+              }
+             ?>
+           </div>
+      </div>
+    </div>
+    </form>
   </ul>
 </nav>
 <!-- FIM DE MENU VERTICAL -->
@@ -113,6 +160,12 @@
       $("#vertical-nav-bar").toggleClass("collapsed");
     });
 
+    // Seleciona o mês atual, no filtro
+    var d = new Date();
+    var m = d.getMonth();
+    document.getElementById('vencimento_filtro')[m].selected = true;
+    //
+
     // Abre o modal de quitar parcelas
     function showQuitarParcela(id)
     {
@@ -121,30 +174,69 @@
       $('#modal-quitar').modal('show');
     }
 
+    function getSituacoes()
+    {
+      situacoes = [];
+      if (document.getElementById('Quitada').checked)
+      {
+        situacoes[0] = 'Quitada';
+      }
+      else
+      {
+        situacoes[0] = '';
+      }
+      if (document.getElementById('Pendente').checked)
+      {
+        situacoes[1] = 'Pendente';
+      }
+      else
+      {
+        situacoes[1] = '';
+      }
+      if (document.getElementById('Cancelada').checked)
+      {
+        situacoes[2] = 'Cancelada';
+      }
+      else
+      {
+        situacoes[2] = '';
+      }
+      return situacoes;
+    }
+
     /**
-    * Lista as parcelas
+    * Lista as parcelas, utilizando filtros
     * @paremeters
     * @var from int Ponto inicial a começar a listar as parcelas
     * @var max int Máximo de itens a serem selecionados
     */
-    function listParcelas(from, max)
+    function listParcelasByFilter(from, max)
     {
+      if ($('#sacado_filtro').val() == '')
+      {
+        alunoNome = "";
+      }
+      else
+      {
+        alunoNome = $('#sacado_filtro').val();
+      }
       var data = {
         'from':from,
         'max':max,
-        'aluno':'Alan',
-        'mes':7,
-        'situacoes':['Pendente', '', '']
+        'aluno':alunoNome,
+        'mes':$('#vencimento_filtro').val(),
+        'situacoes':getSituacoes()
       };
       $.ajax({
         type: "POST",
         dataType: "json",
         url: "php/parcelas/controle.php",
-        data: {'acao':'listParcelas', 'data':data},
+        data: {'acao':'listParcelasByFilter', 'data':data},
         beforeSend: function () {
           showLoadingGif();
         },
         success: function(data) {
+          console.log(data);
           var table = document.getElementById('tableContent');
           table.innerHTML = '';
           for(i = 0; i < data.length; i++)

@@ -32,8 +32,8 @@ switch ($process) {
     getParcelaByIdAplicandoDescontos();
     break;
 
-  case 'listParcelas':
-    listParcelas();
+  case 'listParcelasByFilter':
+    listParcelasByFilter();
     break;
 
   default:
@@ -155,10 +155,10 @@ function quitarParcela()
 * Filtra as parcelas de acordo com o número do mês, a situação da parcela e o
 * nome do aluno
 */
-function listParcelas()
+function listParcelasByFilter()
 {
   $data = $_POST['data'];
-  if (isset($data['aluno']) && !empty($data['aluno']) && isset($data['mes'])
+  if (isset($data['aluno']) && isset($data['mes'])
   && !empty($data['mes']) && isset($data['situacoes'])
   && !empty($data['situacoes']))
   {

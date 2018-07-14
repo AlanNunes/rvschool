@@ -343,14 +343,19 @@ Class Parcelas {
 	{
 		$quitada = $situacoes[0];
 		$pendente = $situacoes[1];
-		$sql = "SELECT p.numero, a.nome, p.dataVencimento, p.valor, p.desconto,
-		 				b.desconto as descPercentual, pc.nome as categoria FROM parcelas p
+		$cancelada = $situacoes[2];
+		$sql = "SELECT p.numero, a.nome, p.dataVencimento,
+						p.valor, p.desconto, b.desconto as descPercentual, pc.nome
+						as categoria FROM parcelas p
 						INNER JOIN alunos a ON a.id = p.aluno
 						INNER JOIN parcelas_categorias pc ON pc.id = p.categoria
 						INNER JOIN bolsas b ON b.id = p.bolsa
 						WHERE a.nome LIKE '%{$aluno}%'
 						AND (p.situacao_parcela LIKE '%{$quitada}%'
-						OR p.situacao_parcela LIKE '%{$pendente}%')
+						OR p.situacao_parcela LIKE '%{$pendente}%'
+						OR p.situacao_parcela LIKE '%{$cancelada}%')
+						AND MONTH(p.dataVencimento) = '{$mes}'
+						ORDER BY p.dataVencimento
 						LIMIT {$from}, {$max}";
 		/**
 		* Executa a query para buscar os alunos e retorna o resultado do processo
