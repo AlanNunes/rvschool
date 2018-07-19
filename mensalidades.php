@@ -161,6 +161,9 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
       $("#vertical-nav-bar").toggleClass("collapsed");
     });
 
+    // Ao carregar a página, ativa o checkbox de Pendente
+    document.getElementById('Pendente').checked = true;
+
     // Seleciona o mês atual, no filtro
     var d = new Date();
     var m = d.getMonth();

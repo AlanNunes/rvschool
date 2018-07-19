@@ -170,6 +170,10 @@ function listParcelasByFilter()
     $aluno = $data['aluno'];
     $mes = $data['mes'];
     $situacoes = $data['situacoes'];
+    for($i = 0; $i < sizeof($situacoes); $i++)
+    {
+      $situacoes[$i] = ($situacoes[$i] == "")? "-": $situacoes[$i];
+    }
     echo json_encode($parcelas->getParcelasByFilter($aluno, $mes, $situacoes));
   }
   else
