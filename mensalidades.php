@@ -110,6 +110,7 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
            </div>
       </div>
     </div>
+    <button type="button" class="btn btn-primary btn-block btn-sm" style="float: right;" onclick="listParcelasByFilter()">Filtrar</button>
     </form>
   </ul>
 </nav>
@@ -210,7 +211,7 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
     * @var from int Ponto inicial a começar a listar as parcelas
     * @var max int Máximo de itens a serem selecionados
     */
-    function listParcelasByFilter(from, max)
+    function listParcelasByFilter()
     {
       if ($('#sacado_filtro').val() == '')
       {
@@ -221,8 +222,6 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
         alunoNome = $('#sacado_filtro').val();
       }
       var data = {
-        'from':from,
-        'max':max,
         'aluno':alunoNome,
         'mes':$('#vencimento_filtro').val(),
         'situacoes':getSituacoes()

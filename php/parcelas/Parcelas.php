@@ -292,10 +292,12 @@ Class Parcelas {
 			$sql = '';
 		}
 		// Registra todas as parcelas de 0 até $parcelas_quantidade
+		$dataVencimento = $this->dataVencimento;
     for($i; $i <= $quantidade; $i++){
       $sql .= "INSERT INTO parcelas (aluno, valor, dataVencimento, categoria, desconto, bolsa, situacao_parcela, observacoes, numero)
-                VALUES ({$this->aluno}, {$this->valor}, '{$this->dataVencimento}', {$this->categoria}, {$this->desconto}, {$this->bolsa}, '{$this->situacao_parcela}', {$this->observacoes}, {$i});";
-    }
+                VALUES ({$this->aluno}, {$this->valor}, '{$dataVencimento}', {$this->categoria}, {$this->desconto}, {$this->bolsa}, '{$this->situacao_parcela}', {$this->observacoes}, {$i});";
+      $dataVencimento = date('Y-m-d', strtotime("+1 months", strtotime($dataVencimento)));
+		}
 		if($this->conn->multi_query($sql) OR $insert_id){
 			/**
 			* Caso o '$quitar_primeira_parcela' seja falso o '$insert_id' é retornado como false(0)
@@ -339,7 +341,7 @@ Class Parcelas {
 	* @param array $situacoes Situação das Parcelas
 	* @return array Retorna um conjunto de informações sobre o procedimento
 	*/
-	public function getParcelasByFilter($aluno, $mes, $situacoes, $from, $max)
+	public function getParcelasByFilter($aluno, $mes, $situacoes)
 	{
 		$quitada = $situacoes[0];
 		$pendente = $situacoes[1];
@@ -355,8 +357,7 @@ Class Parcelas {
 						OR p.situacao_parcela LIKE '%{$pendente}%'
 						OR p.situacao_parcela LIKE '%{$cancelada}%')
 						AND MONTH(p.dataVencimento) = '{$mes}'
-						ORDER BY p.dataVencimento
-						LIMIT {$from}, {$max}";
+						ORDER BY p.dataVencimento";
 		/**
 		* Executa a query para buscar os alunos e retorna o resultado do processo
 		*/

@@ -43,7 +43,7 @@
     left: 0px;
     bottom:0;
     width: 100%;
-    padding: 8px 0;
+    padding: 0px 0;
     border-top:solid 1px #666;
     color: #6d2e33;
     font-size: 20px;
@@ -52,12 +52,8 @@
 
 .btn-expand-collapse:hover,
 .btn-expand-collapse:focus {
-    background-color: #222;
-    color: white;
-}
-
-.btn-expand-collapse:active {
-    background-color: #111;
+    background-color: #ead5a8;
+    color: #8a5458;
 }
 
 .navbar-primary-menu,

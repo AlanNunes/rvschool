@@ -170,12 +170,7 @@ function listParcelasByFilter()
     $aluno = $data['aluno'];
     $mes = $data['mes'];
     $situacoes = $data['situacoes'];
-    // Para paginação
-    $from = $data['from'];
-    // Para paginação
-    $max = $data['max'];
-    echo json_encode($parcelas->getParcelasByFilter($aluno, $mes, $situacoes,
-                                                    $from, $max));
+    echo json_encode($parcelas->getParcelasByFilter($aluno, $mes, $situacoes));
   }
   else
   {
