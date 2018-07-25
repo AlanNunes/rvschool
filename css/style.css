@@ -30,17 +30,23 @@
 
 .itemWaiting
 {
-    color: yellow;
+    font-weight: bold;
+    color: #b2b200;
+    font-variant: small-caps;
 }
 
 .itemActive
 {
-    color: green;
+    font-weight: bold;
+    color: #0eb711;
+    font-variant: small-caps;
 }
 
 .itemExpired
 {
+    font-weight: bold;
     color: red;
+    font-variant: small-caps;
 }
 
 .transparent-button {
