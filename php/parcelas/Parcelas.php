@@ -346,7 +346,7 @@ Class Parcelas {
 		$quitada = $situacoes[0];
 		$pendente = $situacoes[1];
 		$cancelada = $situacoes[2];
-		$sql = "SELECT p.numero, a.nome, p.dataVencimento,
+		$sql = "SELECT p.id, p.numero, a.nome, p.dataVencimento,
 						p.valor, p.desconto, b.desconto as descPercentual, pc.nome
 						as categoria FROM parcelas p
 						INNER JOIN alunos a ON a.id = p.aluno
