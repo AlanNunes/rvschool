@@ -1,7 +1,7 @@
 <?php
 $page_name = "Mensalidades";
 
-include('php/database/database.php');
+include('php/database/DataBase.php');
 include('php/situacoes_parcelas/SituacoesParcelas.php');
 ?>
 
