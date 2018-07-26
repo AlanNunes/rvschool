@@ -37,7 +37,7 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
           <th scope="col">VALOR</th>
           <th scope="col">VLR. LÍQUIDO</th>
           <th scope="col">CATEGORIA</th>
-          <th scope="col"></th>
+          <th scope="col">AÇÃO</th>
         </tr>
       </thead>
       <tbody id="tableContent">
@@ -208,6 +208,12 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
       return situacoes;
     }
 
+    // Abre o Modal de Editar Parcela
+    function openEditarParcela(id)
+    {
+      
+    }
+
     /**
     * Lista as parcelas, utilizando filtros
     * @paremeters
@@ -243,26 +249,15 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
           table.innerHTML = '';
           for(i = 0; i < data.length; i++)
           {
-            var tr = document.createElement('tr');
-            var numero = document.createElement('td');
-            var nome = document.createElement('td');
-            var dataVencimento = document.createElement('td');
-            var valor = document.createElement('td');
-            var valorLiquido = document.createElement('td');
-            var categoria = document.createElement('td');
-            numero.innerHTML = data[i].numero;
-            nome.innerHTML = data[i].nome;
-            dataVencimento.innerHTML = data[i].dataVencimento;
-            valor.innerHTML = data[i].valor;
-            valorLiquido.innerHTML = data[i].valor;
-            categoria.innerHTML = data[i].categoria;
-            tr.appendChild(numero);
-            tr.appendChild(nome);
-            tr.appendChild(dataVencimento);
-            tr.appendChild(valor);
-            tr.appendChild(valorLiquido);
-            tr.appendChild(categoria);
-            table.appendChild(tr);
+            var numero = data[i].numero;
+            var nome = data[i].nome;
+            var dataVencimento = data[i].dataVencimento;
+            var valor = data[i].valor;
+            var valorLiquido = data[i].valorLiquido;
+            var categoria = data[i].categoria;
+            var btnEdit = "<button class='btn transparent-button' onclick='openEditarParcela("+data[i].id+")'><img src='assets/icons/open-iconic-master/png/cog-2x.png'></button>";
+            var btnDelete = "<button class='btn transparent-button' onclick='excluirParcela("+data[i].id+")'><img src='assets/icons/open-iconic-master/png/trash-2x.png'></button>";
+            table.innerHTML += "<tr><td>"+numero+"</td><td>"+nome+"</td><td>"+dataVencimento+"</td><td>"+valor+"</td><td>"+valorLiquido+"</td><td>"+categoria+"</td><td>"+btnEdit+""+btnDelete+"</td></tr>";
           }
         },
         error: function(e)  {

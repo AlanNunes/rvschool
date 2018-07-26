@@ -81,7 +81,7 @@ DOM_Element.prototype.click = function(handler) {
     var self = this;
     $(document).ready(function() {
         $(self.element).click(handler);
-    })
+    });
 };
 
 DOM_Element.prototype.removeClick = function() {
