@@ -240,7 +240,6 @@ $operadorasCartao = new Operadoras_de_Cartao($conn);
     // Function que mostra Modal com resposta
     function showFeedbackModal(titulo, conteudo, botaoConteudo, botaoClass, botaoAtributos)
     {
-      alert('birl');
       $("#title-modal-feedback").html(titulo);
       $("#content-modal-feedback").html(conteudo);
       btn = document.createElement("button");

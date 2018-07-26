@@ -147,6 +147,121 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
   </div>
 </div>
 <!--  FIM MODAL DE QUITAR PARCELAS -->
+
+<!-- MODAL DE EDITAR PARCELA -->
+<div class="modal fade modal fade bd-example-modal-lg" id="modal-editar-parcela" tabindex="-1" role="dialog" aria-labelledby="modal-documentoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="margin-left:15%; margin-right:15%">
+    <div class="modal-content" style="width:110%!important;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title-modal-editar-parcela">Revolution School</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--DADOS DO  PLANO-->
+      <div class="tab-pane fade show active" id="dados-plano-section" role="tabpanel" aria-labelledby="dados-plano">
+        <form id="form-dados-parcela">
+          <div class="row" style="padding: 10px;">
+            <div class="col">
+                <label for="aluno_editar"><span style="color:red">*</span> Nome:</label>
+                <input list="suggestions-alunos_editar" data-id="" class="form-control" id="aluno_editar" placeholder="Ex.: Eunice Maria" onkeyup="getAlunos(this.value)" oninput="verificarNome()" disabled>
+                <datalist id="suggestions-alunos_editar">
+                </datalist>
+                <div class="invalid-feedback">
+                  Por favor, selecione um aluno da lista.
+                </div>
+            </div>
+            <div class="col-5">
+                <label for="bolsa">Bolsa</label>
+                <select class="form-control" id="bolsa_editar">
+                  <option value="0">(Selecione)</option>
+                  <?php
+                    $response = $bolsas->listBolsas();
+                    if(!$response['erro']){
+                      foreach($response['response'] as $bolsa){
+                        $id = $bolsa['id'];
+                        $nome = $bolsa['nome'];
+                        $desconto = $bolsa['desconto'];
+                        echo "<option value='{$id}'>{$nome} ({$desconto}%)</option>";
+                      }
+                    }
+                  ?>
+                </select>
+            </div>
+          </div>
+          <div class="row" style="padding: 10px;">
+                  <div class="col">
+                    <label for="valor-parcela_editar" class="control-label">
+                      <span style="color:red">*</span> Valor Parcela
+                    </label>
+                    <div class="input-group">
+                      <input type="text" id="valor-parcela_editar" class="form-control" placeholder="246,00" onchange="calculaValorTotal()" />
+                      <div class="input-group-append">
+                        <span class="input-group-text">R$</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <label for="categoria_editar">
+                      <span style="color:red">*</span> Categoria
+                    </label>
+                    <select id="categoria_editar" class="form-control">
+                      <option value="0">(Selecione)</option>
+                      <?php
+                        $response = $categorias->getCategorias();
+                        if($response){
+                          foreach($response as $categoria){
+                            $id = $categoria['id'];
+                            $nome = $categoria['nome'];
+                            echo "<option value='{$id}'>{$nome}</option>";
+                          }
+                        }
+                      ?>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <label for="data-vencimento_editar" class="control-label">
+                      <span style="color:red">*</span> Data de Vencimento
+                    </label>
+                    <input type="date" id="data-vencimento_editar" class="form-control" />
+                  </div>
+          </div>
+          <div class="row" style="padding: 10px;">
+            <div class="col">
+              <label for="situaco_editar">Situação:</label>
+              <select id="situacao_editar" class="form-control">
+                <option value='Pendente'>Pendente</option>
+                <option value='Quitada' disabled>Quitada</option>
+                <option value='Cancelada'>Cancelada</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="desconto-manual_editar">Desconto Manual</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="desconto-manual_editar" />
+                  <div class="input-group-append">
+                    <span class="input-group-text">R$</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="padding: 10px;">
+            <span style="font-size: 10px; color: red;"> Os itens com * são obrigatórios </span>
+          </div>
+          <div class="btns-panel-acoes">
+            <button type="button" class="btn btn-success" id="btnQuitar" data-parcelaId="" onclick="showQuitarParcela(this.dataset.parcelaId)">Quitar</button>
+            <button type="button" class="btn btn-primary" id="btnAlterar" data-parcelaId="" onclick="btnAlterarParcela(this.dataset.parcelaId)">Alterar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+      <!-- FIM DADOS DO PLANO -->
+    </div>
+  </div>
+</div>
+<!--  FIM MODAL DE EDITAR PARCELA -->
+
 <?php include('footer.php'); ?>
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
@@ -170,9 +285,28 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
     document.getElementById('vencimento_filtro')[m].selected = true;
     //
 
+    // Verifica se a forma de cobrança selecionada é relacionada à cartões
+    // Se for relacionada à cartões, ele abilita o select de operadoras e seleciona a primeira operadora de cartão, caso contrário ele desabilita o mesmo
+    function show_operadoras_cartao(forma_cobranca)
+    {
+      operadora = document.getElementById("operadora_cartao");
+      i = forma_cobranca.selectedIndex;
+      if (parseInt(forma_cobranca[i].dataset.cartao))
+      {
+        operadora.disabled = false;
+        operadora.selectedIndex = 0;
+      }
+      else
+      {
+        operadora.disabled = true;
+        operadora.selectedIndex = 0;
+      }
+    }
+
     // Abre o modal de quitar parcelas
     function showQuitarParcela(id)
     {
+      alert(id);
       document.getElementById('iframe_quitar').src = 'quitarParcelas.php?id='+id;
       $('#modal-parcelas').modal('hide');
       $('#modal-quitar').modal('show');
@@ -208,10 +342,64 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
       return situacoes;
     }
 
+    // Retorna informações de uma Parcela pela sua id
+    function getParcelaById(id)
+    {
+      var retorna = null;
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "php/parcelas/controle.php",
+        async: false,
+        data: {'acao':'getParcelaById', 'id':id},
+        beforeSend: function () {
+          showLoadingGif();
+        },
+        success: function(data) {
+          retorna = data;
+        },
+        error: function(e)  {
+          console.error(e);
+        }
+      });
+      closeLoadingGif();
+      return retorna;
+    }
+
     // Abre o Modal de Editar Parcela
     function openEditarParcela(id)
     {
-      
+      values = getParcelaById(id);
+      changeFormParcelaValues(values);
+      document.getElementById('btnQuitar').dataset.parcelaId = id;
+      document.getElementById('btnAlterar').dataset.parcelaId = id;
+      $('#modal-editar-parcela').modal('show');
+    }
+
+    // Atualiza os valores dos inputs do formulário de Planos
+    function changeFormParcelaValues(values)
+    {
+      $('#aluno_editar').val(values.nome);
+      if (values.bolsa)
+      {
+        $('#bolsa_editar').val(values.bolsa);
+      }
+      $('#desconto-manual_editar').val(values.desconto);
+      // $('#parcelas-quantidade_editar').val(values.parcelas);
+      $('#valor-parcela_editar').val(values.valor);
+      // $('#valor-total_editar').val(calcValorTotal(values.parcelas, values.valor));
+      $('#data-vencimento_editar').val(values.dataVencimento);
+      $('#categoria_editar').val(values.categoria);
+      // $('#complemento_editar').val(values.complemento);
+      // $('#documento_editar').val(values.documento);
+    }
+
+    // Calcula o valor total do plano
+    // qnt integer Quantidade de parcelas
+    // valor float Valor de cada parcela
+    function calcValorTotal(qnt, valor)
+    {
+      return qnt * valor;
     }
 
     /**

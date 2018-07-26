@@ -32,9 +32,13 @@ switch ($process) {
     getParcelaByIdAplicandoDescontos();
     break;
 
-  case 'listParcelasByFilter':
-    listParcelasByFilter();
-    break;
+    case 'listParcelasByFilter':
+      listParcelasByFilter();
+      break;
+
+    case 'getParcelaById':
+      getParcelaById();
+      break;
 
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
@@ -203,10 +207,27 @@ function registrarPlano()
     $parcelas->setBolsa($params['bolsa']);
     $parcelas->situacao_parcela = 'Pendente'; // Se refere à tabela situações de parcelas
     $parcelas->setObservacoes($params['observacoes']);
+    $parcelas->complemento = $params['complemento'];
+    $parcelas->documento = $params['documento'];
     $response = $parcelas->registrarParcelas($params['parcelas-quantidade'], filter_var($params['quitar-primeira-parcela'], FILTER_VALIDATE_BOOLEAN));
     echo json_encode($response);
   }
 
+}
+
+function getParcelaById()
+{
+  if (isset($_POST['id']) && !empty($_POST['id']))
+  {
+    $db = new DataBase();
+    $conn = $db->getConnection();
+    $parcela = new Parcelas($conn);
+    echo json_encode($parcela->GetParcelaById($_POST['id']));
+  }
+  else
+  {
+    echo 0;
+  }
 }
 
 function validateData($data){

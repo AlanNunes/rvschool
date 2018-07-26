@@ -69,6 +69,14 @@ Class Parcelas {
 	* @var integer
 	*/
 	public $contaBancaria;
+	/**
+	* @var string
+	*/
+	public $complemento;
+	/**
+	* @var string
+	*/
+	public $documento;
 
 	private $conn;
 
@@ -179,6 +187,32 @@ Class Parcelas {
 	}
 
 	/**
+	* Retorna uma consulta de Parcela pela sua ID
+	*
+	* @access public
+	* @param integer id Id da Parcela
+	* @return array Dados da Parcela
+	*/
+	public function GetParcelaById($id)
+	{
+		$sql = "SELECT p.valor, p.desconto, p.bolsa, p.categoria, p.complemento,
+						p.documento, p.dataVencimento, a.nome
+						FROM parcelas p
+						INNER JOIN alunos a ON a.id = p.aluno
+						WHERE p.id = {$id}";
+    $result = $this->conn->query($sql);
+		if ($result->num_rows > 0)
+		{
+			$row = $result->fetch_assoc();
+			return $row;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
 	* Pega o valor da parcela somente
 	*
 	* @access public
@@ -259,8 +293,13 @@ Class Parcelas {
 		* @var string
 		*/
 		if($quitar_primeira_parcela){
-			$sql = "INSERT INTO parcelas (aluno, valor, dataVencimento, categoria, desconto, bolsa, situacao_parcela, observacoes, numero)
-                VALUES ({$this->aluno}, {$this->valor}, '{$this->dataVencimento}', {$this->categoria}, {$this->desconto}, {$this->bolsa}, '{$this->situacao_parcela}', {$this->observacoes}, 1);";
+			$sql = "INSERT INTO parcelas (aluno, valor, dataVencimento, categoria,
+													desconto, bolsa, situacao_parcela, observacoes, numero,
+													complemento, documento)
+                VALUES ({$this->aluno}, {$this->valor}, '{$this->dataVencimento}',
+									{$this->categoria}, {$this->desconto}, {$this->bolsa},
+									'{$this->situacao_parcela}', {$this->observacoes}, 1,
+									'{$this->complemento}', '{$this->documento}');";
 			if($this->conn->query($sql)){
 				$sql = ''; // Reseta o '$sql' para ser usado na multi_query
 				/**
@@ -294,8 +333,13 @@ Class Parcelas {
 		// Registra todas as parcelas de 0 até $parcelas_quantidade
 		$dataVencimento = $this->dataVencimento;
     for($i; $i <= $quantidade; $i++){
-      $sql .= "INSERT INTO parcelas (aluno, valor, dataVencimento, categoria, desconto, bolsa, situacao_parcela, observacoes, numero)
-                VALUES ({$this->aluno}, {$this->valor}, '{$dataVencimento}', {$this->categoria}, {$this->desconto}, {$this->bolsa}, '{$this->situacao_parcela}', {$this->observacoes}, {$i});";
+      $sql .= "INSERT INTO parcelas (aluno, valor, dataVencimento, categoria,
+													desconto, bolsa, situacao_parcela, observacoes, numero,
+													complemento, documento)
+                VALUES ({$this->aluno}, {$this->valor}, '{$dataVencimento}',
+									{$this->categoria}, {$this->desconto}, {$this->bolsa},
+									'{$this->situacao_parcela}', {$this->observacoes}, {$i},
+									'{$this->complemento}', '{$this->documento}');";
       $dataVencimento = date('Y-m-d', strtotime("+1 months", strtotime($dataVencimento)));
 		}
 		if($this->conn->multi_query($sql) OR $insert_id){
