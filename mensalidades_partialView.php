@@ -4,7 +4,7 @@ require_once('php/bolsas/Bolsas.php');
 require_once('php/parcelas/Parcelas_Categorias.php');
 require_once('php/formas_de_cobrancas/Formas_de_Cobrancas.php');
 require_once('php/contas_bancarias/Contas_Bancarias.php');
-require_once('php/operadoras_de_cartao/operadoras_de_cartao.php');
+require_once('php/operadoras_de_cartao/Operadoras_de_Cartao.php');
 // Cria uma instância do Banco de Dados e pega a conexão do mesmo
 $db = new DataBase();
 $conn = $db->getConnection();
