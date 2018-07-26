@@ -17,6 +17,9 @@
 
 <?php include('header.php'); ?>
 
+<br>
+
+    <?php include ('schedule.php'); ?>
 
 
 <?php include('footer.php') ?>

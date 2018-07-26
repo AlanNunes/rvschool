@@ -192,3 +192,37 @@ input.alert {
 select.alert {
   border-color: #fff65e!important;
 }
+
+.title-modal-schedule{
+  background-color: #6D2E33;
+  text-align: center;
+  font-family: impact;
+  color: #F3E1B9;
+  width: 50%;
+  min-width: 200px;
+  border-radius: 3px 3px 0px 0px;
+  height: 5%;
+}
+
+.modal-schedule{
+  background-color: #F3E1B9;
+  font-family: impact;
+  width: 50%;
+  min-width: 200px;
+  border-radius: 3px;
+}
+
+.thead-schedule{
+  background-color: #6D2E33;
+  color: #F3E1B9;
+  font-family: impact;
+  font-size: 20px;
+  text-align: center;
+}
+
+.tbody-schedule{
+  background-color: #F3E1B9;
+  font-family: impact;
+  font-size: 18px;
+  text-align: center;
+}
