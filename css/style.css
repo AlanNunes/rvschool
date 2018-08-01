@@ -226,3 +226,54 @@ select.alert {
   font-size: 18px;
   text-align: center;
 }
+
+
+
+.container {
+    padding: 200px;
+    position: fixed;
+}
+
+.form-login {
+    background-color: #6D2E33;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-color:#d2d2d2;
+    border-width: 5px;
+    box-shadow:0 1px 0 #cfcfcf;
+    height: 110%;
+    width: 150%;
+}
+
+.titlelogin {
+ font-weight: bold;
+ text-align: center;
+ font-family: Impact;
+ color: #F3E1B9;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.btnlogin{
+  background-color: #314178;
+  border-radius: 5px;
+  padding: 10px;
+  text-decoration: none;
+  color: #F3E1B9;
+  font-size: 20px;
+}
+
+.btnlogin:hover{
+  text-decoration: none;
+  background-color: #3c4d87;
+  color: #F3E1B9;
+}

@@ -22,7 +22,7 @@ $page_name = "Diário de Aulas";
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/logo/fav.ico">
-  <title> Home Page - Revolution School </title>
+  <title> Diário de Aulas - Revolution School </title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="css/bootstrap.css">
