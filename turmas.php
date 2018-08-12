@@ -246,6 +246,7 @@ $page_name = "Turmas";
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="gerarProgramacaoAulas">Gerar Programação de Aulas</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" id="registrar">Registrar</button>
         <button type="button" class="btn btn-primary" id="editar" aria-hidden="true">Editar</button>
@@ -297,6 +298,12 @@ $page_name = "Turmas";
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#vertical-nav-bar").toggleClass("collapsed");
+    });
+
+    $("#gerarProgramacaoAulas").click(function(e) {
+        e.preventDefault();
+        alert('test');
+        gerarProgramacaoAulas(e.target.turma);
     });
 
     $("#delete-turma").click(function(e) {
@@ -399,6 +406,7 @@ $page_name = "Turmas";
                 editButton.click(function(e) {
                     var currentTurma = e.target.turma;
                     document.getElementById("editar").turma = currentTurma.id;
+                    document.getElementById("gerarProgramacaoAulas").turma = currentTurma.id;
                     e.preventDefault();
                     $("#registrar").hide();
                     $("#registrarTurmaTitle").hide();
@@ -551,6 +559,30 @@ $page_name = "Turmas";
             var invalidField = invalidFields[i];
             $("#" + invalidField).removeClass("is-valid").addClass("is-invalid");
         }
+    }
+
+    function gerarProgramacaoAulas(idTurma)
+    {
+      console.log(idTurma);
+      $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "php/aulas/controle.php",
+          data: {'acao':'gerarProgramacaoAulas', 'IdTurma':idTurma},
+          success: function(data) {
+            try
+            {
+              console.log(data);
+            }
+            catch (error)
+            {
+              console.error(error);
+            }
+          },
+          error: function(data) {
+            console.error(data);
+          }
+      });
     }
 
     function getRequiredFields() {

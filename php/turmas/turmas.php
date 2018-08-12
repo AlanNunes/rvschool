@@ -101,6 +101,24 @@ Class Turmas {
         return array("erro" => true, "Description" => $query);
     }
 
+	public function GetTurmaEstagio($IdTurma)
+	{
+		$query = "SELECT estagio as IdEstagio FROM turmas t
+							INNER JOIN estagios e ON e.id = t.estagio
+							WHERE t.id = {$IdTurma}";
+		$result = $this->conn->query($query);
+		if ($result->num_rows)
+		{
+			$row = $result->fetch_assoc();
+			$idEstagio = $row["IdEstagio"];
+			return $idEstagio;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
 	public function deleteTurma($id){
 	    $query = "DELETE FROM turmas WHERE id=" . $id;
 	    $result = $this->conn->query($query);
