@@ -274,6 +274,22 @@ $page_name = "Turmas";
 
 <!-- END CLOSE MODAL -->
 
+<!-- PROGRAMACAO DE AULAS MODAL FORM -->
+
+<div class="modal fade" id="alert_programacao_aulas_modal" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">Revolution School</div>
+      <div class="modal-body" id="msg_programacao_aulas_modal"></div>
+      <div class="modal-footer" id="footer_programacao_aulas_modal">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- END PROGRAMACAO DE AULAS MODAL -->
+
 
 
 <?php include('footer.php') ?>
@@ -572,7 +588,19 @@ $page_name = "Turmas";
           success: function(data) {
             try
             {
-              console.log(data);
+              if (data)
+              {
+                var btn = document.createElement("BUTTON");
+                btn.setAttribute("class", "btn btn-success");
+                btn.textContent = "Vêr Programação";
+                $("#msg_programacao_aulas_modal").html("A Programação de aulas foi gerada com sucesso.");
+                $("#alert_programacao_aulas_modal").modal('show');
+              }
+              else
+              {
+                $("#msg_programacao_aulas_modal").html("Nenhuma programação foi encontrada neste estágio para ser gerado a essa turma.");
+                $("#alert_programacao_aulas_modal").modal('show');
+              }
             }
             catch (error)
             {

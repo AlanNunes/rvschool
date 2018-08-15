@@ -50,8 +50,7 @@ function gerarProgramacaoAulas()
       }
       else
       {
-        echo json_encode(array("erro" => true, "description" => "Não foi encontrado
-                                uma programação de estágio para este estágio."));
+        echo 0;
       }
     }
   }

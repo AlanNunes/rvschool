@@ -16,28 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `parcelas_categorias`
+-- Table structure for table `livros`
 --
 
-DROP TABLE IF EXISTS `parcelas_categorias`;
+DROP TABLE IF EXISTS `livros`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `parcelas_categorias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+CREATE TABLE `livros` (
+  `IdLivro` int(11) NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(255) NOT NULL,
+  PRIMARY KEY (`IdLivro`),
+  UNIQUE KEY `Nome_UNIQUE` (`Nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `parcelas_categorias`
+-- Dumping data for table `livros`
 --
 
-LOCK TABLES `parcelas_categorias` WRITE;
-/*!40000 ALTER TABLE `parcelas_categorias` DISABLE KEYS */;
-INSERT INTO `parcelas_categorias` VALUES (14,'Acordo'),(13,'Aula VIP'),(12,'Book'),(11,'Devolução de Cheques'),(10,'Estorno de Parcelas'),(9,'Juros'),(1,'Mensalidade'),(8,'Mensalidade Retroativa'),(7,'Misto'),(6,'Recisão'),(2,'Taxa de Matrícula'),(3,'Tranca'),(4,'Transferência'),(5,'Troco');
-/*!40000 ALTER TABLE `parcelas_categorias` ENABLE KEYS */;
+LOCK TABLES `livros` WRITE;
+/*!40000 ALTER TABLE `livros` DISABLE KEYS */;
+INSERT INTO `livros` VALUES (1,'Book 1'),(10,'Book 10'),(11,'Book 11'),(12,'Book 12'),(2,'Book 2'),(3,'Book 3'),(4,'Book 4'),(5,'Book 5'),(6,'Book 6'),(7,'Book 7'),(8,'Book 8'),(9,'Book 9');
+/*!40000 ALTER TABLE `livros` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-14 23:06:14
+-- Dump completed on 2018-08-14 23:06:10
