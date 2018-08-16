@@ -282,6 +282,7 @@ $page_name = "Turmas";
       <div class="modal-header">Revolution School</div>
       <div class="modal-body" id="msg_programacao_aulas_modal"></div>
       <div class="modal-footer" id="footer_programacao_aulas_modal">
+        <button type="button" class="btn btn-success" id="btn_ver_programacao_aulas_modal">Ver Programação</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
@@ -588,17 +589,16 @@ $page_name = "Turmas";
           success: function(data) {
             try
             {
-              if (data)
+              console.log(data);
+              document.getElementById("btn_ver_programacao_aulas_modal").addEventListener("click", function(){window.location.href = 'diario.php?IdTurma='+data.IdTurma+'&IdEstagio='+data.IdEstagio});
+              if (data.error)
               {
-                var btn = document.createElement("BUTTON");
-                btn.setAttribute("class", "btn btn-success");
-                btn.textContent = "Vêr Programação";
-                $("#msg_programacao_aulas_modal").html("A Programação de aulas foi gerada com sucesso.");
+                $("#msg_programacao_aulas_modal").html(data.description);
                 $("#alert_programacao_aulas_modal").modal('show');
               }
               else
               {
-                $("#msg_programacao_aulas_modal").html("Nenhuma programação foi encontrada neste estágio para ser gerado a essa turma.");
+                $("#msg_programacao_aulas_modal").html(data.description);
                 $("#alert_programacao_aulas_modal").modal('show');
               }
             }

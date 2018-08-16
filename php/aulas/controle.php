@@ -46,17 +46,28 @@ function gerarProgramacaoAulas()
       if ($programacao)
       {
         $resp = $Aulas->GerarAulas($IdTurma, $programacao, date('Y-m-d'));
-        echo $resp;
+        if ($resp)
+        {
+          echo json_encode(array("erro" => false, "description" => "A programação de aulas
+          foi gerada com sucesso.", "IdTurma" => $IdTurma, "IdEstagio" => $IdEstagio));
+        }
+        else
+        {
+          echo json_encode(array("erro" => true, "description" => "Não foi possível
+          gerar as aulas."));
+        }
       }
       else
       {
-        echo 0;
+        echo json_encode(array("erro" => true, "description" => "Não foi encontrado
+        nenhuma programação de estágio para este estágio."));
       }
     }
   }
   else
   {
-    echo 0;
+    echo json_encode(array("erro" => true, "description" => "A Programação
+                      de aulas desta turma neste estágio já foi gerada."));
   }
 }
 

@@ -56,7 +56,7 @@ Class Aulas {
     }
     else
     {
-      return $sql;
+      return 0;
     }
   }
 
