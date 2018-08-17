@@ -12,6 +12,12 @@ $cursos = new Cursos($conn);
 // Create an instance for stages(estágios)
 $estagios = new Estagios($conn);
 
+$sql = "SELECT * FROM programacao_estagios WHERE IdProgramacao_Estagio = 1";
+$result = $conn->query($sql);
+
+
+
+$duracao = 1;
 
 $page_name = "Diário de Aulas";
  ?>
@@ -40,16 +46,34 @@ $page_name = "Diário de Aulas";
     <table class="table table-hover table-sm" style ="cursor: pointer;">
       <thead class="thead-dark">
       <tr style="text-align: center;">
-        <th scope="col">NOME</th>
-        <th scope="col">PROFESSOR</th>
-        <th scope="col">ESTÁGIO</th>
-        <th scope="col">CURSO</th>
-        <th scope="col">SALA</th>
-        <th scope="col">SITUAÇÂO</th>
-        <th scope="col"></th>
+        <th scope="col">DATA</th>
+        <th scope="col">DURAÇÃO</th>
+        <th scope="col">PROGRAMAÇÃO</th>
+        <th scope="col">PÁGINAS</th>
+        <th scope="col">CONTEÚDO</th>
+        <th scope="col">DICTATIONS</th>
+        <th scope="col">READINGS</th>
+        <th scope="col">SITUAÇÃO</th>
       </tr>
       </thead>
-      <tbody id="tableContent" style="text-align: center;"></tbody>
+      <tbody id="tableContent" style="text-align: center;">
+        <tr style="text-align: center;">
+          <th><?php echo date("d/m/Y") ?> </th>
+          <th><?php echo $duracao ?></th>
+          <th>
+          <?php
+            while($row = $result->fetch_assoc()) {
+                echo $row['PaginaInicial'] . " - " . $row['PaginaFinal'];
+            }
+            ?>
+          </th>
+          <th><input type="text" style="width: 60px;"/></th>
+          <th><input type="text"/></th>
+          <th><input type="text" style="width: 60px;"/></th>
+          <th><input type="text" style="width: 60px;"/></th>
+          <th>Atrasado</th>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>
@@ -71,78 +95,7 @@ $page_name = "Diário de Aulas";
 <script src="js/dynamical-dom.js"></script>
 <script>
 
-    $( document ).ready(function() {
-        listTurmas();
-        $("#vertical-nav-bar").toggleClass("collapsed");
-    });
 
-    $("#buttonHumburguer").click(function(){
-        $("#vertical-nav-bar").toggle();
-    });
-
-    function listTurmas(){
-        var data = {
-            "acao": "listTurmas"
-        };
-        data = $(this).serialize() + "&" + $.param(data);
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "php/turmas/controle.php",
-            data: data,
-            success: listSuccess,
-            error: function(data) {
-                console.log(data);
-            }
-        });
-
-        function listSuccess(data) {
-            var tBody = document.getElementById("tableContent");
-            tBody.innerHTML = "";
-            for(var i = 0;i < data.length;i++) {
-                var turma = data[i];
-                var tr = new DOM_Element("tr");
-                var name = new DOM_Element("th", false, false, false, turma.nome);
-                var professor = new DOM_Element("td", false, false, false, turma.professorNome);
-                var estagio = new DOM_Element("td", false, false, false, turma.estagio);
-                var curso = new DOM_Element("td", false, false, false, turma.cursoNome);
-                var sala = new DOM_Element("td", false, false, false, turma.sala);
-                var situacao = new DOM_Element("td");
-
-                if(!turma.professor) professor.changeContent("Sem Professor");
-
-                if(Number(turma.situacao) === 2) {
-                    situacao.changeContent("Ativa");
-                    situacao.changeClass("itemActive");
-                }
-                else if(Number(turma.situacao) === 1) {
-                    situacao.changeContent("Em formação");
-                    situacao.changeClass("itemWaiting");
-                }
-                else {
-                    situacao.changeContent("Inativa");
-                    situacao.changeClass("itemExpired");
-                }
-
-
-
-                tr.appendChild(name);
-                tr.appendChild(professor);
-                tr.appendChild(estagio);
-                tr.appendChild(curso);
-                tr.appendChild(sala);
-                tr.appendChild(situacao);
-                tr.addToDOM(tBody);
-            }
-
-            //Contagem de turmas
-            var trCount = new DOM_Element("tr");
-            var tdCount = new DOM_Element("td", "text-center", false, [{name: "colspan", value: 14}], data.length + " Turmas");
-            trCount.appendChild(tdCount);
-            trCount.addToDOM(tBody);
-            console.log(data);
-        }
-    }
 
 </script>
 </html>
