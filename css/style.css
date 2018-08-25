@@ -35,6 +35,27 @@
     font-variant: small-caps;
 }
 
+.atrasado
+{
+    font-weight: bold;
+    color: #b2b200;
+    font-variant: small-caps;
+}
+
+.adiantado
+{
+    font-weight: bold;
+    color: #0a960d;
+    font-variant: small-caps;
+}
+
+.emDia
+{
+    font-weight: bold;
+    color: #0eb711;
+    font-variant: small-caps;
+}
+
 .itemActive
 {
     font-weight: bold;

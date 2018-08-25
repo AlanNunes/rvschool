@@ -26,13 +26,17 @@ Class Aulas {
 	{
 		if ($IdEstagio == "null")
 		{
-			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero, pe.PaginaInicial, pe.PaginaFinal FROM aulas a
+			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero, pe.PaginaInicial, pe.PaginaFinal,
+							a.pagina, a.conteudo, a.dictation, a.reading
+							FROM aulas a
 							INNER JOIN programacao_estagios pe ON pe.IdProgramacao_Estagio = a.IdProgramacaoEstagio
 							WHERE a.IdTurma = {$IdTurma}
 							ORDER BY a.Data, a.numero ASC";
 		}
 		else{
-			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero, pe.PaginaInicial, pe.PaginaFinal FROM aulas a
+			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero, pe.PaginaInicial, pe.PaginaFinal,
+							a.pagina, a.conteudo, a.dictation, a.reading
+							FROM aulas a
 							INNER JOIN programacao_estagios pe ON pe.IdProgramacao_Estagio = a.IdProgramacaoEstagio
 							WHERE a.IdTurma = {$IdTurma}
 							AND pe.IdEstagio = {$IdEstagio}

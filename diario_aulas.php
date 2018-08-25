@@ -143,7 +143,7 @@ function buscaDiario()
           $("#tableContent").html("");
           for(i = 0; i < aulas.length; i++)
           {
-            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='number' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' class='form-control' style='width: 50px;' /></center></td><td></td></tr>";
+            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' data-set='"+aulas[i].idAula+"' onkeyup='atualizaStatus(this, "+aulas[i].idAula+", "+aulas[i].PaginaInicial+", "+aulas[i].PaginaFinal+")' value='"+mostraValor(aulas[i].pagina)+"' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' data-set='"+aulas.idAula+"' value='"+mostraValor(aulas[i].conteudo)+"' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='number' value='"+mostraValor(aulas[i].dictation)+"' data-set='"+aulas.idAula+"' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].reading)+"' data-set='"+aulas.idAula+"' class='form-control' style='width: 50px;' /></center></td><td id='situacao-"+aulas[i].idAula+"'>"+getStatus(aulas[i].pagina, aulas[i].PaginaInicial, aulas[i].PaginaFinal)+"</td></tr>";
             $("#tableContent").append(tr);
           }
         }
@@ -162,16 +162,38 @@ function getStatus(pagina, paginaInicial, paginaFinal)
 {
   if(Number(pagina) >= Number(paginaInicial) && Number(pagina) <= Number(paginaFinal))
   {
-    return "Em dia";
+    return "<span class='emDia'>Em dia</span>";
   }
   else if(Number(pagina) >= Number(paginaFinal))
   {
-    return "Adiantado";
+    return "<span class='adiantado'>Adiantado</span>";
+  }
+  else if(Number(pagina) == 0)
+  {
+    return "<span class='atrasado'>-</span>";
   }
   else
   {
-    return "Atrasado";
+    return "<span class='atrasado'>Atrasado</span>";
   }
+}
+
+function mostraValor(v)
+{
+  if(v == null)
+  {
+    return "";
+  }
+  else
+  {
+    return v;
+  }
+}
+
+function atualizaStatus(e, idAula, paginaInicial, paginaFinal)
+{
+  pagina = e.value;
+  $("#situacao-"+idAula).html(getStatus(pagina, paginaInicial, paginaFinal));
 }
 </script>
 </html>
