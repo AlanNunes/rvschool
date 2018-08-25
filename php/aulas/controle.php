@@ -33,23 +33,22 @@ function gerarProgramacaoAulas()
     $Turma = new Turmas($conn);
     $Aulas = new Aulas($conn);
     $ProgramacaoEstagios = new ProgramacaoEstagios($conn);
-    $IdEstagio = $Turma->GetTurmaEstagio($IdTurma);
-    $resp = $Aulas->IsAulasAlreadyCreated($IdTurma, $IdEstagio);
+    $resp = $Aulas->TurmarHasClassesCreated($IdTurma);
     if ($resp)
     {
       echo json_encode(array("erro" => true, "description" => "A Programação
-                        de aulas desta turma para este estágio já foi gerada."));
+                        de aulas desta turma já foi gerada."));
     }
     else
     {
-      $programacao = $ProgramacaoEstagios->GetProgramacaoEstagioByEstagio($IdEstagio);
+      $programacao = $ProgramacaoEstagios->GetAllProgramacaoEstagios();
       if ($programacao)
       {
         $resp = $Aulas->GerarAulas($IdTurma, $programacao, date('Y-m-d'));
         if ($resp)
         {
           echo json_encode(array("erro" => false, "description" => "A programação de aulas
-          foi gerada com sucesso.", "IdTurma" => $IdTurma, "IdEstagio" => $IdEstagio));
+          foi gerada com sucesso.", "IdTurma" => $IdTurma));
         }
         else
         {
@@ -69,6 +68,51 @@ function gerarProgramacaoAulas()
     echo json_encode(array("erro" => true, "description" => "A Programação
                       de aulas desta turma neste estágio já foi gerada."));
   }
+}
+
+function RegistraAula()
+{
+  if (!empty($_POST["IdAula"]) && !empty($_POST["Pagina"]) &&
+  !empty($_POST["Conteudo"]))
+  {
+    $db = new DataBase();
+    $conn = $db->getConnection();
+    $Aulas = new Aulas($conn);
+    $Aulas->IdAula = $_POST["IdAula"];
+    $Aulas->Pagina = $_POST["Pagina"];
+    $Aulas->Conteudo = $_POST["Conteudo"];
+    $Aulas->Dictation = $_POST["Dictation"];
+    $Aulas->Reading = $_POST["Reading"];
+    $Aulas->Professor = 20;
+    if ($Aulas->RegistraAula())
+    {
+      echo json_encode(array("erro" => false, "description" => "Aula registrada
+      com sucesso."));
+    }
+    else
+    {
+      echo json_encode(array("erro" => true, "description" => "Não foi possível
+      registrar a aula."));
+    }
+  }
+  else
+  {
+    echo json_encode(array("erro" => true, "description" => "Não foi possível
+    registrar a aula."));
+  }
+}
+
+// Retorna "null" caso o parâmetro seja nulo
+function Nullable($v)
+{
+    if (empty($v))
+    {
+      return "NULL";
+    }
+    else
+    {
+      $v;
+    }
 }
 
  ?>

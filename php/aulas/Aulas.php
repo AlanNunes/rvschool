@@ -22,11 +22,12 @@ Class Aulas {
 		$this->conn = $db;
 	}
 
-  public function IsAulasAlreadyCreated($IdTurma, $IdEstagio)
+	// Returna true se a turma já tiver aulas criadas
+  public function TurmarHasClassesCreated($IdTurma)
   {
     $sql = "SELECT * FROM aulas a
             INNER JOIN turmas t ON t.id = a.IdTurma
-            WHERE t.id = {$IdTurma} AND t.estagio = {$IdEstagio}";
+            WHERE t.id = {$IdTurma}";
     $result = $this->conn->query($sql);
     if ($result->num_rows)
     {
@@ -59,6 +60,46 @@ Class Aulas {
       return 0;
     }
   }
+
+	// Retorna uma array com todas as aulas daquela turma referente àquele estágio
+	public function GetAulasFromTurmaByEstagioId($idTurma, $idEstagio)
+	{
+		$sql = "SELECT * FROM aulas a
+						INNER JOIN turmas t ON t.id = a.IdTurma
+						INNER JOIN programacao_estagios pe
+						ON pe.IdProgramacao_Estagio = a.IdProgramacaoEstagio
+						WHERE t.id = {$idTurma} AND pe.IdEstagio = {$idEstagio}";
+		$result = $this->conn->query($sql);
+		if ($result->num_rows > 0)
+		{
+			while ($row = $result->fetch_assoc())
+			{
+				$aulas[] = $row;
+			}
+			return $aulas;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	// Registra uma aula
+	public function RegistraAula()
+	{
+		$sql = "UPDATE aulas SET Pagina = {$this->Pagina},
+						Conteudo = '{$this->Conteudo}', Dictation = '{$this->Dictation}',
+						Reading = '{$this->Reading}', Professor = {$this->Professor}
+						WHERE IdAula = {$this->IdAula}";
+		if ($this->conn->query($sql))
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 
   public function AddOneDayToDateAndJumpWeekend($date)
   {
