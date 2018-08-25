@@ -17,9 +17,38 @@ switch ($process) {
     gerarProgramacaoAulas();
     break;
 
+    case 'getAulasByTurma':
+      getAulasByTurma();
+      break;
+
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
     break;
+}
+
+function getAulasByTurma()
+{
+  $db = new DataBase();
+  $conn = $db->getConnection();
+
+  if(isset($_POST['IdTurma']) && !empty($_POST['IdTurma']))
+  {
+    $aulas = new Aulas($conn);
+    $response = $aulas->getAulasByTurma($_POST['IdTurma'], $_POST['IdEstagio']);
+    if($response)
+    {
+      echo json_encode(array("erro" => false, "aulas" => $response));
+    }
+    else
+    {
+      echo json_encode(array("erro" => true, "description" => "Essa turma ainda
+      não possui um diário de aulas"));
+    }
+  }
+  else{
+    echo json_encode(array("erro" => true, "description" => "É necessário informar
+    a turma."));
+  }
 }
 
 function gerarProgramacaoAulas()

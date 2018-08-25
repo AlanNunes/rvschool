@@ -1,23 +1,10 @@
 <?php
 require_once('php/database/DataBase.php');
-require_once('php/funcionarios/Funcionarios.php');
-require_once('php/cursos/Cursos.php');
-require_once('php/estagios/Estagios.php');
+require_once('php/turmas/turmas.php');
 $db = new DataBase();
 $conn = $db->getConnection();
 // Create an instance for workers(funcionários)
-$funcionarios = new Funcionarios($conn);
-// Create an instance for courses(cursos)
-$cursos = new Cursos($conn);
-// Create an instance for stages(estágios)
-$estagios = new Estagios($conn);
-
-$sql = "SELECT * FROM programacao_estagios WHERE IdProgramacao_Estagio = 1";
-$result = $conn->query($sql);
-
-
-
-$duracao = 1;
+$turmas = new Turmas($conn);
 
 $page_name = "Diário de Aulas";
  ?>
@@ -41,42 +28,86 @@ $page_name = "Diário de Aulas";
 <?php include('header.php') ?>
 
 <br>
-<div class="container-fluid" id="content">
+<div class="container-fluid" id="content" style="width: 86%; margin-left: 0px;">
   <div class="table-responsive">
-    <table class="table table-hover table-sm" style ="cursor: pointer;">
+    <table class="table table-hover table-condensed table-sm" style ="cursor: pointer;">
       <thead class="thead-dark">
       <tr style="text-align: center;">
         <th scope="col">DATA</th>
         <th scope="col">DURAÇÃO</th>
         <th scope="col">PROGRAMAÇÃO</th>
-        <th scope="col">PÁGINAS</th>
+        <th scope="col">PÁGINA</th>
         <th scope="col">CONTEÚDO</th>
-        <th scope="col">DICTATIONS</th>
-        <th scope="col">READINGS</th>
+        <th scope="col">DICTATION</th>
+        <th scope="col">READING</th>
         <th scope="col">SITUAÇÃO</th>
       </tr>
       </thead>
       <tbody id="tableContent" style="text-align: center;">
-        <tr style="text-align: center;">
-          <th><?php echo date("d/m/Y") ?> </th>
-          <th><?php echo $duracao ?></th>
-          <th>
-          <?php
-            while($row = $result->fetch_assoc()) {
-                echo $row['PaginaInicial'] . " - " . $row['PaginaFinal'];
-            }
-            ?>
-          </th>
-          <th><input type="text" style="width: 60px;"/></th>
-          <th><input type="text"/></th>
-          <th><input type="text" style="width: 60px;"/></th>
-          <th><input type="text" style="width: 60px;"/></th>
-          <th>Atrasado</th>
-        </tr>
       </tbody>
     </table>
   </div>
 </div>
+
+<!-- DIV DE LOADING -->
+<div id="page-cover">
+  <img src="assets/gifs/loading-icon6.gif" id="loading-gif" />
+</div>
+<!-- FIM DIV DE LOADING -->
+<!-- MENU VERTICAL -->
+<nav class="navbar-primary" id="vertical-nav-bar">
+  <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-left"></span></a>
+  <ul class="navbar-primary-menu">
+    <form style="padding: 5px;">
+      <li><a href="#"><h5>Filtros:</h5></a></li>
+      <div class="form-row">
+        <div class="form-group col-sm">
+          <label for="turmaId">Selecione a Turma:</label>
+          <span style="color:red;">*</span>
+          <select id="turmaId" class="form-control">
+            <option value="0">(Selecione)</option>
+            <?php
+              $sql = "SELECT * FROM turmas";
+              $result = $conn->query($sql);
+              if($result->num_rows > 0)
+              {
+                while($row = $result->fetch_assoc())
+                {
+                  $id = $row['id'];
+                  $nome = $row['nome'];
+                  echo "<option value='{$id}'>{$nome}</option>";
+                }
+              }
+             ?>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-sm">
+          <label for="estagioId">Estágio:</label>
+          <select id="estagioId" class="form-control">
+            <option value="null">(Selecione)</option>
+            <?php
+            $sql = "SELECT * FROM estagios";
+            $result = $conn->query($sql);
+            if($result->num_rows > 0)
+            {
+              while($row = $result->fetch_assoc())
+              {
+                $id = $row['id'];
+                $nome = $row['nome'];
+                echo "<option value='{$id}'>{$nome}</option>";
+              }
+            }
+             ?>
+          </select>
+        </div>
+      </div>
+    <button type="button" class="btn btn-primary btn-block btn-sm" style="float: right;" onclick="buscaDiario()">Filtrar</button>
+    </form>
+  </ul>
+</nav>
+<!-- FIM DE MENU VERTICAL -->
 
 
 <!-- END MODAL FORM -->
@@ -94,8 +125,53 @@ $page_name = "Diário de Aulas";
 <script src="js/jquery.mask.js"></script>
 <script src="js/dynamical-dom.js"></script>
 <script>
+function buscaDiario()
+{
+  var turmaId = $("#turmaId").val();
+  var estagioId = $("#estagioId").val();
 
+  $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: "php/aulas/controle.php",
+      data: {'acao':'getAulasByTurma', 'IdTurma':turmaId, 'IdEstagio':estagioId},
+      success: function(data) {
+        console.log(data);
+        if(!data.erro)
+        {
+          var aulas = data.aulas;
+          $("#tableContent").html("");
+          for(i = 0; i < aulas.length; i++)
+          {
+            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='number' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' class='form-control' style='width: 50px;' /></center></td><td></td></tr>";
+            $("#tableContent").append(tr);
+          }
+        }
+        else
+        {
+          console.log(data);
+        }
+      },
+      error: function(data) {
+        console.error(data);
+      }
+  });
+}
 
-
+function getStatus(pagina, paginaInicial, paginaFinal)
+{
+  if(Number(pagina) >= Number(paginaInicial) && Number(pagina) <= Number(paginaFinal))
+  {
+    return "Em dia";
+  }
+  else if(Number(pagina) >= Number(paginaFinal))
+  {
+    return "Adiantado";
+  }
+  else
+  {
+    return "Atrasado";
+  }
+}
 </script>
 </html>

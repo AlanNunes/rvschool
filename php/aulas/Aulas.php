@@ -22,6 +22,37 @@ Class Aulas {
 		$this->conn = $db;
 	}
 
+	public function getAulasByTurma($IdTurma, $IdEstagio)
+	{
+		if ($IdEstagio == "null")
+		{
+			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero, pe.PaginaInicial, pe.PaginaFinal FROM aulas a
+							INNER JOIN programacao_estagios pe ON pe.IdProgramacao_Estagio = a.IdProgramacaoEstagio
+							WHERE a.IdTurma = {$IdTurma}
+							ORDER BY a.Data, a.numero ASC";
+		}
+		else{
+			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero, pe.PaginaInicial, pe.PaginaFinal FROM aulas a
+							INNER JOIN programacao_estagios pe ON pe.IdProgramacao_Estagio = a.IdProgramacaoEstagio
+							WHERE a.IdTurma = {$IdTurma}
+							AND pe.IdEstagio = {$IdEstagio}
+							ORDER BY a.Data, a.numero ASC";
+		}
+		$result = $this->conn->query($sql);
+		if($result->num_rows > 0)
+		{
+			while($row = $result->fetch_assoc())
+			{
+				$aulas[] = $row;
+			}
+			return $aulas;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
 	// Returna true se a turma já tiver aulas criadas
   public function TurmarHasClassesCreated($IdTurma)
   {

@@ -319,6 +319,7 @@ $page_name = "Turmas";
 
     $("#gerarProgramacaoAulas").click(function(e) {
         e.preventDefault();
+        alert('test');
         gerarProgramacaoAulas(e.target.turma);
     });
 
@@ -589,7 +590,7 @@ $page_name = "Turmas";
             try
             {
               console.log(data);
-              document.getElementById("btn_ver_programacao_aulas_modal").addEventListener("click", function(){window.location.href = 'diario.php?IdTurma='+data.IdTurma});
+              document.getElementById("btn_ver_programacao_aulas_modal").addEventListener("click", function(){window.location.href = 'diario_aulas.php'});
               if (data.error)
               {
                 $("#msg_programacao_aulas_modal").html(data.description);
