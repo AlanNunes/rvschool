@@ -185,6 +185,10 @@ $page_name = "Funcionários";
                         Por favor, digite a cidade natal do funcionário.
                       </div>
                     </div>
+                    <div class="form-group col-md-2">
+                      <label for="matricula"> Matrícula:</label>
+                      <input type="text" class="form-control" id="matricula" disabled>
+                    </div>
                   </div>
 
                   <div class="form-row">
@@ -615,6 +619,7 @@ $page_name = "Funcionários";
       }
 
       $("#openRegisterModal").click(function(e) {
+          $(':input').val('');
           $("#editar").hide();
           $("#registrar").show();
           $("#dataDemissao").prop("disabled", true).val("");
@@ -667,14 +672,14 @@ $page_name = "Funcionários";
 
       function buscaCEP(cep){
         if(cep.length === 9){
-          $.post("https://viacep.com.br/ws/"+cep+"/json/", function(data, status){
+          $.getJSON("https://viacep.com.br/ws/"+cep+"/json/?callback=?", function(data, status){
             if(!data.erro){
               $("#logradouro").val(data.logradouro);
               $("#complemento").val(data.complemento);
               $("#bairro").val(data.bairro);
               $("#cidade").val(data.localidade);
             }else{
-              alert('erro');
+              alert('falha ao buscar o CEP');
             }
           });
         }
@@ -773,8 +778,6 @@ $page_name = "Funcionários";
       function createFuncionario() {
           var data = getFormsVal();
           data.acao = "createFuncionario";
-          alert(data.tipoPagamento);
-
           $.ajax({
               type: "POST",
               dataType: "json",
@@ -783,10 +786,10 @@ $page_name = "Funcionários";
               success: function(data) {
                   if(data.erro) {
                       if(data.Description) {
-                          alert(data.Description);
+                          // alert(data.Description);
                       }
                       else {
-                          alert("Arrume os campos em vermelho.");
+                          // alert("Arrume os campos em vermelho.");
                          setInvalidFields(data.invalidFields);
                       }
                   }
@@ -816,10 +819,10 @@ $page_name = "Funcionários";
               success: function(data) {
                   if(data.erro) {
                       if(data.Description) {
-                          alert(data.Description);
+                          // alert(data.Description);
                       }
                       else {
-                          alert("Arrume os campos em vermelho.");
+                          // alert("Arrume os campos em vermelho.");
                           setInvalidFields(data.invalidFields);
                       }
                   }
@@ -850,7 +853,7 @@ $page_name = "Funcionários";
               url: "php/funcionarios/controle.php",
               data: data,
               success: function(data) {
-                  alert(data.Description);
+                  // alert(data.Description);
                   listFuncionarios();
                   $("#confirm-delete").modal("hide");
               },
@@ -878,6 +881,7 @@ $page_name = "Funcionários";
 
       function setFuncionariosFieldsValues(funcionario){
           $("#nome").val(funcionario.nome);
+          $("#matricula").val(funcionario.matricula);
           $("#rg").val(funcionario.rg);
           $("#cpf").val(funcionario.cpf);
           $("#dataNascimento").val(funcionario.dataNascimento);

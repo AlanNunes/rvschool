@@ -456,7 +456,7 @@
 
       function buscaCEP(cep){
         if(cep.length == 9){
-          $.post("https://viacep.com.br/ws/"+cep+"/json/", function(data, status){
+          $.getJSON("https://viacep.com.br/ws/"+cep+"/json/?callback=?", function(data, status){
             if(!data.erro){
               $("#logradouro").val(data.logradouro);
               $("#complemento").val(data.complemento);
