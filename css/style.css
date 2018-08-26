@@ -287,10 +287,10 @@ select.alert {
 .btnlogin{
   background-color: #314178;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
   text-decoration: none;
   color: #F3E1B9;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .btnlogin:hover{

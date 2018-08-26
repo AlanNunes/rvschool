@@ -101,7 +101,15 @@ function atualizaDictation()
   if(isset($_POST['aulaId']) && !empty($_POST['aulaId']))
   {
     $aulas = new Aulas($conn);
-    if($aulas->atualizaDictation($_POST['aulaId'], $_POST['dictation']))
+    if($_POST['dictation'] == "")
+    {
+      $dictation = "null";
+    }
+    else
+    {
+      $dictation = $_POST['dictation'];
+    }
+    if($aulas->atualizaDictation($_POST['aulaId'], $dictation))
     {
       echo 1;
     }
@@ -123,7 +131,15 @@ function atualizaReading()
   if(isset($_POST['aulaId']) && !empty($_POST['aulaId']))
   {
     $aulas = new Aulas($conn);
-    if($aulas->atualizaReading($_POST['aulaId'], $_POST['reading']))
+    if($_POST['reading'] == "")
+    {
+      $reading = "null";
+    }
+    else
+    {
+      $reading = $_POST['reading'];
+    }
+    if($aulas->atualizaReading($_POST['aulaId'], $reading))
     {
       echo 1;
     }

@@ -100,7 +100,7 @@ Class Alunos {
       $year = date('Y');
       $last_id = $this->conn->insert_id;
       // Unite the current year with the identification of the user
-      $enrol = $year . '-' . $last_id;
+      $enrol = $year . '-0' . $last_id;
       $enrolSQL = "UPDATE alunos SET matricula = '{$enrol}' WHERE id = {$last_id} LIMIT 1";
       // Set a enrol number to the student
       if($this->conn->query($enrolSQL)){
