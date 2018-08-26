@@ -22,22 +22,77 @@ Class Aulas {
 		$this->conn = $db;
 	}
 
+	public function atualizaPagina($idAula, $pagina)
+	{
+		$sql = "UPDATE aulas SET pagina = {$pagina} WHERE IdAula = {$idAula}";
+		if($this->conn->query($sql))
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function atualizaConteudo($idAula, $conteudo)
+	{
+		$sql = "UPDATE aulas SET conteudo = '{$conteudo}' WHERE IdAula = {$idAula}";
+		if($this->conn->query($sql))
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function atualizaDictation($idAula, $dictation)
+	{
+		$sql = "UPDATE aulas SET dictation = {$dictation} WHERE IdAula = {$idAula}";
+		if($this->conn->query($sql))
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function atualizaReading($idAula, $reading)
+	{
+		$sql = "UPDATE aulas SET reading = {$reading} WHERE IdAula = {$idAula}";
+		if($this->conn->query($sql))
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+
 	public function getAulasByTurma($IdTurma, $IdEstagio)
 	{
 		if ($IdEstagio == "null")
 		{
 			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero, pe.PaginaInicial, pe.PaginaFinal,
-							a.pagina, a.conteudo, a.dictation, a.reading
+							a.pagina, a.conteudo, a.dictation, a.reading, f.nome as nomeProfessor
 							FROM aulas a
 							INNER JOIN programacao_estagios pe ON pe.IdProgramacao_Estagio = a.IdProgramacaoEstagio
+							LEFT OUTER JOIN funcionarios f ON a.Professor = f.id
 							WHERE a.IdTurma = {$IdTurma}
 							ORDER BY a.Data, a.numero ASC";
 		}
 		else{
 			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero, pe.PaginaInicial, pe.PaginaFinal,
-							a.pagina, a.conteudo, a.dictation, a.reading
+							a.pagina, a.conteudo, a.dictation, a.reading, f.nome as nomeProfessor
 							FROM aulas a
 							INNER JOIN programacao_estagios pe ON pe.IdProgramacao_Estagio = a.IdProgramacaoEstagio
+							LEFT OUTER JOIN funcionarios f ON a.Professor = f.id
 							WHERE a.IdTurma = {$IdTurma}
 							AND pe.IdEstagio = {$IdEstagio}
 							ORDER BY a.Data, a.numero ASC";

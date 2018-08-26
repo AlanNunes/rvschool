@@ -69,7 +69,6 @@ function createFuncionario(){
         "cidade",
         "bairro",
         "email",
-        "tipoPagamento",
         "carteiraProfissional",
         "inss",
         "percentualInss",

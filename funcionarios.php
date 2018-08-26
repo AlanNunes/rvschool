@@ -784,12 +784,13 @@ $page_name = "Funcionários";
               url: "php/funcionarios/controle.php",
               data: data,
               success: function(data) {
+                console.log(data);
                   if(data.erro) {
                       if(data.Description) {
                           // alert(data.Description);
                       }
                       else {
-                          // alert("Arrume os campos em vermelho.");
+                          alert("Arrume os campos em vermelho.");
                          setInvalidFields(data.invalidFields);
                       }
                   }
@@ -819,15 +820,15 @@ $page_name = "Funcionários";
               success: function(data) {
                   if(data.erro) {
                       if(data.Description) {
-                          // alert(data.Description);
+                          alert(data.Description);
                       }
                       else {
-                          // alert("Arrume os campos em vermelho.");
+                          alert("Arrume os campos em vermelho.");
                           setInvalidFields(data.invalidFields);
                       }
                   }
                   else {
-                      alert(data.Description);
+                      // alert(data.Description);
                       setInvalidFields([]);
                       listFuncionarios();
                   }
@@ -944,7 +945,14 @@ $page_name = "Funcionários";
           var email = $("#email").val();
           var telefone = $("#telefone").val();
           var celular = $("#celular").val();
-          var tipoPagamento = $('input[name=tipoPagamento]:checked').val();
+          if (document.getElementById("horista").checked)
+          {
+            var tipoPagamento = "horista";
+          }
+          else
+          {
+            var tipoPagamento = "mensalista";
+          }
           var carteiraProfissional = $("#carteiraProfissional").val();
           var inss = $("#inss").val();
           var percentualInss = $("#percentualInss").val();

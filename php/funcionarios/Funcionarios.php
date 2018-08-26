@@ -116,17 +116,13 @@ class Funcionarios {
 	       $enrolSQL = "UPDATE funcionarios SET matricula = '{$enrol}' WHERE id = {$last_id} LIMIT 1";
 	       // Set a enrol number to the student
 	       if($this->conn->query($enrolSQL)){
-	         $responseResponsaveis = $this->registerResponsavelAluno($last_id, $responsaveis);
-	         if(!$responseResponsaveis){
-	           $this->conn->close();
 	           return array("erro" => false, "Description" => "Funcionário registrado com sucesso.");
-	         }
 	       }else{
 					 return array("erro" => true, "Description" => "Funcionário registrado porém a matrícula não foi gerada.");
 				 }
 	       $this->conn->close();
 	     }
-	     return array("erro" => true, "Description" => "Falha ao registrar funcionário.");
+	     return array("erro" => true, "Description" => $query);
 	}
 
 	//updates employees data

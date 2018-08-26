@@ -40,6 +40,7 @@ $page_name = "Diário de Aulas";
         <th scope="col">CONTEÚDO</th>
         <th scope="col">DICTATION</th>
         <th scope="col">READING</th>
+        <th scope="col">PROFESSOR</th>
         <th scope="col">SITUAÇÃO</th>
       </tr>
       </thead>
@@ -103,7 +104,7 @@ $page_name = "Diário de Aulas";
           </select>
         </div>
       </div>
-    <button type="button" class="btn btn-primary btn-block btn-sm" style="float: right;" onclick="buscaDiario()">Filtrar</button>
+    <button type="button" class="btn btn-primary btn-block btn-sm" style="float: right;" onclick="buscaDiario();">Filtrar</button>
     </form>
   </ul>
 </nav>
@@ -143,7 +144,7 @@ function buscaDiario()
           $("#tableContent").html("");
           for(i = 0; i < aulas.length; i++)
           {
-            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' data-set='"+aulas[i].idAula+"' onkeyup='atualizaStatus(this, "+aulas[i].idAula+", "+aulas[i].PaginaInicial+", "+aulas[i].PaginaFinal+")' value='"+mostraValor(aulas[i].pagina)+"' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' data-set='"+aulas.idAula+"' value='"+mostraValor(aulas[i].conteudo)+"' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='number' value='"+mostraValor(aulas[i].dictation)+"' data-set='"+aulas.idAula+"' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].reading)+"' data-set='"+aulas.idAula+"' class='form-control' style='width: 50px;' /></center></td><td id='situacao-"+aulas[i].idAula+"'>"+getStatus(aulas[i].pagina, aulas[i].PaginaInicial, aulas[i].PaginaFinal)+"</td></tr>";
+            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' onkeyup='atualizaStatus(this, "+aulas[i].idAula+", "+aulas[i].PaginaInicial+", "+aulas[i].PaginaFinal+");atualizaPagina(this);' value='"+mostraValor(aulas[i].pagina)+"' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' value='"+mostraValor(aulas[i].conteudo)+"' onkeyup='atualizaConteudo(this)' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='number' value='"+mostraValor(aulas[i].dictation)+"' onkeyup='atualizaDictation(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].reading)+"' onkeyup='atualizaReading(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td>"+mostraValorComRisco(aulas[i].nomeProfessor)+"</td><td id='situacao-"+aulas[i].idAula+"'>"+getStatus(aulas[i].pagina, aulas[i].PaginaInicial, aulas[i].PaginaFinal)+"</td></tr>";
             $("#tableContent").append(tr);
           }
         }
@@ -188,6 +189,115 @@ function mostraValor(v)
   {
     return v;
   }
+}
+
+function mostraValorComRisco(v)
+{
+  if(v == null)
+  {
+    return "<span class='atrasado'>-</span>";
+  }
+  else
+  {
+    return v;
+  }
+}
+
+function atualizaPagina(e)
+{
+  pagina = e.value;
+  aulaId = $(e).data("aulaid");
+  $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: "php/aulas/controle.php",
+      data: {'acao':'atualizaPagina', 'aulaId':aulaId, 'pagina':pagina},
+      before: function() {
+        $(window).on("beforeunload", function() {
+    			return "Alguns dados ainda estão sendo salvos. Se você sair agora poderá perdê-los.";
+    		});
+      },
+      success: function(data) {
+        $(window).off("beforeunload");
+        console.log(data);
+      },
+      error: function(data) {
+        console.error(data);
+      }
+  });
+}
+
+function atualizaConteudo(e)
+{
+  conteudo = e.value;
+  aulaId = $(e).data("aulaid");
+  console.log(e);
+  $.ajax({
+      type: "POST",
+      dataType: "html",
+      url: "php/aulas/controle.php",
+      data: {'acao':'atualizaConteudo', 'aulaId':aulaId, 'conteudo':conteudo},
+      before: function() {
+        $(window).on("beforeunload", function() {
+    			return "Alguns dados ainda estão sendo salvos. Se você sair agora poderá perdê-los.";
+    		});
+      },
+      success: function(data) {
+        $(window).off("beforeunload");
+        console.log(data);
+      },
+      error: function(data) {
+        console.error(data);
+      }
+  });
+}
+
+function atualizaDictation(e)
+{
+  dictation = e.value;
+  aulaId = $(e).data("aulaid");
+  $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: "php/aulas/controle.php",
+      data: {'acao':'atualizaDictation', 'aulaId':aulaId, 'dictation':dictation},
+      before: function() {
+        $(window).on("beforeunload", function() {
+    			return "Alguns dados ainda estão sendo salvos. Se você sair agora poderá perdê-los.";
+    		});
+      },
+      success: function(data) {
+        $(window).off("beforeunload");
+        console.log(data);
+      },
+      error: function(data) {
+        console.error(data);
+      }
+  });
+}
+
+function atualizaReading(e)
+{
+  reading = e.value;
+  aulaId = $(e).data("aulaid");
+  $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: "php/aulas/controle.php",
+      data: {'acao':'atualizaReading', 'aulaId':aulaId, 'reading':reading},
+      before: function() {
+        $(window).on("beforeunload", function() {
+    			return "Alguns dados ainda estão sendo salvos. Se você sair agora poderá perdê-los.";
+    		});
+      },
+      success: function(data) {
+        $(window).off("beforeunload");
+        console.log(data);
+      },
+      error: function(data) {
+        console.error(data);
+      }
+  });
 }
 
 function atualizaStatus(e, idAula, paginaInicial, paginaFinal)

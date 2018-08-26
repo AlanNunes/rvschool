@@ -21,9 +21,121 @@ switch ($process) {
       getAulasByTurma();
       break;
 
+    case 'atualizaPagina':
+        atualizaPagina();
+        break;
+
+    case 'atualizaConteudo':
+        atualizaConteudo();
+       break;
+
+    case 'atualizaDictation':
+       atualizaDictation();
+      break;
+
+    case 'atualizaReading':
+       atualizaReading();
+      break;
+
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
     break;
+}
+
+function atualizaPagina()
+{
+  $db = new DataBase();
+  $conn = $db->getConnection();
+  if(isset($_POST['aulaId']) && !empty($_POST['aulaId']))
+  {
+    $aulas = new Aulas($conn);
+    if($_POST['pagina'] == "")
+    {
+      $pagina = "null";
+    }
+    else
+    {
+      $pagina = $_POST['pagina'];
+    }
+    if($aulas->atualizaPagina($_POST['aulaId'], $pagina))
+    {
+      echo $aulas->atualizaPagina($_POST['aulaId'], $pagina);
+    }
+    else
+    {
+      echo $aulas->atualizaPagina($_POST['aulaId'], $pagina);
+    }
+  }
+  else
+  {
+    echo 0;
+  }
+}
+
+function atualizaConteudo()
+{
+  $db = new DataBase();
+  $conn = $db->getConnection();
+  if(isset($_POST['aulaId']) && !empty($_POST['aulaId']))
+  {
+    $aulas = new Aulas($conn);
+    if($aulas->atualizaConteudo($_POST['aulaId'], $_POST['conteudo']))
+    {
+      echo 1;
+    }
+    else
+    {
+      echo 0;
+    }
+  }
+  else
+  {
+    echo 0;
+  }
+}
+
+function atualizaDictation()
+{
+  $db = new DataBase();
+  $conn = $db->getConnection();
+  if(isset($_POST['aulaId']) && !empty($_POST['aulaId']))
+  {
+    $aulas = new Aulas($conn);
+    if($aulas->atualizaDictation($_POST['aulaId'], $_POST['dictation']))
+    {
+      echo 1;
+    }
+    else
+    {
+      echo 0;
+    }
+  }
+  else
+  {
+    echo 0;
+  }
+}
+
+function atualizaReading()
+{
+  $db = new DataBase();
+  $conn = $db->getConnection();
+  if(isset($_POST['aulaId']) && !empty($_POST['aulaId']))
+  {
+    $aulas = new Aulas($conn);
+    if($aulas->atualizaReading($_POST['aulaId'], $_POST['reading']))
+    {
+      echo 1;
+    }
+    else
+    {
+      echo 0;
+    }
+  }
+  else
+  {
+    echo 0;
+  }
 }
 
 function getAulasByTurma()
