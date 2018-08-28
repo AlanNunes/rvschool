@@ -1,5 +1,6 @@
 <?php
 include_once('../validation/Validation.php');
+include_once('../login/Usuarios.php');
 include_once('Funcionarios.php');
 include_once('../database/DataBase.php');
 
@@ -159,7 +160,21 @@ function createFuncionario(){
         $conn = $db->getConnection();
         $funcionario = new Funcionarios($conn);
         $response = $funcionario->createFuncionario($data);
-        echo json_encode($response);
+        if(!$response['erro']){
+            $usuario = new Usuarios($conn);
+            $senha = hash('sha256', $data['cpf']);
+            $response2 = $usuario->registerUser($response['matricula'], $senha);
+            if($response2){
+                echo json_encode(array('erro' => false, 'Description' =>
+            "Funcionário registrado com sucesso."));
+            }else{
+                echo json_encode(array('erro' => true, 'Description' =>
+            "O login do funcionário não foi gerado."));
+            }
+        }else{
+            echo json_encode(array('erro' => true, 'Description' =>
+            "Funcionário não registrado."));
+        }
     }
 }
 

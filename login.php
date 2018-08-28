@@ -37,7 +37,7 @@
         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
       </div>
       <span class="group-btn">
-        <a href="#" class="btnlogin">Acessar <i class="fa fa-sign-in"></i></a>
+        <a href="#" class="btnlogin" onclick="logar()">Acessar <i class="fa fa-sign-in"></i></a>
       </span>
       <hr />
       <span class="group-btn">

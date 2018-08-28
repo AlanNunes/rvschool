@@ -526,20 +526,13 @@ $page_name = "Funcionários";
               <!--END ANEXOS-->
 
               <!-- MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
-              <div class="modal fade" id="sucessoRegistro" tabindex="-1" role="dialog" aria-labelledby="sucessoRegistroLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+              <div class="modal fade" id="sucessoRegistro" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-label" aria-hidden="true">
+                <div class="modal-dialog">
                   <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="sucessoRegistroLabel">RevolutionSchool</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      O Funcionário foi registrado com sucesso.
-                    </div>
+                    <div class="modal-header">Revolution School</div>
+                    <div class="modal-body">Operação efetuada com sucesso</div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">Entendi</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
                     </div>
                   </div>
                 </div>
@@ -795,8 +788,8 @@ $page_name = "Funcionários";
                       }
                   }
                   else {
-//                      $("#registrarFuncionario").modal("hide");
-//                      $("#sucessoRegistro").modal("show");
+                    //  $("#registrarFuncionario").modal("hide");
+                     $("#sucessoRegistro").modal("show");
                       setInvalidFields([]);
                       listFuncionarios();
                   }

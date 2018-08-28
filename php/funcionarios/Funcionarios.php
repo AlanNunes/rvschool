@@ -116,7 +116,7 @@ class Funcionarios {
 	       $enrolSQL = "UPDATE funcionarios SET matricula = '{$enrol}' WHERE id = {$last_id} LIMIT 1";
 	       // Set a enrol number to the student
 	       if($this->conn->query($enrolSQL)){
-	           return array("erro" => false, "Description" => "Funcionário registrado com sucesso.");
+	           return array("erro" => false, "Description" => "Funcionário registrado com sucesso.", "matricula" => $enrol);
 	       }else{
 					 return array("erro" => true, "Description" => "Funcionário registrado porém a matrícula não foi gerada.");
 				 }
@@ -185,8 +185,13 @@ class Funcionarios {
     }
 
     public function deleteFuncionario($id){
-        $query = "DELETE FROM funcionarios WHERE id=" . $id;
-        $result = $this->conn->query($query);
+		$query = "DELETE FROM funcionarios WHERE id=" . $id . ";";
+		$query. = "SELECT @usuarioId := usuarioId as id FROM usuarios u
+					INNER JOIN funcionarios f ON f.matricula = u.matricula
+					WHERE f.id = 35;
+					select @usuarioId;
+					DELETE FROM usuarios WHERE usuarioId = @usuarioId;";
+        $result = $this->conn->multiquery($query);
 
         if($result){
             return array("erro" =>false, "Description" => "Funcionário excluido com sucesso.");
