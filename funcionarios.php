@@ -758,6 +758,9 @@ $page_name = "Funcionários";
               trCount.appendChild(tdCount);
               trCount.addToDOM(tBody);
             console.log(data);
+          },
+          error: function(e){
+            console.log(e);
           }
         });
       }

@@ -186,12 +186,7 @@ class Funcionarios {
 
     public function deleteFuncionario($id){
 		$query = "DELETE FROM funcionarios WHERE id=" . $id . ";";
-		$query. = "SELECT @usuarioId := usuarioId as id FROM usuarios u
-					INNER JOIN funcionarios f ON f.matricula = u.matricula
-					WHERE f.id = 35;
-					select @usuarioId;
-					DELETE FROM usuarios WHERE usuarioId = @usuarioId;";
-        $result = $this->conn->multiquery($query);
+        $result = $this->conn->query($query);
 
         if($result){
             return array("erro" =>false, "Description" => "Funcionário excluido com sucesso.");
@@ -210,5 +205,17 @@ class Funcionarios {
 			$result = $this->conn->query($sql);
 			return $result;
 		}
+
+	public function getFuncionarioMatriculaById($id)
+	{
+		$sql = "SELECT matricula FROM funcionarios WHERE id = {$id}";
+		$result = $this->conn->query($sql);
+		if($result->num_rows > 0){
+			$matricula = $result->fetch_assoc();
+			return $matricula["matricula"];
+		}else{
+			return 0;
+		}
+	}
 }
 ?>

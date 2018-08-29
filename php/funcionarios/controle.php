@@ -297,7 +297,10 @@ function deleteFuncionario(){
     $db = new DataBase();
     $conn = $db->getConnection();
     $funcionario = new Funcionarios($conn);
+    $usuario = new Usuarios($conn);
+    $matricula = $funcionario->getFuncionarioMatriculaById($_POST["id"]);
     $response = $funcionario->deleteFuncionario($_POST["id"]);
+    $usuario->deleteByMatricula($matricula);
     if($response["erro"]){
         echo json_encode($response);
     }else{

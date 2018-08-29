@@ -25,5 +25,15 @@ Class Usuarios {
             return 0;
         }
     }
+
+    public function deleteByMatricula($m)
+    {
+    $sql = "DELETE FROM usuarios WHERE matricula = '{$m}'";
+        if($this->conn->query($sql)){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }
 ?>
