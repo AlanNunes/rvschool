@@ -35,5 +35,29 @@ Class Usuarios {
             return 0;
         }
     }
+
+    public function GetUltimoLoginByMatricula($m)
+    {
+        $sql = "SELECT * FROM log_acessos ORDER BY data DESC LIMIT 1";
+        $result = $this->conn->query($sql);
+        if($result->num_rows > 0){
+            return $result->fetch_assoc();
+        }else{
+            return 0;
+        }
+    }
+
+    public function Loga($m, $s)
+    {
+        $s = hash('sha256', $s);
+        $sql = "SELECT usuarioId, matricula FROM usuarios
+        WHERE matricula = '{$m}' AND senha = '{$s}'";
+        $result = $this->conn->query($sql);
+        if($result->num_rows > 0){
+            return $result->fetch_assoc();
+        }else{
+            return 0;
+        }
+    }
 }
 ?>

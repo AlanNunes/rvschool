@@ -26,6 +26,17 @@ function logar(){
     $db = new DataBase();
     $conn = $db->getConnection();
     $usuario = new Usuarios($conn);
+    if($usuario->Loga($matricula, $senha)){
+      $ultimoLogin = $usuario->GetUltimoLoginByMatricula($matricula);
+      if($ultimoLogin){
+        // O usuário já acessou a conta alguma vez
+      }else{
+        // Primeiro acesso
+        
+      }
+    }else{
+
+    }
 }
 
  ?>
