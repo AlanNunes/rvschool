@@ -6,6 +6,12 @@ require_once('php/tipos_de_contratos/TiposContrato.php');
 require_once('php/contratos/Contratos.php');
 require_once('php/turmas/turmas.php');
 require_once('php/database/DataBase.php');
+
+session_start();
+if($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 2 && $_SESSION['roleId'] != 3)
+{
+  header("Location: index.php");
+}
 // End Includes
 // Create an instance for connection to DataBase
 $db = new DataBase();

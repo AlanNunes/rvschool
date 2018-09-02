@@ -1,6 +1,13 @@
 <?php
 require_once('php/database/DataBase.php');
 require_once('php/cargos/Cargos.php');
+
+session_start();
+if($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 2 && $_SESSION['roleId'] != 3)
+{
+  header("Location: index.php");
+}
+
 $db = new DataBase();
 $conn = $db->getConnection();
 
@@ -21,6 +28,7 @@ $page_name = "Funcionários";
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/vertical-bar.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/avatar-image.css">
     <link rel="stylesheet" href="assets/icons/open-iconic-master/font/css/open-iconic-bootstrap.css">
 </head>
 <body>
@@ -36,6 +44,7 @@ $page_name = "Funcionários";
   <table class="table table-hover" style="text-align: center;">
   <thead class="thead-dark">
     <tr>
+      <th scope="col">AVATAR</th>
       <th scope="col">NOME</th>
       <th scope="col">E-MAIL</th>
       <th scope="col">CARGO</th>
@@ -106,6 +115,26 @@ $page_name = "Funcionários";
 
               <!--DADOS DO  FUNCIONARIO-->
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <form name="avatarForm" id="avatarForm">
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                      <div class="avatar-upload">
+                          <div class="avatar-edit">
+                              <input type='file' name="image" id="image" accept=".png, .jpg, .jpeg" class="btn btn-primary">
+                              <label for="image"><span class="oi oi-pencil" style="left:10px; top: 5px;"></span></label>
+                          </div>
+                          <div class="avatar-save">
+                            <button type="submit" name="submit" id="submitRegistrar" class="btn btn-light"><span class="oi oi-cloud-upload"></span></button>
+                            <label for="submitRegistrar"></label>
+                          </div>
+                          <div class="avatar-preview">
+                              <div id="imagePreview">
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-4">
@@ -579,9 +608,10 @@ $page_name = "Funcionários";
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.mask.js"></script>
+    <script src="js/avatar-image.js"></script>
     <script src="js/dynamical-dom.js"></script>
     <script>
-
+    var avatarPath = "";
       $( document ).ready(function() {
           listFuncionarios();
           $("#vertical-nav-bar").toggleClass("collapsed");
@@ -694,7 +724,8 @@ $page_name = "Funcionários";
               for(var i = 0;i < data.length;i++) {
                   var funcionario = data[i];
                   var tr = new DOM_Element("tr");
-                  var nome = new DOM_Element("th", false, false, false, funcionario.nome);
+                  var avatar = new DOM_Element("td");
+                  var nome = new DOM_Element("td", false, false, false, funcionario.nome);
                   var email = new DOM_Element("td", false, false, false, funcionario.email);
                   var cargo = new DOM_Element("td", false, false, false, funcionario.cargo);
                   var cpf = new DOM_Element("td", false, false, false, funcionario.cpf);
@@ -708,6 +739,14 @@ $page_name = "Funcionários";
 
                   var editButton = new DOM_Element("button", "btn transparent-button");
                   var editIcon = new DOM_Element("img", false, false, [{name: "src", value: "assets/icons/open-iconic-master/png/cog-2x.png"}]);
+
+                  if(funcionario.avatarPath != null && funcionario.avatarPath != ""){
+                    var img = new DOM_Element("img", "avatar", false, [{name: "src", value: 'avatars/'+funcionario.avatarPath}], false);
+                    avatar.appendChild(img);
+                  }else{
+                    var img = new DOM_Element("img", "avatar", false, [{name: "src", value: 'avatars/default.png'}], false);
+                    avatar.appendChild(img);
+                  }
 
                   closeButton.element.funcionario = funcionario.id;
                   deleteIcon.element.funcionario = funcionario.id;
@@ -742,6 +781,7 @@ $page_name = "Funcionários";
                   editButton.appendChild(editIcon);
                   edit.appendChild(editButton);
                   edit.appendChild(closeButton);
+                  tr.appendChild(avatar);
                   tr.appendChild(nome);
                   tr.appendChild(email);
                   tr.appendChild(cargo);
@@ -912,6 +952,7 @@ $page_name = "Funcionários";
           $("#codigoBanco").val(funcionario.codigoBanco);
           $("#observacoes").val(funcionario.observacoes);
           $("#anexo").val(funcionario.anexo);
+          $("#imagePreview").css("background-image", "url('avatars/"+funcionario.avatarPath+"')");
       }
 
       function getRequiredFields() {
@@ -1000,12 +1041,37 @@ $page_name = "Funcionários";
               conta: conta,
               codigoBanco: codigoBanco,
               observacoes: observacoes,
-              anexo: anexo
+              anexo: anexo,
+              avatarPath: avatarPath
           }
       }
+
+      $("#avatarForm").on('submit',(function(e) {
+        e.preventDefault();
+        $.ajax({
+        url: "php/avatar/upload.php", // Url to which the request is send
+        type: "POST",             // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        dataType: 'json',
+        contentType: false,       // The content type used when sending data to the server.
+        cache: false,             // To unable request pages to be cached
+        processData:false,        // To send DOMDocument or non processed data file it is set to false
+        success: function(data)   // A function to be called if request succeeds
+        {
+          if(data.erro){
+            alert(data);
+            $("#imagePreview").removeClass("avatar-preview");
+            $("#imagePreview").removeClass("avatar-previewSuccess");
+            $("#imagePreview").addClass("avatar-previewFailure");
+          }else{
+            console.log(data);
+            $("#imagePreview").removeClass("avatar-preview");
+            $("#imagePreview").removeClass("avatar-previewFailure");
+            $("#imagePreview").addClass("avatar-previewSuccess");
+            avatarPath = data.imageName;
+          }
+        }
+        });
+      }));
     </script>
-
-
-
-
 </html>

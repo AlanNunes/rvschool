@@ -1,3 +1,8 @@
+<?php
+include('php/login/Usuarios.php');
+session_start();
+Usuarios::LogOff();
+ ?>
 <html lang="pt">
 <head>
     <meta charset="utf-8">
@@ -56,7 +61,11 @@
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.mask.js"></script>
     <script>
+    $(document).ready(function(){
+      $("#matricula").mask("9999-999999");
+    });
     function login(){
         var matricula = $("#matricula").val();
         var senha = $("#senha").val();

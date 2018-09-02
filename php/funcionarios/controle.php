@@ -215,6 +215,7 @@ function updateFuncionario(){
         "aulaInterna",
         "aulaExterna",
         "salarioMensal",
+				"avatarPath"
     );
 
     if(!empty($data["celular"]) && isset($data["celular"])) {
@@ -289,7 +290,7 @@ function updateFuncionario(){
         $conn = $db->getConnection();
         $funcionario = new Funcionarios($conn);
         $response = $funcionario->updateFuncionario($data);
-        echo json_encode($response);
+        echo json_encode(array('erro' => false, 'test' => $data));
     }
 }
 
@@ -343,7 +344,8 @@ function getFuncionariosData() {
        "conta" => safe_data($_POST["conta"]),
        "codigoBanco" => safe_data($_POST["codigoBanco"]),
        "observacoes" => safe_data($_POST["observacoes"]),
-       "anexo" => safe_data($_POST["anexo"])
+       "anexo" => safe_data($_POST["anexo"]),
+			 "avatarPath" => safe_data($_POST["avatarPath"])
    );
 }
 ?>

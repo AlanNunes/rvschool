@@ -30,14 +30,18 @@ Class Usuarios {
 		$_SESSION["usuarioId"] = $usuarioId;
 		$_SESSION["matricula"] = $matricula;
 		if($tipoUsuario == 'f'){
-			$sql = "SELECT nome FROM funcionarios WHERE matricula = '{$matricula}'";
+			$sql = "SELECT f.id, f.nome, r.roleId, f.avatarPath FROM funcionarios f
+			INNER JOIN roles r ON f.cargo = r.roleId WHERE f.matricula = '{$matricula}'";
 		}else{
-			$sql = "SELECT nome FROM alunos WHERE matricula = '{$matricula}'";
+			$sql = "SELECT id, nome FROM alunos WHERE matricula = '{$matricula}'";
 		}
 		$result = $this->conn->query($sql);
 		if($result->num_rows > 0){
 			$row = $result->fetch_assoc();
+			$_SESSION["funcionarioId"] = $row['id'];
 			$_SESSION["nome"] = $row['nome'];
+			$_SESSION["roleId"] = $row['roleId'];
+			$_SESSION["avatarPath"] = $row['avatarPath'];
 			return 1;
 		}else{
 			return 0;
@@ -78,7 +82,7 @@ Class Usuarios {
 
     public function GetUltimoLoginByMatricula($m)
     {
-        $sql = "SELECT * FROM log_acessos ORDER BY data DESC LIMIT 1";
+        $sql = "SELECT * FROM log_acessos WHERE matricula = '{$m}' LIMIT 1";
         $result = $this->conn->query($sql);
         if($result->num_rows > 0){
             return $result->fetch_assoc();

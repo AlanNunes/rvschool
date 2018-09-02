@@ -34,6 +34,7 @@ class Funcionarios {
 	private $codigoBanco;
 	private $observacoes;
 	private $anexo;
+	public $avatarPath;
 
 	public function __construct($conn){
 	    $this->conn = $conn;
@@ -91,20 +92,21 @@ class Funcionarios {
 	    $this->codigoBanco = $data["codigoBanco"];
 	    $this->observacoes = $data["observacoes"];
 	    $this->anexo = $data["anexo"];
+			$this->avatarPath = $data['avatarPath'];
 
 	    $dataDemissaoString = $this->dataDemissao === "null" ? "null" : "'" . $this->dataDemissao . "'";
 
 	    $query = "INSERT INTO funcionarios (nome, rg, cpf, dataNascimento, estadoCivil, sexo, cargo, cidadeNatal, cep,
 	     logradouro, numero, complemento, cidade, bairro, email, telefone, celular, tipoPagamento, carteiraProfissional,
 	     inss, percentualInss, dataAdmissao, ccm, percentualIss, dataDemissao, aulaInterna, aulaExterna, salarioMensal,
-	     banco, agencia, conta, codigoBanco, observacoes, anexo) VALUES ('". $this->nome ."', '". $this->rg ."', '". $this->cpf ."',
+	     banco, agencia, conta, codigoBanco, observacoes, anexo, avatarPath) VALUES ('". $this->nome ."', '". $this->rg ."', '". $this->cpf ."',
 	     '". $this->dataNascimento ."', '". $this->estadoCivil ."', '". $this->sexo ."', '". $this->cargo ."', '". $this->cidadeNatal ."',
 	     '". $this->cep ."', '". $this->logradouro ."', ". $this->numero .", '". $this->complemento ."', '". $this->cidade ."',
 	     '". $this->bairro ."', '". $this->email ."', '". $this->telefone ."', '". $this->celular ."', '". $this->tipoPagamento ."',
 	     '". $this->carteiraProfissional ."', '". $this->inss ."', ". $this->percentualInss .", '". $this->dataAdmissao ."',
 	     '". $this->ccm ."', ". $this->percentualIss .", ". $dataDemissaoString .", ". $this->aulaInterna .",
 	     ". $this->aulaExterna .", ". $this->salarioMensal .", '". $this->banco ."', '". $this->agencia ."', '". $this->conta ."',
-	     '". $this->codigoBanco ."', '" . $this->observacoes . "', '". $this->anexo ."')";
+	     '". $this->codigoBanco ."', '" . $this->observacoes . "', '". $this->anexo ."', '{$this->avatarPath}')";
 
 	     $response = $this->conn->query($query);
 	     if($response){
@@ -162,6 +164,7 @@ class Funcionarios {
         $this->codigoBanco = $data["codigoBanco"];
         $this->observacoes = $data["observacoes"];
         $this->anexo = $data["anexo"];
+				$this->avatarPath = $data["avatarPath"];
 
         $dataDemissaoString = $this->dataDemissao === "null" ? "null" : "'" . $this->dataDemissao . "'";
 
@@ -175,7 +178,7 @@ class Funcionarios {
                dataDemissao = {$dataDemissaoString}, aulaInterna = {$this->aulaInterna}, aulaExterna = {$this->aulaExterna},
                 salarioMensal = {$this->salarioMensal}, banco = '{$this->banco}', agencia = '{$this->agencia}',
                  conta = '{$this->conta}', codigoBanco = '{$this->codigoBanco}', observacoes = '{$this->observacoes}',
-                  anexo = '{$this->anexo}' WHERE id = {$this->id}";
+                  anexo = '{$this->anexo}', avatarPath = '{$this->avatarPath}' WHERE id = {$this->id}";
 
          $response = $this->conn->query($query);
          if($response){

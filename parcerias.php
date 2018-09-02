@@ -1,4 +1,11 @@
-<?php $page_name = "Parcerias"; ?>
+<?php
+session_start();
+if($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 2 && $_SESSION['roleId'] != 3)
+{
+  header("Location: index.php");
+}
+$page_name = "Parcerias";
+?>
 
 <html lang="pt">
 <head>

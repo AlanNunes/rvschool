@@ -22,11 +22,15 @@ Class Aulas {
 		$this->conn = $db;
 	}
 
-	public function atualizaPagina($idAula, $pagina)
+	public function atualizaPagina($idAula, $pagina, $professor)
 	{
-		$sql = "UPDATE aulas SET pagina = {$pagina} WHERE IdAula = {$idAula}";
+		$sql = "UPDATE aulas SET pagina = {$pagina}, professor = {$professor} WHERE IdAula = {$idAula}";
 		if($this->conn->query($sql))
 		{
+			if($this->VerificaSeAulaVazia($idAula)){
+				$sql = "UPDATE aulas SET professor = null WHERE IdAula = {$idAula}";
+				$this->conn->query($sql);
+			}
 			return 1;
 		}
 		else
@@ -35,11 +39,15 @@ Class Aulas {
 		}
 	}
 
-	public function atualizaConteudo($idAula, $conteudo)
+	public function atualizaConteudo($idAula, $conteudo, $professor)
 	{
-		$sql = "UPDATE aulas SET conteudo = '{$conteudo}' WHERE IdAula = {$idAula}";
+		$sql = "UPDATE aulas SET conteudo = '{$conteudo}', professor = {$professor} WHERE IdAula = {$idAula}";
 		if($this->conn->query($sql))
 		{
+			if($this->VerificaSeAulaVazia($idAula)){
+				$sql = "UPDATE aulas SET professor = null WHERE IdAula = {$idAula}";
+				$this->conn->query($sql);
+			}
 			return 1;
 		}
 		else
@@ -48,11 +56,15 @@ Class Aulas {
 		}
 	}
 
-	public function atualizaDictation($idAula, $dictation)
+	public function atualizaDictation($idAula, $dictation, $professor)
 	{
-		$sql = "UPDATE aulas SET dictation = {$dictation} WHERE IdAula = {$idAula}";
+		$sql = "UPDATE aulas SET dictation = {$dictation}, professor = {$professor} WHERE IdAula = {$idAula}";
 		if($this->conn->query($sql))
 		{
+			if($this->VerificaSeAulaVazia($idAula)){
+				$sql = "UPDATE aulas SET professor = null WHERE IdAula = {$idAula}";
+				$this->conn->query($sql);
+			}
 			return 1;
 		}
 		else
@@ -61,11 +73,15 @@ Class Aulas {
 		}
 	}
 
-	public function atualizaReading($idAula, $reading)
+	public function atualizaReading($idAula, $reading, $professor)
 	{
-		$sql = "UPDATE aulas SET reading = {$reading} WHERE IdAula = {$idAula}";
+		$sql = "UPDATE aulas SET reading = {$reading}, professor = {$professor} WHERE IdAula = {$idAula}";
 		if($this->conn->query($sql))
 		{
+			if($this->VerificaSeAulaVazia($idAula)){
+				$sql = "UPDATE aulas SET professor = null WHERE IdAula = {$idAula}";
+				$this->conn->query($sql);
+			}
 			return 1;
 		}
 		else
@@ -74,6 +90,21 @@ Class Aulas {
 		}
 	}
 
+	public function VerificaSeAulaVazia($idAula)
+	{
+		$sql = "SELECT pagina, conteudo, dictation, reading FROM aulas
+		WHERE IdAula = {$idAula}";
+		$result = $this->conn->query($sql);
+		if($result->num_rows > 0){
+			$row = $result->fetch_assoc();
+			if($row['pagina'] == NULL && $row['conteudo'] == '' && $row['dictation'] == NULL
+			&& $row['reading'] == NULL){
+				return 1;
+			}else{
+				return 0;
+			}
+		}
+	}
 
 	public function getAulasByTurma($IdTurma, $IdEstagio)
 	{

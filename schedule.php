@@ -1,4 +1,6 @@
-<?php date_default_timezone_set('America/Sao_Paulo'); ?>
+<?php
+date_default_timezone_set('America/Sao_Paulo');
+?>
 <div class = "container-fluid">
   <div class = "title-modal-schedule">
     <center>

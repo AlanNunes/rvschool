@@ -57,13 +57,19 @@ function atualizaPagina()
     {
       $pagina = $_POST['pagina'];
     }
-    if($aulas->atualizaPagina($_POST['aulaId'], $pagina))
+    if(empty($_POST['professorId'])){
+      session_start();
+      $professorId = $_SESSION['funcionarioId'];
+    }else{
+      // $professorId = $_POST['professorId'];
+    }
+    if($aulas->atualizaPagina($_POST['aulaId'], $pagina, $professorId))
     {
-      echo $aulas->atualizaPagina($_POST['aulaId'], $pagina);
+      echo 1;
     }
     else
     {
-      echo $aulas->atualizaPagina($_POST['aulaId'], $pagina);
+      echo 0;
     }
   }
   else
@@ -78,8 +84,14 @@ function atualizaConteudo()
   $conn = $db->getConnection();
   if(isset($_POST['aulaId']) && !empty($_POST['aulaId']))
   {
+    if(empty($_POST['professorId'])){
+      session_start();
+      $professorId = $_SESSION['funcionarioId'];
+    }else{
+      // $professorId = $_POST['professorId'];
+    }
     $aulas = new Aulas($conn);
-    if($aulas->atualizaConteudo($_POST['aulaId'], $_POST['conteudo']))
+    if($aulas->atualizaConteudo($_POST['aulaId'], $_POST['conteudo'], $professorId))
     {
       echo 1;
     }
@@ -109,7 +121,13 @@ function atualizaDictation()
     {
       $dictation = $_POST['dictation'];
     }
-    if($aulas->atualizaDictation($_POST['aulaId'], $dictation))
+    if(empty($_POST['professorId'])){
+      session_start();
+      $professorId = $_SESSION['funcionarioId'];
+    }else{
+      // $professorId = $_POST['professorId'];
+    }
+    if($aulas->atualizaDictation($_POST['aulaId'], $dictation, $professorId))
     {
       echo 1;
     }
@@ -139,7 +157,13 @@ function atualizaReading()
     {
       $reading = $_POST['reading'];
     }
-    if($aulas->atualizaReading($_POST['aulaId'], $reading))
+    if(empty($_POST['professorId'])){
+      session_start();
+      $professorId = $_SESSION['funcionarioId'];
+    }else{
+      // $professorId = $_POST['professorId'];
+    }
+    if($aulas->atualizaReading($_POST['aulaId'], $reading, $professorId))
     {
       echo 1;
     }

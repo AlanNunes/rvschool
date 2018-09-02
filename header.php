@@ -60,16 +60,31 @@
 
 
 	<li class="dropdown">
-	<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">MÍDIAS
-	<span class="caret"></span></a>
-	<ul class="dropdown-menu">
-		<li onclick="window.location='bolsas.php'" id="dpdi" class="im">BOLSAS</li>
-		<li onclick="window.location='interessados.php'" id="dpdi" class="im">INTERESSADOS</li>
-	</ul>
-	</li>
-
+		<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">MÍDIAS
+		<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li onclick="window.location='bolsas.php'" id="dpdi" class="im">BOLSAS</li>
+				<li onclick="window.location='interessados.php'" id="dpdi" class="im">INTERESSADOS</li>
+			</ul>
+		</li>
+			<div style="position: absolute; right:100px; bottom:20px;">
+				<?php
+					$image = $_SESSION['avatarPath'];
+					echo "<img src='avatars/{$image}' style='border-radius: 100%; height: 60px; width: 60px;' />"
+				 ?>
+			</div>
+			<div style="position: absolute; right:10px;">
+				<li class="dropdown">
+					<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">PERFIL
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li onclick="window.location='logout.php'" id="dpdi" class="im">SAIR</li>
+						<li onclick="window.location='perfil.php'" id="dpdi" class="im">VER PERFIL</li>
+					</ul>
+				</li>
+			</div>
 		    </ul>
-
 		  </div>
 		</nav>
 	</header>
