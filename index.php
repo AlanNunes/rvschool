@@ -24,7 +24,10 @@ if($_SESSION['usuarioId'] == "" || $_SESSION['usuarioId'] == null)
 </head>
 <body>
 <?php include('header.php') ?>
+<br/><br/>
+<center>
 <?php include ('schedule.php'); ?>
+</center>
 <?php include('footer.php') ?>
 </body>
 <!-- Scripts -->
