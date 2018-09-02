@@ -15,6 +15,35 @@ Class Usuarios {
 		$this->conn = $db;
     }
 
+
+	public static function LogOff()
+	{
+		session_unset();
+		session_destroy();
+	}
+
+	public function SetSessions($usuarioId, $matricula, $tipoUsuario)
+	{
+		session_unset();
+		session_destroy();
+		session_start();
+		$_SESSION["usuarioId"] = $usuarioId;
+		$_SESSION["matricula"] = $matricula;
+		if($tipoUsuario == 'f'){
+			$sql = "SELECT nome FROM funcionarios WHERE matricula = '{$matricula}'";
+		}else{
+			$sql = "SELECT nome FROM alunos WHERE matricula = '{$matricula}'";
+		}
+		$result = $this->conn->query($sql);
+		if($result->num_rows > 0){
+			$row = $result->fetch_assoc();
+			$_SESSION["nome"] = $row['nome'];
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+
 	public function MudaSenha($matricula, $senha, $senhaConfirm){
 		$senha = hash('sha256', $senha);
 		$sql = "UPDATE usuarios SET senha = '{$senha}'
@@ -26,10 +55,10 @@ Class Usuarios {
 		}
 	}
 
-    public function registerUser($matricula, $senha)
+    public function registerUser($matricula, $senha, $tipoUsuario)
     {
-        $sql = "INSERT INTO usuarios (matricula, senha)
-                VALUES ('{$matricula}', '{$senha}')";
+        $sql = "INSERT INTO usuarios (matricula, senha, tipoUsuario)
+                VALUES ('{$matricula}', '{$senha}', '{$tipoUsuario}')";
         if($this->conn->query($sql)){
             return 1;
         }else{
@@ -61,7 +90,7 @@ Class Usuarios {
     public function Loga($m, $s)
     {
         $s = hash('sha256', $s);
-        $sql = "SELECT usuarioId, matricula FROM usuarios
+        $sql = "SELECT usuarioId, matricula, tipoUsuario FROM usuarios
         WHERE matricula = '{$m}' AND senha = '{$s}'";
         $result = $this->conn->query($sql);
         if($result->num_rows > 0){

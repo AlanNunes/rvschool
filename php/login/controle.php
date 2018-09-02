@@ -61,20 +61,19 @@ function Login(){
     $usuario = new Usuarios($conn);
     $login = $usuario->Loga($matricula, $senha);
     if($login){
-      session_unset();
-      session_destroy();
-      session_start();
-      $_SESSION["usuarioId"] = $login["usuarioId"];
-      $_SESSION["matricula"] = $login["matricula"];
-      $log_acesso = new LogAcessos($conn);
-      $ultimoLogin = $usuario->GetUltimoLoginByMatricula($matricula);
-      $log_acesso->RegistraLog($matricula, date('Y-m-d h:m:s'));
-      if($ultimoLogin){
-        // O usuário já acessou a conta alguma vez
-        echo 1;
+      if($usuario->SetSessions($login['usuarioId'], $login['matricula'], $login['tipoUsuario'])){
+        $log_acesso = new LogAcessos($conn);
+        $ultimoLogin = $usuario->GetUltimoLoginByMatricula($matricula);
+        $log_acesso->RegistraLog($matricula, date('Y-m-d h:m:s'));
+        if($ultimoLogin){
+          // O usuário já acessou a conta alguma vez
+          echo 1;
+        }else{
+          // Primeiro acesso
+          echo 2;
+        }
       }else{
-        // Primeiro acesso
-        echo 2;
+        echo 0;
       }
     }else{
       echo 0;

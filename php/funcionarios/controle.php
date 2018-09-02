@@ -163,7 +163,7 @@ function createFuncionario(){
         if(!$response['erro']){
             $usuario = new Usuarios($conn);
             $senha = hash('sha256', $data['cpf']);
-            $response2 = $usuario->registerUser($response['matricula'], $senha);
+            $response2 = $usuario->registerUser($response['matricula'], $senha, 'f');
             if($response2){
                 echo json_encode(array('erro' => false, 'Description' =>
             "Funcionário registrado com sucesso."));
