@@ -15,6 +15,17 @@ Class Usuarios {
 		$this->conn = $db;
     }
 
+	public function MudaSenha($matricula, $senha, $senhaConfirm){
+		$senha = hash('sha256', $senha);
+		$sql = "UPDATE usuarios SET senha = '{$senha}'
+		WHERE matricula = '{$matricula}'";
+		if($this->conn->query($sql)){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+
     public function registerUser($matricula, $senha)
     {
         $sql = "INSERT INTO usuarios (matricula, senha)

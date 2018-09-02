@@ -3,7 +3,7 @@
   <div class = "title-modal-schedule">
     <center>
       <h4>SCHEDULE - <?php echo date("d/m/Y") ?></h4>
-    <center>
+    </center>
   </div>
 
   <div class = "modal-schedule">
