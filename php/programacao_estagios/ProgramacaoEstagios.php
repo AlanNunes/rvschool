@@ -40,7 +40,7 @@ Class ProgramacaoEstagios {
 	// Retorna uma array contendo o id de todas as programações de estágio
   public function GetAllProgramacaoEstagios()
   {
-    $sql = "SELECT IdProgramacao_Estagio FROM programacao_estagios";
+    $sql = "SELECT IdProgramacao_Estagio, Numero FROM programacao_estagios";
     $result = $this->conn->query($sql);
     if ($result->num_rows)
     {

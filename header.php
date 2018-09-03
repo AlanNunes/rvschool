@@ -79,8 +79,8 @@
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li onclick="window.location='logout.php'" id="dpdi" class="im">SAIR</li>
 						<li onclick="window.location='perfil.php'" id="dpdi" class="im">VER PERFIL</li>
+						<li onclick="window.location='logout.php'" id="dpdi" class="im">SAIR</li>
 					</ul>
 				</li>
 			</div>

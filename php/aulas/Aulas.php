@@ -90,6 +90,23 @@ Class Aulas {
 		}
 	}
 
+	public function atualizaProfessor($idAula, $professor)
+	{
+		if(empty($professor) || $professor == null || $professor = "null"){
+			$sql = "UPDATE aulas SET professor = null WHERE IdAula = {$idAula}";
+		}else{
+			$sql = "UPDATE aulas SET professor = {$professor} WHERE IdAula = {$idAula}";
+		}
+		if($this->conn->query($sql))
+		{
+			return $sql;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
 	public function VerificaSeAulaVazia($idAula)
 	{
 		$sql = "SELECT pagina, conteudo, dictation, reading FROM aulas
@@ -164,15 +181,14 @@ Class Aulas {
 
   public function GerarAulas($IdTurma, $ProgramacaoEstagio, $StartDate)
   {
-    $count = 1;
     $sql = "";
     foreach ($ProgramacaoEstagio as $programacao)
     {
       $idProgramacao = $programacao['IdProgramacao_Estagio'];
+			$numero = $programacao['Numero'];
       $sql .= "INSERT INTO aulas (Data, Numero, IdProgramacaoEstagio, IdTurma)
-            VALUES ('{$StartDate}', '{$count}', {$idProgramacao}, {$IdTurma});";
+            VALUES ('{$StartDate}', '{$numero}', {$idProgramacao}, {$IdTurma});";
       $StartDate = $this->AddOneDayToDateAndJumpWeekend($StartDate);
-      $count++;
     }
     if ($this->conn->multi_query($sql))
     {

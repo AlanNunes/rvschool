@@ -37,6 +37,10 @@ switch ($process) {
        atualizaReading();
       break;
 
+    case 'atualizaProfessor':
+      atualizaProfessor();
+      break;
+
   default:
     echo json_encode(array("erro" => true, "description" => "No Process Found"));
     break;
@@ -61,7 +65,7 @@ function atualizaPagina()
       session_start();
       $professorId = $_SESSION['funcionarioId'];
     }else{
-      // $professorId = $_POST['professorId'];
+      $professorId = $_POST['professorId'];
     }
     if($aulas->atualizaPagina($_POST['aulaId'], $pagina, $professorId))
     {
@@ -88,7 +92,7 @@ function atualizaConteudo()
       session_start();
       $professorId = $_SESSION['funcionarioId'];
     }else{
-      // $professorId = $_POST['professorId'];
+      $professorId = $_POST['professorId'];
     }
     $aulas = new Aulas($conn);
     if($aulas->atualizaConteudo($_POST['aulaId'], $_POST['conteudo'], $professorId))
@@ -125,7 +129,7 @@ function atualizaDictation()
       session_start();
       $professorId = $_SESSION['funcionarioId'];
     }else{
-      // $professorId = $_POST['professorId'];
+      $professorId = $_POST['professorId'];
     }
     if($aulas->atualizaDictation($_POST['aulaId'], $dictation, $professorId))
     {
@@ -161,9 +165,37 @@ function atualizaReading()
       session_start();
       $professorId = $_SESSION['funcionarioId'];
     }else{
-      // $professorId = $_POST['professorId'];
+      $professorId = $_POST['professorId'];
     }
     if($aulas->atualizaReading($_POST['aulaId'], $reading, $professorId))
+    {
+      echo 1;
+    }
+    else
+    {
+      echo 0;
+    }
+  }
+  else
+  {
+    echo 0;
+  }
+}
+
+function atualizaProfessor()
+{
+  $db = new DataBase();
+  $conn = $db->getConnection();
+  if(isset($_POST['aulaId']) && !empty($_POST['aulaId']))
+  {
+    $aulas = new Aulas($conn);
+    if(empty($_POST['professorId'])){
+      session_start();
+      $professorId = $_SESSION['funcionarioId'];
+    }else{
+      $professorId = $_POST['professorId'];
+    }
+    if($teste = $aulas->atualizaProfessor($_POST['aulaId'], $professorId))
     {
       echo 1;
     }
