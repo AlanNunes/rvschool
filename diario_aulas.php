@@ -151,10 +151,10 @@ function buscaDiario()
           $("#tableContent").html("");
           for(i = 0; i < aulas.length; i++)
           {
-            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' onkeyup='atualizaStatus(this, "+aulas[i].idAula+", "+aulas[i].PaginaInicial+", "+aulas[i].PaginaFinal+");atualizaPagina(this);' value='"+mostraValor(aulas[i].pagina)+"' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' value='"+mostraValor(aulas[i].conteudo)+"' onkeyup='atualizaConteudo(this)' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='number' value='"+mostraValor(aulas[i].dictation)+"' onkeyup='atualizaDictation(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].reading)+"' onkeyup='atualizaReading(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td data-nomeProfessor='"+aulas[i].nomeProfessor+"'>"+<?php if($_SESSION['roleId'] == 2){$prof = $professores->getProfessores(); echo "'<select id=professor class=form-control><option>(Selecione)</option>'+"; foreach($prof as $p){$id=$p['id']; $nome=$p['nome']; echo "'<option id={$id}>{$nome}</option>'+";}echo "'</select>'+"; }else{echo "mostraNomeProfessor(aulas[i].nomeProfessor)+";} ?>"</td><td id='situacao-"+aulas[i].idAula+"'>"+getStatus(aulas[i].pagina, aulas[i].PaginaInicial, aulas[i].PaginaFinal)+"</td></tr>";
+            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' onkeyup='atualizaStatus(this, "+aulas[i].idAula+", "+aulas[i].PaginaInicial+", "+aulas[i].PaginaFinal+");atualizaPagina(this);' value='"+mostraValor(aulas[i].pagina)+"' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' value='"+mostraValor(aulas[i].conteudo)+"' onkeyup='atualizaConteudo(this)' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='number' value='"+mostraValor(aulas[i].dictation)+"' onkeyup='atualizaDictation(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].reading)+"' onkeyup='atualizaReading(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td data-idProfessor='"+aulas[i].idProfessor+"'>"+<?php if($_SESSION['roleId'] == 2){$prof = $professores->getProfessores(); echo "'<select id=professor class=form-control><option>(Selecione)</option>'+"; foreach($prof as $p){$id=$p['id']; $nome=$p['nome']; echo "'<option value={$id}>{$nome}</option>'+";}echo "'</select>'+"; }else{echo "mostraNomeProfessor(aulas[i].nomeProfessor)+";} ?>"</td><td id='situacao-"+aulas[i].idAula+"'>"+getStatus(aulas[i].pagina, aulas[i].PaginaInicial, aulas[i].PaginaFinal)+"</td></tr>";
             $("#tableContent").append(tr);
-            selectProfessores();
           }
+          selectProfessores();
         }
         else
         {
@@ -169,7 +169,22 @@ function buscaDiario()
 }
 
 function selectProfessores(){
-  
+  itens = document.querySelectorAll('[data-idProfessor]');
+  console.log(itens.length);
+  for(i = 0; i < itens.length; i++){
+    id = itens[i].dataset.idprofessor;
+    select = itens[i].querySelectorAll('select');
+    for(f = 0; f < select.length; f++){
+      opts = select[f].querySelectorAll('option');
+      for(j = 0; j < opts.length; j++){
+        console.log(opts[j].value+" == "+id);
+        if(opts[j].value == id){
+          console.log(opts[j]);
+          opts[j].selected = true;
+        }
+      }
+    }
+  }
 }
 
 function getStatus(pagina, paginaInicial, paginaFinal)
