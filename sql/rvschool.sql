@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 28-Ago-2018 às 02:41
+-- Generation Time: 05-Set-2018 às 01:23
 -- Versão do servidor: 5.7.19
 -- PHP Version: 7.0.23
 
@@ -116,142 +116,56 @@ CREATE TABLE IF NOT EXISTS `aulas` (
   KEY `Pagina_idx` (`Pagina`),
   KEY `IdProfessor_idx` (`Professor`),
   KEY `IdTurma_idx` (`IdTurma`)
-) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `aulas`
 --
 
 INSERT INTO `aulas` (`IdAula`, `Data`, `Numero`, `Pagina`, `Conteudo`, `Dictation`, `Reading`, `IdProgramacaoEstagio`, `Professor`, `IdTurma`) VALUES
-(1, '2018-08-21', 1, 3, 'Hello', 1, NULL, 1, 20, 4),
-(2, '2018-08-22', 2, 6, 'Goodbye', NULL, 2, 2, 20, 4),
-(3, '2018-08-23', 3, 8, 'To greet', NULL, 3, 3, NULL, 4),
-(4, '2018-08-24', 4, 12, 'Thank you', 2, NULL, 4, NULL, 4),
-(5, '2018-08-27', 5, NULL, '', NULL, NULL, 5, NULL, 4),
-(6, '2018-08-28', 6, NULL, '', NULL, NULL, 6, NULL, 4),
-(7, '2018-08-29', 7, NULL, NULL, NULL, NULL, 7, NULL, 4),
-(8, '2018-08-30', 8, NULL, NULL, NULL, NULL, 8, NULL, 4),
-(9, '2018-08-31', 9, NULL, NULL, NULL, NULL, 9, NULL, 4),
-(10, '2018-09-03', 10, NULL, NULL, NULL, NULL, 10, NULL, 4),
-(11, '2018-09-04', 11, NULL, NULL, NULL, NULL, 11, NULL, 4),
-(12, '2018-09-05', 12, NULL, NULL, NULL, NULL, 12, NULL, 4),
-(13, '2018-09-06', 13, 12, NULL, NULL, NULL, 13, NULL, 4),
-(14, '2018-09-07', 14, NULL, NULL, NULL, NULL, 14, NULL, 4),
-(15, '2018-09-10', 15, NULL, NULL, NULL, NULL, 15, NULL, 4),
-(16, '2018-09-11', 16, NULL, NULL, NULL, NULL, 16, NULL, 4),
-(17, '2018-09-12', 17, NULL, NULL, NULL, NULL, 17, NULL, 4),
-(18, '2018-09-13', 18, NULL, NULL, NULL, NULL, 18, NULL, 4),
-(19, '2018-09-14', 19, NULL, NULL, NULL, NULL, 19, NULL, 4),
-(20, '2018-09-17', 20, NULL, NULL, NULL, NULL, 20, NULL, 4),
-(21, '2018-09-18', 21, NULL, NULL, NULL, NULL, 21, NULL, 4),
-(22, '2018-09-19', 22, NULL, NULL, NULL, NULL, 22, NULL, 4),
-(23, '2018-09-20', 23, NULL, NULL, NULL, NULL, 23, NULL, 4),
-(24, '2018-09-21', 24, NULL, NULL, NULL, NULL, 24, NULL, 4),
-(25, '2018-09-24', 25, NULL, NULL, NULL, NULL, 25, NULL, 4),
-(26, '2018-09-25', 26, NULL, NULL, NULL, NULL, 26, NULL, 4),
-(27, '2018-09-26', 27, NULL, NULL, NULL, NULL, 27, NULL, 4),
-(28, '2018-09-27', 28, NULL, NULL, NULL, NULL, 28, NULL, 4),
-(29, '2018-09-28', 29, NULL, NULL, NULL, NULL, 29, NULL, 4),
-(30, '2018-10-01', 30, NULL, NULL, NULL, NULL, 30, NULL, 4),
-(31, '2018-10-02', 31, NULL, NULL, NULL, NULL, 31, NULL, 4),
-(32, '2018-10-03', 32, NULL, NULL, NULL, NULL, 32, NULL, 4),
-(33, '2018-10-04', 33, NULL, NULL, NULL, NULL, 33, NULL, 4),
-(34, '2018-10-05', 34, NULL, NULL, NULL, NULL, 34, NULL, 4),
-(35, '2018-10-08', 35, NULL, NULL, NULL, NULL, 35, NULL, 4),
-(36, '2018-10-09', 36, NULL, NULL, NULL, NULL, 36, NULL, 4),
-(37, '2018-10-10', 37, NULL, NULL, NULL, NULL, 37, NULL, 4),
-(38, '2018-10-11', 38, NULL, NULL, NULL, NULL, 38, NULL, 4),
-(39, '2018-10-12', 39, NULL, NULL, NULL, NULL, 39, NULL, 4),
-(40, '2018-10-15', 40, NULL, NULL, NULL, NULL, 40, NULL, 4),
-(41, '2018-10-16', 41, NULL, NULL, NULL, NULL, 41, NULL, 4),
-(42, '2018-10-17', 42, NULL, NULL, NULL, NULL, 42, NULL, 4),
-(43, '2018-10-18', 43, NULL, NULL, NULL, NULL, 43, NULL, 4),
-(44, '2018-08-21', 1, 2, 'Door', 1, 1, 1, NULL, 2),
-(45, '2018-08-22', 2, 5, 'Table', 2, NULL, 2, NULL, 2),
-(46, '2018-08-23', 3, 6, 'Friend', 3, 2, 3, NULL, 2),
-(47, '2018-08-24', 4, 10, 'testee', 2, 3, 4, NULL, 2),
-(48, '2018-08-27', 5, 15, 'haha', NULL, 4, 5, NULL, 2),
-(49, '2018-08-28', 6, 16, '10', 5, NULL, 6, NULL, 2),
-(50, '2018-08-29', 7, NULL, '', NULL, NULL, 7, NULL, 2),
-(51, '2018-08-30', 8, NULL, NULL, NULL, NULL, 8, NULL, 2),
-(52, '2018-08-31', 9, NULL, NULL, NULL, NULL, 9, NULL, 2),
-(53, '2018-09-03', 10, NULL, NULL, NULL, NULL, 10, NULL, 2),
-(54, '2018-09-04', 11, NULL, NULL, NULL, NULL, 11, NULL, 2),
-(55, '2018-09-05', 12, NULL, NULL, NULL, NULL, 12, NULL, 2),
-(56, '2018-09-06', 13, NULL, NULL, NULL, NULL, 13, NULL, 2),
-(57, '2018-09-07', 14, NULL, NULL, NULL, NULL, 14, NULL, 2),
-(58, '2018-09-10', 15, NULL, NULL, NULL, NULL, 15, NULL, 2),
-(59, '2018-09-11', 16, NULL, NULL, NULL, NULL, 16, NULL, 2),
-(60, '2018-09-12', 17, NULL, NULL, NULL, NULL, 17, NULL, 2),
-(61, '2018-09-13', 18, NULL, NULL, NULL, NULL, 18, NULL, 2),
-(62, '2018-09-14', 19, NULL, NULL, NULL, NULL, 19, NULL, 2),
-(63, '2018-09-17', 20, NULL, NULL, NULL, NULL, 20, NULL, 2),
-(64, '2018-09-18', 21, NULL, NULL, NULL, NULL, 21, NULL, 2),
-(65, '2018-09-19', 22, NULL, NULL, NULL, NULL, 22, NULL, 2),
-(66, '2018-09-20', 23, NULL, NULL, NULL, NULL, 23, NULL, 2),
-(67, '2018-09-21', 24, NULL, NULL, NULL, NULL, 24, NULL, 2),
-(68, '2018-09-24', 25, NULL, NULL, NULL, NULL, 25, NULL, 2),
-(69, '2018-09-25', 26, NULL, NULL, NULL, NULL, 26, NULL, 2),
-(70, '2018-09-26', 27, NULL, NULL, NULL, NULL, 27, NULL, 2),
-(71, '2018-09-27', 28, NULL, NULL, NULL, NULL, 28, NULL, 2),
-(72, '2018-09-28', 29, NULL, NULL, NULL, NULL, 29, NULL, 2),
-(73, '2018-10-01', 30, NULL, NULL, NULL, NULL, 30, NULL, 2),
-(74, '2018-10-02', 31, NULL, NULL, NULL, NULL, 31, NULL, 2),
-(75, '2018-10-03', 32, NULL, NULL, NULL, NULL, 32, NULL, 2),
-(76, '2018-10-04', 33, NULL, NULL, NULL, NULL, 33, NULL, 2),
-(77, '2018-10-05', 34, NULL, NULL, NULL, NULL, 34, NULL, 2),
-(78, '2018-10-08', 35, NULL, NULL, NULL, NULL, 35, NULL, 2),
-(79, '2018-10-09', 36, NULL, NULL, NULL, NULL, 36, NULL, 2),
-(80, '2018-10-10', 37, NULL, NULL, NULL, NULL, 37, NULL, 2),
-(81, '2018-10-11', 38, NULL, NULL, NULL, NULL, 38, NULL, 2),
-(82, '2018-10-12', 39, NULL, NULL, NULL, NULL, 39, NULL, 2),
-(83, '2018-10-15', 40, NULL, NULL, NULL, NULL, 40, NULL, 2),
-(84, '2018-10-16', 41, NULL, NULL, NULL, NULL, 41, NULL, 2),
-(85, '2018-10-17', 42, NULL, NULL, NULL, NULL, 42, NULL, 2),
-(86, '2018-10-18', 43, NULL, NULL, NULL, NULL, 43, NULL, 2),
-(87, '2018-08-21', 1, NULL, NULL, NULL, NULL, 1, NULL, 3),
-(88, '2018-08-22', 2, NULL, NULL, NULL, NULL, 2, NULL, 3),
-(89, '2018-08-23', 3, NULL, NULL, NULL, NULL, 3, NULL, 3),
-(90, '2018-08-24', 4, NULL, NULL, NULL, NULL, 4, NULL, 3),
-(91, '2018-08-27', 5, NULL, NULL, NULL, NULL, 5, NULL, 3),
-(92, '2018-08-28', 6, NULL, NULL, NULL, NULL, 6, NULL, 3),
-(93, '2018-08-29', 7, NULL, NULL, NULL, NULL, 7, NULL, 3),
-(94, '2018-08-30', 8, NULL, NULL, NULL, NULL, 8, NULL, 3),
-(95, '2018-08-31', 9, NULL, NULL, NULL, NULL, 9, NULL, 3),
-(96, '2018-09-03', 10, NULL, NULL, NULL, NULL, 10, NULL, 3),
-(97, '2018-09-04', 11, NULL, NULL, NULL, NULL, 11, NULL, 3),
-(98, '2018-09-05', 12, NULL, NULL, NULL, NULL, 12, NULL, 3),
-(99, '2018-09-06', 13, NULL, NULL, NULL, NULL, 13, NULL, 3),
-(100, '2018-09-07', 14, NULL, NULL, NULL, NULL, 14, NULL, 3),
-(101, '2018-09-10', 15, NULL, NULL, NULL, NULL, 15, NULL, 3),
-(102, '2018-09-11', 16, NULL, NULL, NULL, NULL, 16, NULL, 3),
-(103, '2018-09-12', 17, NULL, NULL, NULL, NULL, 17, NULL, 3),
-(104, '2018-09-13', 18, NULL, NULL, NULL, NULL, 18, NULL, 3),
-(105, '2018-09-14', 19, NULL, NULL, NULL, NULL, 19, NULL, 3),
-(106, '2018-09-17', 20, NULL, NULL, NULL, NULL, 20, NULL, 3),
-(107, '2018-09-18', 21, NULL, NULL, NULL, NULL, 21, NULL, 3),
-(108, '2018-09-19', 22, NULL, NULL, NULL, NULL, 22, NULL, 3),
-(109, '2018-09-20', 23, NULL, NULL, NULL, NULL, 23, NULL, 3),
-(110, '2018-09-21', 24, NULL, NULL, NULL, NULL, 24, NULL, 3),
-(111, '2018-09-24', 25, NULL, NULL, NULL, NULL, 25, NULL, 3),
-(112, '2018-09-25', 26, NULL, NULL, NULL, NULL, 26, NULL, 3),
-(113, '2018-09-26', 27, NULL, NULL, NULL, NULL, 27, NULL, 3),
-(114, '2018-09-27', 28, NULL, NULL, NULL, NULL, 28, NULL, 3),
-(115, '2018-09-28', 29, NULL, NULL, NULL, NULL, 29, NULL, 3),
-(116, '2018-10-01', 30, NULL, NULL, NULL, NULL, 30, NULL, 3),
-(117, '2018-10-02', 31, NULL, NULL, NULL, NULL, 31, NULL, 3),
-(118, '2018-10-03', 32, NULL, NULL, NULL, NULL, 32, NULL, 3),
-(119, '2018-10-04', 33, NULL, NULL, NULL, NULL, 33, NULL, 3),
-(120, '2018-10-05', 34, NULL, NULL, NULL, NULL, 34, NULL, 3),
-(121, '2018-10-08', 35, NULL, NULL, NULL, NULL, 35, NULL, 3),
-(122, '2018-10-09', 36, NULL, NULL, NULL, NULL, 36, NULL, 3),
-(123, '2018-10-10', 37, NULL, NULL, NULL, NULL, 37, NULL, 3),
-(124, '2018-10-11', 38, NULL, NULL, NULL, NULL, 38, NULL, 3),
-(125, '2018-10-12', 39, NULL, NULL, NULL, NULL, 39, NULL, 3),
-(126, '2018-10-15', 40, NULL, NULL, NULL, NULL, 40, NULL, 3),
-(127, '2018-10-16', 41, NULL, NULL, NULL, NULL, 41, NULL, 3),
-(128, '2018-10-17', 42, NULL, NULL, NULL, NULL, 42, NULL, 3),
-(129, '2018-10-18', 43, NULL, NULL, NULL, NULL, 43, NULL, 3);
+(1, '2018-09-03', 1, NULL, NULL, NULL, 12, 1, NULL, 2),
+(2, '2018-09-04', 2, NULL, NULL, NULL, NULL, 2, NULL, 2),
+(3, '2018-09-05', 3, NULL, NULL, NULL, NULL, 3, NULL, 2),
+(4, '2018-09-06', 4, NULL, NULL, NULL, NULL, 4, NULL, 2),
+(5, '2018-09-07', 5, NULL, NULL, NULL, NULL, 5, NULL, 2),
+(6, '2018-09-10', 6, NULL, NULL, NULL, NULL, 6, NULL, 2),
+(7, '2018-09-11', 7, NULL, NULL, NULL, NULL, 7, NULL, 2),
+(8, '2018-09-12', 8, NULL, NULL, NULL, NULL, 8, NULL, 2),
+(9, '2018-09-13', 9, NULL, NULL, NULL, NULL, 9, NULL, 2),
+(10, '2018-09-14', 10, NULL, NULL, NULL, NULL, 10, NULL, 2),
+(11, '2018-09-17', 11, NULL, NULL, NULL, NULL, 11, NULL, 2),
+(12, '2018-09-18', 12, NULL, NULL, NULL, NULL, 12, NULL, 2),
+(13, '2018-09-19', 13, NULL, NULL, NULL, NULL, 13, NULL, 2),
+(14, '2018-09-20', 14, NULL, NULL, NULL, NULL, 14, NULL, 2),
+(15, '2018-09-21', 15, NULL, NULL, NULL, NULL, 15, NULL, 2),
+(16, '2018-09-24', 16, NULL, NULL, NULL, NULL, 16, NULL, 2),
+(17, '2018-09-25', 17, NULL, NULL, NULL, NULL, 17, NULL, 2),
+(18, '2018-09-26', 18, NULL, NULL, NULL, NULL, 18, NULL, 2),
+(19, '2018-09-27', 1, NULL, NULL, NULL, NULL, 19, NULL, 2),
+(20, '2018-09-28', 2, NULL, NULL, NULL, NULL, 20, NULL, 2),
+(21, '2018-10-01', 3, NULL, NULL, NULL, NULL, 21, NULL, 2),
+(22, '2018-10-02', 4, NULL, NULL, NULL, NULL, 22, NULL, 2),
+(23, '2018-10-03', 5, NULL, NULL, NULL, NULL, 23, NULL, 2),
+(24, '2018-10-04', 6, NULL, NULL, NULL, NULL, 24, NULL, 2),
+(25, '2018-10-05', 7, NULL, NULL, NULL, NULL, 25, NULL, 2),
+(26, '2018-10-08', 8, NULL, NULL, NULL, NULL, 26, NULL, 2),
+(27, '2018-10-09', 9, NULL, NULL, NULL, NULL, 27, NULL, 2),
+(28, '2018-10-10', 10, NULL, NULL, NULL, NULL, 28, NULL, 2),
+(29, '2018-10-11', 11, NULL, NULL, NULL, NULL, 29, NULL, 2),
+(30, '2018-10-12', 12, NULL, NULL, NULL, NULL, 30, NULL, 2),
+(31, '2018-10-15', 13, NULL, NULL, NULL, NULL, 31, NULL, 2),
+(32, '2018-10-16', 14, NULL, NULL, NULL, NULL, 32, NULL, 2),
+(33, '2018-10-17', 15, NULL, NULL, NULL, NULL, 33, NULL, 2),
+(34, '2018-10-18', 16, NULL, NULL, NULL, NULL, 34, NULL, 2),
+(35, '2018-10-19', 17, NULL, NULL, NULL, NULL, 35, NULL, 2),
+(36, '2018-10-22', 18, NULL, NULL, NULL, NULL, 36, NULL, 2),
+(37, '2018-10-23', 19, NULL, NULL, NULL, NULL, 37, NULL, 2),
+(38, '2018-10-24', 20, NULL, NULL, NULL, NULL, 38, NULL, 2),
+(39, '2018-10-25', 21, NULL, NULL, NULL, NULL, 39, NULL, 2),
+(40, '2018-10-26', 22, NULL, NULL, NULL, NULL, 40, NULL, 2),
+(41, '2018-10-29', 23, NULL, NULL, NULL, NULL, 41, NULL, 2),
+(42, '2018-10-30', 24, NULL, NULL, NULL, NULL, 42, NULL, 2),
+(43, '2018-10-31', 25, NULL, NULL, NULL, NULL, 43, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -529,10 +443,10 @@ CREATE TABLE IF NOT EXISTS `funcionarios` (
   `tipoPagamento` varchar(45) NOT NULL,
   `carteiraProfissional` varchar(45) NOT NULL,
   `inss` varchar(45) NOT NULL,
-  `percentualInss` int(11) NOT NULL,
+  `percentualInss` float NOT NULL,
   `dataAdmissao` date NOT NULL,
   `ccm` varchar(45) NOT NULL,
-  `percentualIss` int(11) NOT NULL,
+  `percentualIss` float NOT NULL,
   `dataDemissao` date DEFAULT NULL,
   `aulaInterna` int(11) DEFAULT NULL,
   `aulaExterna` int(11) DEFAULT NULL,
@@ -543,22 +457,23 @@ CREATE TABLE IF NOT EXISTS `funcionarios` (
   `codigoBanco` varchar(45) NOT NULL,
   `observacoes` varchar(255) DEFAULT NULL,
   `anexo` varchar(45) DEFAULT NULL,
+  `avatarPath` varchar(255) DEFAULT 'default.png',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `funcionarios`
 --
 
-INSERT INTO `funcionarios` (`id`, `matricula`, `nome`, `rg`, `cpf`, `dataNascimento`, `estadoCivil`, `sexo`, `cargo`, `cidadeNatal`, `cep`, `logradouro`, `numero`, `complemento`, `cidade`, `bairro`, `email`, `telefone`, `celular`, `tipoPagamento`, `carteiraProfissional`, `inss`, `percentualInss`, `dataAdmissao`, `ccm`, `percentualIss`, `dataDemissao`, `aulaInterna`, `aulaExterna`, `salarioMensal`, `banco`, `agencia`, `conta`, `codigoBanco`, `observacoes`, `anexo`) VALUES
-(1, '2018-1', 'Luan Nunes', '236.234.32-57', '161.438.287-50', '1993-07-10', 'solteiro', 'masculino', '1', 'Volta Redonda', '27259-290', 'Bairro Jardim Vila Rica Tiradentes', 28, 'null', 'Volta Redonda', 'Vila Rica - Tiradentes', 'alann.625@gmail.com', '', '(24) 998844351', 'horista', '12412341212', '123', 23, '2018-04-03', '3442', 23, NULL, 233, 344, NULL, 'Banco do Brasil', '12312-3', '1231231-4', '12312312312', '', ''),
-(10, '2018-2', 'Igor Silva', '12.312.312-3', '131.231.231-23', '2018-04-19', 'solteiro', 'masculino', '3', '1231312321', '12312-312', '123123123', 12, '12312312', '123123', '12312312', '123123@gmail.com', '(12) 3123-1231', '(12) 99231-2312', 'horista', '123123123', '12312', 23, '2018-04-02', '123123', 43, NULL, 123, 123, NULL, 'Banco do Brasil', '12312312', '112312312', '12312312312', '', ''),
-(20, '2018-3', 'Dieni Flausino', '11.111.111-1', '111.111.111-11', '1990-08-18', 'solteiro', 'feminino', '3', 'Volta Redonda - RJ', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'dieni@rvschool.com', '(24) 3333-3333', '(24) 99999-9999', 'mensalista', '111111', '111', 5, '2018-04-03', '111', 3, NULL, NULL, NULL, 10, '3', '111111-1', '1111111-1', '77777777-7', '', ''),
-(21, '2018-4', 'Alan Nunes da Silva', '77.777.777-7', '777.777.777-77', '2000-04-29', 'solteiro', 'masculino', '3', 'Volta Redonda', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'alann.625@gmail.com', '(24) 9988-4435', '', 'horista', '777', '777', 7, '2018-04-29', '777', 7, NULL, 200, 200, NULL, 'Banco do Brasil', '7777777', '7777777', '7777777777', '', ''),
-(22, '2018-5', 'Anderson Mariano da Cruz Silva', '77.777.777-7', '777.777.777-77', '2000-04-29', 'solteiro', 'masculino', '3', 'Volta Redonda', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'alann.625@gmail.com', '(24) 9988-4435', '', 'horista', '777', '777', 7, '2018-04-29', '777', 7, NULL, 200, 200, NULL, 'Banco do Brasil', '7777777', '7777777', '7777777777', '', ''),
-(28, '2018-28', 'Tainan Nunes da Silva', '11.343.445-4', '183.281.517-07', '2000-04-29', 'solteiro', 'feminino', '1', 'Volta Redonda - VR', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'alann.625@gmail.com', '', '(24) 99884-4351', 'horista', '1213212', '1', 2, '2018-08-27', '124', 1, NULL, 15, 18, NULL, 'Banco do Brasil', '154545', '444444', '11111111435435', '', ''),
-(35, '2018-35', 'teste', '11.111.111-1', '183.281.517-07', '2000-04-29', 'casado', 'feminino', '3', 'Volta Redonda - VR', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'aland@goma.com', '', '(24) 99884-4351', 'horista', '021312', '112412', 1, '2018-08-27', '1215', 2, NULL, 15, 18, NULL, '1', '264564', '64545', '15454', '', ''),
-(36, '2018-36', 'kllkhlk', '54.145.343-5', '543.543.543-54', '2000-04-29', 'solteiro', 'masculino', '1', 'Volta Redonda - VR', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'sfs@gggd.com', '', '(24) 99884-4351', 'horista', '154545', '154', 1, '2018-08-26', '24645', 2, NULL, 15, 19, NULL, '3', '125445', '454545', '156546545', '', '');
+INSERT INTO `funcionarios` (`id`, `matricula`, `nome`, `rg`, `cpf`, `dataNascimento`, `estadoCivil`, `sexo`, `cargo`, `cidadeNatal`, `cep`, `logradouro`, `numero`, `complemento`, `cidade`, `bairro`, `email`, `telefone`, `celular`, `tipoPagamento`, `carteiraProfissional`, `inss`, `percentualInss`, `dataAdmissao`, `ccm`, `percentualIss`, `dataDemissao`, `aulaInterna`, `aulaExterna`, `salarioMensal`, `banco`, `agencia`, `conta`, `codigoBanco`, `observacoes`, `anexo`, `avatarPath`) VALUES
+(1, '2018-1', 'Luan Nunes', '236.234.32-57', '161.438.287-50', '1993-07-10', 'solteiro', 'masculino', '1', 'Volta Redonda', '27259-290', 'Bairro Jardim Vila Rica Tiradentes', 28, 'null', 'Volta Redonda', 'Vila Rica - Tiradentes', 'alann.625@gmail.com', '', '(24) 998844351', 'horista', '12412341212', '123', 23, '2018-04-03', '3442', 23, NULL, 233, 344, NULL, 'Banco do Brasil', '12312-3', '1231231-4', '12312312312', '', '', 'default.png'),
+(10, '2018-2', 'Igor Silva', '12.312.312-3', '131.231.231-23', '2018-04-19', 'solteiro', 'masculino', '3', '1231312321', '12312-312', '123123123', 12, '12312312', '123123', '12312312', '123123@gmail.com', '(12) 3123-1231', '(12) 99231-2312', 'horista', '123123123', '12312', 23, '2018-04-02', '123123', 43, NULL, 123, 123, NULL, 'Banco do Brasil', '12312312', '112312312', '12312312312', '', '', 'default.png'),
+(20, '2018-3', 'Dieni Flausino', '11.111.111-1', '111.111.111-11', '1990-08-18', 'solteiro', 'feminino', '3', 'Volta Redonda - RJ', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'dieni@rvschool.com', '(24) 3333-3333', '(24) 99999-9999', 'mensalista', '111111', '111', 5, '2018-04-03', '111', 3, NULL, NULL, NULL, 10, '3', '111111-1', '1111111-1', '77777777-7', '', '', 'default.png'),
+(21, '2018-4', 'Alan Nunes da Silva', '77.777.777-7', '777.777.777-77', '2000-04-29', 'solteiro', 'masculino', '3', 'Volta Redonda', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'alann.625@gmail.com', '(24) 9988-4435', '', 'horista', '777', '777', 7, '2018-04-29', '777', 7, NULL, 200, 200, NULL, 'Banco do Brasil', '7777777', '7777777', '7777777777', '', '', 'default.png'),
+(51, '2018-51', 'Admin', '77.777.777-7', '777.777.777-77', '2000-07-07', 'solteiro', 'masculino', '1', 'Volta Redonda', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'alann.625@gmail.com', '', '(24) 99884-4351', 'horista', '54564', '546545', 1, '2018-09-03', '121', 0, NULL, 15, 20, NULL, '1', '654654-5', '54524-5', '4252454', '', '', 'default.png'),
+(52, '2018-52', 'Admin2', '77.777.777-7', '777.777.777-77', '2000-07-07', 'solteiro', 'masculino', '1', 'Volta Redonda', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'alann.625@gmail.com', '', '(24) 99884-4351', 'horista', '54564', '546545', 1, '2018-09-03', '121', 1.25, NULL, 15, 20, NULL, '1', '654654-5', '54524-5', '4252454', '', '', 'default.png'),
+(53, '2018-53', 'Alan Nunes da Silva', '77.777.777-7', '777.777.777-77', '2000-07-07', 'solteiro', 'masculino', '1', 'Volta Redonda', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'alann.625@gmail.com', '', '(24) 99884-4351', 'horista', '54564', '546545', 1, '2018-09-03', '121', 1.5, NULL, 15, 20, NULL, '1', '654654-5', '54524-5', '4252454', '', '', '1535902253.jpg'),
+(54, '2018-54', 'Eunice Maria Ferreira Nunes', '77.777.777-7', '777.777.777-77', '2000-04-29', 'casado', 'feminino', '2', 'Volta Redonda - VR', '27259-290', 'Rua Vinte e Sete', 28, '', 'Volta Redonda', 'Jardim Vila Rica - Tiradentes', 'alann.625@gmail.com', '', '(24) 99884-4351', 'mensalista', '2531534', '145153', 1, '2018-09-03', '15351', 0.5, NULL, NULL, NULL, 7001, '1', '25464-48', '484348-4', '454524', '', '', '1535912061.jpg');
 
 -- --------------------------------------------------------
 
@@ -647,7 +562,25 @@ CREATE TABLE IF NOT EXISTS `log_acessos` (
   `matricula` varchar(45) NOT NULL,
   `data` datetime NOT NULL,
   PRIMARY KEY (`logAcessoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `log_acessos`
+--
+
+INSERT INTO `log_acessos` (`logAcessoId`, `matricula`, `data`) VALUES
+(1, '2018-54', '2018-09-02 04:09:37'),
+(2, '2018-53', '2018-09-02 05:09:37'),
+(3, '2018-53', '2018-09-02 05:09:54'),
+(4, '2018-54', '2018-09-02 05:09:49'),
+(5, '2018-54', '2018-09-02 06:09:44'),
+(6, '2018-53', '2018-09-02 06:09:28'),
+(7, '2018-53', '2018-09-02 06:09:39'),
+(8, '2018-53', '2018-09-03 02:09:54'),
+(9, '2018-54', '2018-09-03 03:09:42'),
+(10, '2018-53', '2018-09-03 03:09:46'),
+(11, '2018-54', '2018-09-03 03:09:13'),
+(12, '2018-53', '2018-09-03 04:09:57');
 
 -- --------------------------------------------------------
 
@@ -2340,7 +2273,7 @@ CREATE TABLE IF NOT EXISTS `turmas` (
 INSERT INTO `turmas` (`id`, `nome`, `situacao`, `professor`, `estagio`, `curso`, `horario`, `maximoDeAlunos`, `sala`, `dataInicio`, `dataTermino`, `ultimaPalavra`, `ultimaLicao`, `ultimoDitado`, `minimoAlunos`, `duracaoAula`) VALUES
 (2, 'Alan', 2, 20, '2', 1, 'Seg-Ter-Qua-Qui-Sex(18:00/18:50)', NULL, 'Australia', '2018-05-01', '2019-05-01', NULL, NULL, NULL, 10, 50),
 (3, 'Eunice', 0, 21, '5', 4, 'Seg-Ter-Qua-Qui-Sex(18:00/18:50)', NULL, 'United States', '2018-05-01', '2019-05-01', NULL, NULL, NULL, 10, 50),
-(4, 'Pretinha', 1, 20, '2', 1, 'Seg-Ter-Qua-Qui-Sex(15:00/15:50)', NULL, 'United States', '2018-05-01', '2020-02-01', NULL, NULL, NULL, 10, 50);
+(4, 'Lucas', 1, 20, '2', 1, 'Seg-Ter-Qua-Qui-Sex(15:00/15:50)', NULL, 'United States', '2018-05-01', '2020-02-01', NULL, NULL, NULL, 10, 50);
 
 -- --------------------------------------------------------
 
@@ -2353,19 +2286,19 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `usuarioId` int(11) NOT NULL AUTO_INCREMENT,
   `matricula` varchar(255) NOT NULL,
   `senha` varchar(255) NOT NULL,
+  `tipoUsuario` varchar(45) NOT NULL,
   PRIMARY KEY (`usuarioId`),
   UNIQUE KEY `matricula_UNIQUE` (`matricula`),
   UNIQUE KEY `usuarioId_UNIQUE` (`usuarioId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuarioId`, `matricula`, `senha`) VALUES
-(1, '2018-34', 'e737269fcc8e2bc599867b893a294d584862776aefaa56b75213781d389df880'),
-(3, '2018-36', '656e81b49bf46f55765d73f6542c27c3f4b234dce9c1b513755af26468d58119'),
-(4, '2018-37', '9b3ae5a62ff50cfb7dcf5d8f2e2712a54d763c599abbba88bc7df8ac28ca0b63');
+INSERT INTO `usuarios` (`usuarioId`, `matricula`, `senha`, `tipoUsuario`) VALUES
+(1, '2018-53', '8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414', 'f'),
+(2, '2018-54', '8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414', 'f');
 
 --
 -- Constraints for dumped tables

@@ -24,10 +24,13 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuarios` (
   `usuarioId` int(11) NOT NULL AUTO_INCREMENT,
-  `matricula` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
-  PRIMARY KEY (`usuarioId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `matricula` varchar(255) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `tipoUsuario` varchar(45) NOT NULL,
+  PRIMARY KEY (`usuarioId`),
+  UNIQUE KEY `matricula_UNIQUE` (`matricula`),
+  UNIQUE KEY `usuarioId_UNIQUE` (`usuarioId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +39,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'2018-53','8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414','f'),(2,'2018-54','8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414','f');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-25 13:26:31
+-- Dump completed on 2018-09-04 22:22:57

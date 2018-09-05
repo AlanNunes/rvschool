@@ -54,7 +54,7 @@ CREATE TABLE `turmas` (
 
 LOCK TABLES `turmas` WRITE;
 /*!40000 ALTER TABLE `turmas` DISABLE KEYS */;
-INSERT INTO `turmas` VALUES (2,'Alan',2,20,'2',1,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'Australia','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(3,'Eunice',0,21,'5',4,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(4,'Pretinha',1,20,'2',1,'Seg-Ter-Qua-Qui-Sex(15:00/15:50)',NULL,'United States','2018-05-01','2020-02-01',NULL,NULL,NULL,10,50);
+INSERT INTO `turmas` VALUES (2,'Alan',2,20,'2',1,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'Australia','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(3,'Eunice',0,21,'5',4,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(4,'Lucas',1,20,'2',1,'Seg-Ter-Qua-Qui-Sex(15:00/15:50)',NULL,'United States','2018-05-01','2020-02-01',NULL,NULL,NULL,10,50);
 /*!40000 ALTER TABLE `turmas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -67,4 +67,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-14 23:06:15
+-- Dump completed on 2018-09-04 22:22:59
