@@ -3,7 +3,8 @@
 * @author     Gustavo Brandão <sm70plus2gmail.com>
 * @copyright  2018 Dual Dev
 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="js/jquery.min.js"></script>
 <link rel="stylesheet" href="css/avatar-image.css">
 
 <script>
@@ -81,6 +82,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li onclick="window.location='perfil.php'" id="dpdi" class="im">VER PERFIL</li>
+						<li onclick="window.location='MudaSenha.php'" id="dpdi" class="im">Mudar Senha</li>
 						<li onclick="window.location='logout.php'" id="dpdi" class="im">SAIR</li>
 					</ul>
 				</li>
@@ -90,6 +92,8 @@
 		</nav>
 	</header>
 
+<center>
 	<div class="identifier">
 		<h1 style="font-size: 25px;"><?php echo $page_name ?></h1>
 	</div>
+</center>

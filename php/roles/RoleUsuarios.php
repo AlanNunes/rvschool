@@ -34,5 +34,15 @@ Class RoleUsuarios {
       return 0;
     }
   }
+
+	public function DeleteAllByUsuarioId($usuarioId)
+	{
+		$sql = "DELETE FROM role_usuarios WHERE usuarioId = {$usuarioId}";
+		if($this->conn->query($sql)){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
 }
 ?>

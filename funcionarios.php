@@ -866,6 +866,7 @@ $page_name = "Funcionários";
                   }
                   else {
                       // alert(data.Description);
+                      avatarPath = "";
                       setInvalidFields([]);
                       listFuncionarios();
                   }
@@ -1060,7 +1061,7 @@ $page_name = "Funcionários";
         success: function(data)   // A function to be called if request succeeds
         {
           if(data.erro){
-            alert(data);
+            alert(data.description);
             $("#imagePreview").removeClass("avatar-preview");
             $("#imagePreview").removeClass("avatar-previewSuccess");
             $("#imagePreview").addClass("avatar-previewFailure");

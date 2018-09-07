@@ -103,5 +103,17 @@ Class Usuarios {
             return 0;
         }
     }
+
+		public function GetUsuarioIdByMatricula($m)
+		{
+			$sql = "SELECT usuarioId FROM usuarios WHERE matricula = '{$m}' LIMIT 1";
+			$result = $this->conn->query($sql);
+			if($result->num_rows > 0){
+					$row = $result->fetch_assoc();
+					return $row['usuarioId'];
+			}else{
+					return 0;
+			}
+		}
 }
 ?>

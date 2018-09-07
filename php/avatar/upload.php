@@ -25,8 +25,8 @@ if (file_exists($newFileName)) {
     $uploadOk = 0;
 }
 // Check file size
-if ($_FILES["image"]["size"] > 500000) {
-    echo json_encode(array('erro' => true, 'description' => 'A imagem enviada é muito grande. Máximo de 2mb.'));
+if ($_FILES["image"]["size"] > 2000000) {
+    echo json_encode(array('erro' => true, 'description' => 'A imagem enviada é muito grande. Máximo de 5mb.'));
     exit;
     $uploadOk = 0;
 }
@@ -48,7 +48,7 @@ if ($uploadOk == 0) {
         exit;
 
     } else {
-        echo json_encode(array('erro' => true, 'description' => 'Erro desconhecido - Contate o Desenvolvedor'));
+        echo json_encode(array('erro' => true, 'description' => 'Erro desconhecido - O problema pode ter ocorrido por ter excedido o limite de tamanho da imagem.'));
         exit;
     }
 }

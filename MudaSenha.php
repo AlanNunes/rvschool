@@ -11,7 +11,7 @@ $conn = $db->getConnection();
 // Create an instance for workers(funcionários)
 $turmas = new Turmas($conn);
 
-$page_name = "Diário de Aulas";
+$page_name = "Mudar Senha";
  ?>
 <html lang="pt">
 <head>
@@ -32,7 +32,7 @@ $page_name = "Diário de Aulas";
 <body>
 
 <?php include('header.php') ?>
-
+<br /><br />
 <div class="div-center">
 
 

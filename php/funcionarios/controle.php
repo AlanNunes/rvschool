@@ -299,8 +299,31 @@ function updateFuncionario(){
         $db = new DataBase();
         $conn = $db->getConnection();
         $funcionario = new Funcionarios($conn);
+				$RolesUsuarios = new RoleUsuarios($conn);
+				$Usuarios = new Usuarios($conn);
         $response = $funcionario->updateFuncionario($data);
-        echo json_encode(array('erro' => false, 'test' => $data));
+				if($response['erro'] == false)
+				{
+					$matricula = $funcionario->getFuncionarioMatriculaById($data['id']);
+					$usuarioId = $Usuarios->GetUsuarioIdByMatricula($matricula);
+					if($RolesUsuarios->DeleteAllByUsuarioId($usuarioId))
+					{
+						$RolesUsuarios->UsuarioId = $usuarioId;
+						// cargo = roleId
+						$RolesUsuarios->RoleId = $data['cargo'];
+						if($RolesUsuarios->Add()){
+							echo json_encode(array('erro' => false, 'description' => 'Funcionário atualizado com sucesso'));
+						}else{
+							echo json_encode(array('erro' => true, 'description' => 'Não foi possível atribuir papéis a este usuário.'));
+						}
+					}else{
+						echo json_encode(array('erro' => true, 'description' => 'Não foi possível atualizar os acessos a este usuário.'));
+					}
+				}
+				else
+				{
+					echo json_encode(array('erro' => true, 'description' => $response['description']));
+				}
     }
 }
 
