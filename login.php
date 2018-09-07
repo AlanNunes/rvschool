@@ -33,6 +33,7 @@ Usuarios::LogOff();
     <h3>Login</h3>
     <hr />
     <form>
+      <div id="feedback"></div>
       <div class="form-group">
         <label for="matricula">Matrícula</label>
         <input type="email" class="form-control" id="matricula" placeholder="Email">
@@ -83,8 +84,15 @@ Usuarios::LogOff();
                   case 2:
                     window.location.href = "MudaSenha.php";
                     break;
+                  case 3:
+                    $("#feedback").html("<div class='alert alert-danger' role='alert'>Preencha todo os campos.</div>");
+                    break;
+                  case 4:
+                    $("#feedback").html("<div class='alert alert-warning' role='alert'>Matrícula ou Senha inválidas.</div>");
+                    break;
                   default:
-                    console.log("erro");
+                    $("#feedback").html("<div class='alert alert-warning' role='alert'>Erro Inesperado (500)</div>");
+                    break;
                 }
               },
               error: function(data) {

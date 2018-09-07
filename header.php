@@ -4,6 +4,7 @@
 * @copyright  2018 Dual Dev
 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="css/avatar-image.css">
 
 <script>
 			$(document).ready(function(){
@@ -67,10 +68,10 @@
 				<li onclick="window.location='interessados.php'" id="dpdi" class="im">INTERESSADOS</li>
 			</ul>
 		</li>
-			<div style="position: absolute; right:100px; bottom:20px;">
+			<div class="header-avatar">
 				<?php
 					$image = $_SESSION['avatarPath'];
-					echo "<img src='avatars/{$image}' style='border-radius: 100%; height: 60px; width: 60px;' />"
+					echo "<a href='perfil.php'><img src='avatars/{$image}' /></a>"
 				 ?>
 			</div>
 			<div style="position: absolute; right:10px;">

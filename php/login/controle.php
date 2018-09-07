@@ -54,29 +54,36 @@ function MudaSenha(){
 }
 
 function Login(){
-    $matricula = $_POST['matricula'];
-    $senha = $_POST['senha'];
     $db = new DataBase();
     $conn = $db->getConnection();
     $usuario = new Usuarios($conn);
-    $login = $usuario->Loga($matricula, $senha);
-    if($login){
-      if($usuario->SetSessions($login['usuarioId'], $login['matricula'], $login['tipoUsuario'])){
-        $log_acesso = new LogAcessos($conn);
-        $ultimoLogin = $usuario->GetUltimoLoginByMatricula($matricula);
-        $log_acesso->RegistraLog($matricula, date('Y-m-d h:m:s'));
-        if($ultimoLogin){
-          // O usuário já acessou a conta alguma vez
-          echo 1;
+    if(!empty($_POST['matricula']) && isset($_POST['matricula']) && !empty($_POST['senha']) && isset($_POST['senha']))
+    {
+      $matricula = $_POST['matricula'];
+      $senha = $_POST['senha'];
+      $login = $usuario->Loga($matricula, $senha);
+      if($login){
+        if($usuario->SetSessions($login['usuarioId'], $login['matricula'], $login['tipoUsuario'])){
+          $log_acesso = new LogAcessos($conn);
+          $ultimoLogin = $usuario->GetUltimoLoginByMatricula($matricula);
+          $log_acesso->RegistraLog($matricula, date('Y-m-d h:m:s'));
+          if($ultimoLogin){
+            // O usuário já acessou a conta alguma vez
+            echo 1;
+          }else{
+            // Primeiro acesso
+            echo 2;
+          }
         }else{
-          // Primeiro acesso
-          echo 2;
+          echo 0;
         }
       }else{
-        echo 0;
+        echo 4;
       }
-    }else{
-      echo 0;
+    }
+    else
+    {
+      echo 3;
     }
 }
 

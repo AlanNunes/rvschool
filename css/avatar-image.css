@@ -120,3 +120,20 @@ table .avatar {
   height: 50px;
   border-radius: 100%;
 }
+
+.header-avatar {
+  position: absolute!important;
+  right:100px!important;
+  bottom:20px!important;
+}
+
+.header-avatar img {
+  border-radius: 100%; height: 60px; width: 60px;
+}
+
+.header-avatar img:hover {
+  border-radius: 60%!important;
+  height: 63.5px;
+  width: 63.5px;
+  cursor: pointer;
+}
