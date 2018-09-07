@@ -64,7 +64,7 @@ Class Usuarios {
         $sql = "INSERT INTO usuarios (matricula, senha, tipoUsuario)
                 VALUES ('{$matricula}', '{$senha}', '{$tipoUsuario}')";
         if($this->conn->query($sql)){
-            return 1;
+            return $this->conn->insert_id;
         }else{
             return 0;
         }

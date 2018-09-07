@@ -195,7 +195,7 @@ function atualizaProfessor()
     }else{
       $professorId = $_POST['professorId'];
     }
-    if($teste = $aulas->atualizaProfessor($_POST['aulaId'], $professorId))
+    if($aulas->atualizaProfessor($_POST['aulaId'], $professorId))
     {
       echo 1;
     }

@@ -1,6 +1,7 @@
 <?php
 include_once('../validation/Validation.php');
 include_once('../login/Usuarios.php');
+include_once('../roles/RoleUsuarios.php');
 include_once('Funcionarios.php');
 include_once('../database/DataBase.php');
 
@@ -163,10 +164,19 @@ function createFuncionario(){
         if(!$response['erro']){
             $usuario = new Usuarios($conn);
             $senha = hash('sha256', $data['cpf']);
-            $response2 = $usuario->registerUser($response['matricula'], $senha, 'f');
-            if($response2){
-                echo json_encode(array('erro' => false, 'Description' =>
-            "Funcionário registrado com sucesso."));
+            $usuarioId = $usuario->registerUser($response['matricula'], $senha, 'f');
+            if($usuarioId){
+								$RolesUsuarios = new RoleUsuarios($conn);
+								$RolesUsuarios->UsuarioId = $usuarioId;
+								$RolesUsuarios->RoleId = $data['cargo'];
+								if($RolesUsuarios->Add()){
+									echo json_encode(array('erro' => false, 'Description' =>
+									"Funcionário registrado com sucesso."));
+								}else {
+									echo json_encode(array('erro' => true, 'Description' =>
+	            "O funcionário foi registrado porém os acessos dele aos módulos
+							falhou."));
+								}
             }else{
                 echo json_encode(array('erro' => true, 'Description' =>
             "O login do funcionário não foi gerado."));

@@ -34,7 +34,8 @@ $page_name = "Diário de Aulas";
 
 <?php include('header.php') ?>
 
-<br>
+<br/>
+<div id="feedbackSaving"></div>
 <div class="container-fluid" id="content" style="width: 86%; margin-left: 0px;">
   <div class="table-responsive">
     <table class="table table-hover table-condensed table-sm" style ="cursor: pointer;">
@@ -151,7 +152,7 @@ function buscaDiario()
           $("#tableContent").html("");
           for(i = 0; i < aulas.length; i++)
           {
-            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' onkeyup='atualizaStatus(this, "+aulas[i].idAula+", "+aulas[i].PaginaInicial+", "+aulas[i].PaginaFinal+");atualizaPagina(this);' value='"+mostraValor(aulas[i].pagina)+"' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' value='"+mostraValor(aulas[i].conteudo)+"' onkeyup='atualizaConteudo(this)' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].dictation)+"' onkeyup='atualizaDictation(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].reading)+"' onkeyup='atualizaReading(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td data-idProfessor='"+aulas[i].idProfessor+"'>"+<?php if($_SESSION['roleId'] == 2){$prof = $professores->getProfessores(); echo "'<select id=professor class=form-control onchange=atualizaProfessor(this); data-aulaid='+aulas[i].idAula+'><option>(Selecione)</option>'+"; foreach($prof as $p){$id=$p['id']; $nome=$p['nome']; echo "'<option value={$id}>{$nome}</option>'+";}echo "'</select>'+"; }else{echo "mostraNomeProfessor(aulas[i].nomeProfessor)+";} ?>"</td><td id='situacao-"+aulas[i].idAula+"'>"+getStatus(aulas[i].pagina, aulas[i].PaginaInicial, aulas[i].PaginaFinal)+"</td></tr>";
+            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' onkeyup='atualizaStatus(this, "+aulas[i].idAula+", "+aulas[i].PaginaInicial+", "+aulas[i].PaginaFinal+");atualizaPagina(this);' value='"+mostraValor(aulas[i].pagina)+"' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' value='"+mostraValor(aulas[i].conteudo)+"' onkeyup='atualizaConteudo(this)' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].dictation)+"' onkeyup='atualizaDictation(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].reading)+"' onkeyup='atualizaReading(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td data-idProfessor='"+aulas[i].idProfessor+"'>"+<?php if($_SESSION['roleId'] == 2){$prof = $professores->getProfessores(); echo "'<select id=professor class=form-control onchange=atualizaProfessor(this); data-aulaid='+aulas[i].idAula+' data-idprofessor='+aulas[i].idProfessor+'><option value=null>(Selecione)</option>'+"; foreach($prof as $p){$id=$p['id']; $nome=$p['nome']; echo "'<option value={$id}>{$nome}</option>'+";}echo "'</select>'+"; }else{echo "mostraNomeProfessor(aulas[i].nomeProfessor)+";} ?>"</td><td id='situacao-"+aulas[i].idAula+"'>"+getStatus(aulas[i].pagina, aulas[i].PaginaInicial, aulas[i].PaginaFinal)+"</td></tr>";
             $("#tableContent").append(tr);
           }
           selectProfessores();
@@ -169,16 +170,11 @@ function buscaDiario()
 }
 
 function selectProfessores(){
-  itens = document.querySelectorAll('[data-idProfessor]');
-  for(i = 0; i < itens.length; i++){
-    id = itens[i].dataset.idprofessor;
-    select = itens[i].querySelectorAll('select');
-    for(f = 0; f < select.length; f++){
-      opts = select[f].querySelectorAll('option');
-      for(j = 0; j < opts.length; j++){
-        if(opts[j].value == id){
-          opts[j].selected = true;
-        }
+  selects = document.querySelectorAll('select[data-aulaid]');
+  for(i = 0; i < selects.length; i++){
+    for(j = 0; j < selects[i].options.length; j++){
+      if(selects[i].options[j].value == selects[i].dataset.idprofessor){
+        selects[i].options[j].selected = true;
       }
     }
   }
@@ -254,12 +250,18 @@ function atualizaPagina(e)
       url: "php/aulas/controle.php",
       data: {'acao':'atualizaPagina', 'aulaId':aulaId, 'pagina':pagina, 'professorId':professor},
       before: function() {
+        // $("#feedbackSaving").html("<strong>Salvando...</strong>");
         $(window).on("beforeunload", function() {
     			return "Alguns dados ainda estão sendo salvos. Se você sair agora poderá perdê-los.";
     		});
       },
       success: function(data) {
         $(window).off("beforeunload");
+        if(data){
+          // $("#feedbackSaving").html("<strong>Salvo!</strong>");
+        }else{
+          // $("#feedbackSaving").html("<strong>Erro ao tentar salvar uma alteração.</strong>");
+        }
         console.log(data);
       },
       error: function(data) {

@@ -92,14 +92,14 @@ Class Aulas {
 
 	public function atualizaProfessor($idAula, $professor)
 	{
-		if(empty($professor) || $professor == null || $professor = "null"){
+		if(empty($professor) || $professor == null || $professor == "null"){
 			$sql = "UPDATE aulas SET professor = null WHERE IdAula = {$idAula}";
 		}else{
 			$sql = "UPDATE aulas SET professor = {$professor} WHERE IdAula = {$idAula}";
 		}
 		if($this->conn->query($sql))
 		{
-			return $sql;
+			return 1;
 		}
 		else
 		{

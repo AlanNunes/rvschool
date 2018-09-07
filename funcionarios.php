@@ -755,6 +755,7 @@ $page_name = "Funcionários";
                   editButton.click(function(e) {
                       console.log(e.target.funcionario);
                       var currentFuncionario = e.target.funcionario;
+                      avatarPath = funcionario.avatarPath;
                       document.getElementById("editar").funcionario = currentFuncionario.id;
                       e.preventDefault();
                       $("#registrar").hide();
