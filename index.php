@@ -4,7 +4,29 @@ if($_SESSION['usuarioId'] == "" || $_SESSION['usuarioId'] == null)
 {
   header("Location: login.php");
 }
- $page_name = "Home";
+require_once('php/database/DataBase.php');
+$db = new DataBase();
+$conn = $db->getConnection();
+$page_name = "Home";
+
+// Função para pegar o primeiro e último nome de uma pessoa
+function split_name($name) {
+    $name = trim($name);
+    $last_name = (strpos($name, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+    $first_name = trim( preg_replace('#'.$last_name.'#', '', $name ) );
+    return array($first_name, $last_name);
+}
+
+// Dias da semana
+$semana = array(
+       'Sun' => 'Domingo',
+       'Mon' => 'Segunda-Feira',
+       'Tue' => 'Terca-Feira',
+       'Wed' => 'Quarta-Feira',
+       'Thu' => 'Quinta-Feira',
+       'Fri' => 'Sexta-Feira',
+       'Sat' => 'Sábado'
+   );
  ?>
 
 <html lang="pt">
@@ -26,7 +48,13 @@ if($_SESSION['usuarioId'] == "" || $_SESSION['usuarioId'] == null)
 <?php include('header.php') ?>
 <br/><br/>
 <center>
-<?php include ('schedule.php'); ?>
+  <?php
+  if($_SESSION["roleId"] == 4){
+    include("ListaAulas.php");
+  }else{
+    // include("schedule.php");
+  }
+   ?>
 </center>
 <?php include('footer.php') ?>
 </body>
