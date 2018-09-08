@@ -35,9 +35,9 @@ $page_name = "Diário de Aulas";
 <?php include('header.php') ?>
 
 <br/>
-<div id="feedbackMobile"></div>
 <div id="feedbackSaving"></div>
 <div class="container-fluid" id="content" style="width: 86%; margin-left: 0px;">
+  <div id="feedbackMobile"></div>
   <div class="table-responsive">
     <table class="table table-hover table-condensed table-sm" style ="cursor: pointer;">
       <thead class="thead-dark">
@@ -164,7 +164,7 @@ function buscaDiario()
           }
           selectProfessores();
           if($(window).width() <= 1070){
-            $("#feedbackMobile").html("<strong>Deslize para os lados para ver todos os lados.");
+            $("#feedbackMobile").html("<strong>Deslize para os lados para ver todos os dados.");
             $("#vertical-nav-bar").toggleClass("collapsed");
           }else{
             $("#feedbackMobile").html("");
