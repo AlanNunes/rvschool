@@ -35,6 +35,7 @@ $page_name = "Diário de Aulas";
 <?php include('header.php') ?>
 
 <br/>
+<div id="feedbackMobile"></div>
 <div id="feedbackSaving"></div>
 <div class="container-fluid" id="content" style="width: 86%; margin-left: 0px;">
   <div class="table-responsive">
@@ -70,7 +71,7 @@ $page_name = "Diário de Aulas";
     <form style="padding: 5px;">
       <li><a href="#"><h5>Filtros:</h5></a></li>
       <div class="form-row">
-        <div class="form-group col-sm">
+        <div class="form-group form-group col-sm">
           <label for="turmaId">Selecione a Turma:</label>
           <span style="color:red;">*</span>
           <select id="turmaId" class="form-control">
@@ -92,7 +93,7 @@ $page_name = "Diário de Aulas";
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-sm">
+        <div class="form-group form-group col-sm">
           <label for="estagioId">Estágio:</label>
           <select id="estagioId" class="form-control">
             <option value="null">(Selecione)</option>
@@ -134,6 +135,12 @@ $page_name = "Diário de Aulas";
 <script src="js/jquery.mask.js"></script>
 <script src="js/dynamical-dom.js"></script>
 <script>
+$(document).ready(function(){
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#vertical-nav-bar").toggleClass("collapsed");
+  });
+});
 function buscaDiario()
 {
   var turmaId = $("#turmaId").val();
@@ -156,6 +163,12 @@ function buscaDiario()
             $("#tableContent").append(tr);
           }
           selectProfessores();
+          if($(window).width() <= 1070){
+            $("#feedbackMobile").html("<strong>Deslize para os lados para ver todos os lados.");
+            $("#vertical-nav-bar").toggleClass("collapsed");
+          }else{
+            $("#feedbackMobile").html("");
+          }
         }
         else
         {
