@@ -161,7 +161,7 @@ function registrarAluno(){
     $response = $aluno->registerStudent($data);
     if($response['erro'] == false){
       $usuario = new Usuarios($conn);
-      $senha = hash('sha256', $data['cpf']);
+      $senha = hash('sha256', str_replace('.', '', $data['cpf']));
       $usuarioId = $usuario->registerUser($response['matricula'], $senha, 'a');
       if($usuarioId){
           $RolesUsuarios = new RoleUsuarios($conn);

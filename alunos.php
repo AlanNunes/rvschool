@@ -126,7 +126,7 @@ $page_name = "Alunos"
                   </form>
                     <div class="form-group col-md-3" style="margin-top: 40px;">
                       <label for="nome"> <span style="color:red">*</span> Nome:</label>
-                      <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira" required>
+                      <input type="text" class="form-control" id="nome" placeholder="Ex.: Joaquin Teixeira">
                       <div class="invalid-feedback" id="invalid-feedback-nome">
                         Preencha o nome do aluno.
                       </div>
@@ -156,13 +156,15 @@ $page_name = "Alunos"
                     <div class="form-group col-md-3">
                       <label for="estadoCivil">Estado Civil:</label>
                       <select class="custom-select" id="estadoCivil">
+                        <option value="">(Selecione)</option>
                         <option value="solteiro">Solteiro</option>
                         <option value="casado">Casado</option>
                       </select>
                     </div>
                     <div class="form-group col-md-3">
                       <label for="sexo"> <span style="color:red">*</span> Sexo:</label>
-                      <select class="custom-select" id="sexo" required>
+                      <select class="custom-select" id="sexo">
+                        <option value="">(Selecione)</option>
                         <option value="masculino">Masculino</option>
                         <option value="feminino">Feminino</option>
                       </select>
@@ -180,7 +182,7 @@ $page_name = "Alunos"
                     <div class="form-group col-md-4">
                       <label for="escolaridade">Escolaridade:</label>
                       <select class="custom-select" id="escolaridade">
-                        <option value="" selected>Selecione</option>
+                        <option value="" selected>(Selecione)</option>
                         <option value="Ensino Superior">Ensino Superior</option>
                         <option value="Ensino Médio">Ensino Médio</option>
                         <option value="Ensino Fundamental">Ensino Fundamental</option>
@@ -190,7 +192,7 @@ $page_name = "Alunos"
                     <div class="form-group col-md-4">
                       <label for="midia">Mídia:</label>
                       <select class="custom-select" id="midia">
-                        <option value="" selected>Selecione</option>
+                        <option value="" selected>(Selecione)</option>
                         <option value="Facebook">Facebook</option>
                         <option value="Instagram">Instagram</option>
                         <option value="Amigos">Amigos</option>
