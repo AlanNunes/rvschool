@@ -106,14 +106,11 @@ Class Alunos {
       if($this->conn->query($enrolSQL)){
         $responseResponsaveis = $this->registerResponsavelAluno($last_id, $responsaveis);
         if(!$responseResponsaveis){
-          $this->conn->close();
-          return array('erro' => false, 'Description' => 'Aluno registrado com sucesso.');
+          return array('erro' => false, 'Description' => 'Aluno registrado com sucesso.', 'matricula' => $enrol);
         }
       }
-      $this->conn->close();
-      return array('erro' => false, 'Description' => 'Aluno registrado porém a matrícula não foi gerada com sucesso.');
+      return array('erro' => false, 'Description' => 'Aluno registrado porém a matrícula não foi gerada.');
     }else{
-      $this->conn->close();
       return array('erro' => true, 'Description' => $sql);
     }
   }
@@ -247,6 +244,34 @@ Class Alunos {
       return $aluno;
     }else{
       return 0;
+    }
+  }
+
+  public function GetAlunoByMatricula($m)
+  {
+    $sql = "SELECT DISTINCT a.id as 'Código de Identificação',
+    a.matricula as 'Matrícula', a.nome as 'Nome',
+    a.rg as 'RG', a.cpf as 'CPF', a.dataNasc
+    as 'Data de Nascimento', a.estadoCivil as 'Estado Civil',
+    a.sexo as 'Sexo', a.profissao as 'Profissão', a.escolaridade
+    as 'Escolaridade', a.cep as 'CEP', a.logradouro as 'Logradouro',
+    a.numeroCasa as 'Número', a.complemento as 'Complemento', a.cidade
+    as 'Cidade', a.bairro as 'Bairro', a.email as 'Email', a.telefone
+    as 'Telefone', a.celular as 'Celular', a.banco as 'Banco',
+    a.agencia as 'Agência', a.conta as 'Conta', a.codigoClienteBanco
+    as 'Código Banco',
+    if(now() between b.dataInicio and b.dataTermino, b.desconto, null)
+    as 'Bolsa', if(a.inadimplencia = 0, 'Não', 'Sim') as 'Inadimplência',
+    a.observacoes as 'Observações', a.ativo as 'Ativo'
+    FROM alunos a
+    INNER JOIN responsaveis r ON a.id = r.aluno
+    LEFT JOIN bolsas b ON a.bolsa = b.id
+    WHERE a.matricula = '{$m}'";
+    $result = $this->conn->query($sql);
+    if($result->num_rows > 0){
+      return $result->fetch_assoc();
+    }else{
+      return $sql;
     }
   }
 }

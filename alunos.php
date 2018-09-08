@@ -549,6 +549,7 @@ $page_name = "Alunos"
 
       $("#btn-editarAluno").click(function(e) {
         e.preventDefault();
+        listBolsas();
         editarAluno(e.target.matricula);
       });
 
@@ -568,7 +569,6 @@ $page_name = "Alunos"
           url: "php/alunos/controle.php",
           data: dataAluno,
           success: function(data) {
-            alert('worked');
             if(data.erro){
               var i = 0;
               console.log(data);
@@ -688,7 +688,6 @@ $page_name = "Alunos"
                 deleteButton.click(function(e) {
                     e.preventDefault();
                     console.log(e);
-                    alert(e.currentTarget.matricula);
                     // Show the modal for the user confirm the process of deleting
                     // If the user click in the button 'delete-student' it calls
                     // the function deleteStudent() passing the enrol as parameter

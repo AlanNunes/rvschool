@@ -13,6 +13,8 @@
 include_once('../validation/Validation.php');
 include_once('Alunos.php');
 include_once('../database/DataBase.php');
+include_once('../login/Usuarios.php');
+include_once('../roles/RoleUsuarios.php');
 
 $process = $_POST["acao"];
 
@@ -157,7 +159,34 @@ function registrarAluno(){
     $conn = $db->getConnection();
     $aluno = new Alunos($conn);
     $response = $aluno->registerStudent($data);
-    echo json_encode($response);
+    if($response['erro'] == false){
+      $usuario = new Usuarios($conn);
+      $senha = hash('sha256', $data['cpf']);
+      $usuarioId = $usuario->registerUser($response['matricula'], $senha, 'a');
+      if($usuarioId){
+          $RolesUsuarios = new RoleUsuarios($conn);
+          $RolesUsuarios->UsuarioId = $usuarioId;
+          // Aluno
+          $RolesUsuarios->RoleId = 4;
+          if($RolesUsuarios->Add()){
+            $conn->close();
+            echo json_encode(array('erro' => false, 'Description' =>
+            "Aluno registrado com sucesso."));
+          }else {
+            $conn->close();
+            echo json_encode(array('erro' => true, 'Description' =>
+        "O aluno foi registrado porém os acessos dele aos módulos
+        falhou."));
+          }
+      }else{
+          $conn->close();
+          echo json_encode(array('erro' => true, 'Description' =>
+      "O login do aluno não foi gerado."));
+      }
+    }else{
+      $conn->close();
+      echo json_encode($response);
+    }
   }
 }
 

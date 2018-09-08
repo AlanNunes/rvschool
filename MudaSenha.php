@@ -2,7 +2,7 @@
 require_once('php/database/DataBase.php');
 require_once('php/turmas/turmas.php');
 session_start();
-if($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 2 && $_SESSION['roleId'] != 3)
+if($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 2 && $_SESSION['roleId'] != 3 && $_SESSION["roleId"] != 4)
 {
   header("Location: index.php");
 }

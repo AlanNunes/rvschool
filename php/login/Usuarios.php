@@ -34,15 +34,20 @@ Class Usuarios {
 			$sql = "SELECT f.id, f.nome, r.roleId, f.avatarPath FROM funcionarios f
 			INNER JOIN roles r ON f.cargo = r.roleId WHERE f.matricula = '{$matricula}'";
 		}else{
-			$sql = "SELECT id, nome FROM alunos WHERE matricula = '{$matricula}'";
+			$sql = "SELECT id, nome, avatar FROM alunos WHERE matricula = '{$matricula}'";
 		}
 		$result = $this->conn->query($sql);
 		if($result->num_rows > 0){
 			$row = $result->fetch_assoc();
 			$_SESSION["funcionarioId"] = $row['id'];
 			$_SESSION["nome"] = $row['nome'];
-			$_SESSION["roleId"] = $row['roleId'];
-			$_SESSION["avatarPath"] = $row['avatarPath'];
+			if($tipoUsuario == 'f'){
+				$_SESSION["roleId"] = $row['roleId'];
+				$_SESSION["avatarPath"] = $row['avatarPath'];
+			}else{
+				$_SESSION["roleId"] = 4;
+				$_SESSION["avatarPath"] = $row['avatar'];
+			}
 			return 1;
 		}else{
 			return 0;
@@ -62,8 +67,7 @@ Class Usuarios {
 
     public function registerUser($matricula, $senha, $tipoUsuario)
     {
-        $sql = "INSERT INTO usuarios (matricula, senha, tipoUsuario)
-                VALUES ('{$matricula}', '{$senha}', '{$tipoUsuario}')";
+        $sql = "INSERT INTO usuarios (matricula, senha, tipoUsuario) VALUES ('{$matricula}', '{$senha}', '{$tipoUsuario}');";
         if($this->conn->query($sql)){
             return $this->conn->insert_id;
         }else{
