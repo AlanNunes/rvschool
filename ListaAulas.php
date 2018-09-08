@@ -43,10 +43,10 @@ if($_SESSION["roleId"] == 4){
       $data = date('d/m/Y', strtotime($row['Data']));
       $getDay = date('D', strtotime($row['Data']));
       $diaDaSemana = $semana["$getDay"];
-      $pagina = ($row['Pagina'] == null)?:"-";
-      $conteudo = ($row['Conteudo'] == null)?:"-";
-      $dictation = ($row['Dictation'] == null)?:"-";
-      $reading = ($row['Reading'] == null)?:"-";
+      $pagina = ($row['Pagina'] == null)? "-":$row['Pagina'];
+      $conteudo = ($row['Conteudo'] == null || $row['Conteudo'] == '')? "-":$row['Conteudo'];
+      $dictation = ($row['Dictation'] == null)? "-":$row['Dictation'];
+      $reading = ($row['Reading'] == null)? "-":$row['Reading'];
       $professorNomes = split_name($row['Professor']);
       $professor = $professorNomes[0]." ".$professorNomes[1];
       $estagio = $row['Estagio'];
@@ -67,7 +67,7 @@ if($_SESSION["roleId"] == 4){
       $count++;
     }
   }else{
-    echo "<tr><td colspan=9>Sua turma não teve aula durante os últimos 7 dias</td></tr>";
+    echo "<tr><td colspan=10>Sua turma não teve aula durante os últimos 7 dias</td></tr>";
   }
 }
  ?>

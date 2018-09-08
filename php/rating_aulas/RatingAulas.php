@@ -28,6 +28,5 @@ Class RatingAulas {
       return $sql;
     }
   }
-
 }
 ?>
