@@ -29,6 +29,7 @@ Class Usuarios {
 		session_start();
 		$_SESSION["usuarioId"] = $usuarioId;
 		$_SESSION["matricula"] = $matricula;
+		$_SESSION["tipoUsuario"] = $tipoUsuario;
 		if($tipoUsuario == 'f'){
 			$sql = "SELECT f.id, f.nome, r.roleId, f.avatarPath FROM funcionarios f
 			INNER JOIN roles r ON f.cargo = r.roleId WHERE f.matricula = '{$matricula}'";

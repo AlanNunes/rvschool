@@ -553,22 +553,6 @@ $page_name = "Funcionários";
                 </form>
               </div>
               <!--END ANEXOS-->
-
-              <!-- MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
-              <div class="modal fade" id="sucessoRegistro" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-label" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">Revolution School</div>
-                    <div class="modal-body">Operação efetuada com sucesso</div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- FIM MENSAGEM DE SUCESSO AO REGISTRAR UM ALUNO -->
-
-
             </div>
           </div>
           <div class="modal-footer">
@@ -599,7 +583,26 @@ $page_name = "Funcionários";
 
 <!-- END DELETE MODAL -->
 
-
+<!-- MENSAGEM DE SUCESSO -->
+<div class="modal fade" id="sucessoOperacao" tabindex="-1" role="dialog" aria-labelledby="sucessoRegistroLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sucessoRegistroLabel">Revolution School</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Operação efetuada com sucesso.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- FIM MENSAGEM DE SUCESSO -->
 
 
 <?php include('footer.php') ?>
@@ -832,8 +835,8 @@ $page_name = "Funcionários";
                       }
                   }
                   else {
-                    //  $("#registrarFuncionario").modal("hide");
-                     $("#sucessoRegistro").modal("show");
+                     $("#registrarFuncionario").modal("hide");
+                     $("#sucessoOperacao").modal("show");
                       setInvalidFields([]);
                       listFuncionarios();
                   }
@@ -866,7 +869,9 @@ $page_name = "Funcionários";
                   }
                   else {
                       // alert(data.Description);
-                      avatarPath = "";
+                      // avatarPath = "";
+                      $("#registrarFuncionario").modal("hide");
+                      $("#sucessoOperacao").modal("show");
                       setInvalidFields([]);
                       listFuncionarios();
                   }

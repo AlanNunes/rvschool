@@ -1,40 +1,41 @@
 <?php
-class Funcionarios {
-	private $nome;
-	private $RG;
-	private $CPF;
-	private $dataNasc;
-	private $estadoCivil;
-	private $sexo;
-	private $cargo;
-	private $cidadeNatal;
-	private $CEP;
-	private $logradouro;
-	private $numeroRua;
-	private $complemento;
-	private $cidade;
-	private $bairro;
-	private $email;
-	private $telefone;
-	private $celular;
-	private $tipoPagamento;
-	private $carteiraProfissional;
-	private $INSS;
-	private $percentualINSS;
-	private $CCM;
-	private $percentualISS;
-	private $dataAdimissao;
-	private $dataDemissao;
-	private $aulaInterna; // valor que ele ganha por aula interna
-	private $aulaExterna; // iden externa
-	private $salarioMensal; // caso o funcionário não ganhe por hora, é então assalariado
-	private $banco;
-	private $agencia;
-	private $conta;
-	private $codigoBanco;
-	private $observacoes;
-	private $anexo;
+Class Funcionarios {
+	public $nome;
+	public $RG;
+	public $CPF;
+	public $dataNasc;
+	public $estadoCivil;
+	public $sexo;
+	public $cargo;
+	public $cidadeNatal;
+	public $CEP;
+	public $logradouro;
+	public $numeroRua;
+	public $complemento;
+	public $cidade;
+	public $bairro;
+	public $email;
+	public $telefone;
+	public $celular;
+	public $tipoPagamento;
+	public $carteiraProfissional;
+	public $INSS;
+	public $percentualINSS;
+	public $CCM;
+	public $percentualISS;
+	public $dataAdimissao;
+	public $dataDemissao;
+	public $aulaInterna; // valor que ele ganha por aula interna
+	public $aulaExterna; // iden externa
+	public $salarioMensal; // caso o funcionário não ganhe por hora, é então assalariado
+	public $banco;
+	public $agencia;
+	public $conta;
+	public $codigoBanco;
+	public $observacoes;
+	public $anexo;
 	public $avatarPath;
+	private $conn;
 
 	public function __construct($conn){
 	    $this->conn = $conn;
@@ -216,6 +217,32 @@ class Funcionarios {
 		if($result->num_rows > 0){
 			$matricula = $result->fetch_assoc();
 			return $matricula["matricula"];
+		}else{
+			return 0;
+		}
+	}
+	public function GetFuncionarioByMatricula($m)
+	{
+		$sql = "SELECT f.id as 'Código de Identificação', f.matricula
+		as 'Matrícula', f.nome as 'Nome', f.rg as 'RG', f.cpf as 'CPF',
+		f.dataNascimento as 'Data de Nascimento', f.estadoCivil as 'Estado Civil',
+		f.sexo as 'Sexo', r.roleNome as 'Cargo', f.cidadeNatal as 'Cidade Natal',
+		f.cep as 'CEP', f.logradouro as 'Logradouro', f.numero as 'Número',
+		f.complemento as 'Complemento', f.cidade as 'Cidade', f.bairro as 'Bairro',
+		f.email as 'Email', f.telefone as 'Telefone', f.celular as 'Celular',
+		f.tipoPagamento as 'Tipo de Pagamento', f.carteiraProfissional
+		as 'Carteira Profissional', f.inss as 'INSS', f.percentualInss
+		as 'Percentual INSS', f.dataAdmissao as 'Data de Admissão',
+		f.aulaExterna as 'Aula Externa(R$)', f.aulaInterna as 'Aula Interna(R$)',
+		f.salarioMensal as 'Salário', f.banco as 'Banco', f.agencia as 'Agência',
+		f.conta as 'Conta', f.codigoBanco as 'Código Banco', f.observacoes
+		as 'Observações'
+		FROM funcionarios f
+		INNER JOIN roles r ON f.cargo = r.roleId
+		WHERE f.matricula = '{$m}'";
+		$result = $this->conn->query($sql);
+		if($result->num_rows > 0){
+			return $result->fetch_assoc();
 		}else{
 			return 0;
 		}

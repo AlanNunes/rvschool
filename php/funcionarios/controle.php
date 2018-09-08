@@ -301,6 +301,9 @@ function updateFuncionario(){
         $funcionario = new Funcionarios($conn);
 				$RolesUsuarios = new RoleUsuarios($conn);
 				$Usuarios = new Usuarios($conn);
+				if($data['avatarPath'] == "null" || $data['avatarPath'] == null){
+					$data['avatarPath'] = 'default.png';
+				}
         $response = $funcionario->updateFuncionario($data);
 				if($response['erro'] == false)
 				{

@@ -191,7 +191,7 @@ legend.md-4
   font-family: impact;
   color: #F3E1B9;
   width: 15%;
-  /* min-width: 200px; */
+  min-width: 200px;
   border-radius: 0px 0px 3px 3px;
   /* margin-left: 40%; */
   height: 5%;
