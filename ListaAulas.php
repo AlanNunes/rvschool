@@ -2,6 +2,7 @@
 <!-- <link rel="stylesheet" href="css/font-awesome.css"> -->
 <h4>Suas últimas 14 aulas</h4>
 <div class="container-fluid" id="content" style="width: 100%; margin-left: 0px;">
+  <div id="feedbackMobile"></div>
   <div class="table-responsive">
     <table class="table table-hover table-condensed table-sm" style ="cursor: pointer;">
       <thead class="thead-dark">
@@ -150,6 +151,11 @@ if($_SESSION["roleId"] == 4){
   </div>
 </div>
 <script>
+$(document).ready(function(){
+  if($(window).width() <= 885){
+    $("#feedbackMobile").html("<strong>Deslize para os lados e veja todos os dados.</strong>");
+  }
+})
 function showRating(idAula){
   $("#rating-modal").modal('show');
   document.getElementById('btn-enviar-rating').dataset.idaula = idAula;
