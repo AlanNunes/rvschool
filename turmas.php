@@ -4,7 +4,7 @@ require_once('php/funcionarios/Funcionarios.php');
 require_once('php/cursos/Cursos.php');
 require_once('php/estagios/Estagios.php');
 session_start();
-if($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 2 && $_SESSION['roleId'] != 3)
+if($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 2)
 {
   header("Location: index.php");
 }

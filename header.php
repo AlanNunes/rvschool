@@ -72,7 +72,11 @@
 			<div class="header-avatar">
 				<?php
 					$image = $_SESSION['avatarPath'];
-					echo "<a href='perfil.php'><img src='avatars/{$image}' /></a>"
+					if(empty($image)){
+						echo "<a href='perfil.php'><img src='avatars/default.png' /></a>";
+					}else{
+						echo "<a href='perfil.php'><img src='avatars/{$image}' /></a>";
+					}
 				 ?>
 			</div>
 			<div style="position: absolute; right:10px;">
