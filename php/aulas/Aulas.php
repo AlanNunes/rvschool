@@ -129,7 +129,8 @@ Class Aulas {
 		{
 			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero,
 			 				pe.PaginaInicial, pe.PaginaFinal, a.pagina, a.conteudo, a.dictation,
-							a.reading, f.nome as nomeProfessor, a.professor as idProfessor
+							a.reading, f.nome as nomeProfessor, a.professor as idProfessor,
+							pe.Descricao
 							FROM aulas a
 							INNER JOIN programacao_estagios pe ON pe.IdProgramacao_Estagio = a.IdProgramacaoEstagio
 							LEFT OUTER JOIN funcionarios f ON a.Professor = f.id
@@ -139,7 +140,8 @@ Class Aulas {
 		else{
 			$sql = "SELECT a.IdAula as idAula, a.Data as dataAula, a.numero,
 							pe.PaginaInicial, pe.PaginaFinal, a.pagina, a.conteudo, a.dictation,
-							a.reading, f.nome as nomeProfessor, a.professor as idProfessor
+							a.reading, f.nome as nomeProfessor, a.professor as idProfessor,
+							pe.Descricao
 							FROM aulas a
 							INNER JOIN programacao_estagios pe ON pe.IdProgramacao_Estagio = a.IdProgramacaoEstagio
 							LEFT OUTER JOIN funcionarios f ON a.Professor = f.id

@@ -257,7 +257,9 @@ function gerarProgramacaoAulas()
       $programacao = $ProgramacaoEstagios->GetAllProgramacaoEstagios();
       if ($programacao)
       {
-        $resp = $Aulas->GerarAulas($IdTurma, $programacao, date('Y-m-d'));
+        $turma = $Turma->getTurma($IdTurma);
+        $startDate = $turma['response']['dataInicio'];
+        $resp = $Aulas->GerarAulas($IdTurma, $programacao, $startDate);
         if ($resp)
         {
           echo json_encode(array("erro" => false, "description" => "A programação de aulas

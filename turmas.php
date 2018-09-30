@@ -324,7 +324,6 @@ $page_name = "Turmas";
 
     $("#gerarProgramacaoAulas").click(function(e) {
         e.preventDefault();
-        alert('test');
         gerarProgramacaoAulas(e.target.turma);
     });
 

@@ -159,7 +159,12 @@ function buscaDiario()
           $("#tableContent").html("");
           for(i = 0; i < aulas.length; i++)
           {
-            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal+"</td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' onkeyup='atualizaStatus(this, "+aulas[i].idAula+", "+aulas[i].PaginaInicial+", "+aulas[i].PaginaFinal+");atualizaPagina(this);' value='"+mostraValor(aulas[i].pagina)+"' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' value='"+mostraValor(aulas[i].conteudo)+"' onkeyup='atualizaConteudo(this)' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].dictation)+"' onkeyup='atualizaDictation(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].reading)+"' onkeyup='atualizaReading(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td data-idProfessor='"+aulas[i].idProfessor+"'>"+<?php if($_SESSION['roleId'] == 2){$prof = $professores->getProfessores(); echo "'<select id=professor class=form-control onchange=atualizaProfessor(this); data-aulaid='+aulas[i].idAula+' data-idprofessor='+aulas[i].idProfessor+'><option value=null>(Selecione)</option>'+"; foreach($prof as $p){$id=$p['id']; $nome=$p['nome']; echo "'<option value={$id}>{$nome}</option>'+";}echo "'</select>'+"; }else{echo "mostraNomeProfessor(aulas[i].nomeProfessor)+";} ?>"</td><td id='situacao-"+aulas[i].idAula+"'>"+getStatus(aulas[i].pagina, aulas[i].PaginaInicial, aulas[i].PaginaFinal)+"</td></tr>";
+            if(aulas[i].PaginaInicial != null && aulas[i].PaginaFinal != null){
+              pagina = aulas[i].PaginaInicial+"-"+aulas[i].PaginaFinal;
+            }else{
+              pagina = aulas[i].Descricao;
+            }
+            var tr = "<tr><td align='center'>"+aulas[i].dataAula+"</td><td align='center'>"+aulas[i].numero+"</td><td align='center'>"+pagina+"</td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' onkeyup='atualizaStatus(this, "+aulas[i].idAula+", "+aulas[i].PaginaInicial+", "+aulas[i].PaginaFinal+");atualizaPagina(this);' value='"+mostraValor(aulas[i].pagina)+"' class='form-control' style='width: 50px;' /></td><td align='center'><input type='text' data-aulaid='"+aulas[i].idAula+"' value='"+mostraValor(aulas[i].conteudo)+"' onkeyup='atualizaConteudo(this)' class='form-control' style='width: 150px;' /></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].dictation)+"' onkeyup='atualizaDictation(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td align='center'><center><input type='text' value='"+mostraValor(aulas[i].reading)+"' onkeyup='atualizaReading(this)' data-aulaid='"+aulas[i].idAula+"' class='form-control' style='width: 50px;' /></center></td><td data-idProfessor='"+aulas[i].idProfessor+"'>"+<?php if($_SESSION['roleId'] == 2){$prof = $professores->getProfessores(); echo "'<select id=professor class=form-control onchange=atualizaProfessor(this); data-aulaid='+aulas[i].idAula+' data-idprofessor='+aulas[i].idProfessor+'><option value=null>(Selecione)</option>'+"; foreach($prof as $p){$id=$p['id']; $nome=$p['nome']; echo "'<option value={$id}>{$nome}</option>'+";}echo "'</select>'+"; }else{echo "mostraNomeProfessor(aulas[i].nomeProfessor)+";} ?>"</td><td id='situacao-"+aulas[i].idAula+"'>"+getStatus(aulas[i].pagina, aulas[i].PaginaInicial, aulas[i].PaginaFinal)+"</td></tr>";
             $("#tableContent").append(tr);
           }
           selectProfessores();
@@ -195,7 +200,11 @@ function selectProfessores(){
 
 function getStatus(pagina, paginaInicial, paginaFinal)
 {
-  if(Number(pagina) >= Number(paginaInicial) && Number(pagina) <= Number(paginaFinal))
+  if(paginaInicial == null || paginaFinal == null)
+  {
+    return "-";
+  }
+  else if(Number(pagina) >= Number(paginaInicial) && Number(pagina) <= Number(paginaFinal))
   {
     return "<span class='emDia'>Em dia</span>";
   }
