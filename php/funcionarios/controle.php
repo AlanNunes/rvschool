@@ -164,7 +164,7 @@ function createFuncionario(){
         if(!$response['erro']){
             $usuario = new Usuarios($conn);
 						$senhaStr = str_replace('.', '', $data['cpf']);
-						$senhaStr = str_replace('-', '', $data['cpf']);
+						$senhaStr = str_replace('-', '', $senhaStr);
             $senha = hash('sha256', $senhaStr);
             $usuarioId = $usuario->registerUser($response['matricula'], $senha, 'f');
             if($usuarioId){
