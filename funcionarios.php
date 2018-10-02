@@ -68,7 +68,6 @@ $page_name = "Funcionários";
 <!-- CONTENT -->
 
 <nav class="navbar-primary" id="vertical-nav-bar">
-  <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-right"></span></a>
   <ul class="navbar-primary-menu">
     <li>
       <a href="#" id="openRegisterModal" data-toggle="modal" data-target="#registrarFuncionario"><span class="oi oi-plus"></span></span><span class="nav-label">   Incluir</span></a>

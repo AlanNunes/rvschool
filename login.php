@@ -36,7 +36,7 @@ Usuarios::LogOff();
       <div id="feedback"></div>
       <div class="form-group">
         <label for="matricula">Matrícula</label>
-        <input type="email" class="form-control" id="matricula" placeholder="Email">
+        <input type="email" class="form-control" id="matricula" placeholder="Matrícula">
       </div>
       <div class="form-group">
         <label for="senha">Senha</label>
@@ -57,7 +57,6 @@ Usuarios::LogOff();
   </span>
 </div>
 </body>
-<?php include('footer.php') ?>
 <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

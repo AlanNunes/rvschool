@@ -60,14 +60,13 @@ include('php/situacoes_parcelas/SituacoesParcelas.php');
 <!-- FIM DIV DE LOADING -->
 <!-- MENU VERTICAL -->
 <nav class="navbar-primary" id="vertical-nav-bar">
-  <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-left"></span></a>
   <ul class="navbar-primary-menu">
     <li>
       <a href="#" data-toggle="modal" data-target="#modal-parcelas" id="menu-incluir"><span class="oi oi-plus"></span></span><span class="nav-label">   Incluir</span></a>
       <a href="#"><span class="oi oi-print"></span><span class="nav-label">   Relatório</span></a>
     </li>
-    <form style="padding: 5px;">
-      <li><a href="#"><h5>Filtros:</h5></a></li>
+    <form style="padding: 5px;"><br>
+      <li><h4 style="font-family: Impact">Filtros</h4></li>
       <div class="form-row">
         <div class="form-group col-sm">
           <label for="data_recebimento">Sacado:</label>

@@ -66,10 +66,9 @@ $page_name = "Diário de Aulas";
 <!-- FIM DIV DE LOADING -->
 <!-- MENU VERTICAL -->
 <nav class="navbar-primary" id="vertical-nav-bar">
-  <a href="#" class="btn-expand-collapse" id="menu-toggle"><span class="oi oi-arrow-left"></span></a>
   <ul class="navbar-primary-menu">
     <form style="padding: 5px;">
-      <li><a href="#"><h5>Filtros:</h5></a></li>
+      <li><h3 style="font-family: Impact">Filtros:</h3></li>
       <div class="form-row">
         <div class="form-group form-group col-sm">
           <label for="turmaId">Selecione a Turma:</label>
