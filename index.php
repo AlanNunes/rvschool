@@ -52,7 +52,7 @@ $semana = array(
   if($_SESSION["roleId"] == 4){
     include("ListaAulas.php");
   }else{
-    // include("schedule.php");
+    include("schedule.php");
   }
    ?>
 </center>
