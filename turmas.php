@@ -3,6 +3,7 @@ require_once('php/database/DataBase.php');
 require_once('php/funcionarios/Funcionarios.php');
 require_once('php/cursos/Cursos.php');
 require_once('php/estagios/Estagios.php');
+require_once('php/horarios/Horarios.php');
 session_start();
 if($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 2)
 {
@@ -16,6 +17,8 @@ $funcionarios = new Funcionarios($conn);
 $cursos = new Cursos($conn);
 // Create an instance for stages(estágios)
 $estagios = new Estagios($conn);
+// Create an instance for time(horarios)
+$horarios = new Horarios($conn);
 
 
 $page_name = "Turmas";
@@ -148,10 +151,17 @@ $page_name = "Turmas";
                 <div class="col-md-8">
                   <label for="horario"> <span style="color:red">*</span> Horário:</label>
                   <select id="horario" class="form-control">
-                    <option value="Seg-Ter-Qua-Qui-Sex(18:00/18:50)">Seg-Ter-Qua-Qui-Sex(18:00/18:50)</option>
-                    <option value="Seg-Ter-Qua-Qui-Sex(15:00/15:50)">Seg-Ter-Qua-Qui-Sex(15:00/15:50)</option>
-                    <option value="Sab-Dom-(12:00/12:50)">Sab-Dom-(12:00/12:50)</option>
-                    <option value="Sab-Dom-(18:00/18:50)">Sab-Dom-(18:00/18:50)</option>
+                    <?php
+                      $horariosList = $horarios->GetAll();
+                      if($horariosList){
+                        while($row = $horariosList->fetch_assoc()){
+                          $id = $row["IdHorario"];
+                          $inicio = $row["HorarioInicio"];
+                          $fim = $row["HorarioFim"];
+                          echo "<option value='{$id}'>De {$inicio} às {$fim} horas</option>";
+                        }
+                      }
+                     ?>
                   </select>
                   <div class="invalid-feedback">
                     Por favor, o horário de aula da turma.

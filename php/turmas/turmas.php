@@ -20,10 +20,14 @@ Class Turmas {
 
 	public function listTurmas() {
 		$query = "SELECT t.id, t.nome, t.situacao, t.professor, t.estagio, t.curso,
-		t.horario, t.maximoDeAlunos, t.sala, t.dataInicio, t.dataTermino, t.ultimaPalavra
-		, t.ultimaLicao, t.UltimoDitado, t.minimoAlunos, t.duracaoAula, c.id as cursoId,
-		 c.nome as cursoNome, f.nome as professorNome FROM turmas t
-		 INNER JOIN cursos c ON c.id = t.curso INNER JOIN funcionarios f ON f.id = t.professor";
+		 t.maximoDeAlunos, t.sala, t.dataInicio, t.dataTermino, t.ultimaPalavra
+		, t.ultimaLicao, t.UltimoDitado, t.minimoAlunos, t.duracaoAula,
+		c.id as cursoId,
+		c.nome as cursoNome, f.nome as professorNome, h.HorarioInicio, h.HorarioFim
+		 FROM turmas t
+		 INNER JOIN cursos c ON c.id = t.curso
+		 INNER JOIN funcionarios f ON f.id = t.professor
+		 INNER JOIN horarios h ON t.IdHorario = h.IdHorario";
 		$result = $this->conn->query($query);
 
 		if($result->num_rows > 0) {
@@ -37,9 +41,16 @@ Class Turmas {
 	}
 
 	public function getTurma($id){
-	    $query = "SELECT t.id, t.nome, t.situacao, t.professor, t.estagio, t.curso, t.horario, t.maximoDeAlunos, t.sala, t.dataInicio, t.dataTermino,
-								t.ultimaPalavra, t.ultimaLicao, t.UltimoDitado, t.minimoAlunos, t.duracaoAula, c.id as cursoId, c.nome as cursoNome, e.nome as estagioNome
-								FROM turmas t INNER JOIN cursos c ON c.id = t.curso INNER JOIN estagios e ON e.id = t.estagio AND t.id = {$id}";
+	    $query = "SELECT t.id, t.nome, t.situacao, t.professor, t.estagio,
+								t.curso, h.HorarioInicio, h.HorarioFim, t.maximoDeAlunos, t.sala, t.dataInicio,
+								t.dataTermino, t.ultimaPalavra, t.ultimaLicao, t.UltimoDitado,
+								t.minimoAlunos, t.duracaoAula, c.id as cursoId,
+								c.nome as cursoNome, e.nome as estagioNome
+								FROM turmas t
+								INNER JOIN cursos c ON c.id = t.curso
+								INNER JOIN estagios e ON e.id = t.estagio
+								INNER JOIN horarios h ON t.IdHorario = h.IdHorario
+								WHERE t.id = {$id}";
 	    $result = $this->conn->query($query);
 
 	    if($result->num_rows > 0) {
@@ -65,7 +76,7 @@ Class Turmas {
         $dataInicio = $data["dataInicio"];
         $dataTermino = $data["dataTermino"];
 
-        $query = "INSERT INTO turmas(nome, situacao, professor, estagio, curso, horario, minimoAlunos, sala,
+        $query = "INSERT INTO turmas(nome, situacao, professor, estagio, curso, IdHorario, minimoAlunos, sala,
          duracaoAula, dataInicio, dataTermino) VALUES ('{$nome}',
           {$situacao}, {$professor}, '{$estagio}', '{$curso}', '{$horario}', {$minimoAlunos}, '{$sala}',
            {$duracaoAula}, '{$dataInicio}', '{$dataTermino}');";
@@ -94,7 +105,7 @@ Class Turmas {
 				$professor = ($professor == null ? "NULL" : "'$professor'");
 
         $query = "UPDATE turmas SET nome = '{$nome}', situacao = {$situacao}, professor = {$professor},
-         estagio = '{$estagio}', curso = '{$curso}', horario = '{$horario}', minimoAlunos = {$minimoAlunos},
+         estagio = '{$estagio}', curso = '{$curso}', IdHorario = '{$horario}', minimoAlunos = {$minimoAlunos},
           sala = '{$sala}', duracaoAula = {$duracaoAula}, dataInicio = '{$dataInicio}', dataTermino = '{$dataTermino}'
            WHERE id = {$id}";
            $result = $this->conn->query($query);
