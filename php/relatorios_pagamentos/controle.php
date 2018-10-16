@@ -22,7 +22,7 @@ switch ($process) {
 function pagamento(){
   $db = new DataBase();
   $conn = $db->getConnection();
-  $idProfessor = $_POST['IdProfessor'];
+  $idProfessor = $_POST["IdProfessor"];
   $sql = "SELECT f.aulaInterna as 'ValorAulaInterna',
           f.aulaExterna as 'ValorAulaExterna',
           h.horarioInicio as 'Inicio', h.horarioFim
@@ -34,25 +34,31 @@ function pagamento(){
           WHERE f.id = {$idProfessor}
           ORDER BY a.data ASC";
   $result = $conn->query($sql);
-  $relatorioAgrupado = agrupaPorData($result->fetch_assoc());
+  while($row = $result->fetch_assoc()){
+    $relatorio[] = $row;
+  }
+  $relatorioAgrupado = agrupaPorData($relatorio);
+  echo $relatorioAgrupado;
 }
 
 function agrupaPorData($relatorio){
-  $result[];
+  $result = [];
   $dataInicial = $relatorio[0]['data'];
   $grupo = 0;
   $posicao = 0;
   for($i = 0; $i < sizeof($relatorio); $i++){
-    if($result[$i]['data'] == $dataInicial){
-      $result[$grupo][$posicao] = $result[$i];
+    if($relatorio[$i]['data'] == $dataInicial){
+      echo 'birl';
+      $result[$grupo][$posicao] = $relatorio[$i];
       $posicao++;
     }else{
+      echo 'eita';
       $posicao = 0;
       $grupo++;
       $dataInicial = $relatorio[$i]['data'];
-      $result[$grupo][$posicao] = $result[$i];
+      $result[$grupo][$posicao] = $relatorio[$i];
     }
   }
-  return $relatorio;
+  return $result;
 }
  ?>
