@@ -23,22 +23,34 @@ function pagamento(){
   $db = new DataBase();
   $conn = $db->getConnection();
   $idProfessor = $_POST["IdProfessor"];
+  $referencia = $_POST["Referencia"];
+  list($refMes, $refAno) = explode('/', $referencia);
   $sql = "SELECT f.aulaInterna as 'ValorAulaInterna',
           f.aulaExterna as 'ValorAulaExterna',
           h.horarioInicio as 'Inicio', h.horarioFim
-          as 'Fim', f.nome, a.data
+          as 'Fim', f.nome, a.data, f.aulaInterna, f.aulaExterna,
+          t.nome as 'Turma', f.nome as 'ProfessorNome'
           FROM funcionarios f
           INNER JOIN aulas a ON f.id = a.professor
           INNER JOIN turmas t ON a.IdTurma = t.id
           INNER JOIN horarios h ON t.IdHorario = h.IdHorario
           WHERE f.id = {$idProfessor}
+          AND YEAR(a.data) = '{$refAno}' AND MONTH(a.data) = '{$refMes}'
           ORDER BY a.data ASC";
   $result = $conn->query($sql);
-  while($row = $result->fetch_assoc()){
-    $relatorio[] = $row;
+  if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
+      $relatorio[] = $row;
+    }
+    $totalAulas = sizeof($relatorio);
+    $valorAula = $relatorio[0]['aulaInterna'];
+    $relatorioAgrupado = agrupaPorData($relatorio);
+    echo json_encode(array('aulas' => $relatorioAgrupado, 'totalAulas' => $totalAulas,
+    'valorAula' => $valorAula, 'valorTotal' => $totalAulas*$valorAula,
+    'referencia' => $referencia, 'professorNome', $relatorio[0]['ProfessorNome']));
+  }else{
+    echo 0;
   }
-  $relatorioAgrupado = agrupaPorData($relatorio);
-  echo $relatorioAgrupado;
 }
 
 function agrupaPorData($relatorio){
@@ -48,11 +60,9 @@ function agrupaPorData($relatorio){
   $posicao = 0;
   for($i = 0; $i < sizeof($relatorio); $i++){
     if($relatorio[$i]['data'] == $dataInicial){
-      echo 'birl';
       $result[$grupo][$posicao] = $relatorio[$i];
       $posicao++;
     }else{
-      echo 'eita';
       $posicao = 0;
       $grupo++;
       $dataInicial = $relatorio[$i]['data'];
