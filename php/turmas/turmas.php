@@ -19,15 +19,17 @@ Class Turmas {
 	}
 
 	public function listTurmas() {
-		$query = "SELECT t.id, t.nome, t.situacao, t.professor, t.estagio, t.curso,
+		$query = "SELECT t.id, t.nome, t.situacao, t.professor, e.nome as estagio, t.curso,
 		 t.maximoDeAlunos, t.sala, t.dataInicio, t.dataTermino, t.ultimaPalavra
 		, t.ultimaLicao, t.UltimoDitado, t.minimoAlunos, t.duracaoAula,
 		c.id as cursoId,
-		c.nome as cursoNome, f.nome as professorNome, h.HorarioInicio, h.HorarioFim
+		c.nome as cursoNome, f.nome as professorNome, h.HorarioInicio, h.HorarioFim,
+		h.IdHorario
 		 FROM turmas t
 		 INNER JOIN cursos c ON c.id = t.curso
 		 INNER JOIN funcionarios f ON f.id = t.professor
-		 INNER JOIN horarios h ON t.IdHorario = h.IdHorario";
+		 INNER JOIN horarios h ON t.IdHorario = h.IdHorario
+         INNER JOIN estagios e ON t.estagio = e.id";
 		$result = $this->conn->query($query);
 
 		if($result->num_rows > 0) {

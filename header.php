@@ -42,13 +42,12 @@
 				</li>
 
 			<li class="dropdown">
-			<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">FINANCEIRO
-			<span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li onclick="window.location='mensalidades.php'" id="dpdi" class="im">MENSALIDADES</li>
-			</ul>
-		</li>
-
+				<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">FINANCEIRO
+				<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li onclick="window.location='mensalidades.php'" id="dpdi" class="im">MENSALIDADES</li>
+				</ul>
+			</li>
 
 	<li class="dropdown">
 	<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">GERENCIAL
@@ -67,6 +66,21 @@
 			<ul class="dropdown-menu">
 				<li onclick="window.location='bolsas.php'" id="dpdi" class="im">BOLSAS</li>
 				<li onclick="window.location='interessados.php'" id="dpdi" class="im">INTERESSADOS</li>
+			</ul>
+		</li>
+		<li class="dropdown">
+			<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">RH
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li onclick="window.location='RelatorioPagamento.php'" id="dpdi" class="im">PAGAMENTO</li>
+			</ul>
+		</li>
+		<li class="dropdown">
+			<a class="dropdown-toggle" id="dpd" data-toggle="dropdown" href="#">Schedule
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li onclick="window.location='manage_schedule.php'" id="dpdi" class="im">Gerenciar</li>
+				<li onclick="window.location='schedule.php'" id="dpdi" class="im">Ver</li>
 			</ul>
 		</li>
 			<div class="header-avatar">

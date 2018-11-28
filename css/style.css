@@ -1,22 +1,22 @@
 .modal-body
 {
-    background-color: #fff8e7;
+  background-color: #fff8e7;
 }
 
 .modal-content
 {
-    background-color: #fff8e7;
+  background-color: #fff8e7;
 }
 
 .modal-footer
 {
-	background-color: #6D2E33;
+  background-color: #6D2E33;
 }
 
 .modal-header
 {
-	background-color: #6D2E33;
-	color: white;
+  background-color: #6D2E33;
+  color: white;
 }
 
 .imglbl{
@@ -25,54 +25,54 @@
 
 .bolsas-count
 {
-    padding: 100px;
+  padding: 100px;
 }
 
 .itemWaiting
 {
-    font-weight: bold;
-    color: #b2b200;
-    font-variant: small-caps;
+  font-weight: bold;
+  color: #b2b200;
+  font-variant: small-caps;
 }
 
 .atrasado
 {
-    font-weight: bold;
-    color: #b2b200;
-    font-variant: small-caps;
+  font-weight: bold;
+  color: #b2b200;
+  font-variant: small-caps;
 }
 
 .adiantado
 {
-    font-weight: bold;
-    color: #0a960d;
-    font-variant: small-caps;
+  font-weight: bold;
+  color: #0a960d;
+  font-variant: small-caps;
 }
 
 .emDia
 {
-    font-weight: bold;
-    color: #0eb711;
-    font-variant: small-caps;
+  font-weight: bold;
+  color: #0eb711;
+  font-variant: small-caps;
 }
 
 .itemActive
 {
-    font-weight: bold;
-    color: #0eb711;
-    font-variant: small-caps;
+  font-weight: bold;
+  color: #0eb711;
+  font-variant: small-caps;
 }
 
 .itemExpired
 {
-    font-weight: bold;
-    color: red;
-    font-variant: small-caps;
+  font-weight: bold;
+  color: red;
+  font-variant: small-caps;
 }
 
 .transparent-button {
-    background-color: transparent;
-    position: relative;
+  background-color: transparent;
+  position: relative;
 }
 
 table .inativo {
@@ -103,14 +103,14 @@ table .inativo:hover {
 }
 
 #page-cover {
-    display: none;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    z-index: 999;
-    top: 0;
-    left: 0;
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 999;
+  top: 0;
+  left: 0;
 }
 
 #loading-gif {
@@ -130,12 +130,12 @@ table .inativo:hover {
 }
 
 fieldset
-  {
-    border: 2px solid #6D2E33 !important;
-    border-radius: 4px;
-    padding: 15px!important;
-    margin: 10px;
-  }
+{
+  border: 2px solid #6D2E33 !important;
+  border-radius: 4px;
+  padding: 15px!important;
+  margin: 10px;
+}
 
 legend
 {
@@ -251,37 +251,37 @@ select.alert {
 
 
 .container {
-    padding: 200px;
-    position: fixed;
+  padding: 200px;
+  position: fixed;
 }
 
 .form-login {
-    background-color: #6D2E33;
-    padding-top: 10px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 15px;
-    border-color:#d2d2d2;
-    border-width: 5px;
-    box-shadow:0 1px 0 #cfcfcf;
-    height: 110%;
-    width: 150%;
+  background-color: #6D2E33;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 15px;
+  border-color:#d2d2d2;
+  border-width: 5px;
+  box-shadow:0 1px 0 #cfcfcf;
+  height: 110%;
+  width: 150%;
 }
 
 .titlelogin {
- font-weight: bold;
- text-align: center;
- font-family: Impact;
- color: #F3E1B9;
+  font-weight: bold;
+  text-align: center;
+  font-family: Impact;
+  color: #F3E1B9;
 }
 
 .form-control {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 
 .wrapper {
-    text-align: center;
+  text-align: center;
 }
 
 .btnlogin{
@@ -301,4 +301,8 @@ select.alert {
 
 .small_input {
   width: 50px;
+}
+
+th {
+  vertical-align: middle!important;
 }

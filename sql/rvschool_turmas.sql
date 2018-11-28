@@ -29,7 +29,7 @@ CREATE TABLE `turmas` (
   `professor` int(11) DEFAULT NULL,
   `estagio` varchar(45) NOT NULL,
   `curso` int(11) NOT NULL,
-  `horario` varchar(45) NOT NULL,
+  `IdHorario` int(11) NOT NULL,
   `maximoDeAlunos` int(11) DEFAULT NULL,
   `sala` varchar(45) NOT NULL,
   `dataInicio` date NOT NULL,
@@ -43,9 +43,11 @@ CREATE TABLE `turmas` (
   UNIQUE KEY `nome` (`nome`),
   KEY `professor` (`professor`),
   KEY `curso` (`curso`),
+  KEY `turmas_horario_idx` (`IdHorario`),
+  CONSTRAINT `turmas_horario` FOREIGN KEY (`IdHorario`) REFERENCES `horarios` (`IdHorario`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `turmas_ibfk_1` FOREIGN KEY (`professor`) REFERENCES `funcionarios` (`id`),
   CONSTRAINT `turmas_ibfk_2` FOREIGN KEY (`curso`) REFERENCES `cursos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +56,7 @@ CREATE TABLE `turmas` (
 
 LOCK TABLES `turmas` WRITE;
 /*!40000 ALTER TABLE `turmas` DISABLE KEYS */;
-INSERT INTO `turmas` VALUES (2,'Alan',2,20,'2',1,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'Australia','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(3,'Eunice',0,21,'5',4,'Seg-Ter-Qua-Qui-Sex(18:00/18:50)',NULL,'United States','2018-05-01','2019-05-01',NULL,NULL,NULL,10,50),(4,'Lucas',1,20,'2',1,'Seg-Ter-Qua-Qui-Sex(15:00/15:50)',NULL,'United States','2018-05-01','2020-02-01',NULL,NULL,NULL,10,50);
+INSERT INTO `turmas` VALUES (1,'London',2,58,'2',1,1,NULL,'United States','2018-10-15','2018-10-15',NULL,NULL,NULL,10,50),(2,'New York',2,58,'4',1,1,NULL,'United States','2018-10-15','2019-10-15',NULL,NULL,NULL,10,50);
 /*!40000 ALTER TABLE `turmas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -67,4 +69,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-04 22:22:59
+-- Dump completed on 2018-10-18  0:28:20

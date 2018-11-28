@@ -16,39 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `matriculas`
+-- Table structure for table `rating_aulas`
 --
 
-DROP TABLE IF EXISTS `matriculas`;
+DROP TABLE IF EXISTS `rating_aulas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `matriculas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `aluno` int(11) NOT NULL,
-  `turma` int(11) NOT NULL,
-  `dataMatricula` date NOT NULL,
-  `dataInicioAtividades` date NOT NULL,
-  `numero` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `numero` (`numero`),
-  UNIQUE KEY `numero_2` (`numero`),
-  UNIQUE KEY `numero_3` (`numero`),
-  UNIQUE KEY `numero_4` (`numero`),
-  UNIQUE KEY `numero_5` (`numero`),
-  KEY `turma` (`turma`),
-  KEY `matriculas_ibfk_1` (`aluno`),
-  CONSTRAINT `matriculas_ibfk_1` FOREIGN KEY (`aluno`) REFERENCES `alunos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `matriculas_ibfk_2` FOREIGN KEY (`turma`) REFERENCES `turmas` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `rating_aulas` (
+  `IdRatingAula` int(11) NOT NULL AUTO_INCREMENT,
+  `Rate` double NOT NULL,
+  `Feedback` varchar(255) DEFAULT NULL,
+  `IdUsuario` int(11) DEFAULT NULL,
+  `IdAula` int(11) NOT NULL,
+  PRIMARY KEY (`IdRatingAula`),
+  KEY `IdAulaRatingAulas_idx` (`IdAula`),
+  CONSTRAINT `IdAulaRatingAulas` FOREIGN KEY (`IdAula`) REFERENCES `aulas` (`IdAula`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `matriculas`
+-- Dumping data for table `rating_aulas`
 --
 
-LOCK TABLES `matriculas` WRITE;
-/*!40000 ALTER TABLE `matriculas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `matriculas` ENABLE KEYS */;
+LOCK TABLES `rating_aulas` WRITE;
+/*!40000 ALTER TABLE `rating_aulas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rating_aulas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -60,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-18  0:28:19
+-- Dump completed on 2018-10-18  0:28:20

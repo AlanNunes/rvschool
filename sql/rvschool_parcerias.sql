@@ -29,7 +29,7 @@ CREATE TABLE `parcerias` (
   `descontoMensalidade` int(11) DEFAULT '0',
   `descontoMatricula` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,6 @@ CREATE TABLE `parcerias` (
 
 LOCK TABLES `parcerias` WRITE;
 /*!40000 ALTER TABLE `parcerias` DISABLE KEYS */;
-INSERT INTO `parcerias` VALUES (5,'Loja Qualquer','',0,0),(6,'Loja Zezinho','parceria com a Loja Zezinho.',45,35),(8,'Loja da Lílian','',0,0);
 /*!40000 ALTER TABLE `parcerias` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-04 22:22:57
+-- Dump completed on 2018-10-18  0:28:18
