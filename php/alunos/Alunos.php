@@ -196,7 +196,7 @@ Class Alunos {
       }
       return array("erro" => false, "students" => $students);
     }
-    return array("erro" => true, "students" => NULL);
+    return array("erro" => false, "students" => NULL);
   }
 
   // This function has the only responsability to delete a student, and just it
